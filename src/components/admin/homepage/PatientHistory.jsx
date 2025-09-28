@@ -1,5 +1,90 @@
+import { useState } from 'react';
+import Medicines from '../forms/Medicine';
+import Vision from '../forms/Vision';
+import Refraction from '../forms/Refraction';
+import Anterior from '../forms/Anterior';
+import Posterior from '../forms/Posterior';
+
 export default function PatientHistory()
 {
+   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
+   const [modalPage, setModalPage] = useState("");
+    
+      const openDialog = (e) => {
+        setShowDialog(true);
+        setModalPage(e)
+      }
+      const closeDialog = () => setShowDialog(false);
+
+       const showPage = (props) => {
+        if (props === "Medicines") {
+          return (
+            <div>
+              <Medicines />
+            </div>
+          );
+        } 
+        else if (props === "Vision") {
+          return (
+            <div>
+              <Vision />
+            </div>
+          );
+        }
+         else if (props === "Refraction") {
+          return (
+            <div>
+              <Refraction />
+            </div>
+          );
+        }
+         else if (props === "Anterior") {
+          return (
+            <div>
+              <Anterior />
+            </div>
+          );
+        }
+         else if (props === "Posterior") {
+          return (
+            <div>
+              <Posterior />
+            </div>
+          );
+        }
+       return null;
+      };
+
+
+       const renderModal = () => {
+    if (!showDialog) return null;
+
+    return (
+      <div>
+        <div className="modal show d-block" tabIndex="-1">
+          <div className="modal-dialog modal-dialog-centered"  style={{ maxWidth: 700, width: "92%", minHeight: 100 }} >
+            <div className="modal-content" style={{ minHeight: 400, height: 'auto' }}>
+              <div className="modal-header h4">
+                   {modalPage}
+                <button type="button" className="btn-close" onClick={closeDialog}></button>
+              </div>
+
+              <div className="modal-body">
+                   {showPage(modalPage)}
+              </div>
+
+            </div>
+          </div>
+        </div>
+        {/* Overlay */}
+        <div className="modal-backdrop fade show"></div>
+      </div>
+    );
+  };
+
+  
+
+
     return(<div>
         <div style={{display:'flex',justifyContent:'center',alignItems:'center',textAlign:'center',fontWeight:'bold'}}>
            <div style={{width:'120px',border:'1px solid',borderRadius:5,background:'lightgrey'}}>Gonioscopy</div>
@@ -8,116 +93,146 @@ export default function PatientHistory()
 
 
         <div className="table-responsive mb-3">
-            <table className="table table-bordered border-dark w-100 text-center" border={2} cellSpacing={2} cellPadding={6}>
-              <thead>
-                  <tr className="table-secondary">
-                    <th style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}>Complaint</th>
-                    <th style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}>From</th>
-                    <th style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}>Unit</th>
-                    <th style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}>Site</th>
-                  </tr>
-              </thead>
-              <tbody>
-                 <tr>
-                   <td style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}></td>
-                   <td style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}></td>
-                   <td style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}></td>
-                   <td style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}></td>
-                 </tr>
 
-                 <tr>
-                   <td style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}></td>
-                   <td style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}></td>
-                   <td style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}></td>
-                   <td style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}></td>
-                 </tr>
+          <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+                <div style={{marginLeft:'44%'}}><h3>Medicines</h3></div>
+                <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('Medicines')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+          </div>
 
-                 <tr>
-                   <td style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}></td>
-                   <td style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}></td>
-                   <td style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}></td>
-                   <td style={{ borderColor: '#212529', borderWidth: '2px', borderStyle: 'solid' }}></td>
-                 </tr>
-    
-              </tbody>
-            </table>
+            <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+                <thead>
+                    <tr className="table-secondary">
+                       <th style={{width:'35%'}}> Medicine</th>
+                        <th>Qty.</th>
+                        <th style={{width:'20%'}}>Dosa</th>
+                        <th>Intake</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>         
         </div>
 
 
         <div className="table-responsive mb-3">
-           <table className="table table-bordered border-dark w-100 text-center align-middle">
-             <thead>
-               <tr className="table-secondary">
-                  <th className="text-start fw-bold">Aryaman ***</th>
-                  <th>Right</th>
-                  <th>Left</th>
-                  <th>Right</th>
-                  <th>Left</th>
-                 </tr>
-              </thead>
-              <tbody>
-                <tr className="border border-dark">
-                  <td className="bg-light text-start fw-medium">Unaided</td>
-                  <td ></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                 </tr>
 
-                 <tr className="border border-dark">
-                  <td className="bg-light text-start fw-medium">With Glass</td>
-                  <td ></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                 </tr>
+          <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+                <div style={{marginLeft:'44%'}}><h3>Vision</h3></div>
+                <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('Vision')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+          </div>
 
-                  <tr className="border border-dark">
-                  <td className="bg-light text-start fw-medium">With Pinhole</td>
-                  <td ></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                 </tr>
+            <table className="table table-bordered border-dark w-100 text-center align-middle">
+                <thead>
+                    <tr className="table-secondary border border-dark ">
+                       <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
+                        <th colSpan={9}>Right Eye</th>
+                        <th colSpan={9}>Left Eye</th>
+                    </tr>
 
-                  <tr className="border border-dark">
-                  <td className="bg-light text-start fw-medium">Best Correct</td>
-                  <td ></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                 </tr>
+                    <tr className="table-secondary border border-dark " style={{fontSize:14}}>
+                      <th><i>Distance unaided</i></th>
+                      <th><i>Distance With Pin Hole</i></th>
+                      <th><i>Distance With CT</i></th>
+                      <th><i>Distance With PMT</i></th>
+                      <th><i>Distance With previous glasses</i></th>
+                      <th><i>Distance With current subjective</i></th>
+                      <th><i>Near unaided</i></th>
+                      <th><i>Near with previous glasse</i></th>
+                      <th><i>Near with current subjective</i></th>
+                       <th><i>Distance unaided</i></th>
+                      <th><i>Distance With Pin Hole</i></th>
+                      <th><i>Distance With CT</i></th>
+                      <th><i>Distance With PMT</i></th>
+                      <th><i>Distance With previous glasses</i></th>
+                      <th><i>Distance With current subjective</i></th>
+                      <th><i>Near unaided</i></th>
+                      <th><i>Near with previous glasse</i></th>
+                      <th><i>Near with current subjective</i></th>
 
-                  <tr className="border border-dark">
-                  <td className="bg-light text-start fw-medium">With CL</td>
-                  <td ></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                 </tr>
+                    </tr>
 
-                  <tr className="border border-dark">
-                  <td className="bg-light text-start fw-medium">IOP</td>
-                  <td ></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                 </tr>  
-              </tbody>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                         <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
 
-            </table>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>         
         </div>
 
 
-       <div className="d-flex align-items-center mb-2">
-         <div className="border rounded bg-light fw-bold text-center me-2" style={{ width: 120, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}> OP Remarks. </div>
-         <input type="text" className="form-control" style={{ maxWidth: '100%' }} />
-       </div>
-
-
          <div className="table-responsive mb-3">
+
+          <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+                <div style={{marginLeft:'44%'}}><h3>Refraction</h3></div>
+                <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('Refraction')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+          </div>
+            
            <table className="table table-bordered border-dark w-100 text-center align-middle">
              <thead>
+               <tr className="table-secondary border border-dark ">
+                       <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
+                        <th colSpan={5}>Right Eye</th>
+                        <th colSpan={4}>Left Eye</th>
+               </tr>
+
+
                <tr className="table-secondary border border-dark ">
                   <th className="text-start fw-bold">Refraction</th>
                   <th>Sph</th>
@@ -132,7 +247,7 @@ export default function PatientHistory()
               </thead>
               <tbody>
                 <tr className="border border-dark">
-                  <td className=" bg-light text-start fw-medium">Distance</td>
+                  <td className="bg-light text-start fw-medium">Distance</td>
                   <td ></td>
                   <td></td>
                   <td></td>
@@ -172,47 +287,215 @@ export default function PatientHistory()
         </div>
 
 
-        <div className="d-flex align-items-center mb-2 ">   
-         <input type="checkbox"/>
-         <div className=" bg-lightgrey fw-bold text-center me-3" style={{ width: 140, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center',fontSize:13}}> PMT Done </div>
 
-         <input type="checkbox"/>
-         <div className=" bg-lightgrey fw-bold text-center me-2" style={{ width: 120, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center',fontSize:14 }}> G.P. </div>
+          <div className="table-responsive mb-3">
 
-         <div className=" bg-lightgrey fw-bold text-center me-3">GL</div>
-         <input type="text" className="form-control" style={{ maxWidth: '500px',marginRight:5 }} />
+          <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+                <div style={{marginLeft:'44%'}}><h3>ANTERIOR</h3></div>
+                <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('Anterior')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+          </div>
 
-          <div className=" bg-lightgrey fw-bold text-center me-3" style={{margin:2}}>GP Advice</div>
-         <input type="text" className="form-control" style={{ maxWidth: '500px' }} />
-       </div>
+            <table className="table table-bordered border-dark w-100 text-center align-middle">
+                <thead>
+                    <tr className="table-secondary border border-dark ">
+                       <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
+                        <th colSpan={18}>Right Eye</th>
+                    </tr>
+
+                    <tr className="table-secondary border border-dark " style={{fontSize:14}}>
+                      <th><i>Intraocular pressure(NCT)</i></th>
+                      <th><i>Intraocular pressure(Tonopen)</i></th>
+                      <th><i>Intraocular pressure(AT)</i></th>
+                      <th><i>Eyelids</i></th>
+                      <th><i>Eyelashes</i></th>
+                      <th><i>Orbit</i></th>
+                      <th><i>Extraocular movements</i></th>
+                      <th><i>Eye position</i></th>
+                       <th><i>Sclera/episclera</i></th>
+                      <th><i>Conjunctiva</i></th>
+                      <th><i>Cornea</i></th>
+                      <th><i>Anterior chamber</i></th>
+                      <th><i>Angles</i></th>
+                      <th><i>Iris/pupil</i></th>
+                      <th><i>Lens</i></th>
+                      <th><i>Lacrimal syringing</i></th>
+                      <th><i>Gonioscopy</i></th>
+                      <th><i>Other</i></th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                         <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>         
+
+            <table className="table table-bordered border-dark w-100 text-center align-middle">
+                <thead>
+                    <tr className="table-secondary border border-dark ">
+                       <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
+                        <th colSpan={18}>Left Eye</th>
+                    </tr>
+
+                    <tr className="table-secondary border border-dark " style={{fontSize:14}}>
+                      <th><i>Intraocular pressure(NCT)</i></th>
+                      <th><i>Intraocular pressure(Tonopen)</i></th>
+                      <th><i>Intraocular pressure(AT)</i></th>
+                      <th><i>Eyelids</i></th>
+                      <th><i>Eyelashes</i></th>
+                      <th><i>Orbit</i></th>
+                      <th><i>Extraocular movements</i></th>
+                      <th><i>Eye position</i></th>
+                       <th><i>Sclera/episclera</i></th>
+                      <th><i>Conjunctiva</i></th>
+                      <th><i>Cornea</i></th>
+                      <th><i>Anterior chamber</i></th>
+                      <th><i>Angles</i></th>
+                      <th><i>Iris/pupil</i></th>
+                      <th><i>Lens</i></th>
+                      <th><i>Lacrimal syringing</i></th>
+                      <th><i>Gonioscopy</i></th>
+                      <th><i>Other</i></th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                         <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>         
+        </div>
 
 
-        <div className="d-flex align-items-center mb-2 " style={{border:'1px solid',fontSize:12}}>
-         <div className="border rounded bg-light fw-bold text-center me-2" style={{ width: '150px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Examination Help</div>
-         <div className="border rounded bg-light fw-bold text-center me-2" style={{ width: '180px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Load Normal Finding</div>
-         <div className="border rounded bg-light fw-bold text-center me-2" style={{ width: '150px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Load Template</div>
-         <div className="border rounded bg-light fw-bold text-center me-2" style={{ width: '150px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Transform Optom</div>
-         <div className="border rounded bg-light fw-bold text-center me-2" style={{ width: '150px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Drawing</div>
-         <div className="border rounded bg-light fw-bold text-center me-2" style={{ width: '150px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>D</div>
-       </div>
+           <div className="table-responsive mb-3">
 
-       
-        <div className="table-responsive mb-3">
+          <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+                <div style={{marginLeft:'44%'}}><h3>Posterior</h3></div>
+                <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('Posterior')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+          </div>
+            
            <table className="table table-bordered border-dark w-100 text-center align-middle">
              <thead>
                <tr className="table-secondary border border-dark ">
-                  <th className="text-start fw-bold">Examination C</th>
-                  <th>Right</th>
-                  <th>C-R</th>
-                  <th>Left</th>
-                  <th>C-L</th>
-                  <th>BE</th>
+                       <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
+                        <th colSpan={7}>Right Eye</th>
+                        <th colSpan={7}>Left Eye</th>
+               </tr>
+
+
+               <tr className="table-secondary border border-dark ">
+                  <th>Media</th>
+                  <th>Vitreous</th>
+                  <th>Retina</th>
+                  <th>Optic nerve head</th>
+                  <th>Choroid</th>
+                  <th>Macula</th>
+                  <th>Other</th>
+                  <th>Media</th>
+                  <th>Vitreous</th>
+                  <th>Retina</th>
+                  <th>Optic nerve head</th>
+                  <th>Choroid</th>
+                  <th>Macula</th>
+                  <th>Other</th>
                  </tr>
               </thead>
               <tbody>
                 <tr className="border border-dark">
-                  <td className=" bg-light text-start fw-medium">Conjunctiva</td>
+                  <td></td>
                   <td ></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td ></td>
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
@@ -220,35 +503,16 @@ export default function PatientHistory()
                  </tr>
 
                  <tr className="border border-dark">
-                  <td className="bg-light text-start fw-medium">Cornea</td>
+                  <td></td>
                  <td ></td>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
-                 </tr>
-
-                  <tr className="border border-dark">
-                  <td className="bg-light text-start fw-medium">Anterior Chamber</td>
+                  <td></td>
+                 <td></td>
                   <td ></td>
                   <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                 </tr>
-
-                 <tr className="border border-dark">
-                  <td className="bg-light text-start fw-medium">Pupil</td>
-                  <td ></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                 </tr>
-
-                 <tr className="border border-dark">
-                  <td className="bg-light text-start fw-medium">Lens</td>
-                  <td ></td>
                   <td></td>
                   <td></td>
                   <td></td>
@@ -256,26 +520,26 @@ export default function PatientHistory()
                  </tr>
 
                   <tr className="border border-dark">
-                  <td className="bg-light text-start fw-medium">Fundus</td>
+                  <td></td>
                   <td ></td>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
-                 </tr>
-
-                  <tr className="border border-dark">
-                  <td className="bg-light text-start fw-medium">Ocular Movements</td>
+                  <td></td>
+                  <td></td>
                   <td ></td>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
+                  <td></td>
                  </tr>
-
               </tbody>
+
             </table>
-        </div>
+         </div>
+
 
 
         <div className="table-responsive mb-3">
@@ -302,7 +566,7 @@ export default function PatientHistory()
             </tbody>
            </table>
         </div>
-
+{renderModal()}
         
     </div>)
 }

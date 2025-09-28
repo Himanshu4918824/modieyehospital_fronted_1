@@ -87,35 +87,7 @@ export default function Patient()
         </div>
 
 
-         <div className="table-responsive mb-3" style={{marginBottom:10}}>
-            <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
-                <thead>
-                    <tr className="table-secondary">
-                       <th>C ICD</th>
-                        <th style={{width:'34%'}}>Diagnosis</th>
-                        <th>Date</th>
-                        <th>Type</th>
-                        <th>Remarks</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>         
-        </div>
-
+       
 
          <div className="table-responsive mb-3">
             <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>

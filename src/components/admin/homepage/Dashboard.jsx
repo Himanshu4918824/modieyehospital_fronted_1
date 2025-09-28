@@ -1,5 +1,5 @@
 import DoctorConcern from "./DoctorConcern";
-import Patient from "./Patient";
+//import Patient from "./Patient";
 import PatientHistory from "./PatientHistory";
 
 export default function DashBoard() {
@@ -53,37 +53,118 @@ export default function DashBoard() {
       <div style={{ display: "flex", flexWrap: "wrap" }}>{showButton()}</div>
 
       {/* Table */}
-      <div className="table-responsive mb-3">
-        <table
-          className="table table-bordered"
-          border={3}
-          cellSpacing={0}
-          style={{ width: "100%", marginBottom: 0, tableLayout: "fixed" }}
-        >
-          <thead>
-            <tr>
-              <th style={{ width: "16%", padding: "1px" }}>Patient</th>
-              <th style={{ width: "8%", padding: "1px" }}></th>
-              <th style={{ width: "16%", padding: "1px" }}>181318</th>
-              <th style={{ width: "16%", padding: "1px" }}>Patient</th>
-              <th style={{ width: "8%", padding: "1px" }}></th>
-              <th style={{ width: "16%", padding: "1px" }}>181318</th>
-            </tr>
-          </thead>
-        </table>
+      <div className="row mb-3 mt-3">
+
+         <div className="col-xs-12 col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text">Appointment No.:</span>
+              <input type="text" class="form-control"/>
+             </div>
+         </div>
+
+        <div className="col-xs-12 col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text">Patient Name</span>
+              <input type="text" class="form-control"/>
+             </div>
+         </div>
+
+         <div className="col-xs-12 col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text">Doctor Name</span>
+              <input type="text" class="form-control"/>
+             </div>
+         </div>
+
+          <div className="col-xs-12 col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text">Patient Age</span>
+              <input type="text" class="form-control"/>
+             </div>
+         </div>    
+        
       </div>
+
+       <div className="row mb-3 mt-3">
+
+         <div className="col-xs-12 col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text">Patient DOB:</span>
+              <input type="text" class="form-control"/>
+             </div>
+         </div>
+
+        <div className="col-xs-12 col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text">Reffered By:</span>
+              <input type="text" class="form-control"/>
+             </div>
+         </div>
+
+         <div className="col-xs-12 col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text">Insurance:</span>
+              <input type="text" class="form-control"/>
+             </div>
+         </div>
+
+          <div className="col-xs-12 col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text">Address</span>
+              <input type="text" class="form-control"/>
+             </div>
+         </div>    
+        
+      </div>
+
+
+      <div className="row mb-3 mt-3">
+
+         <div className="col-xs-12 col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text">City</span>
+              <input type="text" class="form-control"/>
+             </div>
+         </div>
+
+        <div className="col-xs-12 col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text">State</span>
+              <input type="text" class="form-control"/>
+             </div>
+         </div>
+
+         <div className="col-xs-12 col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text">Reg.Dt:</span>
+              <input type="text" class="form-control"/>
+             </div>
+         </div>
+
+          <div className="col-xs-12 col-lg-3">
+            <div class="input-group">
+              <span class="input-group-text">Last Visit Date:</span>
+              <input type="text" class="form-control"/>
+             </div>
+         </div>    
+        
+      </div>
+
+
+
+      
+      
+       
 
       {/* Components in 3 columns */}
       <div className="row">
-        <div className="col-lg-4 col-sm-12">
+        <div className="col-lg-5 col-sm-12">
           <DoctorConcern />
         </div>
-        <div className="col-lg-4 col-sm-12">
+        <div className="col-lg-7 col-sm-12">
           <PatientHistory />
         </div>
-        <div className="col-lg-4 col-sm-12">
-          <Patient />
-        </div>
+        
       </div>
     </div>
   );

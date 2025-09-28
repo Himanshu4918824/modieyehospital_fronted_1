@@ -34,7 +34,7 @@ export default function OPDManager() {
     return (
       <div>
         <div className="modal show d-block" tabIndex="-1">
-          <div className="modal-dialog modal-dialog-centered"  style={{ maxWidth: 700, width: "92%", minHeight: 100 }} >
+          <div className="modal-dialog modal-dialog-centered"  style={{ maxWidth: 600, width: "92%", minHeight: 100 }} >
             <div className="modal-content" style={{ minHeight: 400, height: 500 }}>
               <div className="modal-header">
                 <button onClick={() => setModalPage("registration")} className="btn btn-warning btn-sm m-1"> Registration </button>
@@ -44,7 +44,7 @@ export default function OPDManager() {
               </div>
 
               <div className="modal-body">
-                {showPage(modalPage)}'
+                {showPage(modalPage)}
               </div>
 
             </div>

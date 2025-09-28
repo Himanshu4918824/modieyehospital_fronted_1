@@ -56,7 +56,7 @@ resetData()
    }
 
 
-    return(<div style={{display:'flex',justifyContent:'center',alignItems:'center',width:'100%',height:'100vh'}}>
+    return(<div style={{display:'flex',justifyContent:'center',alignItems:'center',width:'100%',height:'100%'}}>
         <div style={{width:600, height:'auto',background:'#f7f1e3',margin:10,padding:10,borderRadius:10}}>
             
             <div className="row mb-2">

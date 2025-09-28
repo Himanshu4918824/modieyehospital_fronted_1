@@ -1,19 +1,121 @@
+import React from "react";
+import { useState } from "react";
+import Complaint from '../forms/Complaint';
+import History from'../forms/History';
+import Allegries from '../forms/Complaint';
+import Diagnosis from '../forms/Diagnosis';
+import Doctor from '../forms/Doctor';
+import Treatment from '../forms/Advice';
+import Advice from "../forms/Advice";
+import Report from '../forms/Report';
+
+
+
 export default function DoctorConcern()
 {
-  var check=['Suffa Drug','Prostate','Ant.Coagulant','Renal','Cardiac','Diabetic','One Eyed','Thyroid','T.B.','Allegry','Asthms','Rhemuatic D','Bio-Hazard','Covid vac.','RDC Study','HTN'];
+    const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
+    const [modalPage, setModalPage] = useState("");
+  
+    const openDialog = (e) => {
+      setShowDialog(true);
+      setModalPage(e)
+    }
+    const closeDialog = () => setShowDialog(false);
 
-  const showCheckBox=()=>{
-    return check.map((item,i)=>{
-        return(
-            <div class="form-check">
-             <input class="form-check-input" type="checkbox" value="" id="checkDefault"/>
-             <label class="form-check-label" for="checkDefault">{item}</label>
+    const showPage = (props) => {
+        if (props === "Complaints") {
+          return (
+            <div>
+              <Complaint />
             </div>
-        )
+          );
+        } 
+        else if (props === "History") {
+          return (
+            <div>
+              <History />
+            </div>
+          );
+        }
+         else if (props === "Allegries") {
+          return (
+            <div>
+              <Allegries />
+            </div>
+          );
+        }
+         else if (props === "Doctor") {
+          return (
+            <div>
+              <Doctor />
+            </div>
+          );
+        }
+         else if (props === "Diagnosis") {
+          return (
+            <div>
+              <Diagnosis />
+            </div>
+          );
+        }
+         else if (props === "Treatment") {
+          return (
+            <div>
+              <Treatment />
+            </div>
+          );
+        }
+         else if (props === "Advice") {
+          return (
+            <div>
+              <Advice />
+            </div>
+          );
+        }
+         else if (props === "Report") {
+          return (
+            <div>
+              <Report />
+            </div>
+          );
+        }
+         else if (props === "Medicine") {
+          return (
+            <div>
+              <Medicine />
+            </div>
+          );
+        }
+        return null;
+      };
 
-    })
-    
-  }
+
+
+  const renderModal = () => {
+    if (!showDialog) return null;
+
+    return (
+      <div>
+        <div className="modal show d-block" tabIndex="-1">
+          <div className="modal-dialog modal-dialog-centered"  style={{ maxWidth: 700, width: "92%", minHeight: 100 }} >
+            <div className="modal-content" style={{ minHeight: 400, height: 'auto' }}>
+              <div className="modal-header h4">
+                   {modalPage}
+                <button type="button" className="btn-close" onClick={closeDialog}></button>
+              </div>
+
+              <div className="modal-body">
+                   {showPage(modalPage)}
+              </div>
+
+            </div>
+          </div>
+        </div>
+        {/* Overlay */}
+        <div className="modal-backdrop fade show"></div>
+      </div>
+    );
+  };
 
 
   return(<div>
@@ -27,14 +129,22 @@ export default function DoctorConcern()
             <button style={{ margin: 2, borderRadius: 5 }}>
               Speciality Exam
             </button>
+
+            {renderModal()}
           </div>
 
 
            <div className="table-responsive mb-3" style={{marginBottom:'10px'}}>
-              <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+
+            <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+               <div style={{marginLeft:'38%'}}><h3>Complaints</h3></div>
+               <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('Complaints')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+            </div>
+
+              <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}> 
                 <thead>
                   <tr className="table-secondary">
-                    <th className="p-1">Disease Name</th>
+                    <th className="p-1">Complain</th>
                     <th className="p-1">Start Date</th>
                     <th className="p-1">Remarks</th>
                   </tr>
@@ -59,13 +169,57 @@ export default function DoctorConcern()
 
 
               <div className="table-responsive mb-3" style={{marginBottom:'5px'}}>
+               
+                <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+               <div style={{marginLeft:'44%'}}><h3>History</h3></div>
+               <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('History')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+            </div>
+
               <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
                 <thead>
                   <tr className="table-secondary">
-                    <th className="p-1">Surgery Name</th>
-                    <th className="p-1">Date</th>
-                    <th className="p-1">Surgeon</th>
-                    <th className="p-1">Place</th>
+                    <th className="p-1 w-25">Date</th>
+                    <th className="p-1">Systemic illness</th>
+                    <th className="p-1">Treatment History</th>
+                    <th className="p-1">Diet History</th>
+                    <th className="p-1">Family History</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr style={{ height: "20px" }}>
+                    <td className="p-1"></td>
+                    <td className="p-1"></td>
+                    <td className="p-1"></td>
+                    <td className="p-1"></td>
+                    <td className="p-1"></td>
+                  </tr>
+
+                  <tr style={{ height: "20px" }}>
+                    <td className="p-1"></td>
+                    <td className="p-1"></td>
+                    <td className="p-1"></td>
+                    <td className="p-1"></td>
+                    <td className="p-1"></td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </div>
+
+
+            <div className="table-responsive mb-3" style={{marginBottom:'10px'}}>
+
+             <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+                <div style={{marginLeft:'42%'}}><h3>Allergies</h3></div>
+                <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('Allegries')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+             </div>
+             
+              <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}> 
+                <thead>
+                  <tr className="table-secondary">
+                    <th className="p-1">Allergies</th>
+                    <th className="p-1">Start Date</th>
                     <th className="p-1">Remarks</th>
                   </tr>
                 </thead>
@@ -75,13 +229,9 @@ export default function DoctorConcern()
                     <td className="p-1"></td>
                     <td className="p-1"></td>
                     <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
                   </tr>
 
                   <tr style={{ height: "20px" }}>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
                     <td className="p-1"></td>
                     <td className="p-1"></td>
                     <td className="p-1"></td>
@@ -91,119 +241,14 @@ export default function DoctorConcern()
               </table>
             </div>
 
-
-             <div className="d-flex gap-2 mb-3" style={{marginBottom:'5px',display:'flex',fontSize:14}}>
-                <div  className="table-responsive" style={{width:'20%'}}>
-                    <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
-                         <thead>
-                            <tr className="table-secondary">
-                              <th className="p-1 fs-12" >Drug Allergy</th>
-                            </tr>
-                        </thead>
-
-                         <tbody>
-                            <tr style={{ height: "20px" }}>
-                              <td className="p-1"></td>
-                            </tr>
-                             <tr style={{ height: "20px" }}>
-                              <td className="p-1"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                  <div  className="table-responsive" style={{width:'80%'}}>
-              <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
-                <thead>
-                  <tr className="table-secondary">
-                    <th className="p-1">POC</th>
-                    <th className="p-1">Sph</th>
-                    <th className="p-1">Cyl</th>
-                    <th className="p-1">Axis</th>
-                    <th className="p-1">Add</th>
-                    <th className="p-1">Sph</th>
-                    <th className="p-1">Cyl</th>
-                    <th className="p-1">Axis</th>
-                    <th className="p-1">Add</th>
-
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <tr style={{ height: "20px" }}>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                  </tr>
-
-                  <tr style={{ height: "20px" }}>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                    <td className="p-1"></td>
-                  </tr>
-                </tbody>
-
-              </table>
-            </div>
-
-         </div>
-
-
-          <div  className="table-responsive">
-                 <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
-                   <thead>
-                     <tr className="table-secondary">
-                       <th className="p-1">Adverse Reaction</th>
-                       <th className="p-1">Past History</th>
-                       <th className="p-1">Remarks</th>
-                     </tr>
-                    </thead>
-
-                     <tbody>
-                        <tr style={{ height: "20px" }}>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                        </tr>
-
-                        <tr style={{ height: "20px" }}>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                        </tr>
-                   </tbody>
-                </table>
-            </div>
-
-
+    
               <div className="d-flex  gap-3">
                 <div style={{ flex: '2 1 350px', minWidth: 250 }}>
-                      <div className="border rounded mb-2" style={{ height: '32px', display: 'flex', alignItems: 'center', paddingLeft: '8px',  background: '#e3f2fd',marginTop:5}}>
-                       <div className="form-check ms-auto">
-                         <input className="form-check-input" type="checkbox" value="" id="checkDefault" />
-                           <label className="form-check-label" htmlFor="checkDefault">Add with clear</label>
-                        </div>
-                      </div>
 
-                      <div style={{marginBottom:5}}>
-                        <input  class="form-control" type="text" value={''}/>
-                      </div>
-
-                       <div style={{marginBottom:5}}>
-                        <input  class="form-control" type="text" value={''} placeholder="Doctor Name"/>
-                      </div>
+              <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+                <div style={{marginLeft:'44%'}}><h3>Doctor</h3></div>
+                <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('Doctor')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+             </div>
 
                       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2} >
                         <thead>
@@ -311,68 +356,149 @@ export default function DoctorConcern()
                         </tbody>
                         
                     </table>
-
                       
-                    <table className="table table-bordered border-black w-100 mb-0 text-center" border={2} >
-                        <thead>
-                            <tr className="table-secondary">
-                                <th className="p-1">Investigation</th>
-                                <th className="p-1">Date</th>
-                                <th className="p-1">DR.</th>
-                            </tr>
-                        </thead>
-
-                         <tbody>
-                        <tr style={{ height: "20px" }}>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                        </tr>
-
-                        <tr style={{ height: "20px" }}>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                        </tr>
-
-                        <tr style={{ height: "20px" }}>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                        </tr>
-
-                        <tr style={{ height: "20px" }}>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                        </tr>
-
-                        <tr style={{ height: "20px" }}>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                        </tr>
-
-                        <tr style={{ height: "20px" }}>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                          <td className="p-1"></td>
-                        </tr>
-                        </tbody>
-                        
-                      </table>   
                     </div>
-                 
-
-                   <div style={{width:'35%',margin:5}}>
-                    {showCheckBox()}
-                  </div>
+                    
+                    
+ 
 
             </div>
 
+              <div className="table-responsive mb-3" style={{marginBottom:10,marginTop:10}}>
+
+              <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+                <div style={{marginLeft:'38%'}}><h3>Diagonises</h3></div>
+                <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('Diagnosis')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+             </div>
+
+                
+            <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+                <thead>
+                    <tr className="table-secondary">
+                        <th>Date</th>
+                        <th>Right Eye</th>
+                        <th>Left Eye</th>
+                        <th className="w-25">Systemic</th>
+                        <th>Other</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>         
+        </div>
 
 
+         <div className="table-responsive mb-3" style={{marginBottom:10}}>
 
+            <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+                <div style={{marginLeft:'36%'}}><h3>Advice Given</h3></div>
+                <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('Advice')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+             </div>
+
+              
+            <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+                <thead>
+                    <tr className="table-secondary">
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th style={{width:'60%'}}>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>         
+        </div>
+
+
+         <div className="table-responsive mb-3" style={{marginBottom:10}}>
+                
+              <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+                <div style={{marginLeft:'40%'}}><h3>Treatment</h3></div>
+                <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('Treatment')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+             </div>
+
+            <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+                <thead>
+                    <tr className="table-secondary">
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th style={{width:'60%'}}>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>         
+        </div>
+
+
+         <div className="table-responsive mb-3" style={{marginBottom:10}}>
+               
+              <div style={{width:'100%',height:35,background:'lightgrey',display:'flex',justifyContent:'center',alignItems:'center',marginBottom:8}}>
+                <div style={{marginLeft:'42%'}}><h3>Report</h3></div>
+                <div style={{marginLeft:'auto',marginRight:8}}><img onClick={()=>openDialog('Report')} src="/images/pencil.png" alt="edit" style={{width:20}}/></div>
+             </div>
+
+            <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+                <thead>
+                    <tr className="table-secondary">
+                        <th>Date</th>
+                        <th>Report Name</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>         
+        </div>
+
+
+         
 
   </div>)
 }

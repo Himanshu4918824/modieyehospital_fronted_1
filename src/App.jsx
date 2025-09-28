@@ -19,19 +19,19 @@ import MainDashboard from "./components/admin/homepage/MainDashboard"
 import NewAppoint from "./components/admin/appointment/NewAppoint";
 import RegistrationFrom from "./components/admin/appointment/RegistrationFrom";
 import BookAppoint from "./components/admin/appointment/BookAppoint"
-import Complaint from "./components/admin/from/Complaint";
-import History from "./components/admin/from/History";
-import Vision from "./components/admin/from/Vision";
-import Refraction from "./components/admin/from/Refraction";
-import Anterior from "./components/admin/from/Anterior";
-import Posterior from "./components/admin/from/Posterior";
-import Diagnosis from "./components/admin/from/Diagnosis";
-import Advice from "./components/admin/from/Advice";
-import Medicine from "./components/admin/from/Medicine";
-import Report from "./components/admin/from/Report";
-import Doctor from "./components/admin/from/Doctor";
-import Charges from "./components/admin/from/Charges";
-import Payment from "./components/admin/from/Payment";
+import Complaint from "./components/admin/forms/Complaint";
+import History from "./components/admin/forms/History";
+import Vision from "./components/admin/forms/Vision";
+import Refraction from "./components/admin/forms/Refraction";
+import Anterior from "./components/admin/forms/Anterior";
+import Posterior from "./components/admin/forms/Posterior";
+import Diagnosis from "./components/admin/forms/Diagnosis";
+import Advice from "./components/admin/forms/Advice";
+import Medicine from "./components/admin/forms/Medicine";
+import Report from "./components/admin/forms/Report";
+import Doctor from "./components/admin/forms/Doctor";
+import Charges from "./components/admin/forms/Charges";
+import Payment from "./components/admin/forms/Payment";
 
 function App() {
 

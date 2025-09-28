@@ -44,11 +44,11 @@ export default function Complaint()
     }
 
 
-    return(<div style={{width:'100%',height:'100vh',display:'flex',justifyContent:'center',alignItems:'center'}}>
+    return(<div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
          <div style={{width:600, height:'auto',background:'#f7f1e3',margin:10,padding:10,borderRadius:10}}>
 
             <div class="mb-3">
-                <textarea value={complain} onChange={(e)=>setComplain(e.target.value)} className="form-control" rows="3" placeholder="Add Compaint"></textarea>
+                <textarea value={complain} onChange={(e)=>setComplain(e.target.value)} className="form-control" rows="3" placeholder="Add Compaint or Type Allegiers"></textarea>
            </div>
 
            <div className="row">
