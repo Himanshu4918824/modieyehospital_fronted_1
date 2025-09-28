@@ -56,30 +56,30 @@ export default function DashBoard() {
       <div className="row mb-3 mt-3">
 
          <div className="col-xs-12 col-lg-3">
-            <div class="input-group">
-              <span class="input-group-text">Appointment No.:</span>
-              <input type="text" class="form-control"/>
+            <div className="input-group">
+              <span className="input-group-text">Appointment No.:</span>
+              <input type="text" className="form-control"/>
              </div>
          </div>
 
         <div className="col-xs-12 col-lg-3">
-            <div class="input-group">
-              <span class="input-group-text">Patient Name</span>
-              <input type="text" class="form-control"/>
+            <div className="input-group">
+              <span className="input-group-text">Patient Name</span>
+              <input type="text" className="form-control"/>
              </div>
          </div>
 
          <div className="col-xs-12 col-lg-3">
-            <div class="input-group">
-              <span class="input-group-text">Doctor Name</span>
-              <input type="text" class="form-control"/>
+            <div className="input-group">
+              <span className="input-group-text">Doctor Name</span>
+              <input type="text" className="form-control"/>
              </div>
          </div>
 
           <div className="col-xs-12 col-lg-3">
-            <div class="input-group">
-              <span class="input-group-text">Patient Age</span>
-              <input type="text" class="form-control"/>
+            <div className="input-group">
+              <span className="input-group-text">Patient Age</span>
+              <input type="text" className="form-control"/>
              </div>
          </div>    
         
@@ -88,30 +88,30 @@ export default function DashBoard() {
        <div className="row mb-3 mt-3">
 
          <div className="col-xs-12 col-lg-3">
-            <div class="input-group">
-              <span class="input-group-text">Patient DOB:</span>
-              <input type="text" class="form-control"/>
+            <div className="input-group">
+              <span className="input-group-text">Patient DOB:</span>
+              <input type="text" className="form-control"/>
              </div>
          </div>
 
         <div className="col-xs-12 col-lg-3">
-            <div class="input-group">
-              <span class="input-group-text">Reffered By:</span>
-              <input type="text" class="form-control"/>
+            <div className="input-group">
+              <span className="input-group-text">Reffered By:</span>
+              <input type="text" className="form-control"/>
              </div>
          </div>
 
          <div className="col-xs-12 col-lg-3">
-            <div class="input-group">
-              <span class="input-group-text">Insurance:</span>
-              <input type="text" class="form-control"/>
+            <div className="input-group">
+              <span className="input-group-text">Insurance:</span>
+              <input type="text" className="form-control"/>
              </div>
          </div>
 
           <div className="col-xs-12 col-lg-3">
-            <div class="input-group">
-              <span class="input-group-text">Address</span>
-              <input type="text" class="form-control"/>
+            <div className="input-group">
+              <span className="input-group-text">Address</span>
+              <input type="text" className="form-control"/>
              </div>
          </div>    
         
@@ -121,30 +121,30 @@ export default function DashBoard() {
       <div className="row mb-3 mt-3">
 
          <div className="col-xs-12 col-lg-3">
-            <div class="input-group">
-              <span class="input-group-text">City</span>
-              <input type="text" class="form-control"/>
+            <div className="input-group">
+              <span className="input-group-text">City</span>
+              <input type="text" className="form-control"/>
              </div>
          </div>
 
         <div className="col-xs-12 col-lg-3">
-            <div class="input-group">
-              <span class="input-group-text">State</span>
-              <input type="text" class="form-control"/>
+            <div className="input-group">
+              <span className="input-group-text">State</span>
+              <input type="text" className="form-control"/>
              </div>
          </div>
 
          <div className="col-xs-12 col-lg-3">
-            <div class="input-group">
-              <span class="input-group-text">Reg.Dt:</span>
-              <input type="text" class="form-control"/>
+            <div className="input-group">
+              <span className="input-group-text">Reg.Dt:</span>
+              <input type="text" className="form-control"/>
              </div>
          </div>
 
           <div className="col-xs-12 col-lg-3">
-            <div class="input-group">
-              <span class="input-group-text">Last Visit Date:</span>
-              <input type="text" class="form-control"/>
+            <div className="input-group">
+              <span className="input-group-text">Last Visit Date:</span>
+              <input type="text" className="form-control"/>
              </div>
          </div>    
         
