@@ -1,11 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 //import Header from './components/admin/homepage/Header'
-import PatientHistory from './components/admin/homepage/PatientHistory'
 import DoctorConcern from './components/admin/homepage/DoctorConcern'
 //import BookAppoint from './components/admin/appointment/BookAppoint'
 
@@ -36,7 +32,7 @@ import Payment from "./components/admin/forms/Payment";
 function App() {
 
   return (
-  <div>
+  <div className="px-3">
     <Router>
       <Routes>
         <Route element={<DoctorConcern/>} path="/doctorconcern"></Route>
