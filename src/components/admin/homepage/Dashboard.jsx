@@ -6,7 +6,6 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 
 export default function DashBoard() {
-  const { getPatientData, patientData } = useContext(MainContext)
   var data = [
     "send",
     "History",
@@ -40,27 +39,13 @@ export default function DashBoard() {
     ));
   };
 
-  useEffect(() => {
-    getPatientData('v1/patient/1')
-  }, [])
-
   return (
     <div>
-      <div
-        style={{
-          background: "lightgrey",
-          width: "100%",
-          textAlign: "center",
-          fontWeight: "bold",
-        }}
-      >
+      <div style={{ background: "lightgrey", width: "100%", textAlign: "center", fontWeight: "bold", }} >
         Doctor Examination
       </div>
 
-      {/* Buttons row */}
-      <div style={{ display: "flex", flexWrap: "wrap" }}>{showButton()}</div>
-
-      {/* Table */}
+     
       <div className="row mb-3 mt-3">
 
         <div className="col-xs-12 col-lg-3">

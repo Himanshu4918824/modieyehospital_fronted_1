@@ -137,18 +137,13 @@ export default function DoctorConcern() {
 
 
     <div className="table-responsive mb-3" style={{ marginBottom: '10px' }}>
-      <div
-        className="d-flex justify-content-between align-items-center w-100 mb-2 px-3"
-        style={{ background: "lightgrey", height: "35px" }}
-      >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
         <h3 className="fs-5 m-0">Complaints</h3>
-        <button
-          className="btn p-0 border-0 bg-transparent"
-          style={{ marginRight: 8 }}
-          onClick={() => openDialog("Complaints")}
-        >
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}onClick={() => openDialog("Complaints")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
+
       </div>
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
@@ -180,14 +175,13 @@ export default function DoctorConcern() {
 
     <div className="table-responsive mb-3" style={{ marginBottom: '5px' }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3"
-        style={{ background: "lightgrey", height: "35px" }}>
-        <div className="fs-5 m-0"><h3 className="fs-5">History</h3></div>
-        <button className="btn p-0 border-0 bg-transparent"
-          style={{ marginRight: 8 }} role="button"
-          onClick={() => openDialog('History')}>
+     <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
+        <h3 className="fs-5 m-0">History</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}onClick={() => openDialog("History")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
+        
       </div>
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
@@ -225,11 +219,13 @@ export default function DoctorConcern() {
 
     <div className="table-responsive mb-3" style={{ marginBottom: '10px' }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3"
-        style={{ background: "lightgrey", height: "35px" }}>
-        <div className="fs-5 m-0"><h3 className="fs-5">Allergies</h3></div>
-        <button className="btn p-0 border-0 bg-transparent"
-          style={{ marginRight: 8 }} onClick={() => openDialog('Allegries')} role="button" ><img src="/images/pencil.png" alt="edit" style={{ width: 20 }} /></button>
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
+        <h3 className="fs-5 m-0">Allegries</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}onClick={() => openDialog("Allegries")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+        </button>
+        
       </div>
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
@@ -262,10 +258,13 @@ export default function DoctorConcern() {
     <div className="d-flex  gap-3">
       <div style={{ flex: '2 1 350px', minWidth: 250 }}>
 
-        <div style={{ width: '100%', height: 35, background: 'lightgrey', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-          <div style={{ marginLeft: '44%' }}><h3 className="fs-5">Doctor</h3></div>
-          <div style={{ marginLeft: 'auto', marginRight: 8 }} role="button" ><img onClick={() => openDialog('Doctor')} src="/images/pencil.png" alt="edit" style={{ width: 20 }} /></div>
-        </div>
+        <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
+        <h3 className="fs-5 m-0">Doctor</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}onClick={() => openDialog("Doctor")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+        </button>  
+      </div>
 
         <table className="table table-bordered border-black w-100 mb-0 text-center" border={2} >
           <thead>
@@ -315,77 +314,21 @@ export default function DoctorConcern() {
           </tbody>
 
         </table>
-
-
-        <table className="table table-bordered border-black w-100 mb-0 text-center" border={2} >
-          <thead>
-            <tr className="table-secondary">
-              <th className="p-1">Surgery</th>
-              <th className="p-1">Procedure</th>
-              <th className="p-1">DR</th>
-              <th className="p-1">Eye</th>
-
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr style={{ height: "20px" }}>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-            </tr>
-
-            <tr style={{ height: "20px" }}>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-            </tr>
-
-            <tr style={{ height: "20px" }}>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-            </tr>
-
-            <tr style={{ height: "20px" }}>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-            </tr>
-
-            <tr style={{ height: "20px" }}>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-            </tr>
-
-            <tr style={{ height: "20px" }}>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-            </tr>
-          </tbody>
-
-        </table>
-
       </div>
-
-
-
 
     </div>
 
+
+
     <div className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10 }}>
 
-      <div style={{ width: '100%', height: 35, background: 'lightgrey', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-        <div style={{ marginLeft: '38%' }}><h3 className="fs-5">Diagonises</h3></div>
-        <div style={{ marginLeft: 'auto', marginRight: 8 }} role="button" ><img onClick={() => openDialog('Diagnosis')} src="/images/pencil.png" alt="edit" style={{ width: 20 }} /></div>
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
+        <h3 className="fs-5 m-0">Diagnosis</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Diagnosis")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+        </button>
+        
       </div>
 
 
@@ -416,9 +359,13 @@ export default function DoctorConcern() {
 
     <div className="table-responsive mb-3" style={{ marginBottom: 10 }}>
 
-      <div style={{ width: '100%', height: 35, background: 'lightgrey', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-        <div style={{ marginLeft: '36%' }}><h3 className="fs-5">Advice Given</h3></div>
-        <div style={{ marginLeft: 'auto', marginRight: 8 }} role="button" ><img onClick={() => openDialog('Advice')} src="/images/pencil.png" alt="edit" style={{ width: 20 }} /></div>
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
+        <h3 className="fs-5 m-0">Advice Given</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Advice")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+        </button>
+        
       </div>
 
 
@@ -449,9 +396,13 @@ export default function DoctorConcern() {
 
     <div className="table-responsive mb-3" style={{ marginBottom: 10 }}>
 
-      <div style={{ width: '100%', height: 35, background: 'lightgrey', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-        <div style={{ marginLeft: '40%' }}><h3 className="fs-5">Treatment</h3></div>
-        <div style={{ marginLeft: 'auto', marginRight: 8 }} role="button" ><img onClick={() => openDialog('Treatment')} src="/images/pencil.png" alt="edit" style={{ width: 20 }} /></div>
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
+        <h3 className="fs-5 m-0">Treatment</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Treatment")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+        </button>
+        
       </div>
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
@@ -481,9 +432,13 @@ export default function DoctorConcern() {
 
     <div className="table-responsive mb-3" style={{ marginBottom: 10 }}>
 
-      <div style={{ width: '100%', height: 35, background: 'lightgrey', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-        <div style={{ marginLeft: '42%' }}><h3 className="fs-5">Report</h3></div>
-        <div style={{ marginLeft: 'auto', marginRight: 8 }} role="button" ><img onClick={() => openDialog('Report')} src="/images/pencil.png" alt="edit" style={{ width: 20 }} /></div>
+       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
+        <h3 className="fs-5 m-0">Report</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Report")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+        </button>
+        
       </div>
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
