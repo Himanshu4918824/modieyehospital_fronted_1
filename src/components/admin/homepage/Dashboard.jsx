@@ -6,6 +6,12 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 
 export default function DashBoard() {
+  const { patientData, getPatientData } = useContext(MainContext);
+
+  useEffect(() => {
+    getPatientData("v1/patient/1");
+  }, []);
+
   var data = [
     "send",
     "History",
@@ -45,13 +51,12 @@ export default function DashBoard() {
         Doctor Examination
       </div>
 
-     
-      <div className="row mb-3 mt-3">
 
+      <div className="row mb-3 mt-3">
         <div className="col-xs-12 col-lg-3">
           <div className="input-group">
-            <span className="input-group-text">Appointment No.:</span>
-            <input type="text" className="form-control" />
+            <span className="input-group-text">Appointment Id:</span>
+            <input type="text" className="form-control" disabled value={patientData.Latest_Apt} />
           </div>
         </div>
 

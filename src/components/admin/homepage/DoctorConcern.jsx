@@ -16,8 +16,8 @@ import MainContext from "../../../context/MainContext";
 export default function DoctorConcern() {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
-  const { diagnosisList } = useContext(MainContext)
-
+  const { diagnosisList, Histroy, Advise, Treatment } = useContext(MainContext)
+  const Doctor = []
   const openDialog = (e) => {
     setShowDialog(true);
     setModalPage(e)
@@ -140,7 +140,7 @@ export default function DoctorConcern() {
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
 
         <h3 className="fs-5 m-0">Complaints</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}onClick={() => openDialog("Complaints")}>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Complaints")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
 
@@ -175,13 +175,13 @@ export default function DoctorConcern() {
 
     <div className="table-responsive mb-3" style={{ marginBottom: '5px' }}>
 
-     <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
 
         <h3 className="fs-5 m-0">History</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}onClick={() => openDialog("History")}>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("History")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
-        
+
       </div>
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
@@ -196,21 +196,19 @@ export default function DoctorConcern() {
         </thead>
 
         <tbody>
-          <tr style={{ height: "20px" }}>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-          </tr>
-
-          <tr style={{ height: "20px" }}>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-          </tr>
+          {Histroy.length > 0 ?
+            Histroy.map((item, i) => {
+              return (<tr key={i} style={{ height: "20px" }}>
+                <td className="p-1">{item.D_id}</td>
+                <td className="p-1">{item.Systemic_illness}</td>
+                <td className="p-1">{item.Treatment_Histroy}</td>
+                <td className="p-1">{item.Dite_Histroy}</td>
+                <td className="p-1">{item.Family_Histroy}</td>
+              </tr>)
+            }) : (<tr>
+              <td colSpan="5">No record available</td>
+            </tr>)
+          }
         </tbody>
 
       </table>
@@ -222,10 +220,10 @@ export default function DoctorConcern() {
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
 
         <h3 className="fs-5 m-0">Allegries</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}onClick={() => openDialog("Allegries")}>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Allegries")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
-        
+
       </div>
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
@@ -238,17 +236,14 @@ export default function DoctorConcern() {
         </thead>
 
         <tbody>
-          <tr style={{ height: "20px" }}>
+          {Report.length > 0 ? <tr style={{ height: "20px" }}>
             <td className="p-1"></td>
             <td className="p-1"></td>
             <td className="p-1"></td>
-          </tr>
-
-          <tr style={{ height: "20px" }}>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-          </tr>
+          </tr> : (<tr style={{ height: "20px" }}>
+            <td colSpan="3">No record available</td>
+          </tr>)
+          }
         </tbody>
 
       </table>
@@ -260,11 +255,11 @@ export default function DoctorConcern() {
 
         <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
 
-        <h3 className="fs-5 m-0">Doctor</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}onClick={() => openDialog("Doctor")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
-        </button>  
-      </div>
+          <h3 className="fs-5 m-0">Doctor</h3>
+          <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Doctor")}>
+            <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+          </button>
+        </div>
 
         <table className="table table-bordered border-black w-100 mb-0 text-center" border={2} >
           <thead>
@@ -276,41 +271,13 @@ export default function DoctorConcern() {
           </thead>
 
           <tbody>
-            <tr style={{ height: "20px" }}>
+            {Doctor.length > 0 ? <tr style={{ height: "20px" }}>
               <td className="p-1"></td>
               <td className="p-1"></td>
               <td className="p-1"></td>
-            </tr>
-
-            <tr style={{ height: "20px" }}>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-            </tr>
-
-            <tr style={{ height: "20px" }}>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-            </tr>
-
-            <tr style={{ height: "20px" }}>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-            </tr>
-
-            <tr style={{ height: "20px" }}>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-            </tr>
-
-            <tr style={{ height: "20px" }}>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-            </tr>
+            </tr> : (<tr>
+              <td colSpan="3">No record available</td>
+            </tr>)}
           </tbody>
 
         </table>
@@ -328,7 +295,7 @@ export default function DoctorConcern() {
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Diagnosis")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
-        
+
       </div>
 
 
@@ -343,15 +310,19 @@ export default function DoctorConcern() {
           </tr>
         </thead>
         <tbody>
-          {diagnosisList.map((diagnosis, i) => {
-            return (<tr key={i}>
-              <td>{new Date(diagnosis.created_at).toLocaleDateString()}</td>
-              <td>{diagnosis.R_eye}</td>
-              <td>{diagnosis.L_eye}</td>
-              <td>{diagnosis.Systemic}</td>
-              <td>{diagnosis.Others}</td>
+          {diagnosisList.length > 0 ?
+            diagnosisList.map((diagnosis, i) => {
+              return (<tr key={i}>
+                <td>{new Date(diagnosis.created_at).toLocaleDateString()}</td>
+                <td>{diagnosis.R_eye}</td>
+                <td>{diagnosis.L_eye}</td>
+                <td>{diagnosis.Systemic}</td>
+                <td>{diagnosis.Others}</td>
+              </tr>)
+            }) : (<tr>
+              <td colSpan="5">No record available</td>
             </tr>)
-          })}
+          }
         </tbody>
       </table>
     </div>
@@ -365,9 +336,9 @@ export default function DoctorConcern() {
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Advice")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
-        
-      </div>
 
+      </div>
+      {console.log(Advise)}
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
         <thead>
@@ -378,17 +349,16 @@ export default function DoctorConcern() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {Advise.length > 0 ?
+            Advise.map((item, i) => {
+              return (<tr key={i}>
+                <td>{new Date(item.Date).toLocaleDateString()}</td>
+                <td>{item.type}</td>
+                <td>{item.message}</td>
+              </tr>)
+            }) : (<tr>
+              <td colSpan="3">No record available</td>
+            </tr>)}
         </tbody>
       </table>
     </div>
@@ -402,7 +372,7 @@ export default function DoctorConcern() {
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Treatment")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
-        
+
       </div>
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
@@ -414,17 +384,16 @@ export default function DoctorConcern() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {Treatment.length > 0 ?
+            Treatment.map((item, i) => {
+              return (<tr key={i}>
+                <td>{new Date(item.Date).toLocaleDateString()}</td>
+                <td>{item.type}</td>
+                <td>{item.message}</td>
+              </tr>)
+            }) : (<tr>
+              <td colSpan="3">No record available</td>
+            </tr>)}
         </tbody>
       </table>
     </div>
@@ -432,13 +401,13 @@ export default function DoctorConcern() {
 
     <div className="table-responsive mb-3" style={{ marginBottom: 10 }}>
 
-       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
 
         <h3 className="fs-5 m-0">Report</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Report")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
-        
+
       </div>
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
@@ -450,17 +419,15 @@ export default function DoctorConcern() {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          {Report.length > 0 ? <tr>
             <td></td>
             <td></td>
             <td></td>
-          </tr>
+          </tr> : (<tr>
+            <td colSpan="3">No record available</td>
+          </tr>)
+          }
 
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
         </tbody>
       </table>
     </div>
@@ -468,5 +435,5 @@ export default function DoctorConcern() {
 
 
 
-  </div>)
+  </div >)
 }
