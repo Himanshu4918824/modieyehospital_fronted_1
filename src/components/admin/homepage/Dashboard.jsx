@@ -3,56 +3,16 @@ import DoctorConcern from "./DoctorConcern";
 import PatientHistory from "./PatientHistory";
 
 export default function DashBoard() {
-  var data = [
-    "send",
-    "History",
-    "Primary",
-    "Opto",
-    "Remakrs",
-    "Summary",
-    "Procedure",
-    "Proc. Summ.",
-    "Document",
-    "Post-Op",
-    "Prog.Note",
-    "IP Medicine",
-    "IOG Graphs",
-    "OC",
-    "OT Check",
-    "Drawing",
-    "Drawing Summ.",
-    "Template",
-    "T.C.",
-  ];
-
-  const showButton = () => {
-    return data.map((item, i) => (
-      <button
-        key={i}
-        style={{ margin: 2, borderRadius: 5, background: "pink" }}
-      >
-        {item}
-      </button>
-    ));
-  };
+ 
+  
 
   return (
     <div>
-      <div
-        style={{
-          background: "lightgrey",
-          width: "100%",
-          textAlign: "center",
-          fontWeight: "bold",
-        }}
-      >
+      <div style={{ background: "lightgrey", width: "100%", textAlign: "center", fontWeight: "bold", }} >
         Doctor Examination
       </div>
 
-      {/* Buttons row */}
-      <div style={{ display: "flex", flexWrap: "wrap" }}>{showButton()}</div>
-
-      {/* Table */}
+     
       <div className="row mb-3 mt-3">
 
          <div className="col-xs-12 col-lg-3">

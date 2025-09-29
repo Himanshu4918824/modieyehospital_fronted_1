@@ -69,6 +69,157 @@ export default function PatientHistory() {
         },
       ],
     },
+
+    {
+      date: "24-09-2025",
+      rows: [
+        {
+          right: {
+            unaided: "6/18",
+            pinhole: "",
+            ct: "",
+            pmt: "",
+            prev: "",
+            current: "",
+            nearUnaided: "",
+            nearPrev: "",
+            nearCurrent: "N12",
+          },
+          left: {
+            unaided: "6/9",
+            pinhole: "",
+            ct: "",
+            pmt: "",
+            prev: "",
+            current: "",
+            nearUnaided: "",
+            nearPrev: "",
+            nearCurrent: "N6",
+          },
+        },
+      ],
+    },
+
+    {
+      date: "24-09-2025",
+      rows: [
+        {
+          right: {
+            unaided: "6/18",
+            pinhole: "",
+            ct: "",
+            pmt: "",
+            prev: "",
+            current: "",
+            nearUnaided: "",
+            nearPrev: "",
+            nearCurrent: "N12",
+          },
+          left: {
+            unaided: "6/9",
+            pinhole: "",
+            ct: "",
+            pmt: "",
+            prev: "",
+            current: "",
+            nearUnaided: "",
+            nearPrev: "",
+            nearCurrent: "N6",
+          },
+        },
+      ],
+    },
+
+    {
+      date: "24-09-2025",
+      rows: [
+        {
+          right: {
+            unaided: "6/18",
+            pinhole: "",
+            ct: "",
+            pmt: "",
+            prev: "",
+            current: "",
+            nearUnaided: "",
+            nearPrev: "",
+            nearCurrent: "N12",
+          },
+          left: {
+            unaided: "6/9",
+            pinhole: "",
+            ct: "",
+            pmt: "",
+            prev: "",
+            current: "",
+            nearUnaided: "",
+            nearPrev: "",
+            nearCurrent: "N6",
+          },
+        },
+      ],
+    },
+
+    {
+      date: "24-09-2025",
+      rows: [
+        {
+          right: {
+            unaided: "6/18",
+            pinhole: "",
+            ct: "",
+            pmt: "",
+            prev: "",
+            current: "",
+            nearUnaided: "",
+            nearPrev: "",
+            nearCurrent: "N12",
+          },
+          left: {
+            unaided: "6/9",
+            pinhole: "",
+            ct: "",
+            pmt: "",
+            prev: "",
+            current: "",
+            nearUnaided: "",
+            nearPrev: "",
+            nearCurrent: "N6",
+          },
+        },
+      ],
+    },
+
+    {
+      date: "24-09-2025",
+      rows: [
+        {
+          right: {
+            unaided: "6/18",
+            pinhole: "",
+            ct: "",
+            pmt: "",
+            prev: "",
+            current: "",
+            nearUnaided: "",
+            nearPrev: "",
+            nearCurrent: "N12",
+          },
+          left: {
+            unaided: "6/9",
+            pinhole: "",
+            ct: "",
+            pmt: "",
+            prev: "",
+            current: "",
+            nearUnaided: "",
+            nearPrev: "",
+            nearCurrent: "N6",
+          },
+        },
+      ],
+    },
+    
   ];
 
   const [activeDate, setActiveDate] = useState(records[0].date);
@@ -161,9 +312,13 @@ export default function PatientHistory() {
 
     <div className="table-responsive mb-3">
 
-      <div style={{ width: '100%', height: 35, background: 'lightgrey', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-        <div style={{ marginLeft: '44%' }}><h3>Medicines</h3></div>
-        <div style={{ marginLeft: 'auto', marginRight: 8 }}><img onClick={() => openDialog('Medicines')} src="/images/pencil.png" alt="edit" style={{ width: 20 }} /></div>
+       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
+        <h3 className="fs-5 m-0">Medicines</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Medicines")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+        </button>
+        
       </div>
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
@@ -198,28 +353,33 @@ export default function PatientHistory() {
 
 
     <div className="table-responsive mb-3">
+       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3"
-        style={{ background: "lightgrey", height: "35px" }}>
-        <div className="fs-5 m-0"><h3>Vision</h3></div>
-        <button role='button' className="btn p-0 border-0 bg-transparent"
-          style={{ marginRight: 8 }} onClick={() => openDialog('Vision')}>
+        <h3 className="fs-5 m-0">Vision</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Vision")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
+        
       </div>
+
+      
       {/* these are the date tabs which is used to see different appointment data in the table */}
-      <ul className="nav nav-tabs mb-3">
+      <div className="hide-scrollbar" style={{overflowX:'auto', whiteSpace:'nowrap', padding: '4px 0', background: '#f5f5f5',borderRadius: 6,marginBottom: '16px',scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
+
+      <ul className="nav nav-tabs mb-3"  style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
         {records.map((rec,i) => (
           <li className="nav-item" key={rec.date}>
             <button
               className={`nav-link ${rec.date === activeDate ? "active" : ""}`}
               onClick={() => setActiveDate(rec.date)}
             >
-              {rec.date} Appointment: {i + 1}
+              {rec.date} Appoint: {i + 1}
             </button>
           </li>
         ))}
       </ul>
+
+      </div>
 
       <table className="table table-bordered border-dark w-100 text-center align-middle">
         <thead className="table-secondary">
@@ -286,15 +446,20 @@ export default function PatientHistory() {
 
     <div className="table-responsive mb-3">
 
-      <div style={{ width: '100%', height: 35, background: 'lightgrey', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-        <div style={{ marginLeft: '44%' }}><h3>Refraction</h3></div>
-        <div style={{ marginLeft: 'auto', marginRight: 8 }}><img onClick={() => openDialog('Refraction')} src="/images/pencil.png" alt="edit" style={{ width: 20 }} /></div>
+     <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
+        <h3 className="fs-5 m-0">Refraction</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Refraction")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+        </button>
+        
       </div>
+
 
       <table className="table table-bordered border-dark w-100 text-center align-middle">
         <thead>
           <tr className="table-secondary border border-dark ">
-            <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
+            <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date & Refraction Type</th>
             <th colSpan={5}>Right Eye</th>
             <th colSpan={4}>Left Eye</th>
           </tr>
@@ -314,8 +479,8 @@ export default function PatientHistory() {
         </thead>
         <tbody>
           <tr className="border border-dark">
-            <td className="bg-light text-start fw-medium">Distance</td>
-            <td ></td>
+            <td rowSpan={3}></td>
+            <td >Distance</td>
             <td></td>
             <td></td>
             <td></td>
@@ -326,8 +491,8 @@ export default function PatientHistory() {
           </tr>
 
           <tr className="border border-dark">
-            <td className="bg-light text-start fw-medium">Add</td>
-            <td ></td>
+            <td>Near</td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -338,8 +503,8 @@ export default function PatientHistory() {
           </tr>
 
           <tr className="border border-dark">
-            <td className="bg-light text-start fw-medium">M.D.</td>
-            <td ></td>
+            <td>Add</td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -348,6 +513,7 @@ export default function PatientHistory() {
             <td></td>
             <td></td>
           </tr>
+          
         </tbody>
 
       </table>
@@ -357,9 +523,13 @@ export default function PatientHistory() {
 
     <div className="table-responsive mb-3">
 
-      <div style={{ width: '100%', height: 35, background: 'lightgrey', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-        <div style={{ marginLeft: '44%' }}><h3>ANTERIOR</h3></div>
-        <div style={{ marginLeft: 'auto', marginRight: 8 }}><img onClick={() => openDialog('Anterior')} src="/images/pencil.png" alt="edit" style={{ width: 20 }} /></div>
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
+        <h3 className="fs-5 m-0">Anterior</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Anterior")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+        </button>
+        
       </div>
 
       <table className="table table-bordered border-dark w-100 text-center align-middle">
@@ -520,9 +690,13 @@ export default function PatientHistory() {
 
     <div className="table-responsive mb-3">
 
-      <div style={{ width: '100%', height: 35, background: 'lightgrey', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
-        <div style={{ marginLeft: '44%' }}><h3>Posterior</h3></div>
-        <div style={{ marginLeft: 'auto', marginRight: 8 }}><img onClick={() => openDialog('Posterior')} src="/images/pencil.png" alt="edit" style={{ width: 20 }} /></div>
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
+        <h3 className="fs-5 m-0">Posterior</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Posterior")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+        </button>
+        
       </div>
 
       <table className="table table-bordered border-dark w-100 text-center align-middle">
@@ -609,30 +783,8 @@ export default function PatientHistory() {
 
 
 
-    <div className="table-responsive mb-3">
-      <table className="table table-bordered border-dark w-100 mb-0 text-center align-middle">
-        <tbody>
-          <tr>
-            <td className="fw-bold bg-light rounded">Examination Comments:</td>
-            <td colSpan={3}><input type="text" className="form-control" /></td>
-          </tr>
 
-          <tr>
-            <td className="fw-bold bg-light rounded">Prognosis Comments:</td>
-            <td><input type="text" className="form-control" /></td>
-            <td className="fw-bold bg-light rounded">Immunization</td>
-            <td><input type="text" className="form-control" /> </td>
-          </tr>
-
-          <tr>
-            <td className="fw-bold bg-light rounded">Cross Ref.Reason:</td>
-            <td><input type="text" className="form-control" /></td>
-            <td className="fw-bold bg-light rounded">Referred Dept:</td>
-            <td><input type="text" className="form-control" /></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+       
     {renderModal()}
 
   </div>)
