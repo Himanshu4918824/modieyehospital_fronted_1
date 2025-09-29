@@ -8,12 +8,15 @@ import Doctor from '../forms/Doctor';
 import Treatment from '../forms/Advice';
 import Advice from "../forms/Advice";
 import Report from '../forms/Report';
+import { useContext } from "react";
+import MainContext from "../../../context/MainContext";
 
 
 
 export default function DoctorConcern() {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
+  const { diagnosisList } = useContext(MainContext)
 
   const openDialog = (e) => {
     setShowDialog(true);
@@ -397,19 +400,15 @@ export default function DoctorConcern() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {diagnosisList.map((diagnosis, i) => {
+            return (<tr key={i}>
+              <td>{new Date(diagnosis.created_at).toLocaleDateString()}</td>
+              <td>{diagnosis.R_eye}</td>
+              <td>{diagnosis.L_eye}</td>
+              <td>{diagnosis.Systemic}</td>
+              <td>{diagnosis.Others}</td>
+            </tr>)
+          })}
         </tbody>
       </table>
     </div>
