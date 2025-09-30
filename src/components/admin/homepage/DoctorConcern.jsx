@@ -16,8 +16,8 @@ import MainContext from "../../../context/MainContext";
 export default function DoctorConcern() {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
-  const { diagnosisList, Histroy, Advise, Treatment } = useContext(MainContext)
-  const Doctor = []
+  const { diagnosisList, Histroy, Advise, treatment , complaint } = useContext(MainContext)
+  const doctor = []
   const openDialog = (e) => {
     setShowDialog(true);
     setModalPage(e)
@@ -149,24 +149,25 @@ export default function DoctorConcern() {
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
         <thead>
           <tr className="table-secondary">
-            <th className="p-1">Complain</th>
             <th className="p-1">Start Date</th>
-            <th className="p-1">Remarks</th>
+            <th className="p-1">Complain</th>
+            <th className="p-1">AppointmentId</th>
           </tr>
         </thead>
 
         <tbody>
-          <tr style={{ height: "20px" }}>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-          </tr>
+          {complaint.length > 0 ?
+            complaint.map((item, i) => {
+              return (<tr key={i} style={{ height: "20px" }}>
+                <td className="p-1">{new Date(item.Date).toLocaleDateString()}</td>
+                <td className="p-1">{item.Complaint}</td>
+                <td className="p-1">{item.AptId}</td>
+              </tr>)
+            }) : (<tr>
+              <td colSpan="3">No record available</td>
+            </tr>)
+          }
 
-          <tr style={{ height: "20px" }}>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
-          </tr>
         </tbody>
 
       </table>
@@ -271,7 +272,7 @@ export default function DoctorConcern() {
           </thead>
 
           <tbody>
-            {Doctor.length > 0 ? <tr style={{ height: "20px" }}>
+            {doctor.length > 0 ? <tr style={{ height: "20px" }}>
               <td className="p-1"></td>
               <td className="p-1"></td>
               <td className="p-1"></td>
@@ -338,7 +339,6 @@ export default function DoctorConcern() {
         </button>
 
       </div>
-      {console.log(Advise)}
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
         <thead>
@@ -384,8 +384,8 @@ export default function DoctorConcern() {
           </tr>
         </thead>
         <tbody>
-          {Treatment.length > 0 ?
-            Treatment.map((item, i) => {
+          {treatment.length > 0 ?
+            treatment.map((item, i) => {
               return (<tr key={i}>
                 <td>{new Date(item.Date).toLocaleDateString()}</td>
                 <td>{item.type}</td>

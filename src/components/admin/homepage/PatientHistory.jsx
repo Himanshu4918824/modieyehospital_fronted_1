@@ -6,13 +6,13 @@ import Anterior from '../forms/Anterior';
 import Posterior from '../forms/Posterior';
 import { useContext } from 'react';
 import MainContext from '../../../context/MainContext';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 export default function PatientHistory() {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
 
-  const { vision, Medicine } = useContext(MainContext)
+  const { vision, Medicine, refractionData, anterior, posterior } = useContext(MainContext)
   const [activeDate, setActiveDate] = useState(vision[0].created_at);
 
   const activeRecord = vision.find((rec) => rec.created_at === activeDate);
@@ -266,7 +266,7 @@ export default function PatientHistory() {
 
 
           <tr className="table-secondary border border-dark ">
-            <th className="text-start fw-bold">Refraction</th>
+            <th className="fw-bold">Refraction</th>
             <th>Sph</th>
             <th>Cyl</th>
             <th>Axis</th>
@@ -278,41 +278,45 @@ export default function PatientHistory() {
           </tr>
         </thead>
         <tbody>
-          <tr className="border border-dark">
-            <td rowSpan={3}></td>
-            <td >Distance</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {refractionData.length > 0 ? refractionData.map((item, i) => {
+            return (
+              <React.Fragment key={i}>
+                <tr className="border border-dark">
+                  <td rowSpan={3}>Date : {new Date(item.created_at).toLocaleDateString()}
+                    <br />
+                    R.T.:{item.refractionType}
+                    <br />
+                    Glass:{item.Glass_Type}
+                  </td>
+                  <td >Distance</td>
+                  <td>{item.R_D_SPH}</td>
+                  <td>{item.R_D_CYL}</td>
+                  <td>{item.R_D_AXIS}</td>
+                  <td>{item.R_D_VA}</td>
+                  <td>{item.L_D_SPH}</td>
+                  <td>{item.L_D_CYL}</td>
+                  <td>{item.L_D_AXIS}</td>
+                  <td>{item.L_D_VA}</td>
+                </tr>
 
-          <tr className="border border-dark">
-            <td>Near</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-
-          <tr className="border border-dark">
-            <td>Add</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+                <tr className="border border-dark">
+                  <td>Near</td>
+                  <td>{item.R_N_SPH}</td>
+                  <td>{item.R_N_CYL}</td>
+                  <td>{item.R_N_AXIS}</td>
+                  <td>{item.R_N_VA}</td>
+                  <td>{item.L_N_SPH}</td>
+                  <td>{item.L_N_CYL}</td>
+                  <td>{item.L_N_AXIS}</td>
+                  <td>{item.L_N_VA}</td>
+                </tr>
+              </React.Fragment>)
+          }) : (
+            <tr>
+              <td colSpan="9">No record available</td>
+            </tr>
+          )
+          }
 
         </tbody>
 
@@ -360,49 +364,36 @@ export default function PatientHistory() {
 
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
 
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {anterior.length > 0 ? anterior.map((item, i) => {
+            return (
+              <tr key={i}>
+                <td>{new Date(item.created_at).toLocaleDateString()}</td>
+                <td>{item.R_Intraocular_pressure_NCT}</td>
+                <td>{item.R_Intraocular_pressure_Tonopen}</td>
+                <td>{item.R_Intraocular_pressure_AT}</td>
+                <td>{item.R_Eyelids}</td>
+                <td>{item.R_Eyelashes}</td>
+                <td>{item.R_Orbit}</td>
+                <td>{item.R_Extraocular_movements}</td>
+                <td>{item.R_Eye_position}</td>
+                <td>{item.R_Sclera_episclera}</td>
+                <td>{item.R_Conjunctiva}</td>
+                <td>{item.R_Cornea}</td>
+                <td>{item.R_Anterior_chamber}</td>
+                <td>{item.R_Angles}</td>
+                <td>{item.R_Iris_pupil}</td>
+                <td>{item.R_Lens}</td>
+                <td>{item.R_Lacrimal_syringing}</td>
+                <td>{item.R_Gonioscopy}</td>
+                <td>{item.R_Others}</td>
+
+              </tr>)
+          })
+            : (<tr>
+              <td colSpan="19">No record available</td>
+            </tr>)
+          }
         </tbody>
       </table>
 
@@ -437,49 +428,35 @@ export default function PatientHistory() {
 
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {anterior.length > 0 ? anterior.map((item, i) => {
+            return (
+              <tr key={i}>
+                <td>{new Date(item.created_at).toLocaleDateString()}</td>
+                <td>{item.L_Intraocular_pressure_NCT}</td>
+                <td>{item.L_Intraocular_pressure_Tonopen}</td>
+                <td>{item.L_Intraocular_pressure_AT}</td>
+                <td>{item.L_Eyelids}</td>
+                <td>{item.L_Eyelashes}</td>
+                <td>{item.L_Orbit}</td>
+                <td>{item.L_Extraocular_movements}</td>
+                <td>{item.L_Eye_position}</td>
+                <td>{item.L_Sclera_episclera}</td>
+                <td>{item.L_Conjunctiva}</td>
+                <td>{item.L_Cornea}</td>
+                <td>{item.L_Anterior_chamber}</td>
+                <td>{item.L_Angles}</td>
+                <td>{item.L_Iris_pupil}</td>
+                <td>{item.L_Lens}</td>
+                <td>{item.L_Lacrimal_syringing}</td>
+                <td>{item.L_Gonioscopy}</td>
+                <td>{item.L_Others}</td>
 
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+              </tr>)
+          })
+            : (<tr>
+              <td colSpan="19">No record available</td>
+            </tr>)
+          }
         </tbody>
       </table>
     </div>
@@ -523,56 +500,31 @@ export default function PatientHistory() {
           </tr>
         </thead>
         <tbody>
-          <tr className="border border-dark">
-            <td></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {posterior.length > 0 ? posterior.map((item, i) => {
+            return (
+              <tr key={i} className="border border-dark">
+                <td>{new Date(item.created_at).toLocaleDateString()}</td>
+                <td>{item.R_Macula}</td>
+                <td>{item.R_Media}</td>
+                <td>{item.R_Optic_nerve_head}</td>
+                <td>{item.R_Retina}</td>
+                <td>{item.R_Choroid}</td>
+                <td>{item.R_Vitreous}</td>
+                <td>{item.R_Others}</td>
+                <td>{item.L_Macula}</td>
+                <td>{item.L_Media}</td>
+                <td>{item.L_Optic_nerve_head}</td>
+                <td>{item.L_Retina}</td>
+                <td>{item.L_Choroid}</td>
+                <td>{item.L_Vitreous}</td>
+                <td>{item.L_Others}</td>
 
-          <tr className="border border-dark">
-            <td></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-
-          <tr className="border border-dark">
-            <td></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+              </tr>)
+          })
+            : (<tr>
+              <td colSpan="15">No record available</td>
+            </tr>)
+          }
         </tbody>
 
       </table>

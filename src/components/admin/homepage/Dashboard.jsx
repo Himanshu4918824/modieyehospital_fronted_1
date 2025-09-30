@@ -10,6 +10,7 @@ export default function DashBoard() {
 
   useEffect(() => {
     getPatientData("v1/patient/1");
+    // console.log(patientData)
   }, []);
 
   var data = [
