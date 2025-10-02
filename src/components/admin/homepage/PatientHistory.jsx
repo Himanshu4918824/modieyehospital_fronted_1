@@ -4,228 +4,24 @@ import Vision from '../forms/Vision';
 import Refraction from '../forms/Refraction';
 import Anterior from '../forms/Anterior';
 import Posterior from '../forms/Posterior';
+import { useContext } from 'react';
+import MainContext from '../../../context/MainContext';
+import React, { useEffect } from 'react';
 
 export default function PatientHistory() {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
 
+  const { vision, Medicine, refractionData, anterior, posterior } = useContext(MainContext)
+  const [activeDate, setActiveDate] = useState(vision[0].created_at);
 
-  const records = [
-    {
-      date: "25-09-2025",
-      rows: [
-        {
-          right: {
-            unaided: "6/36P",
-            pinhole: "NI",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "6/36P",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N24",
-          },
-          left: {
-            unaided: "6/12P",
-            pinhole: "NI",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "6/12P",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N10",
-          },
-        },
-      ],
-    },
-    {
-      date: "24-09-2025",
-      rows: [
-        {
-          right: {
-            unaided: "6/18",
-            pinhole: "",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N12",
-          },
-          left: {
-            unaided: "6/9",
-            pinhole: "",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N6",
-          },
-        },
-      ],
-    },
+  const activeRecord = vision.find((rec) => rec.created_at === activeDate);
 
-    {
-      date: "24-09-2025",
-      rows: [
-        {
-          right: {
-            unaided: "6/18",
-            pinhole: "",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N12",
-          },
-          left: {
-            unaided: "6/9",
-            pinhole: "",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N6",
-          },
-        },
-      ],
-    },
-
-    {
-      date: "24-09-2025",
-      rows: [
-        {
-          right: {
-            unaided: "6/18",
-            pinhole: "",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N12",
-          },
-          left: {
-            unaided: "6/9",
-            pinhole: "",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N6",
-          },
-        },
-      ],
-    },
-
-    {
-      date: "24-09-2025",
-      rows: [
-        {
-          right: {
-            unaided: "6/18",
-            pinhole: "",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N12",
-          },
-          left: {
-            unaided: "6/9",
-            pinhole: "",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N6",
-          },
-        },
-      ],
-    },
-
-    {
-      date: "24-09-2025",
-      rows: [
-        {
-          right: {
-            unaided: "6/18",
-            pinhole: "",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N12",
-          },
-          left: {
-            unaided: "6/9",
-            pinhole: "",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N6",
-          },
-        },
-      ],
-    },
-
-    {
-      date: "24-09-2025",
-      rows: [
-        {
-          right: {
-            unaided: "6/18",
-            pinhole: "",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N12",
-          },
-          left: {
-            unaided: "6/9",
-            pinhole: "",
-            ct: "",
-            pmt: "",
-            prev: "",
-            current: "",
-            nearUnaided: "",
-            nearPrev: "",
-            nearCurrent: "N6",
-          },
-        },
-      ],
-    },
-    
-  ];
-
-  const [activeDate, setActiveDate] = useState(records[0].date);
-
-  const activeRecord = records.find((rec) => rec.date === activeDate);
-
+  useEffect(() => {
+    if (vision.length > 0 && !activeDate) {
+      setActiveDate(vision[0].created_at);
+    }
+  }, [vision, activeDate])
 
 
   const openDialog = (e) => {
@@ -312,72 +108,72 @@ export default function PatientHistory() {
 
     <div className="table-responsive mb-3">
 
-       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
 
         <h3 className="fs-5 m-0">Medicines</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Medicines")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
-        
+
       </div>
 
       <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
         <thead>
           <tr className="table-secondary">
-            <th style={{ width: '35%' }}> Medicine</th>
-            <th>Qty.</th>
-            <th style={{ width: '20%' }}>Dosa</th>
+            <th style={{ width: '25%' }}> Medicine</th>
+            <th>Days</th>
+            <th style={{ width: '20%' }}>Dose</th>
             <th>Intake</th>
             <th>Comment</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {Medicine.length > 0 ? Medicine.map((item, i) => {
+            return (
+              <tr key={i}>
+                <td>{item.medicine}</td>
+                <td>{item.Days}</td>
+                <td>{item.Dose}</td>
+                <td>{item.Intake}</td>
+                <td>{item.message}</td>
+              </tr>
+            )
+          }
+          ) : (<tr>
+            <td colSpan="5">No record available</td>
+          </tr>)
+          }
         </tbody>
       </table>
     </div>
 
 
     <div className="table-responsive mb-3">
-       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
 
         <h3 className="fs-5 m-0">Vision</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Vision")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
-        
+
       </div>
 
-      
-      {/* these are the date tabs which is used to see different appointment data in the table */}
-      <div className="hide-scrollbar" style={{overflowX:'auto', whiteSpace:'nowrap', padding: '4px 0', background: '#f5f5f5',borderRadius: 6,marginBottom: '16px',scrollbarWidth:'none',msOverflowStyle:'none'}}>
 
-      <ul className="nav nav-tabs mb-3"  style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
-        {records.map((rec,i) => (
-          <li className="nav-item" key={rec.date}>
-            <button
-              className={`nav-link ${rec.date === activeDate ? "active" : ""}`}
-              onClick={() => setActiveDate(rec.date)}
-            >
-              {rec.date} Appoint: {i + 1}
-            </button>
-          </li>
-        ))}
-      </ul>
+      {/* these are the date tabs which is used to see different appointment data in the table */}
+      <div className="hide-scrollbar" style={{overflowX:'auto', whiteSpace:'nowrap', padding: '4px 0', background: '#f5f5f5',borderRadius: 6,marginBottom: '16px',scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
+
+        <ul className="nav nav-tabs mb-3" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
+          {vision.map((rec, i) => (
+            <li className="nav-item" key={i}>
+              <button
+                className={`nav-link ${rec.created_at === activeDate ? "active" : ""}`}
+                onClick={() => setActiveDate(rec.created_at)}
+              >
+                {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
 
       </div>
 
@@ -390,55 +186,59 @@ export default function PatientHistory() {
           </tr>
         </thead>
         <tbody>
-          {activeRecord.rows.map((row, idx) => (
+          {activeRecord ? (
             <>
-              <tr key={`unaided-${idx}`}>
+              <tr>
                 <td>Distance unaided</td>
-                <td>{row.right.unaided}</td>
-                <td>{row.left.unaided}</td>
+                <td>{activeRecord.R_Distance_unaided}</td>
+                <td>{activeRecord.L_Distance_unaided}</td>
               </tr>
-              <tr key={`pinhole-${idx}`}>
+              <tr>
                 <td>Distance With Pin Hole</td>
-                <td>{row.right.pinhole}</td>
-                <td>{row.left.pinhole}</td>
+                <td>{activeRecord.R_Distance_With_Pin_Hole}</td>
+                <td>{activeRecord.L_Distance_With_Pin_Hole}</td>
               </tr>
-              <tr key={`ct-${idx}`}>
+              <tr>
                 <td>Distance With CT</td>
-                <td>{row.right.ct}</td>
-                <td>{row.left.ct}</td>
+                <td>{activeRecord.R_Distance_With_CT}</td>
+                <td>{activeRecord.L_Distance_With_CT}</td>
               </tr>
-              <tr key={`pmt-${idx}`}>
+              <tr>
                 <td>Distance With PMT</td>
-                <td>{row.right.pmt}</td>
-                <td>{row.left.pmt}</td>
+                <td>{activeRecord.R_Distance_With_PMT}</td>
+                <td>{activeRecord.L_Distance_With_PMT}</td>
               </tr>
-              <tr key={`prev-${idx}`}>
+              <tr>
                 <td>Distance With Previous Glasses</td>
-                <td>{row.right.prev}</td>
-                <td>{row.left.prev}</td>
+                <td>{activeRecord.R_Distance_with_previous_glasses}</td>
+                <td>{activeRecord.L_Distance_with_previous_glasses}</td>
               </tr>
-              <tr key={`current-${idx}`}>
+              <tr>
                 <td>Distance With Current Subjective</td>
-                <td>{row.right.current}</td>
-                <td>{row.left.current}</td>
+                <td>{activeRecord.R_Distance_with_current_subjective}</td>
+                <td>{activeRecord.L_Distance_with_current_subjective}</td>
               </tr>
-              <tr key={`nearUnaided-${idx}`}>
+              <tr>
                 <td>Near Unaided</td>
-                <td>{row.right.nearUnaided}</td>
-                <td>{row.left.nearUnaided}</td>
+                <td>{activeRecord.R_Near_unaided}</td>
+                <td>{activeRecord.L_Near_unaided}</td>
               </tr>
-              <tr key={`nearPrev-${idx}`}>
+              <tr>
                 <td>Near With Previous Glasses</td>
-                <td>{row.right.nearPrev}</td>
-                <td>{row.left.nearPrev}</td>
+                <td>{activeRecord.R_Near_with_previous_glasses}</td>
+                <td>{activeRecord.L_Near_with_previous_glasses}</td>
               </tr>
-              <tr key={`nearCurrent-${idx}`}>
+              <tr>
                 <td>Near With Current Subjective</td>
-                <td>{row.right.nearCurrent}</td>
-                <td>{row.left.nearCurrent}</td>
+                <td>{activeRecord.R_Near_with_current_subjective}</td>
+                <td>{activeRecord.L_Near_with_current_subjective}</td>
               </tr>
             </>
-          ))}
+          ) : (
+            <tr>
+              <td colSpan="3">No record available</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
@@ -446,13 +246,13 @@ export default function PatientHistory() {
 
     <div className="table-responsive mb-3">
 
-     <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
 
         <h3 className="fs-5 m-0">Refraction</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Refraction")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
         </button>
-        
+
       </div>
 
 
@@ -466,7 +266,7 @@ export default function PatientHistory() {
 
 
           <tr className="table-secondary border border-dark ">
-            <th className="text-start fw-bold">Refraction</th>
+            <th className="fw-bold">Refraction</th>
             <th>Sph</th>
             <th>Cyl</th>
             <th>Axis</th>
@@ -478,42 +278,46 @@ export default function PatientHistory() {
           </tr>
         </thead>
         <tbody>
-          <tr className="border border-dark">
-            <td rowSpan={3}></td>
-            <td >Distance</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {refractionData.length > 0 ? refractionData.map((item, i) => {
+            return (
+              <React.Fragment key={i}>
+                <tr className="border border-dark">
+                  <td rowSpan={3}>Date : {new Date(item.created_at).toLocaleDateString()}
+                    <br />
+                    R.T.:{item.refractionType}
+                    <br />
+                    Glass:{item.Glass_Type}
+                  </td>
+                  <td >Distance</td>
+                  <td>{item.R_D_SPH}</td>
+                  <td>{item.R_D_CYL}</td>
+                  <td>{item.R_D_AXIS}</td>
+                  <td>{item.R_D_VA}</td>
+                  <td>{item.L_D_SPH}</td>
+                  <td>{item.L_D_CYL}</td>
+                  <td>{item.L_D_AXIS}</td>
+                  <td>{item.L_D_VA}</td>
+                </tr>
 
-          <tr className="border border-dark">
-            <td>Near</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+                <tr className="border border-dark">
+                  <td>Near</td>
+                  <td>{item.R_N_SPH}</td>
+                  <td>{item.R_N_CYL}</td>
+                  <td>{item.R_N_AXIS}</td>
+                  <td>{item.R_N_VA}</td>
+                  <td>{item.L_N_SPH}</td>
+                  <td>{item.L_N_CYL}</td>
+                  <td>{item.L_N_AXIS}</td>
+                  <td>{item.L_N_VA}</td>
+                </tr>
+              </React.Fragment>)
+          }) : (
+            <tr>
+              <td colSpan="9">No record available</td>
+            </tr>
+          )
+          }
 
-          <tr className="border border-dark">
-            <td>Add</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          
         </tbody>
 
       </table>
@@ -521,16 +325,13 @@ export default function PatientHistory() {
 
 
 
+    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <h3 className="fs-5 m-0">Anterior</h3>
+      <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Anterior")}>
+        <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+      </button>
+    </div>
     <div className="table-responsive mb-3">
-
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
-
-        <h3 className="fs-5 m-0">Anterior</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Anterior")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
-        </button>
-        
-      </div>
 
       <table className="table table-bordered border-dark w-100 text-center align-middle">
         <thead>
@@ -563,49 +364,36 @@ export default function PatientHistory() {
 
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
 
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {anterior.length > 0 ? anterior.map((item, i) => {
+            return (
+              <tr key={i}>
+                <td>{new Date(item.created_at).toLocaleDateString()}</td>
+                <td>{item.R_Intraocular_pressure_NCT}</td>
+                <td>{item.R_Intraocular_pressure_Tonopen}</td>
+                <td>{item.R_Intraocular_pressure_AT}</td>
+                <td>{item.R_Eyelids}</td>
+                <td>{item.R_Eyelashes}</td>
+                <td>{item.R_Orbit}</td>
+                <td>{item.R_Extraocular_movements}</td>
+                <td>{item.R_Eye_position}</td>
+                <td>{item.R_Sclera_episclera}</td>
+                <td>{item.R_Conjunctiva}</td>
+                <td>{item.R_Cornea}</td>
+                <td>{item.R_Anterior_chamber}</td>
+                <td>{item.R_Angles}</td>
+                <td>{item.R_Iris_pupil}</td>
+                <td>{item.R_Lens}</td>
+                <td>{item.R_Lacrimal_syringing}</td>
+                <td>{item.R_Gonioscopy}</td>
+                <td>{item.R_Others}</td>
+
+              </tr>)
+          })
+            : (<tr>
+              <td colSpan="19">No record available</td>
+            </tr>)
+          }
         </tbody>
       </table>
 
@@ -640,64 +428,50 @@ export default function PatientHistory() {
 
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {anterior.length > 0 ? anterior.map((item, i) => {
+            return (
+              <tr key={i}>
+                <td>{new Date(item.created_at).toLocaleDateString()}</td>
+                <td>{item.L_Intraocular_pressure_NCT}</td>
+                <td>{item.L_Intraocular_pressure_Tonopen}</td>
+                <td>{item.L_Intraocular_pressure_AT}</td>
+                <td>{item.L_Eyelids}</td>
+                <td>{item.L_Eyelashes}</td>
+                <td>{item.L_Orbit}</td>
+                <td>{item.L_Extraocular_movements}</td>
+                <td>{item.L_Eye_position}</td>
+                <td>{item.L_Sclera_episclera}</td>
+                <td>{item.L_Conjunctiva}</td>
+                <td>{item.L_Cornea}</td>
+                <td>{item.L_Anterior_chamber}</td>
+                <td>{item.L_Angles}</td>
+                <td>{item.L_Iris_pupil}</td>
+                <td>{item.L_Lens}</td>
+                <td>{item.L_Lacrimal_syringing}</td>
+                <td>{item.L_Gonioscopy}</td>
+                <td>{item.L_Others}</td>
 
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+              </tr>)
+          })
+            : (<tr>
+              <td colSpan="19">No record available</td>
+            </tr>)
+          }
         </tbody>
       </table>
     </div>
 
 
+    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+
+      <h3 className="fs-5 m-0">Posterior</h3>
+      <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Posterior")}>
+        <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+      </button>
+
+    </div>
     <div className="table-responsive mb-3">
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
-
-        <h3 className="fs-5 m-0">Posterior</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Posterior")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
-        </button>
-        
-      </div>
 
       <table className="table table-bordered border-dark w-100 text-center align-middle">
         <thead>
@@ -726,56 +500,31 @@ export default function PatientHistory() {
           </tr>
         </thead>
         <tbody>
-          <tr className="border border-dark">
-            <td></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {posterior.length > 0 ? posterior.map((item, i) => {
+            return (
+              <tr key={i} className="border border-dark">
+                <td>{new Date(item.created_at).toLocaleDateString()}</td>
+                <td>{item.R_Macula}</td>
+                <td>{item.R_Media}</td>
+                <td>{item.R_Optic_nerve_head}</td>
+                <td>{item.R_Retina}</td>
+                <td>{item.R_Choroid}</td>
+                <td>{item.R_Vitreous}</td>
+                <td>{item.R_Others}</td>
+                <td>{item.L_Macula}</td>
+                <td>{item.L_Media}</td>
+                <td>{item.L_Optic_nerve_head}</td>
+                <td>{item.L_Retina}</td>
+                <td>{item.L_Choroid}</td>
+                <td>{item.L_Vitreous}</td>
+                <td>{item.L_Others}</td>
 
-          <tr className="border border-dark">
-            <td></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-
-          <tr className="border border-dark">
-            <td></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td ></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+              </tr>)
+          })
+            : (<tr>
+              <td colSpan="15">No record available</td>
+            </tr>)
+          }
         </tbody>
 
       </table>
@@ -784,7 +533,7 @@ export default function PatientHistory() {
 
 
 
-       
+
     {renderModal()}
 
   </div>)
