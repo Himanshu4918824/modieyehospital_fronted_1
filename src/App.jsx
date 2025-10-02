@@ -28,11 +28,12 @@ import Report from "./components/admin/forms/Report";
 import Doctor from "./components/admin/forms/Doctor";
 import Charges from "./components/admin/forms/Charges";
 import Payment from "./components/admin/forms/Payment";
+import ShowPatientDetails from "./components/admin/homepage/ShowPatientDetails";
 
 function App() {
 
   return (
-  <div className="px-3">
+  <div>
     <Router>
       <Routes>
         <Route element={<DoctorConcern/>} path="/doctorconcern"></Route>
@@ -58,6 +59,9 @@ function App() {
         <Route element={<Doctor/>} path="/doctor"></Route>
         <Route element={<Charges/>} path="/charge"></Route>
         <Route element={<Payment/>} path="/payment"></Route>
+
+
+        <Route element={<ShowPatientDetails/>} path="/showpatient"></Route>
       </Routes>
     </Router>
   </div>)
