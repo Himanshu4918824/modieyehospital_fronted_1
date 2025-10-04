@@ -9,7 +9,7 @@ export default function OPDManager() {
   const openDialog = () => setShowDialog(true);
   const closeDialog = () => setShowDialog(false);
 
-  
+
   const showPage = (props) => {
     if (props === "registration") {
       return (
@@ -17,7 +17,7 @@ export default function OPDManager() {
           <RegistrationFrom />
         </div>
       );
-    } 
+    }
     else if (props === "bookappoint") {
       return (
         <div>
@@ -34,16 +34,15 @@ export default function OPDManager() {
     return (
       <div>
         <div className="modal show d-block" tabIndex="-1">
-          <div className="modal-dialog modal-dialog-centered"  style={{ maxWidth: 600, width: "92%", minHeight: 100 }} >
+          <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 600, width: "92%", minHeight: 100 }} >
             <div className="modal-content" style={{ minHeight: 400, height: 500 }}>
               <div className="modal-header">
                 <button onClick={() => setModalPage("registration")} className="btn btn-warning btn-sm m-1"> Registration </button>
                 <button onClick={() => setModalPage("bookappoint")} className="btn btn-warning btn-sm m-1">BookAppointment</button>
-
                 <button type="button" className="btn-close" onClick={closeDialog}></button>
               </div>
 
-              <div className="modal-body">
+              <div className="modal-body overflow-auto" style={{ height: 400 }}>
                 {showPage(modalPage)}
               </div>
 

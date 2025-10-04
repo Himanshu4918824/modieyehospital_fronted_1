@@ -4,12 +4,15 @@ import DoctorConcern from "./DoctorConcern";
 import PatientHistory from "./PatientHistory";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
+import { useParams } from "react-router-dom";
 
 export default function DashBoard() {
-  const { patientData, getPatientData } = useContext(MainContext);
+  const { patientData, getPatientData, SetP_id } = useContext(MainContext);
+  const { id } = useParams();
 
   useEffect(() => {
-    getPatientData("v1/patient/1");
+    getPatientData(`v1/patient/${id}`);
+    SetP_id(id)
     // console.log(patientData)
   }, []);
 

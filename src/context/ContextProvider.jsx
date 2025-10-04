@@ -3,6 +3,11 @@ import { getData, postData } from "../services/FetchNodeAdminServices"
 import { useState } from 'react'
 
 const ContextProvider = ({ children }) => {
+
+
+  const [ P_id, SetP_id ] = useState('')
+
+
   const [diagnosisList, setDiagnosisList] = useState([])
   const [patientData, SetPatientData] = useState({
     Age: "",
@@ -42,7 +47,8 @@ const ContextProvider = ({ children }) => {
     Systemic_illness: "",
     Treatment_Histroy: "",
     appointmentId: "",
-    id: ""
+    id: "",
+    created_at: "",
   }])
 
   const [Advise, setAdvise] = useState([{
@@ -156,6 +162,25 @@ const ContextProvider = ({ children }) => {
     patientId: "",
   }]);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const getPatientData = async (url) => {
     try {
       const data = await getData(url);
@@ -170,7 +195,7 @@ const ContextProvider = ({ children }) => {
         RegDt: new Date(data.created_at).toLocaleDateString() || "",
         FullName: data.FullName || "",
         Dob: new Date(data.DOB).toLocaleDateString() || "",
-        Latest_Apt: data.Appointment[0].i || ""
+        Latest_Apt: data.Appointment[0].id || ""
       })
       SetVision(data.Vision)
       setHistroy(data.History)
@@ -229,7 +254,7 @@ const ContextProvider = ({ children }) => {
     }
   }
   return (
-    <MainContext.Provider value={{ getPatientData, diagnosisList, patientData, vision, Histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior }}>
+    <MainContext.Provider value={{ getPatientData, diagnosisList, patientData, vision, Histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id , P_id }}>
       {children}
     </MainContext.Provider>
   )
