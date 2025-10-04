@@ -16,7 +16,7 @@ import MainContext from "../../../context/MainContext";
 export default function DoctorConcern() {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
-  const { diagnosisList, Histroy, Advise, treatment , complaint } = useContext(MainContext)
+  const { diagnosisList, Histroy, Advise, treatment, complaint } = useContext(MainContext)
   const doctor = []
   const openDialog = (e) => {
     setShowDialog(true);
@@ -28,7 +28,7 @@ export default function DoctorConcern() {
     if (props === "Complaints") {
       return (
         <div>
-          <Complaint />
+          <Complaint stat = 'complaint'/>
         </div>
       );
     }
@@ -42,7 +42,7 @@ export default function DoctorConcern() {
     else if (props === "Allegries") {
       return (
         <div>
-          <Allegries />
+          <Allegries stat = 'allergies'/>
         </div>
       );
     }
@@ -63,14 +63,14 @@ export default function DoctorConcern() {
     else if (props === "Treatment") {
       return (
         <div>
-          <Treatment />
+          <Treatment stat="treatment" />
         </div>
       );
     }
     else if (props === "Advice") {
       return (
         <div>
-          <Advice />
+          <Advice stat="advise" />
         </div>
       );
     }
@@ -200,7 +200,7 @@ export default function DoctorConcern() {
           {Histroy.length > 0 ?
             Histroy.map((item, i) => {
               return (<tr key={i} style={{ height: "20px" }}>
-                <td className="p-1">{item.D_id}</td>
+                <td className="p-1">{new Date(item.created_at).toLocaleDateString()}</td>
                 <td className="p-1">{item.Systemic_illness}</td>
                 <td className="p-1">{item.Treatment_Histroy}</td>
                 <td className="p-1">{item.Dite_Histroy}</td>

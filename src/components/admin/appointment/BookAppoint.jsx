@@ -97,11 +97,11 @@ export default function BookAppoint(props)
 
             <div className="row" style={{marginBottom:5,marginTop:20}}>
                <div className="col-6" style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                  <button onClick={handleSubmit} type="button" class="btn btn-primary">Book Now</button>
+                  <button onClick={handleSubmit} type="button" className="btn btn-primary">Book Now</button>
                 </div>
 
                 <div className="col-6" style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                  <button type="button" onClick={resetData} class="btn btn-primary">Cancel</button>
+                  <button type="button" onClick={resetData} className="btn btn-primary">Cancel</button>
                 </div>
 
             </div>
