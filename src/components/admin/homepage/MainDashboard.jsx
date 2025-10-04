@@ -68,12 +68,11 @@ export default function OPDManager() {
         <button className="btn btn-danger btn-sm m-1">Waiting [0]</button>
         <button className="btn btn-outline-secondary btn-sm m-1">Return [1196]{" "} </button>
         <button onClick={openDialog} className="btn btn-outline-dark btn-sm m-1">Appointment</button>
-        <button className="btn btn-outline-dark btn-sm m-1">Track</button>
-        <button className="btn btn-outline-dark btn-sm m-1">Calendar</button>
 
         {renderModal()}
       </div>
 
+     {/*
       <div className="card p-3 mb-3">
         <div className="row g-2">
           <div className="col-md-3">
@@ -121,26 +120,27 @@ export default function OPDManager() {
         </div>
       </div>
 
+  */}
+
       <div className="table-responsive">
         <table className="table table-bordered table-sm">
           <thead className="table-secondary">
             <tr>
               <th>Seq</th>
-              <th>MRNO</th>
+              <th>Status</th>
               <th>Patient Name</th>
               <th>Age/Sex</th>
-              <th>Appt</th>
-              <th>Rpt</th>
-              <th>Category</th>
-              <th>Dept</th>
-              <th>Reason</th>
-              <th>Return</th>
+              <th>Appointment Id</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Contact</th>
+              <th>Doctor</th>
               <th>Remarks</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td colSpan="11" className="text-center">
+              <td colSpan="10" className="text-center">
                 No Data Available
               </td>
             </tr>

@@ -160,7 +160,7 @@ export default function PatientHistory() {
 
 
       {/* these are the date tabs which is used to see different appointment data in the table */}
-      <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '4px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '16px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div className="hide-scrollbar" style={{overflowX:'auto', whiteSpace:'nowrap', padding: '4px 0', background: '#f5f5f5',borderRadius: 6,marginBottom: '16px',scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
 
         <ul className="nav nav-tabs mb-3" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
           {vision.map((rec, i) => (
