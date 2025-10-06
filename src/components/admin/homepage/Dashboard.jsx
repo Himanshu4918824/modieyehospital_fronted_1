@@ -75,7 +75,7 @@ export default function DashBoard() {
           <div className="col-xs-12 col-lg-3">
             <div className="input-group">
               <span className="input-group-text">Doctor Name</span>
-              <input type="text" className="form-control" />
+              <input type="text" className="form-control" disabled />
             </div>
           </div>
 
@@ -100,14 +100,14 @@ export default function DashBoard() {
           <div className="col-xs-12 col-lg-3">
             <div className="input-group">
               <span className="input-group-text">Reffered By:</span>
-              <input type="text" className="form-control" />
+              <input type="text" className="form-control" disabled />
             </div>
           </div>
 
           <div className="col-xs-12 col-lg-3">
             <div className="input-group">
               <span className="input-group-text">Insurance:</span>
-              <input type="text" className="form-control" />
+              <input type="text" className="form-control" disabled />
             </div>
           </div>
 
@@ -147,14 +147,14 @@ export default function DashBoard() {
           <div className="col-xs-12 col-lg-3">
             <div className="input-group">
               <span className="input-group-text">Last Visit Date:</span>
-              <input type="text" className="form-control" />
+              <input type="text" className="form-control" disabled value={patientData.Latest_Apt_Date} />
             </div>
           </div>
 
         </div>
 
 
-
+  
 
 
 

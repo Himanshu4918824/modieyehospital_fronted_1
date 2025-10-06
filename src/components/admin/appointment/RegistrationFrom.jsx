@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 export default function RegistrationFrom() {
     const [name, setName] = useState('');
     const [MobileNumber, setMobileNumber] = useState('');
+    const [Emgr_mobile_no, setEmgr_mobile_no] = useState('');
     const [gender, setGender] = useState('');
     const [date, setDate] = useState('');
     const [age, setAge] = useState('');
@@ -13,6 +14,7 @@ export default function RegistrationFrom() {
     const [city, setCity] = useState('');
     const [reffered, setReffered] = useState('');
     const [insurance, setInsurance] = useState('');
+    const [Blood_group, setBloodGroup] = useState('');
 
     const resetData = () => {
         setName('');
@@ -29,22 +31,28 @@ export default function RegistrationFrom() {
 
 
     const handleSubmit = async () => {
-        var formData = new FormData()
+        const formData = new FormData()
 
-        formData.append('name', name);
-        formData.append('mobilenumber', MobileNumber);
-        formData.append('gender', gender);
-        formData.append('date', date);
-        formData.append('age', age);
-        formData.append('address', address);
-        formData.append('state', state);
-        formData.append('city', city);
-        formData.append('reffered', reffered);
-        formData.append('insurance', insurance);
-        formData.append('created_at', currentDate());
-        formData.append('updated_at', currentDate());
+        formData.append('FullName', name);
+        formData.append('Phone', MobileNumber);
+        formData.append('Gender', gender);
+        formData.append('DOB', new Date(date).toISOString());
+        formData.append('Age', age);
+        formData.append('Address', address);
+        formData.append('State', state);
+        formData.append('City', city);
+        formData.append('Reffered_by', reffered);
+        formData.append('Insurance', insurance);
+        formData.append('Blood_group', Blood_group);
+        formData.append('Emgr_mobile_no', Emgr_mobile_no);
 
-        var result = await postData('', formData)
+        const formDataObj = {};
+
+        formData.forEach((value, key) => {
+            formDataObj[key] = value;
+        })
+        console.log(formDataObj)
+        const result = await postData('v1/patient/NewPatient', formDataObj)
 
         if (result.status) {
             Swal.fire({
@@ -118,31 +126,32 @@ export default function RegistrationFrom() {
 
                     <div className="row" style={{ marginBottom: 7 }}>
                         <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
-                            <select className="form-select"
-                                value={state}
-                                onChange={(e) => setState(e.target.value)}
-                                required
-                            >
-                                <option >Select-State</option>
-                                <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                <option value="Tamil Nadhu">Tamil Nadhu</option>
-                                <option value='Rajasthan'>Rajasthan</option>
-                                <option value='Delhi'>Delhi</option>
-                            </select>
+                            <input required type="text" className="form-control" value={state} placeholder="State" onChange={(e) => setState(e.target.value)} />
                         </div>
 
                         <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
+                            <input required type="text" className="form-control" value={city} placeholder="City" onChange={(e) => setCity(e.target.value)} />
+                        </div>
+                        <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
+                            <input required type="text" className="form-control" placeholder="Enter Mobile Number" value={Emgr_mobile_no} onChange={(e) => setEmgr_mobile_no(e.target.value)} />
+                        </div>
+                        <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
                             <select className="form-select"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
+                                value={Blood_group}
+                                onChange={(e) => setBloodGroup(e.target.value)}
                                 required
 
                             >
-                                <option >City/Village</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="Other">Other</option>
+                                <option >Blood Group</option>
+                                <option value="O_NEG">O-</option>
+                                <option value="O_POS">O+</option>
+                                <option value="A_POS">A+</option>
+                                <option value="A_NEG">A-</option>
+                                <option value="B_POS">B+</option>
+                                <option value="B_NEG">B-</option>
+                                <option value="AB_POS">AB+</option>
+                                <option value="AB_NEG">AB-</option>
+
                             </select>
                         </div>
 
