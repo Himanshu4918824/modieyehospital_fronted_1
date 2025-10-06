@@ -2,8 +2,17 @@ import { useState } from "react";
 import RegistrationFrom from "../appointment/RegistrationFrom";
 import BookAppoint from "../appointment/BookAppoint";
 import Header from "../homepage/Header";
+import { useContext } from "react";
+import MainContext from "../../../context/MainContext";
+import { useEffect } from "react";
 
-export default function OPDManager() {
+export default function MainDashboard() {
+  const { getAllTodayAppointments, allTodayAppointments } = useContext(MainContext)
+  useEffect(() => {
+    getAllTodayAppointments()
+
+  }, [])
+
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("registration");
 
@@ -34,7 +43,7 @@ export default function OPDManager() {
 
     return (
       <div>
-        
+
         <div className="modal show d-block" tabIndex="-1">
           <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 600, width: "92%", minHeight: 100 }} >
             <div className="modal-content" style={{ minHeight: 400, height: 500 }}>
@@ -57,12 +66,11 @@ export default function OPDManager() {
     );
   };
 
-  return (
-    <div>
+  return ( <div>
 
-      <div>
-        <Header/>
-      </div>
+          <div>
+           <Header/>
+          </div>
 
     
     <div className="p-3 bg-light">
@@ -78,10 +86,10 @@ export default function OPDManager() {
         <button className="btn btn-outline-secondary btn-sm m-1">Return [1196]{" "} </button>
         <button onClick={openDialog} className="btn btn-outline-dark btn-sm m-1">Appointment</button>
 
-        {renderModal()}
-      </div>
+          {renderModal()}
+        </div>
 
-     {/*
+        {/*
       <div className="card p-3 mb-3">
         <div className="row g-2">
           <div className="col-md-3">
@@ -131,32 +139,55 @@ export default function OPDManager() {
 
   */}
 
-      <div className="table-responsive">
-        <table className="table table-bordered table-sm">
-          <thead className="table-secondary">
-            <tr>
-              <th>Seq</th>
-              <th>Status</th>
-              <th>Patient Name</th>
-              <th>Age/Sex</th>
-              <th>Appointment Id</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Contact</th>
-              <th>Doctor</th>
-              <th>Remarks</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td colSpan="10" className="text-center">
-                No Data Available
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+        <div className="table-responsive">
+          <table className="table table-bordered table-sm">
+            <thead className="table-secondary">
+              <tr>
+                <th className="text-center">Seq</th>
+                <th className="text-center">Status</th>
+                <th className="text-center">Patient Name</th>
+                <th className="text-center">Age/Sex</th>
+                <th className="text-center">Appointment Id</th>
+                <th className="text-center">Date</th>
+                <th className="text-center">Time</th>
+                <th className="text-center">Contact</th>
+                <th className="text-center">Doctor</th>
+                <th className="text-center">Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                allTodayAppointments.length > 0 ? (
+                  
+                    allTodayAppointments.map((item , i) => {
+                      return (<tr key={i}>
+                        <td className="text-center">{i+1}</td>
+                        <td className="text-center">Pending</td>
+                        <td className="text-center">{item.patient.FullName}</td>
+                        <td className="text-center">{item.patient.Gender}/{item.patient.Age}</td>
+                        <td className="text-center">{item.id}</td>
+                        <td className="text-center">{new Date(item.Appointment_date).toLocaleDateString()}</td>
+                        <td className="text-center">none</td>
+                        <td className="text-center">{item.patient.Phone}</td>
+                        <td className="text-center">{item.D_id}</td>
+                        <td className="text-center">None</td>
+                      </tr>
+                      )
+                    }
+                    )
+                  )
+                  : (
+                    <tr>
+                      <td colSpan="10" className="text-center">
+                        No Data Available
+                      </td>
+                    </tr>
+                  )
+              }
+            </tbody>
+          </table>
+        </div>
+      </div >
 
 
 

@@ -162,7 +162,7 @@ export default function PatientHistory() {
 
 
       {/* these are the date tabs which is used to see different appointment data in the table */}
-      <div className="hide-scrollbar" style={{overflowX:'auto', whiteSpace:'nowrap', padding: '4px 0', background: '#f5f5f5',borderRadius: 6,marginBottom: '16px',scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
+      <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '4px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '16px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
         <ul className="nav nav-tabs mb-3" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
           {vision.map((rec, i) => (
@@ -280,17 +280,19 @@ export default function PatientHistory() {
           </tr>
         </thead>
         <tbody>
-          {refractionData.length > 0 ? refractionData.map((item, i) => {
-            return (
+          {refractionData.length > 0 ? (
+            refractionData.map((item, i) => (
               <React.Fragment key={i}>
+                {/* First Row: Distance */}
                 <tr className="border border-dark">
-                  <td rowSpan={3}>Date : {new Date(item.created_at).toLocaleDateString()}
+                  <td rowSpan={2}>
+                    Date : {new Date(item.created_at).toLocaleDateString()}
                     <br />
-                    R.T.:{item.refractionType}
+                    R.T.: {item.refractionType}
                     <br />
-                    Glass:{item.Glass_Type}
+                    Glass: {item.Glass_Type}
                   </td>
-                  <td >Distance</td>
+                  <td>Distance</td>
                   <td>{item.R_D_SPH}</td>
                   <td>{item.R_D_CYL}</td>
                   <td>{item.R_D_AXIS}</td>
@@ -301,6 +303,7 @@ export default function PatientHistory() {
                   <td>{item.L_D_VA}</td>
                 </tr>
 
+                {/* Second Row: Near */}
                 <tr className="border border-dark">
                   <td>Near</td>
                   <td>{item.R_N_SPH}</td>
@@ -312,15 +315,15 @@ export default function PatientHistory() {
                   <td>{item.L_N_AXIS}</td>
                   <td>{item.L_N_VA}</td>
                 </tr>
-              </React.Fragment>)
-          }) : (
+              </React.Fragment>
+            ))
+          ) : (
             <tr>
-              <td colSpan="9">No record available</td>
+              <td colSpan="10">No record available</td>
             </tr>
-          )
-          }
-
+          )}
         </tbody>
+
 
       </table>
     </div>
