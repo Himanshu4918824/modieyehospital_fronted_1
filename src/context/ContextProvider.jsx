@@ -1,13 +1,17 @@
 import MainContext from './MainContext'
-import { getData, postData } from "../services/FetchNodeAdminServices"
+import { getData } from "../services/FetchNodeAdminServices"
 import { useState } from 'react'
+import axios from 'axios'
+import { all } from 'axios'
 
 const ContextProvider = ({ children }) => {
 
 
-  const [ P_id, SetP_id ] = useState('')
+  const [P_id, SetP_id] = useState('')
 
-
+  const [allPatients, setAllPatients] = useState([])
+  const [allTodayAppointments, setAllTodayAppointments] = useState([])
+  const [allDoctors, setAllDoctors] = useState([])
   const [diagnosisList, setDiagnosisList] = useState([])
   const [patientData, SetPatientData] = useState({
     Age: "",
@@ -17,7 +21,8 @@ const ContextProvider = ({ children }) => {
     RegDt: "",
     FullName: "",
     Dob: "",
-    Latest_Apt: ""
+    Latest_Apt: "",
+    Latest_Apt_Date: ""
   })
 
   const [vision, SetVision] = useState([{
@@ -68,7 +73,7 @@ const ContextProvider = ({ children }) => {
     message: ""
   }])
   const [Medicine, setMedicine] = useState([{
-    Medicine: "", days: "", Dosa: "", Intake: "", Comment: ""
+    Medicine: "", days: "", Dosa: "", Intake: "", Comment: "", date: ""
   }])
 
   const [refractionData, setRefractionData] = useState([{
@@ -166,26 +171,11 @@ const ContextProvider = ({ children }) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const getPatientData = async (url) => {
     try {
       const data = await getData(url);
       // return data;
-      // console.log(data)
+      console.log(data)
       setDiagnosisList(data.Diagnosis)
       SetPatientData({
         Age: data.Age || "",
@@ -195,7 +185,8 @@ const ContextProvider = ({ children }) => {
         RegDt: new Date(data.created_at).toLocaleDateString() || "",
         FullName: data.FullName || "",
         Dob: new Date(data.DOB).toLocaleDateString() || "",
-        Latest_Apt: data.Appointment[0].id || ""
+        Latest_Apt: data.Appointment[0].id || "",
+        Latest_Apt_Date: new Date(data.Appointment[0].created_at).toLocaleDateString() || ""
       })
       SetVision(data.Vision)
       setHistroy(data.History)
@@ -233,7 +224,8 @@ const ContextProvider = ({ children }) => {
             Dose: item.Dose || "",
             Intake: item.Intake || "",
             message: item.message || "",
-            medicine: item.medicine || ""
+            medicine: item.medicine || "",
+            date: new Date(item.created_at).toLocaleDateString() || ""
           }))
         );
       }
@@ -252,9 +244,41 @@ const ContextProvider = ({ children }) => {
     } catch (error) {
       console.log(error)
     }
+
+
   }
+  //  fetch all the patients
+  const getAllPatients = async () => {
+    try {
+      const result = await getData('v1/patient/allPatient')
+      console.log(result)
+      setAllPatients(result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  // fetch all the doctors
+  const getAllDoctors = async () => {
+    try {
+      const result = await axios('http://localhost:8000/allDoctors')
+      console.log(result)
+      setAllDoctors(result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const getAllTodayAppointments = async () => {
+    try {
+      const result = await getData('v1/appointment/allAppointment')
+
+      setAllTodayAppointments(result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
-    <MainContext.Provider value={{ getPatientData, diagnosisList, patientData, vision, Histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id , P_id }}>
+    <MainContext.Provider value={{ getPatientData, diagnosisList, patientData, vision, Histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments }}>
       {children}
     </MainContext.Provider>
   )
