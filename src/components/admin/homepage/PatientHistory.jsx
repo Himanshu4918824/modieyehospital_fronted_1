@@ -125,6 +125,7 @@ export default function PatientHistory() {
             <th style={{ width: '20%' }}>Dose</th>
             <th>Intake</th>
             <th>Comment</th>
+            <th>Date</th>
           </tr>
         </thead>
         <tbody>
@@ -136,6 +137,7 @@ export default function PatientHistory() {
                 <td>{item.Dose}</td>
                 <td>{item.Intake}</td>
                 <td>{item.message}</td>
+                <td>{item.date}</td>
               </tr>
             )
           }
@@ -261,7 +263,7 @@ export default function PatientHistory() {
           <tr className="table-secondary border border-dark ">
             <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date & Refraction Type</th>
             <th colSpan={5}>Right Eye</th>
-            <th colSpan={4}>Left Eye</th>
+            <th colSpan={5}>Left Eye</th>
           </tr>
 
 

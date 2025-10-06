@@ -33,6 +33,7 @@ export default function OPDManager() {
 
     return (
       <div>
+        
         <div className="modal show d-block" tabIndex="-1">
           <div className="modal-dialog modal-dialog-centered"  style={{ maxWidth: 600, width: "92%", minHeight: 100 }} >
             <div className="modal-content" style={{ minHeight: 400, height: 500 }}>
@@ -57,6 +58,9 @@ export default function OPDManager() {
   };
 
   return (
+    <div>
+
+    
     <div className="p-3 bg-light">
       <div className="d-flex flex-wrap mb-3">
         <button className="btn btn-warning btn-sm m-1">Reception [0]</button>
@@ -148,6 +152,10 @@ export default function OPDManager() {
           </tbody>
         </table>
       </div>
+    </div>
+
+
+
     </div>
   );
 }
