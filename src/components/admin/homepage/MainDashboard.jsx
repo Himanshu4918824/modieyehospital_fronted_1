@@ -1,6 +1,7 @@
 import { useState } from "react";
 import RegistrationFrom from "../appointment/RegistrationFrom";
 import BookAppoint from "../appointment/BookAppoint";
+import Header from "../homepage/Header";
 
 export default function OPDManager() {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
@@ -58,6 +59,10 @@ export default function OPDManager() {
 
   return (
     <div>
+
+      <div>
+        <Header/>
+      </div>
 
     
     <div className="p-3 bg-light">

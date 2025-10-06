@@ -5,6 +5,7 @@ import PatientHistory from "./PatientHistory";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useParams } from "react-router-dom";
+import Header from "./Header";
 
 export default function DashBoard() {
   const { patientData, getPatientData, SetP_id } = useContext(MainContext);
@@ -51,6 +52,10 @@ export default function DashBoard() {
 
   return (
     <>
+    <div>
+      <Header/>
+    </div>
+    
       <div style={{ background: "lightgrey", width: "100%", textAlign: "center", fontWeight: "bold", }} >
         Doctor Examination
       </div>

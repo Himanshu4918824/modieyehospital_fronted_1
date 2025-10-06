@@ -231,15 +231,11 @@ export default function DoctorConcern() {
         <thead>
           <tr className="table-secondary">
             <th className="p-1">Allergies</th>
-            <th className="p-1">Start Date</th>
-            <th className="p-1">Remarks</th>
           </tr>
         </thead>
 
         <tbody>
           {Report.length > 0 ? <tr style={{ height: "20px" }}>
-            <td className="p-1"></td>
-            <td className="p-1"></td>
             <td className="p-1"></td>
           </tr> : (<tr style={{ height: "20px" }}>
             <td colSpan="3">No record available</td>

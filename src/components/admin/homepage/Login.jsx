@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Header from "./Header";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,12 @@ export default function Login() {
   };
 
   return (
+    <div>
+      <div>
+        <Header/>
+      </div>
+      
+    
     <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
       <div className="card shadow p-4" style={{ width: "350px", borderRadius: "15px" }}>
         <h3 className="text-center mb-4 text-primary">Eye Hospital Login</h3>
@@ -46,11 +53,12 @@ export default function Login() {
         </form>
 
        <p className="text-center mt-3 mb-0">
-          Dont have an account? <a href="/signup">SignUp</a>
+          Dont have an account? <a href="#">SignUp</a>
         </p>
       </div>
     </div>
-  );
+
+ </div> );
 }
 
 
