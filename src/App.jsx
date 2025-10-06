@@ -46,9 +46,7 @@ function App() {
             <Route element={<RegistrationFrom />} path="/registrationform"></Route>
             <Route element={<BookAppoint />} path="/bookappoint"></Route>
 
-  <div className="px-3">
-    <Router>
-      <Routes>
+
         <Route element={<DoctorConcern/>} path="/doctorconcern"></Route>
         <Route element={<DashBoard/>} path="/dashboard"></Route>
         <Route element={<Login/>} path="/login"></Route>
@@ -71,29 +69,13 @@ function App() {
             <Route element={<Doctor />} path="/doctor"></Route>
             <Route element={<Charges />} path="/charge"></Route>
             <Route element={<Payment />} path="/payment"></Route>
-          </Routes>
+
+            <Route element={<QRCode/>} path="/qrcode"></Route>
+           </Routes>
         </ContextProvider>
 
       </Router>
     </div>)
-        <Route element={<Complaint/>} path="/complaint"></Route>
-        <Route element={<History/>} path="/history"></Route>
-        <Route element={<Vision/>} path="/vision"></Route>
-        <Route element={<Refraction/>} path="/refraction"></Route>
-        <Route element={<Anterior/>} path="/anterior"></Route>
-        <Route element={<Posterior/>} path="/posterior"></Route>
-        <Route element={<Diagnosis/>} path="/diagnosis"></Route>
-        <Route element={<Advice/>} path="/advice"></Route>
-        <Route element={<Medicine/>} path="/medicine"></Route>
-        <Route element={<Report/>} path="/report"></Route>
-        <Route element={<Doctor/>} path="/doctor"></Route>
-        <Route element={<Charges/>} path="/charge"></Route>
-        <Route element={<Payment/>} path="/payment"></Route>
-
-        <Route element={<QRCode/>} path="/qrcode"></Route>
-      </Routes>
-    </Router>
-  </div>)
 }
 
 export default App
