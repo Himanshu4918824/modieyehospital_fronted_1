@@ -85,7 +85,7 @@ export default function Header() {
   return (
     <div>
       {/* Header Top Bar */}
-      <div style={{ background: "#8395a7",color: "black",width: "100%", height: "70px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px",  }}  >
+      <div style={{ background: "#daa316ff",color: "black",width: "100%", height: "70px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px",  }}  >
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <img alt="logo" src={logo1} style={{ width: 90, height: 70 }} />
@@ -115,7 +115,7 @@ export default function Header() {
 
       {/* Navbar for large screens */}
       <div className="main-navbar d-none d-lg-block">
-        <nav style={{ background: "#576574", width: "100%", height: "54px" }}>
+        <nav style={{ background: "#daa316ff", width: "100%", height: "54px" }}>
           <div className="main">
             <ul style={{ flexDirection: "row", color: "#000",fontWeight: 620}}>
               <li className="dropdown-1">Patient</li>

@@ -7,14 +7,14 @@ import { useEffect } from "react";
 
 export default function Complaint({ stat }) {
     const [complain, setComplain] = useState('');
-    const { complaint, P_id } = useContext(MainContext)
+    const { complaint, P_id, Aid } = useContext(MainContext)
 
     useEffect(() => {
         if (stat === 'complaint') {
-            setComplain(complaint[0].Complaint)
+            setComplain(complaint[0]?.Complaint)
         }
         // else if (stat === 'allergies') {
-        //     setComplain(allergies[0].Allergies)
+        //     setComplain(allergies[0]?.Allergies)
         // }
 
     }, [])
@@ -37,7 +37,7 @@ export default function Complaint({ stat }) {
         });
 
 
-        const result = await postData(`v1/pre-clinical/createComplaint/${P_id}/cmg9id08z0001j7nomnxe5291`, formDataObj);
+        const result = await postData(`v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
 
 
         if (result.status) {

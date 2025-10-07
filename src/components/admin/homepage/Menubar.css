@@ -28,13 +28,13 @@
 .main ul li {
     padding: 5px 20px 5px 20px;
     cursor: pointer;
-    border-radius: 0%;
+    border-radius: 5%;
 }
 
-.main ul li:hover {
+/* .main ul li:hover {
     background-color: white;
     transition: 0.3s;
-}
+} */
 
 .Subdropdown-1,
 .Subdropdown-2 {
@@ -42,7 +42,7 @@
 }
 
 .main ul li:hover {
-    background-color: #626e79;
+    background-color: #cf8a00;
     color: white;
     transition: 0.3s;
 }

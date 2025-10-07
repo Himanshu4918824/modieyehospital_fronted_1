@@ -6,7 +6,7 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 
 export default function Posterior() {
-  const { P_id, posterior } = useContext(MainContext)
+  const { P_id, posterior, Aid } = useContext(MainContext)
   const [leftMedia, setLeftMedia] = useState('');
   const [leftVitreous, setLeftVitreous] = useState('');
   const [leftRetina, setLeftRetina] = useState('');
@@ -28,22 +28,22 @@ export default function Posterior() {
     const v = posterior[0];
 
     // Right Eye
-    setRightMedia(v.R_Media);
-    setRightVitreous(v.R_Vitreous);
-    setRightRetina(v.R_Retina);
-    setRightOptic(v.R_Optic_nerve_head);
-    setRightChoroid(v.R_Choroid);
-    setRightMacula(v.R_Macula);
-    setRightOther(v.R_Others);
+    setRightMedia(v?.R_Media);
+    setRightVitreous(v?.R_Vitreous);
+    setRightRetina(v?.R_Retina);
+    setRightOptic(v?.R_Optic_nerve_head);
+    setRightChoroid(v?.R_Choroid);
+    setRightMacula(v?.R_Macula);
+    setRightOther(v?.R_Others);
 
     // Left Eye
-    setLeftMedia(v.L_Media);
-    setLeftVitreous(v.L_Vitreous);
-    setLeftRetina(v.L_Retina);
-    setLeftOptic(v.L_Optic_nerve_head);
-    setLeftChoroid(v.L_Choroid);
-    setLeftMacula(v.L_Macula);
-    setLeftOther(v.L_Others);
+    setLeftMedia(v?.L_Media);
+    setLeftVitreous(v?.L_Vitreous);
+    setLeftRetina(v?.L_Retina);
+    setLeftOptic(v?.L_Optic_nerve_head);
+    setLeftChoroid(v?.L_Choroid);
+    setLeftMacula(v?.L_Macula);
+    setLeftOther(v?.L_Others);
 
   }, []);
 
@@ -75,7 +75,7 @@ export default function Posterior() {
       formDataObj[key] = value;
     });
 
-    const result = await postData(`v1/Clinical/posterior/${P_id}/cmg9id08z0001j7nomnxe5291`, formDataObj);
+    const result = await postData(`v1/Clinical/posterior/${P_id}/${Aid}`, formDataObj);
     if (result.status) {
       Swal.fire({
         position: "top-end",

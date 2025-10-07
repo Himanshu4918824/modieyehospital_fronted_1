@@ -5,14 +5,15 @@ import Header from "../homepage/Header";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function MainDashboard() {
   const { getAllTodayAppointments, allTodayAppointments } = useContext(MainContext)
   useEffect(() => {
     getAllTodayAppointments()
-
   }, [])
-
+  // console.log(allTodayAppointments)
+  const navigate = useNavigate()
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("registration");
 
@@ -66,13 +67,13 @@ export default function MainDashboard() {
     );
   };
 
-  return ( <div>
+  return (<div>
 
-          <div>
-           <Header/>
-          </div>
+    <div>
+      <Header />
+    </div>
 
-    
+
     <div className="p-3 bg-light">
       <div className="d-flex flex-wrap mb-3">
         <button className="btn btn-warning btn-sm m-1">Reception [0]</button>
@@ -86,10 +87,10 @@ export default function MainDashboard() {
         <button className="btn btn-outline-secondary btn-sm m-1">Return [1196]{" "} </button>
         <button onClick={openDialog} className="btn btn-outline-dark btn-sm m-1">Appointment</button>
 
-          {renderModal()}
-        </div>
+        {renderModal()}
+      </div>
 
-        {/*
+      {/*
       <div className="card p-3 mb-3">
         <div className="row g-2">
           <div className="col-md-3">
@@ -139,58 +140,60 @@ export default function MainDashboard() {
 
   */}
 
-        <div className="table-responsive">
-          <table className="table table-bordered table-sm">
-            <thead className="table-secondary">
-              <tr>
-                <th className="text-center">Seq</th>
-                <th className="text-center">Status</th>
-                <th className="text-center">Patient Name</th>
-                <th className="text-center">Age/Sex</th>
-                <th className="text-center">Appointment Id</th>
-                <th className="text-center">Date</th>
-                <th className="text-center">Time</th>
-                <th className="text-center">Contact</th>
-                <th className="text-center">Doctor</th>
-                <th className="text-center">Remarks</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                allTodayAppointments.length > 0 ? (
-                  
-                    allTodayAppointments.map((item , i) => {
-                      return (<tr key={i}>
-                        <td className="text-center">{i+1}</td>
-                        <td className="text-center">Pending</td>
-                        <td className="text-center">{item.patient.FullName}</td>
-                        <td className="text-center">{item.patient.Gender}/{item.patient.Age}</td>
-                        <td className="text-center">{item.id}</td>
-                        <td className="text-center">{new Date(item.Appointment_date).toLocaleDateString()}</td>
-                        <td className="text-center">none</td>
-                        <td className="text-center">{item.patient.Phone}</td>
-                        <td className="text-center">{item.D_id}</td>
-                        <td className="text-center">None</td>
-                      </tr>
-                      )
-                    }
-                    )
+      <div className="table-responsive">
+        <table className="table table-bordered table-sm">
+          <thead className="table-secondary">
+            <tr>
+              <th className="text-center">Seq</th>
+              <th className="text-center">Status</th>
+              <th className="text-center">Patient Name</th>
+              <th className="text-center">Age/Sex</th>
+              <th className="text-center">Appointment Id</th>
+              <th className="text-center">Date</th>
+              <th className="text-center">Time</th>
+              <th className="text-center">Contact</th>
+              <th className="text-center">Doctor</th>
+              <th className="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              allTodayAppointments.length > 0 ? (
+
+                allTodayAppointments.map((item, i) => {
+                  return (<tr key={i}>
+                    <td className="text-center">{i + 1}</td>
+                    <td className="text-center">Pending</td>
+                    <td className="text-center">{item.patient.FullName}</td>
+                    <td className="text-center">{item.patient.Gender}/{item.patient.Age}</td>
+                    <td className="text-center">{item.id}</td>
+                    <td className="text-center">{new Date(item.Appointment_date).toLocaleDateString()}</td>
+                    <td className="text-center">none</td>
+                    <td className="text-center">{item.patient.Phone}</td>
+                    <td className="text-center">{item.D_id}</td>
+                    <td className="text-center">
+                      <button onClick={()=>navigate(`/dashboard/${item.P_id}/${item.id}`)} className="bg-primary px-3 text-uppercase text-white rounded border border-0">View</button>
+                    </td>
+                  </tr>
                   )
-                  : (
-                    <tr>
-                      <td colSpan="10" className="text-center">
-                        No Data Available
-                      </td>
-                    </tr>
-                  )
-              }
-            </tbody>
-          </table>
-        </div>
-      </div >
+                }
+                )
+              )
+                : (
+                  <tr>
+                    <td colSpan="10" className="text-center">
+                      No Data Available
+                    </td>
+                  </tr>
+                )
+            }
+          </tbody>
+        </table>
+      </div>
+    </div >
 
 
 
-    </div>
+  </div>
   );
 }

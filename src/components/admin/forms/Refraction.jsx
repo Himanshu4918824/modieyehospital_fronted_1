@@ -6,7 +6,7 @@ import MainContext from "../../../context/MainContext";
 import Swal from "sweetalert2";
 
 export default function Refraction() {
-  const { refractionData, P_id } = useContext(MainContext)
+  const { refractionData, P_id, Aid } = useContext(MainContext)
   const [refraction, setRefraction] = useState('');
   const [leftEyeSPH, setLeftEyeSPH] = useState('');
   const [leftEyeCYL, setLeftEyeCYL] = useState('');
@@ -35,34 +35,34 @@ export default function Refraction() {
 
     const r = refractionData[0]; // pick first object
 
-    setRefraction(r.refractionType);
+    setRefraction(r?.refractionType);
 
     // Right Distance
-    setRightEyeSPH(r.R_D_SPH);
-    setRightEyeCYL(r.R_D_CYL);
-    setRightEyeAXIS(r.R_D_AXIS);
-    setRightEyeVA(r.R_D_VA);
+    setRightEyeSPH(r?.R_D_SPH);
+    setRightEyeCYL(r?.R_D_CYL);
+    setRightEyeAXIS(r?.R_D_AXIS);
+    setRightEyeVA(r?.R_D_VA);
 
     // Right Near
-    setNearRightEyeSPH(r.R_N_SPH);
-    setNearRightEyeCYL(r.R_N_CYL);
-    setNearRightEyeAXIS(r.R_N_AXIS);
-    setNearRightEyeVA(r.R_N_VA);
+    setNearRightEyeSPH(r?.R_N_SPH);
+    setNearRightEyeCYL(r?.R_N_CYL);
+    setNearRightEyeAXIS(r?.R_N_AXIS);
+    setNearRightEyeVA(r?.R_N_VA);
 
     // Left Distance
-    setLeftEyeSPH(r.L_D_SPH);
-    setLeftEyeCYL(r.L_D_CYL);
-    setLeftEyeAXIS(r.L_D_AXIS);
-    setLeftEyeVA(r.L_D_VA);
+    setLeftEyeSPH(r?.L_D_SPH);
+    setLeftEyeCYL(r?.L_D_CYL);
+    setLeftEyeAXIS(r?.L_D_AXIS);
+    setLeftEyeVA(r?.L_D_VA);
 
     // Left Near
-    setNearLeftEyeSPH(r.L_N_SPH);
-    setNearLeftEyeCYL(r.L_N_CYL);
-    setNearLeftEyeAXIS(r.L_N_AXIS);
-    setNearLeftEyeVA(r.L_N_VA);
+    setNearLeftEyeSPH(r?.L_N_SPH);
+    setNearLeftEyeCYL(r?.L_N_CYL);
+    setNearLeftEyeAXIS(r?.L_N_AXIS);
+    setNearLeftEyeVA(r?.L_N_VA);
 
     // Glass Type
-    setGlassType(r.Glass_Type);
+    setGlassType(r?.Glass_Type);
 
   }, []);
 
@@ -80,7 +80,7 @@ export default function Refraction() {
     formData.append('R_D_AXIS', rightEyeAXIS);
     formData.append('R_D_VA', rightEyeVA);
 
-    // Near.....
+    // Near?.....
 
     formData.append('L_N_SPH', nearLeftEyeSPH);
     formData.append('L_N_CYL', nearLeftEyeCYL);
@@ -101,7 +101,7 @@ export default function Refraction() {
     });
 
 
-    const result = await postData(`v1/pre-clinical/refraction/${P_id}/cmg9id08z0001j7nomnxe5291`, formDataObj);
+    const result = await postData(`v1/pre-clinical/refraction/${P_id}/${Aid}`, formDataObj);
     if (result.status) {
       Swal.fire({
         position: "top-end",

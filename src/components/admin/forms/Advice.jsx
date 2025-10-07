@@ -8,15 +8,15 @@ import { useContext } from "react";
 export default function Advice({ stat }) {
     const [details, setDetails] = useState('');
     const [type, setType] = useState('');
-    const { Advise, P_id, treatment } = useContext(MainContext)
+    const { Advise, P_id, treatment , Aid } = useContext(MainContext)
     useEffect(() => {
         if (stat === 'advise') {
-            setDetails(Advise[0].message);
-            setType(Advise[0].type);
+            setDetails(Advise[0]?.message);
+            setType(Advise[0]?.type);
         }
         else if (stat === 'treatment') {
-            setDetails(treatment[0].message);
-            setType(treatment[0].type);
+            setDetails(treatment[0]?.message);
+            setType(treatment[0]?.type);
         }
     }, [])
 
@@ -38,10 +38,10 @@ export default function Advice({ stat }) {
         // cmg9id08z0001j7nomnxe5291
         let result;
         if (stat === 'advise') {
-            result = await postData(`v1/advice/${P_id}/cmg9id08z0001j7nomnxe5291`, formDataObj);
+            result = await postData(`v1/advice/${P_id}/${Aid}`, formDataObj);
         }
         else if (stat === 'treatment') {
-            result = await postData(`v1/treatment/${P_id}/cmg9id08z0001j7nomnxe5291`, formDataObj);
+            result = await postData(`v1/treatment/${P_id}/${Aid}`, formDataObj);
         }
 
 

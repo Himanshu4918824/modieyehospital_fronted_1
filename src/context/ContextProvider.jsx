@@ -8,6 +8,7 @@ const ContextProvider = ({ children }) => {
 
 
   const [P_id, SetP_id] = useState('')
+  const [Aid, SetAid] = useState('')
 
   const [allPatients, setAllPatients] = useState([])
   const [allTodayAppointments, setAllTodayAppointments] = useState([])
@@ -175,7 +176,7 @@ const ContextProvider = ({ children }) => {
     try {
       const data = await getData(url);
       // return data;
-      console.log(data)
+      // console.log(data)
       setDiagnosisList(data.Diagnosis)
       SetPatientData({
         Age: data.Age || "",
@@ -251,7 +252,7 @@ const ContextProvider = ({ children }) => {
   const getAllPatients = async () => {
     try {
       const result = await getData('v1/patient/allPatient')
-      console.log(result)
+      // console.log(result)
       setAllPatients(result)
     } catch (error) {
       console.log(error)
@@ -278,7 +279,7 @@ const ContextProvider = ({ children }) => {
   }
 
   return (
-    <MainContext.Provider value={{ getPatientData, diagnosisList, patientData, vision, Histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments }}>
+    <MainContext.Provider value={{SetAid , Aid ,getPatientData, diagnosisList, patientData, vision, Histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments }}>
       {children}
     </MainContext.Provider>
   )

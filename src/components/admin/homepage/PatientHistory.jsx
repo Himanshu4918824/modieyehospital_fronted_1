@@ -13,7 +13,7 @@ export default function PatientHistory() {
   const [modalPage, setModalPage] = useState("");
 
   const { vision, Medicine, refractionData, anterior, posterior } = useContext(MainContext)
-  const [activeDate, setActiveDate] = useState(vision[0].created_at);
+  const [activeDate, setActiveDate] = useState(vision[0]?.created_at);
 
   const activeRecord = vision.find((rec) => rec.created_at === activeDate);
 

@@ -11,12 +11,12 @@ export default function History() {
     const [family, setFamily] = useState('');
     const [diet, setDiet] = useState('');
 
-    const { Histroy, P_id } = useContext(MainContext)
+    const { Histroy, P_id, Aid } = useContext(MainContext)
     useEffect(() => {
-        setSystemic(Histroy[0].Systemic_illness)
-        setTreatment(Histroy[0].Treatment_Histroy)
-        setFamily(Histroy[0].Family_Histroy)
-        setDiet(Histroy[0].Dite_Histroy)
+        setSystemic(Histroy[0]?.Systemic_illness)
+        setTreatment(Histroy[0]?.Treatment_Histroy)
+        setFamily(Histroy[0]?.Family_Histroy)
+        setDiet(Histroy[0]?.Dite_Histroy)
     }, [])
 
     const handleSubmit = async () => {
@@ -35,7 +35,7 @@ export default function History() {
         });
 
         // Now JSON
-        const result = await postData(`v1/pre-clinical/histroy/${P_id}/cmg9id08z0001j7nomnxe5291`, formDataObj);
+        const result = await postData(`v1/pre-clinical/histroy/${P_id}/${Aid}`, formDataObj);
 
         if (result.status) {
             Swal.fire({

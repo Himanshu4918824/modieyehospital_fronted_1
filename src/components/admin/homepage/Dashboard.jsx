@@ -8,16 +8,17 @@ import { useParams } from "react-router-dom";
 import Header from "./Header";
 
 export default function DashBoard() {
-  const { patientData, getPatientData, SetP_id } = useContext(MainContext);
-  const { id } = useParams();
+  const { patientData, getPatientData, SetP_id, SetAid } = useContext(MainContext);
+  const { id, Aid } = useParams();
 
   useEffect(() => {
     getPatientData(`v1/patient/${id}`);
     SetP_id(id)
+    SetAid(Aid)
     // console.log(patientData)
   }, []);
 
-  var data = [
+  let data = [
     "send",
     "History",
     "Primary",
@@ -52,10 +53,10 @@ export default function DashBoard() {
 
   return (
     <>
-    <div>
-      <Header/>
-    </div>
-    
+      <div>
+        <Header />
+      </div>
+
       <div style={{ background: "lightgrey", width: "100%", textAlign: "center", fontWeight: "bold", }} >
         Doctor Examination
       </div>
@@ -66,7 +67,7 @@ export default function DashBoard() {
           <div className="col-xs-12 col-lg-3">
             <div className="input-group">
               <span className="input-group-text">Appointment Id:</span>
-              <input type="text" className="form-control" disabled value={patientData.Latest_Apt} />
+              <input type="text" className="form-control" disabled value={Aid} />
             </div>
           </div>
 
@@ -159,7 +160,7 @@ export default function DashBoard() {
         </div>
 
 
-  
+
 
 
 
