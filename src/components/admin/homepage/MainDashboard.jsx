@@ -8,9 +8,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function MainDashboard() {
-  const { getAllTodayAppointments, allTodayAppointments } = useContext(MainContext)
+  const { getAllTodayAppointments, allTodayAppointments,} = useContext(MainContext)
   useEffect(() => {
     getAllTodayAppointments()
+   
   }, [])
   // console.log(allTodayAppointments)
   const navigate = useNavigate()
@@ -170,7 +171,7 @@ export default function MainDashboard() {
                     <td className="text-center">{new Date(item.Appointment_date).toLocaleDateString()}</td>
                     <td className="text-center">none</td>
                     <td className="text-center">{item.patient.Phone}</td>
-                    <td className="text-center">{item.D_id}</td>
+                    <td className="text-center">{item.D_id} </td>
                     <td className="text-center">
                       <button onClick={()=>navigate(`/dashboard/${item.P_id}/${item.id}`)} className="bg-primary px-3 text-uppercase text-white rounded border border-0">View</button>
                     </td>
