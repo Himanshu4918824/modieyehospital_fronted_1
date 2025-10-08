@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import Complaint from '../forms/Complaint';
 import History from '../forms/History';
@@ -13,8 +12,7 @@ import MainContext from "../../../context/MainContext";
 
 
 
-export default function DoctorConcern({ onRefresh }) 
-{
+export default function DoctorConcern({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
   const { diagnosisList, Histroy, Advise, treatment, complaint } = useContext(MainContext);
@@ -32,7 +30,7 @@ export default function DoctorConcern({ onRefresh })
     if (props === "Complaints") {
       return (
         <div>
-          <Complaint stat = 'complaint' onClose={closeDialog} onRefresh={onRefresh}/>
+          <Complaint stat='complaint' onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
@@ -46,7 +44,7 @@ export default function DoctorConcern({ onRefresh })
     else if (props === "Allegries") {
       return (
         <div>
-          <Allegries stat = 'allergies' onClose={closeDialog} onRefresh={onRefresh} />
+          <Allegries stat='allergies' onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
@@ -60,7 +58,7 @@ export default function DoctorConcern({ onRefresh })
     else if (props === "Diagnosis") {
       return (
         <div>
-          <Diagnosis onClose={closeDialog} onRefresh={onRefresh}/>
+          <Diagnosis onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
@@ -125,7 +123,7 @@ export default function DoctorConcern({ onRefresh })
 
 
   return (<div>
-   {/* <div className="mb-3 d-flex flex-wrap gap-2">
+    {/* <div className="mb-3 d-flex flex-wrap gap-2">
        <button style={{ margin: 2, borderRadius: 5 }}>
         Referral Approval
       </button>
@@ -144,7 +142,7 @@ export default function DoctorConcern({ onRefresh })
 
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: '10px', overflowY:'auto',display:'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: '10px', display: 'block' }}>
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Complaints</h3>
@@ -153,36 +151,37 @@ export default function DoctorConcern({ onRefresh })
         </button>
 
       </div>
+      <div style={{ maxHeight: '100px', overflowY: "scroll", display: 'block' }}>
+        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+          <thead>
+            <tr className="table-secondary">
+              <th className="p-1" style={{ width: "90px" }}>Start Date</th>
+              <th className="p-1" style={{ width: "150px" }}>Complain</th>
+              <th className="p-1" style={{ width: "40px" }}>AppointmentId</th>
+            </tr>
+          </thead>
 
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
-        <thead>
-          <tr className="table-secondary">
-            <th className="p-1" style={{ width: "90px" }}>Start Date</th>
-            <th className="p-1" style={{ width: "150px" }}>Complain</th>
-            <th className="p-1" style={{ width: "40px" }}>AppointmentId</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {complaint.length > 0 ?
-            complaint.map((item, i) => {
-              return (<tr key={i} style={{ height: "20px",fontSize: "13.5px" }}>
-                <td className="p-1">{new Date(item.Date).toLocaleDateString()}</td>
-                <td className="p-1">{item.Complaint}</td>
-                <td className="p-1">{item.AptId}</td>
+          <tbody>
+            {complaint.length > 0 ?
+              complaint.map((item, i) => {
+                return (<tr key={i} style={{ height: "20px", fontSize: "13.5px" }}>
+                  <td className="p-1">{new Date(item.Date).toLocaleDateString()}</td>
+                  <td className="p-1">{item.Complaint}</td>
+                  <td className="p-1">{item.AptId}</td>
+                </tr>)
+              }) : (<tr>
+                <td colSpan="3">No record available</td>
               </tr>)
-            }) : (<tr>
-              <td colSpan="3">No record available</td>
-            </tr>)
-          }
+            }
 
-        </tbody>
+          </tbody>
 
-      </table>
+        </table>
+      </div>
     </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: '5px',overflowY:'auto',display:'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: '5px', overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -207,7 +206,7 @@ export default function DoctorConcern({ onRefresh })
         <tbody>
           {Histroy.length > 0 ?
             Histroy.map((item, i) => {
-              return (<tr key={i} style={{ height: "20px", fontSize:'14px' }}>
+              return (<tr key={i} style={{ height: "20px", fontSize: '14px' }}>
                 <td className="p-1">{new Date(item.created_at).toLocaleDateString()}</td>
                 <td className="p-1">{item.Systemic_illness}</td>
                 <td className="p-1">{item.Treatment_Histroy}</td>
@@ -224,7 +223,7 @@ export default function DoctorConcern({ onRefresh })
     </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: '10px',overflowY:'auto',display:'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: '10px', overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -245,7 +244,7 @@ export default function DoctorConcern({ onRefresh })
         <tbody>
           {Report.length > 0 ? <tr style={{ height: "20px" }}>
             <td className="p-1"></td>
-          </tr> : (<tr style={{ height: "20px", fontSize:'14px' }}>
+          </tr> : (<tr style={{ height: "20px", fontSize: '14px' }}>
             <td colSpan="3">No record available</td>
           </tr>)
           }
@@ -256,7 +255,7 @@ export default function DoctorConcern({ onRefresh })
 
 
     <div className="d-flex  gap-3">
-      <div style={{ flex: '2 1 350px', minWidth: 250,overflowY:'auto',display:'block', maxHeight: "130px" }}>
+      <div style={{ flex: '2 1 350px', minWidth: 250, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
         <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -276,7 +275,7 @@ export default function DoctorConcern({ onRefresh })
           </thead>
 
           <tbody>
-            {doctor.length > 0 ? <tr style={{ height: "20px", fontSize:'14px' }}>
+            {doctor.length > 0 ? <tr style={{ height: "20px", fontSize: '14px' }}>
               <td className="p-1"></td>
               <td className="p-1"></td>
               <td className="p-1"></td>
@@ -292,7 +291,7 @@ export default function DoctorConcern({ onRefresh })
 
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10,overflowY:'auto',display:'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -317,7 +316,7 @@ export default function DoctorConcern({ onRefresh })
         <tbody>
           {diagnosisList.length > 0 ?
             diagnosisList.map((diagnosis, i) => {
-              return (<tr key={i} style={{fontSize:'14px'}}>
+              return (<tr key={i} style={{ fontSize: '14px' }}>
                 <td>{new Date(diagnosis.created_at).toLocaleDateString()}</td>
                 <td>{diagnosis.R_eye}</td>
                 <td>{diagnosis.L_eye}</td>
@@ -333,7 +332,7 @@ export default function DoctorConcern({ onRefresh })
     </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10,overflowY:'auto',display:'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -355,7 +354,7 @@ export default function DoctorConcern({ onRefresh })
         <tbody>
           {Advise.length > 0 ?
             Advise.map((item, i) => {
-              return (<tr key={i} style={{fontSize:'14px'}}>
+              return (<tr key={i} style={{ fontSize: '14px' }}>
                 <td>{new Date(item.Date).toLocaleDateString()}</td>
                 <td>{item.type}</td>
                 <td>{item.message}</td>
@@ -368,7 +367,7 @@ export default function DoctorConcern({ onRefresh })
     </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10,overflowY:'auto',display:'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -390,7 +389,7 @@ export default function DoctorConcern({ onRefresh })
         <tbody>
           {treatment.length > 0 ?
             treatment.map((item, i) => {
-              return (<tr key={i} style={{fontSize:'14px'}}>
+              return (<tr key={i} style={{ fontSize: '14px' }}>
                 <td>{new Date(item.Date).toLocaleDateString()}</td>
                 <td>{item.type}</td>
                 <td>{item.message}</td>
@@ -403,7 +402,7 @@ export default function DoctorConcern({ onRefresh })
     </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10,overflowY:'auto',display:'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -423,7 +422,7 @@ export default function DoctorConcern({ onRefresh })
           </tr>
         </thead>
         <tbody>
-          {Report.length > 0 ? <tr style={{fontSize:'14px'}}>
+          {Report.length > 0 ? <tr style={{ fontSize: '14px' }}>
             <td></td>
             <td></td>
             <td></td>
