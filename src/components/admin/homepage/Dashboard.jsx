@@ -70,7 +70,7 @@ export default function DashBoard()
 
       <div style={{ background: "lightgrey", width: "100%", fontWeight: "bold",display:'flex',alignItems:'center',justifyContent:'center' }} >
 
-         <button className="btn p-0 border-0 bg-transparent" style={{  position: "absolute",right: "6px", fontSize:18, marginRight:10,fontWeight:600}} onClick={()=>navigate('/maindashboard')} >
+         <button className="btn p-0 border-0 bg-transparent" style={{  position: "absolute",left: "6px", fontSize:18, marginRight:10,fontWeight:600}} onClick={()=>navigate('/maindashboard')} >
                Back
           </button>
 

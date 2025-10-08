@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import Complaint from '../forms/Complaint';
 import History from '../forms/History';
@@ -152,32 +151,33 @@ export default function DoctorConcern({ onRefresh }) {
         </button>
 
       </div>
+      <div style={{ maxHeight: '100px', overflowY: "scroll", display: 'block' }}>
+        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+          <thead>
+            <tr className="table-secondary">
+              <th className="p-1" style={{ width: "90px" }}>Start Date</th>
+              <th className="p-1" style={{ width: "150px" }}>Complain</th>
+              <th className="p-1" style={{ width: "40px" }}>AppointmentId</th>
+            </tr>
+          </thead>
 
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
-        <thead>
-          <tr className="table-secondary">
-            <th className="p-1" style={{ width: "90px" }}>Start Date</th>
-            <th className="p-1" style={{ width: "150px" }}>Complain</th>
-            <th className="p-1" style={{ width: "40px" }}>AppointmentId</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {complaint.length > 0 ?
-            complaint.map((item, i) => {
-              return (<tr key={i} style={{ height: "20px",fontSize: "13.5px" }}>
-                <td className="p-1">{new Date(item.Date).toLocaleDateString()}</td>
-                <td className="p-1">{item.Complaint}</td>
-                <td className="p-1">{item.AptId}</td>
+          <tbody>
+            {complaint.length > 0 ?
+              complaint.map((item, i) => {
+                return (<tr key={i} style={{ height: "20px", fontSize: "13.5px" }}>
+                  <td className="p-1">{new Date(item.Date).toLocaleDateString()}</td>
+                  <td className="p-1">{item.Complaint}</td>
+                  <td className="p-1">{item.AptId}</td>
+                </tr>)
+              }) : (<tr>
+                <td colSpan="3">No record available</td>
               </tr>)
-            }) : (<tr>
-              <td colSpan="3">No record available</td>
-            </tr>)
-          }
+            }
 
-        </tbody>
+          </tbody>
 
-      </table>
+        </table>
+      </div>
     </div>
 
 
