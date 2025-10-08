@@ -2,14 +2,16 @@ import MainContext from './MainContext'
 import { getData } from "../services/FetchNodeAdminServices"
 import { useState } from 'react'
 import axios from 'axios'
-import { all } from 'axios'
+
 
 const ContextProvider = ({ children }) => {
 
 
   const [P_id, SetP_id] = useState('')
+  const [Aid, SetAid] = useState('')
 
   const [allPatients, setAllPatients] = useState([])
+  const [DoctorDetail, setDoctorDetail] = useState([])
   const [allTodayAppointments, setAllTodayAppointments] = useState([])
   const [allDoctors, setAllDoctors] = useState([])
   const [diagnosisList, setDiagnosisList] = useState([])
@@ -175,7 +177,7 @@ const ContextProvider = ({ children }) => {
     try {
       const data = await getData(url);
       // return data;
-      console.log(data)
+      // console.log(data)
       setDiagnosisList(data.Diagnosis)
       SetPatientData({
         Age: data.Age || "",
@@ -251,7 +253,7 @@ const ContextProvider = ({ children }) => {
   const getAllPatients = async () => {
     try {
       const result = await getData('v1/patient/allPatient')
-      console.log(result)
+      // console.log(result)
       setAllPatients(result)
     } catch (error) {
       console.log(error)
@@ -260,9 +262,18 @@ const ContextProvider = ({ children }) => {
   // fetch all the doctors
   const getAllDoctors = async () => {
     try {
-      const result = await axios('http://localhost:8000/allDoctors')
-      console.log(result)
-      setAllDoctors(result)
+      const result = await axios.get('http://localhost:8000/api/v1/get/allDoctors')
+      // console.log(result)
+      setAllDoctors(result.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const getDoctorsDetail = async (id) => {
+    try {
+      const result = await axios.get(`http://localhost:8000/api/v1/${id}`)
+      // console.log(result)
+      setDoctorDetail(result.data)
     } catch (error) {
       console.log(error)
     }
@@ -277,8 +288,10 @@ const ContextProvider = ({ children }) => {
     }
   }
 
+
+
   return (
-    <MainContext.Provider value={{ getPatientData, diagnosisList, patientData, vision, Histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments }}>
+    <MainContext.Provider value={{ SetAid, Aid, getPatientData, diagnosisList, patientData, vision, Histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail }}>
       {children}
     </MainContext.Provider>
   )

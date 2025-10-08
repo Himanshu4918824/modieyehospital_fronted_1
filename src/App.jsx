@@ -39,7 +39,7 @@ function App() {
           <Routes>
             <Route element={<ShowPatientDetails />} path="/ShowPatient"></Route>
             <Route element={<DoctorConcern />} path="/doctorconcern"></Route>
-            <Route element={<DashBoard />} path="/dashboard/:id"></Route>
+            <Route element={<DashBoard />} path="/dashboard/:id/:Aid"></Route>
             <Route element={<Login />} path="/"></Route>
             <Route element={<Signup />} path="/signup"></Route>
             <Route element={<MainDashboard />} path="/maindashboard"></Route>

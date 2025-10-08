@@ -11,13 +11,13 @@ export default function Medicine() {
     const [dose, setDose] = useState('');
     const [intake, setIntake] = useState('');
     const [comment, setComment] = useState('');
-    const { Medicine , P_id} = useContext(MainContext)
+    const { Medicine, P_id, Aid } = useContext(MainContext)
     useEffect(() => {
         // setDrug(Medicine[0].Drug)
-        setDays(Medicine[0].Days)
-        setDose(Medicine[0].Dose)
-        setIntake(Medicine[0].Intake)
-        setComment(Medicine[0].message)
+        setDays(Medicine[0]?.Days)
+        setDose(Medicine[0]?.Dose)
+        setIntake(Medicine[0]?.Intake)
+        setComment(Medicine[0]?.message)
     }, [])
 
     function resetData() {
@@ -43,7 +43,7 @@ export default function Medicine() {
         });
 
 
-        const result = await postData(`v1/Medicine/${P_id}/cmg9id08z0001j7nomnxe5291`, formDataObj)
+        const result = await postData(`v1/Medicine/${P_id}/${Aid}`, formDataObj)
 
         if (result.status) {
             Swal.fire({

@@ -12,14 +12,14 @@ export default function Diagnosis() {
     const [systemic, setSystemic] = useState('');
     const [other, setOther] = useState('');
 
-    const { diagnosisList , P_id} = useContext(MainContext)
+    const { diagnosisList, P_id, Aid } = useContext(MainContext)
 
     useEffect(() => {
-        console.log(diagnosisList[0])
-        setLeftEye(diagnosisList[0].L_eye)
-        setRightEye(diagnosisList[0].R_eye)
-        setSystemic(diagnosisList[0].Systemic)
-        setOther(diagnosisList[0].Others)
+        // console.log(diagnosisList[0])
+        setLeftEye(diagnosisList[0]?.L_eye)
+        setRightEye(diagnosisList[0]?.R_eye)
+        setSystemic(diagnosisList[0]?.Systemic)
+        setOther(diagnosisList[0]?.Others)
 
     }, [])
 
@@ -37,7 +37,7 @@ export default function Diagnosis() {
         });
 
 
-        const result = await postData(`v1/diagnosis/${P_id}/cmg9id08z0001j7nomnxe5291`, formDataObj);
+        const result = await postData(`v1/diagnosis/${P_id}/${Aid}`, formDataObj);
         if (result.status) {
             Swal.fire({
                 position: "top-end",

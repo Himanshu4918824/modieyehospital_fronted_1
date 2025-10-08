@@ -13,7 +13,7 @@ export default function BookAppoint(props) {
 
     useEffect(() => {
         getAllPatients()
-        // getAllDoctors()
+        getAllDoctors()
     }, [])
 
     function resetData() {
@@ -93,8 +93,13 @@ export default function BookAppoint(props) {
 
                     >
                         <option value=''>Select-Doctor</option>
-                        <option value='Ram'>Ram</option>
-                        <option value='Sita'>Sita</option>
+                        {/* {console.log(allDoctors)} */}
+                        {allDoctors.map((item, i) => {
+                            return (
+                                <option key={i} value={item.id}>{item.FullName}</option>
+                            )
+                        })
+                        }
                     </select>
 
                 </div>

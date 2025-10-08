@@ -6,7 +6,7 @@ import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
 export default function Vision() {
-  const { vision, P_id } = useContext(MainContext)
+  const { vision, P_id, Aid } = useContext(MainContext)
   const [unaidedRight, setUnaidedRight] = useState('');
   const [pinHoleRight, setPinHoleRight] = useState('');
   const [cTRight, setCTRight] = useState('');
@@ -32,26 +32,26 @@ export default function Vision() {
     const v = vision[0];
 
     // Right Eye
-    setUnaidedRight(v.R_Distance_unaided);
-    setPinHoleRight(v.R_Distance_With_Pin_Hole);
-    setCTRight(v.R_Distance_With_CT);
-    setPMTRight(v.R_Distance_With_PMT);
-    setGlassesRight(v.R_Distance_with_previous_glasses);
-    setSubjectiveRight(v.R_Distance_with_current_subjective);
-    setNearUnaidedRight(v.R_Near_unaided);
-    setNearGlassesRight(v.R_Near_with_previous_glasses);
-    setNearSubjectiveRight(v.R_Near_with_current_subjective);
+    setUnaidedRight(v?.R_Distance_unaided);
+    setPinHoleRight(v?.R_Distance_With_Pin_Hole);
+    setCTRight(v?.R_Distance_With_CT);
+    setPMTRight(v?.R_Distance_With_PMT);
+    setGlassesRight(v?.R_Distance_with_previous_glasses);
+    setSubjectiveRight(v?.R_Distance_with_current_subjective);
+    setNearUnaidedRight(v?.R_Near_unaided);
+    setNearGlassesRight(v?.R_Near_with_previous_glasses);
+    setNearSubjectiveRight(v?.R_Near_with_current_subjective);
 
     // Left Eye
-    setUnaidedLeft(v.L_Distance_unaided);
-    setPinHoleLeft(v.L_Distance_With_Pin_Hole);
-    setCTLeftt(v.L_Distance_With_CT);
-    setPMTLeft(v.L_Distance_With_PMT);
-    setGlassesLeft(v.L_Distance_with_previous_glasses);
-    setSubjectiveLeft(v.L_Distance_with_current_subjective);
-    setNearUnaidedLeft(v.L_Near_unaided);
-    setNearGlassesLeft(v.L_Near_with_previous_glasses);
-    setNearSubjectiveLeft(v.L_Near_with_current_subjective);
+    setUnaidedLeft(v?.L_Distance_unaided);
+    setPinHoleLeft(v?.L_Distance_With_Pin_Hole);
+    setCTLeftt(v?.L_Distance_With_CT);
+    setPMTLeft(v?.L_Distance_With_PMT);
+    setGlassesLeft(v?.L_Distance_with_previous_glasses);
+    setSubjectiveLeft(v?.L_Distance_with_current_subjective);
+    setNearUnaidedLeft(v?.L_Near_unaided);
+    setNearGlassesLeft(v?.L_Near_with_previous_glasses);
+    setNearSubjectiveLeft(v?.L_Near_with_current_subjective);
 
   }, [vision]);
 
@@ -84,7 +84,7 @@ export default function Vision() {
       formDataObj[key] = value;
     });
 
-    const result = await postData(`v1/pre-clinical/vision/${P_id}/cmg9id08z0001j7nomnxe5291`, formDataObj);
+    const result = await postData(`v1/pre-clinical/vision/${P_id}/${Aid}`, formDataObj);
     
     if (result.status) {
       Swal.fire({
