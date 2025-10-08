@@ -8,20 +8,25 @@ import { useContext } from 'react';
 import MainContext from '../../../context/MainContext';
 import React, { useEffect } from 'react';
 
-export default function PatientHistory({onRefresh}) {
+export default function PatientHistory({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
 
   const { vision, Medicine, refractionData, anterior, posterior } = useContext(MainContext)
   const [activeDate, setActiveDate] = useState(vision[0]?.created_at);
+  const [RefactiveDate, setRefActiveDate] = useState(refractionData[0]?.created_at);
 
   const activeRecord = vision.find((rec) => rec.created_at === activeDate);
+  const RefactiveRecord = refractionData.find((rec) => rec.created_at === RefactiveDate);
 
   useEffect(() => {
     if (vision.length > 0 && !activeDate) {
       setActiveDate(vision[0].created_at);
     }
-  }, [vision, activeDate])
+    if (refractionData.length > 0 && !RefactiveDate) {
+      setRefActiveDate(refractionData[0].created_at);
+    }
+  }, [vision, activeDate, refractionData, RefactiveDate])
 
 
   const openDialog = (e) => {
@@ -31,7 +36,7 @@ export default function PatientHistory({onRefresh}) {
 
 
   const closeDialog = () => setShowDialog(false);
-  
+
 
   const showPage = (props) => {
     if (props === "Medicines") {
@@ -44,7 +49,7 @@ export default function PatientHistory({onRefresh}) {
     else if (props === "Vision") {
       return (
         <div>
-          <Vision onClose={closeDialog} onRefresh={onRefresh}/>
+          <Vision onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
@@ -103,13 +108,13 @@ export default function PatientHistory({onRefresh}) {
 
 
   return (<div>
-   {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontWeight: 'bold' }}>
+    {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontWeight: 'bold' }}>
       <div style={{ width: '120px', border: '1px solid', borderRadius: 5, background: 'lightgrey' }}>Gonioscopy</div>
       <div style={{ width: '120px', border: '1px solid', borderRadius: 5, margin: 10, background: 'lightgrey' }}>Retinoscopy</div>
     </div>  */}
 
 
-    <div className="table-responsive mb-3" style={{overflowY:'auto',display:'block', maxHeight: "130px"}}>
+    <div className="table-responsive mb-3" style={{ overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -153,7 +158,7 @@ export default function PatientHistory({onRefresh}) {
     </div>
 
 
-    <div className="table-responsive mb-3" style={{overflowY:'auto',display:'block', maxHeight: "280px"}}>
+    <div className="table-responsive mb-3" style={{ display: 'block' }}>
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Vision</h3>
@@ -167,13 +172,13 @@ export default function PatientHistory({onRefresh}) {
       {/* these are the date tabs which is used to see different appointment data in the table */}
       <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
-        <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content'  }}>
+        <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
           {vision.map((rec, i) => (
             <li className="nav-item" key={i}>
               <button
                 className={`nav-link ${rec.created_at === activeDate ? "active" : ""}`}
                 onClick={() => setActiveDate(rec.created_at)}
-                style={{fontSize:13,fontWeight:'bold',letterSpacing:0.5}}
+                style={{ fontSize: 13, fontWeight: 'bold', letterSpacing: 0.5 }}
               >
                 {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
               </button>
@@ -250,7 +255,7 @@ export default function PatientHistory({onRefresh}) {
     </div>
 
 
-    <div className="table-responsive mb-3" style={{overflowY:'auto',display:'block', maxHeight: "200px"}}>
+    <div className="table-responsive mb-3" style={{ overflowY: 'auto', display: 'block', maxHeight: "200px" }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -261,16 +266,16 @@ export default function PatientHistory({onRefresh}) {
 
       </div>
 
-        {/* these are the date tabs which is used to see different appointment data in the table */}
+      {/* these are the date tabs which is used to see different appointment data in the table */}
       <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
-        <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content'  }}>
+        <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
           {refractionData.map((rec, i) => (
             <li className="nav-item" key={i}>
               <button
-                className={`nav-link ${rec.created_at === activeDate ? "active" : ""}`}
-                onClick={() => setActiveDate(rec.created_at)}
-                style={{fontSize:13,fontWeight:'bold',letterSpacing:0.5}}
+                className={`nav-link ${rec.created_at === RefactiveDate ? "active" : ""}`}
+                onClick={() => setRefActiveDate(rec.created_at)}
+                style={{ fontSize: 13, fontWeight: 'bold', letterSpacing: 0.5 }}
               >
                 {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
               </button>
@@ -303,46 +308,45 @@ export default function PatientHistory({onRefresh}) {
           </tr>
         </thead>
         <tbody>
-          {refractionData.length > 0 ? (
-            refractionData.map((item, i) => (
-              <React.Fragment key={i}>
-                {/* First Row: Distance */}
-                <tr className="border border-dark">
-                  <td rowSpan={2}>
-                    {item.refractionType}
-                    <br />
-                    Glass: {item.Glass_Type}
-                  </td>
-                  <td>Distance</td>
-                  <td>{item.R_D_SPH}</td>
-                  <td>{item.R_D_CYL}</td>
-                  <td>{item.R_D_AXIS}</td>
-                  <td>{item.R_D_VA}</td>
-                  <td>{item.L_D_SPH}</td>
-                  <td>{item.L_D_CYL}</td>
-                  <td>{item.L_D_AXIS}</td>
-                  <td>{item.L_D_VA}</td>
-                </tr>
+          {RefactiveRecord ? (
+            <>
+              {/* First Row: Distance */}
+              <tr className="border border-dark">
+                <td rowSpan={2}>
+                  {RefactiveRecord.refractionType}
+                  <br />
+                  Glass: {RefactiveRecord.Glass_Type}
+                </td>
+                <td>Distance</td>
+                <td>{RefactiveRecord.R_D_SPH}</td>
+                <td>{RefactiveRecord.R_D_CYL}</td>
+                <td>{RefactiveRecord.R_D_AXIS}</td>
+                <td>{RefactiveRecord.R_D_VA}</td>
+                <td>{RefactiveRecord.L_D_SPH}</td>
+                <td>{RefactiveRecord.L_D_CYL}</td>
+                <td>{RefactiveRecord.L_D_AXIS}</td>
+                <td>{RefactiveRecord.L_D_VA}</td>
+              </tr>
 
-                {/* Second Row: Near */}
-                <tr className="border border-dark">
-                  <td>Near</td>
-                  <td>{item.R_N_SPH}</td>
-                  <td>{item.R_N_CYL}</td>
-                  <td>{item.R_N_AXIS}</td>
-                  <td>{item.R_N_VA}</td>
-                  <td>{item.L_N_SPH}</td>
-                  <td>{item.L_N_CYL}</td>
-                  <td>{item.L_N_AXIS}</td>
-                  <td>{item.L_N_VA}</td>
-                </tr>
-              </React.Fragment>
-            ))
+              {/* Second Row: Near */}
+              <tr className="border border-dark">
+                <td>Near</td>
+                <td>{RefactiveRecord.R_N_SPH}</td>
+                <td>{RefactiveRecord.R_N_CYL}</td>
+                <td>{RefactiveRecord.R_N_AXIS}</td>
+                <td>{RefactiveRecord.R_N_VA}</td>
+                <td>{RefactiveRecord.L_N_SPH}</td>
+                <td>{RefactiveRecord.L_N_CYL}</td>
+                <td>{RefactiveRecord.L_N_AXIS}</td>
+                <td>{RefactiveRecord.L_N_VA}</td>
+              </tr>
+            </>
           ) : (
             <tr>
               <td colSpan="10">No record available</td>
             </tr>
           )}
+
         </tbody>
 
 
@@ -358,7 +362,7 @@ export default function PatientHistory({onRefresh}) {
       </button>
     </div>
 
-    <div className="table-responsive mb-3" style={{overflowY:'auto',display:'block', maxHeight: "320px"}}>
+    <div className="table-responsive mb-3" style={{ overflowY: 'auto', display: 'block', maxHeight: "320px" }}>
 
       <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13.5px" }}>
         <thead>
@@ -497,7 +501,7 @@ export default function PatientHistory({onRefresh}) {
       </button>
 
     </div>
-    <div className="table-responsive mb-3" style={{overflowY:'auto',display:'block', maxHeight: "280px"}}>
+    <div className="table-responsive mb-3" style={{ overflowY: 'auto', display: 'block', maxHeight: "280px" }}>
 
 
       <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }}>
@@ -563,5 +567,5 @@ export default function PatientHistory({onRefresh}) {
 
     {renderModal()}
 
-  </div>)
+  </div >)
 }
