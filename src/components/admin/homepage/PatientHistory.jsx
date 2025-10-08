@@ -103,24 +103,24 @@ export default function PatientHistory({onRefresh}) {
 
 
   return (<div>
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontWeight: 'bold' }}>
+   {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', fontWeight: 'bold' }}>
       <div style={{ width: '120px', border: '1px solid', borderRadius: 5, background: 'lightgrey' }}>Gonioscopy</div>
       <div style={{ width: '120px', border: '1px solid', borderRadius: 5, margin: 10, background: 'lightgrey' }}>Retinoscopy</div>
-    </div>
+    </div>  */}
 
 
-    <div className="table-responsive mb-3">
+    <div className="table-responsive mb-3" style={{overflowY:'auto',display:'block', maxHeight: "130px"}}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
-        <h3 className="fs-5 m-0">Medicines</h3>
+        <h3 className="fs-6 fw-bold m-0">Medicines</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Medicines")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
         </button>
 
       </div>
 
-      <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
             <th style={{ width: '25%' }}> Medicine</th>
@@ -153,26 +153,27 @@ export default function PatientHistory({onRefresh}) {
     </div>
 
 
-    <div className="table-responsive mb-3">
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+    <div className="table-responsive mb-3" style={{overflowY:'auto',display:'block', maxHeight: "280px"}}>
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
-        <h3 className="fs-5 m-0">Vision</h3>
+        <h3 className="fs-6 fw-bold m-0">Vision</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Vision")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
         </button>
 
       </div>
 
 
       {/* these are the date tabs which is used to see different appointment data in the table */}
-      <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '4px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '16px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
-        <ul className="nav nav-tabs mb-3" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
+        <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content'  }}>
           {vision.map((rec, i) => (
             <li className="nav-item" key={i}>
               <button
                 className={`nav-link ${rec.created_at === activeDate ? "active" : ""}`}
                 onClick={() => setActiveDate(rec.created_at)}
+                style={{fontSize:13,fontWeight:'bold',letterSpacing:0.5}}
               >
                 {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
               </button>
@@ -182,7 +183,7 @@ export default function PatientHistory({onRefresh}) {
 
       </div>
 
-      <table className="table table-bordered border-dark w-100 text-center align-middle">
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13px" }}>
         <thead className="table-secondary">
           <tr>
             <th>Examination</th>
@@ -249,22 +250,41 @@ export default function PatientHistory({onRefresh}) {
     </div>
 
 
-    <div className="table-responsive mb-3">
+    <div className="table-responsive mb-3" style={{overflowY:'auto',display:'block', maxHeight: "200px"}}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
-        <h3 className="fs-5 m-0">Refraction</h3>
+        <h3 className="fs-5 fw-bold m-0">Refraction</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Refraction")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
         </button>
 
       </div>
 
+        {/* these are the date tabs which is used to see different appointment data in the table */}
+      <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
-      <table className="table table-bordered border-dark w-100 text-center align-middle">
+        <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content'  }}>
+          {refractionData.map((rec, i) => (
+            <li className="nav-item" key={i}>
+              <button
+                className={`nav-link ${rec.created_at === activeDate ? "active" : ""}`}
+                onClick={() => setActiveDate(rec.created_at)}
+                style={{fontSize:13,fontWeight:'bold',letterSpacing:0.5}}
+              >
+                {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
+
+      </div>
+
+
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }}>
         <thead>
           <tr className="table-secondary border border-dark ">
-            <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date & Refraction Type</th>
+            <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Refraction Type</th>
             <th colSpan={5}>Right Eye</th>
             <th colSpan={5}>Left Eye</th>
           </tr>
@@ -289,9 +309,7 @@ export default function PatientHistory({onRefresh}) {
                 {/* First Row: Distance */}
                 <tr className="border border-dark">
                   <td rowSpan={2}>
-                    Date : {new Date(item.created_at).toLocaleDateString()}
-                    <br />
-                    R.T.: {item.refractionType}
+                    {item.refractionType}
                     <br />
                     Glass: {item.Glass_Type}
                   </td>
@@ -333,15 +351,16 @@ export default function PatientHistory({onRefresh}) {
 
 
 
-    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
-      <h3 className="fs-5 m-0">Anterior</h3>
+    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
+      <h3 className="fs-6 fw-bold m-0">Anterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Anterior")}>
-        <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+        <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
       </button>
     </div>
-    <div className="table-responsive mb-3">
 
-      <table className="table table-bordered border-dark w-100 text-center align-middle">
+    <div className="table-responsive mb-3" style={{overflowY:'auto',display:'block', maxHeight: "320px"}}>
+
+      <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13.5px" }}>
         <thead>
           <tr className="table-secondary border border-dark ">
             <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
@@ -405,7 +424,7 @@ export default function PatientHistory({onRefresh}) {
         </tbody>
       </table>
 
-      <table className="table table-bordered border-dark w-100 text-center align-middle">
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }}>
         <thead>
           <tr className="table-secondary border border-dark ">
             <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
@@ -470,18 +489,18 @@ export default function PatientHistory({onRefresh}) {
     </div>
 
 
-    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
-      <h3 className="fs-5 m-0">Posterior</h3>
+      <h3 className="fs-5 fw-bold m-0">Posterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Posterior")}>
-        <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+        <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
       </button>
 
     </div>
-    <div className="table-responsive mb-3">
+    <div className="table-responsive mb-3" style={{overflowY:'auto',display:'block', maxHeight: "280px"}}>
 
 
-      <table className="table table-bordered border-dark w-100 text-center align-middle">
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }}>
         <thead>
           <tr className="table-secondary border border-dark ">
             <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>

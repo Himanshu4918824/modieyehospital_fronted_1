@@ -125,8 +125,8 @@ export default function DoctorConcern({ onRefresh })
 
 
   return (<div>
-    <div className="mb-3 d-flex flex-wrap gap-2">
-      <button style={{ margin: 2, borderRadius: 5 }}>
+   {/* <div className="mb-3 d-flex flex-wrap gap-2">
+       <button style={{ margin: 2, borderRadius: 5 }}>
         Referral Approval
       </button>
       <button style={{ margin: 2, borderRadius: 5 }}>
@@ -136,33 +136,37 @@ export default function DoctorConcern({ onRefresh })
         Speciality Exam
       </button>
 
-      {renderModal()}
-    </div>
+      
+    </div>*/}
+
+    {renderModal()}
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: '10px' }}>
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
 
-        <h3 className="fs-5 m-0">Complaints</h3>
+
+    <div className="table-responsive mb-3" style={{ marginBottom: '10px', overflowY:'auto',display:'block', maxHeight: "130px" }}>
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
+
+        <h3 className="fs-6 fw-bold m-0">Complaints</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Complaints")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
         </button>
 
       </div>
 
-      <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
-            <th className="p-1">Start Date</th>
-            <th className="p-1">Complain</th>
-            <th className="p-1">AppointmentId</th>
+            <th className="p-1" style={{ width: "90px" }}>Start Date</th>
+            <th className="p-1" style={{ width: "150px" }}>Complain</th>
+            <th className="p-1" style={{ width: "40px" }}>AppointmentId</th>
           </tr>
         </thead>
 
         <tbody>
           {complaint.length > 0 ?
             complaint.map((item, i) => {
-              return (<tr key={i} style={{ height: "20px" }}>
+              return (<tr key={i} style={{ height: "20px",fontSize: "13.5px" }}>
                 <td className="p-1">{new Date(item.Date).toLocaleDateString()}</td>
                 <td className="p-1">{item.Complaint}</td>
                 <td className="p-1">{item.AptId}</td>
@@ -178,18 +182,18 @@ export default function DoctorConcern({ onRefresh })
     </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: '5px' }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: '5px',overflowY:'auto',display:'block', maxHeight: "130px" }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
-        <h3 className="fs-5 m-0">History</h3>
+        <h3 className="fs-6 fw-bold m-0">History</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("History")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
         </button>
 
       </div>
 
-      <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
             <th className="p-1 w-25">Date</th>
@@ -203,7 +207,7 @@ export default function DoctorConcern({ onRefresh })
         <tbody>
           {Histroy.length > 0 ?
             Histroy.map((item, i) => {
-              return (<tr key={i} style={{ height: "20px" }}>
+              return (<tr key={i} style={{ height: "20px", fontSize:'14px' }}>
                 <td className="p-1">{new Date(item.created_at).toLocaleDateString()}</td>
                 <td className="p-1">{item.Systemic_illness}</td>
                 <td className="p-1">{item.Treatment_Histroy}</td>
@@ -220,18 +224,18 @@ export default function DoctorConcern({ onRefresh })
     </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: '10px' }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: '10px',overflowY:'auto',display:'block', maxHeight: "130px" }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
-        <h3 className="fs-5 m-0">Allegries</h3>
+        <h3 className="fs-6 fw-bold m-0">Allegries</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Allegries")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
         </button>
 
       </div>
 
-      <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
             <th className="p-1">Allergies</th>
@@ -241,7 +245,7 @@ export default function DoctorConcern({ onRefresh })
         <tbody>
           {Report.length > 0 ? <tr style={{ height: "20px" }}>
             <td className="p-1"></td>
-          </tr> : (<tr style={{ height: "20px" }}>
+          </tr> : (<tr style={{ height: "20px", fontSize:'14px' }}>
             <td colSpan="3">No record available</td>
           </tr>)
           }
@@ -252,17 +256,17 @@ export default function DoctorConcern({ onRefresh })
 
 
     <div className="d-flex  gap-3">
-      <div style={{ flex: '2 1 350px', minWidth: 250 }}>
+      <div style={{ flex: '2 1 350px', minWidth: 250,overflowY:'auto',display:'block', maxHeight: "130px" }}>
 
-        <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+        <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
-          <h3 className="fs-5 m-0">Doctor</h3>
+          <h3 className="fs-6 fw-bold m-0">Doctor</h3>
           <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Doctor")}>
-            <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+            <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
           </button>
         </div>
 
-        <table className="table table-bordered border-black w-100 mb-0 text-center" border={2} >
+        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2} >
           <thead>
             <tr className="table-secondary">
               <th className="p-1">Doctor</th>
@@ -272,7 +276,7 @@ export default function DoctorConcern({ onRefresh })
           </thead>
 
           <tbody>
-            {doctor.length > 0 ? <tr style={{ height: "20px" }}>
+            {doctor.length > 0 ? <tr style={{ height: "20px", fontSize:'14px' }}>
               <td className="p-1"></td>
               <td className="p-1"></td>
               <td className="p-1"></td>
@@ -288,19 +292,19 @@ export default function DoctorConcern({ onRefresh })
 
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10 }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10,overflowY:'auto',display:'block', maxHeight: "130px" }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
-        <h3 className="fs-5 m-0">Diagnosis</h3>
+        <h3 className="fs-6 fw-bold m-0">Diagnosis</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Diagnosis")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
         </button>
 
       </div>
 
 
-      <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
             <th>Date</th>
@@ -313,7 +317,7 @@ export default function DoctorConcern({ onRefresh })
         <tbody>
           {diagnosisList.length > 0 ?
             diagnosisList.map((diagnosis, i) => {
-              return (<tr key={i}>
+              return (<tr key={i} style={{fontSize:'14px'}}>
                 <td>{new Date(diagnosis.created_at).toLocaleDateString()}</td>
                 <td>{diagnosis.R_eye}</td>
                 <td>{diagnosis.L_eye}</td>
@@ -329,18 +333,18 @@ export default function DoctorConcern({ onRefresh })
     </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10 }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10,overflowY:'auto',display:'block', maxHeight: "130px" }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
-        <h3 className="fs-5 m-0">Advice Given</h3>
+        <h3 className="fs-6 fw-bold m-0">Advice Given</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Advice")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
         </button>
 
       </div>
 
-      <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
             <th>Date</th>
@@ -351,7 +355,7 @@ export default function DoctorConcern({ onRefresh })
         <tbody>
           {Advise.length > 0 ?
             Advise.map((item, i) => {
-              return (<tr key={i}>
+              return (<tr key={i} style={{fontSize:'14px'}}>
                 <td>{new Date(item.Date).toLocaleDateString()}</td>
                 <td>{item.type}</td>
                 <td>{item.message}</td>
@@ -364,18 +368,18 @@ export default function DoctorConcern({ onRefresh })
     </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10 }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10,overflowY:'auto',display:'block', maxHeight: "130px" }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
-        <h3 className="fs-5 m-0">Treatment</h3>
+        <h3 className="fs-6 fw-bold m-0">Treatment</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Treatment")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
         </button>
 
       </div>
 
-      <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
             <th>Date</th>
@@ -386,7 +390,7 @@ export default function DoctorConcern({ onRefresh })
         <tbody>
           {treatment.length > 0 ?
             treatment.map((item, i) => {
-              return (<tr key={i}>
+              return (<tr key={i} style={{fontSize:'14px'}}>
                 <td>{new Date(item.Date).toLocaleDateString()}</td>
                 <td>{item.type}</td>
                 <td>{item.message}</td>
@@ -399,18 +403,18 @@ export default function DoctorConcern({ onRefresh })
     </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10 }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10,overflowY:'auto',display:'block', maxHeight: "130px" }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "35px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
-        <h3 className="fs-5 m-0">Report</h3>
+        <h3 className="fs-6 fw-bold m-0">Report</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Report")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 20 }} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
         </button>
 
       </div>
 
-      <table className="table table-bordered border-black w-100 mb-0 text-center" border={2}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
             <th>Date</th>
@@ -419,7 +423,7 @@ export default function DoctorConcern({ onRefresh })
           </tr>
         </thead>
         <tbody>
-          {Report.length > 0 ? <tr>
+          {Report.length > 0 ? <tr style={{fontSize:'14px'}}>
             <td></td>
             <td></td>
             <td></td>

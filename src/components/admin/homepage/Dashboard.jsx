@@ -6,8 +6,13 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 
-export default function DashBoard() {
+export default function DashBoard() 
+{
+  const navigate=useNavigate()
+
+
   const { patientData, getPatientData, SetP_id, SetAid, DoctorDetail, getDoctorsDetail } = useContext(MainContext);
   const { id, Aid } = useParams();
 
@@ -62,90 +67,102 @@ export default function DashBoard() {
 
   return (
     <>
-      <div>
-        <Header />
-      </div>
 
-      <div style={{ background: "lightgrey", width: "100%", textAlign: "center", fontWeight: "bold", }} >
+      <div style={{ background: "lightgrey", width: "100%", fontWeight: "bold",display:'flex',alignItems:'center',justifyContent:'center' }} >
+
+         <button className="btn p-0 border-0 bg-transparent" style={{  position: "absolute",right: "6px", fontSize:18, marginRight:10,fontWeight:600}} onClick={()=>navigate('/maindashboard')} >
+               Back
+          </button>
+
         Doctor Examination
       </div>
 
       <div className="px-3">
 
-        <div className="row mb-3 mt-3">
-          <div className="col-xs-12 col-lg-3">
-            <div className="input-group">
+        <div className="row mb-2 mt-3">
+          <div className="col-xs-12 col-lg-2">
+            <div class="input-group input-group-sm">
               <span className="input-group-text">Appointment Id:</span>
               <input type="text" className="form-control" disabled value={Aid} />
             </div>
           </div>
 
           <div className="col-xs-12 col-lg-3">
-            <div className="input-group">
+            <div class="input-group input-group-sm">
               <span className="input-group-text">Patient Name</span>
               <input type="text" className="form-control" disabled value={patientData.FullName} />
             </div>
           </div>
 
           <div className="col-xs-12 col-lg-3">
-            <div className="input-group">
+            <div class="input-group input-group-sm">
               <span className="input-group-text">Doctor Name</span>
               <input type="text" className="form-control" disabled value={DoctorDetail.FullName} />
             </div>
           </div>
 
-          <div className="col-xs-12 col-lg-3">
-            <div className="input-group">
+          <div className="col-xs-12 col-lg-2">
+            <div class="input-group input-group-sm">
               <span className="input-group-text">Patient Age</span>
               <input type="text" className="form-control" disabled value={patientData.Age} />
             </div>
           </div>
 
-        </div>
-
-        <div className="row mb-3 mt-3">
-
-          <div className="col-xs-12 col-lg-3">
-            <div className="input-group">
+           <div className="col-xs-12 col-lg-2">
+            <div class="input-group input-group-sm">
               <span className="input-group-text">Patient DOB:</span>
               <input type="text" className="form-control" disabled value={patientData.Dob} />
             </div>
           </div>
 
-          <div className="col-xs-12 col-lg-3">
-            <div className="input-group">
+        </div>
+
+
+        <div className="row mb-3 mt-3">
+
+          <div className="col-xs-12 col-lg-2">
+            <div class="input-group input-group-sm">
               <span className="input-group-text">Reffered By:</span>
               <input type="text" className="form-control" disabled />
             </div>
           </div>
 
           <div className="col-xs-12 col-lg-3">
-            <div className="input-group">
+            <div class="input-group input-group-sm">
               <span className="input-group-text">Insurance:</span>
               <input type="text" className="form-control" disabled />
             </div>
           </div>
 
           <div className="col-xs-12 col-lg-3">
-            <div className="input-group">
+            <div class="input-group input-group-sm">
               <span className="input-group-text">Address</span>
               <input type="text" className="form-control" disabled value={patientData.Address} />
             </div>
           </div>
 
-        </div>
-
-
-        <div className="row mb-3 mt-3">
-
-          <div className="col-xs-12 col-lg-3">
-            <div className="input-group">
+          <div className="col-xs-12 col-lg-2">
+            <div class="input-group input-group-sm">
               <span className="input-group-text">City</span>
               <input type="text" className="form-control" disabled value={patientData.City} />
             </div>
           </div>
 
-          <div className="col-xs-12 col-lg-3">
+           <div className="col-xs-12 col-lg-2">
+            <div class="input-group input-group-sm">
+              <span className="input-group-text">Last Visit Date:</span>
+              <input type="text" className="form-control" disabled value={patientData.Latest_Apt_Date} />
+            </div>
+          </div>
+
+        </div>
+
+{/*
+        <div className="row mb-3 mt-3">
+
+          
+
+          <div className="col-xs-12 col-lg-2">
             <div className="input-group">
               <span className="input-group-text">State</span>
               <input type="text" className="form-control" disabled value={patientData.State} />
@@ -159,17 +176,12 @@ export default function DashBoard() {
             </div>
           </div>
 
-          <div className="col-xs-12 col-lg-3">
-            <div className="input-group">
-              <span className="input-group-text">Last Visit Date:</span>
-              <input type="text" className="form-control" disabled value={patientData.Latest_Apt_Date} />
-            </div>
-          </div>
+         
 
         </div>
 
 
-
+*/}
 
 
 
