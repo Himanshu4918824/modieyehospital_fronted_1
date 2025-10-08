@@ -114,7 +114,7 @@ export default function PatientHistory({ onRefresh }) {
     </div>  */}
 
 
-    <div className="table-responsive mb-3" style={{ overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3">
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -125,7 +125,8 @@ export default function PatientHistory({ onRefresh }) {
 
       </div>
 
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+    <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px"}} border={2}>
         <thead>
           <tr className="table-secondary">
             <th style={{ width: '25%' }}> Medicine</th>
@@ -156,6 +157,7 @@ export default function PatientHistory({ onRefresh }) {
         </tbody>
       </table>
     </div>
+  </div>
 
 
     <div className="table-responsive mb-3" style={{ display: 'block' }}>
@@ -188,7 +190,9 @@ export default function PatientHistory({ onRefresh }) {
 
       </div>
 
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13px" }}>
+
+    <div className="hide-scrollbar" style={{ maxHeight: '200px', overflowY: "auto", display: 'block',scrollbarWidth: 'none'  }}>
+       <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13px" }} border={2}>
         <thead className="table-secondary">
           <tr>
             <th>Examination</th>
@@ -253,9 +257,11 @@ export default function PatientHistory({ onRefresh }) {
         </tbody>
       </table>
     </div>
+  </div>
 
 
-    <div className="table-responsive mb-3" style={{ overflowY: 'auto', display: 'block', maxHeight: "200px" }}>
+
+    <div className="table-responsive mb-3">
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -286,7 +292,8 @@ export default function PatientHistory({ onRefresh }) {
       </div>
 
 
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }}>
+     <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary border border-dark ">
             <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Refraction Type</th>
@@ -352,7 +359,7 @@ export default function PatientHistory({ onRefresh }) {
 
       </table>
     </div>
-
+  </div>
 
 
     <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
@@ -362,9 +369,9 @@ export default function PatientHistory({ onRefresh }) {
       </button>
     </div>
 
-    <div className="table-responsive mb-3" style={{ overflowY: 'auto', display: 'block', maxHeight: "320px" }}>
-
-      <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13.5px" }}>
+   <div className="table-responsive mb-3">
+     <div className="hide-scrollbar" style={{ maxHeight: '280px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+      <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary border border-dark ">
             <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
@@ -428,7 +435,8 @@ export default function PatientHistory({ onRefresh }) {
         </tbody>
       </table>
 
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }}>
+     
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary border border-dark ">
             <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
@@ -491,6 +499,7 @@ export default function PatientHistory({ onRefresh }) {
         </tbody>
       </table>
     </div>
+  </div>
 
 
     <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
@@ -501,10 +510,11 @@ export default function PatientHistory({ onRefresh }) {
       </button>
 
     </div>
-    <div className="table-responsive mb-3" style={{ overflowY: 'auto', display: 'block', maxHeight: "280px" }}>
 
+    <div className="table-responsive mb-3">
 
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }}>
+    <div className="hide-scrollbar" style={{ maxHeight: '170px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary border border-dark ">
             <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
@@ -561,7 +571,7 @@ export default function PatientHistory({ onRefresh }) {
       </table>
     </div>
 
-
+</div>
 
 
 

@@ -73,7 +73,7 @@ export default function RegistrationFrom() {
             });
         }
 
-        resetData();
+       // resetData();
     }
 
 
@@ -139,7 +139,6 @@ export default function RegistrationFrom() {
                             <select className="form-select"
                                 value={Blood_group}
                                 onChange={(e) => setBloodGroup(e.target.value)}
-                                required
 
                             >
                                 <option >Blood Group</option>
@@ -163,7 +162,7 @@ export default function RegistrationFrom() {
 
                     <div className="row" style={{ marginBottom: 7 }}>
                         <div className="col-12">
-                            <textarea required className="form-control" placeholder="Insurance" value={insurance} onChange={(e) => setInsurance(e.target.value)} />
+                            <textarea  className="form-control" placeholder="Insurance" value={insurance} onChange={(e) => setInsurance(e.target.value)} />
                         </div>
                     </div>
 

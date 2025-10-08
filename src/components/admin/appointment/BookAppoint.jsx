@@ -53,7 +53,7 @@ export default function BookAppoint(props) {
             });
         }
 
-        resetData()
+        //resetData()
 
     }
 

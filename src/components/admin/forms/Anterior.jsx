@@ -36,7 +36,7 @@ export default function Anterior({onClose, onRefresh})
         </table>
 
         <div className="d-flex justify-content-end gap-2">
-          <button className="btn btn-secondary" onClick={resetData}>Cancel</button>
+          <button className="btn btn-secondary" onClick={resetData}>Edit</button>
           <button className="btn btn-primary" >Confirm</button>
         </div>
 

@@ -219,7 +219,7 @@ export default function Vision({onClose, onRefresh})
         </div>
 
         <div className="col-6 d-flex justify-content-center">
-          <button onClick={resetData} type="reset" className="btn btn-primary">Cancel</button>
+          <button onClick={resetData} type="reset" className="btn btn-primary">Edit</button>
         </div>
 
       </div>

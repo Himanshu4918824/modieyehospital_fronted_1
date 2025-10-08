@@ -151,7 +151,8 @@ export default function DoctorConcern({ onRefresh }) {
         </button>
 
       </div>
-      <div style={{ maxHeight: '100px', overflowY: "scroll", display: 'block' }}>
+
+      <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
           <thead>
             <tr className="table-secondary">
@@ -181,7 +182,7 @@ export default function DoctorConcern({ onRefresh }) {
     </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: '5px', overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: '5px', display: 'block', }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -192,6 +193,7 @@ export default function DoctorConcern({ onRefresh }) {
 
       </div>
 
+     <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
       <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
@@ -221,9 +223,10 @@ export default function DoctorConcern({ onRefresh }) {
 
       </table>
     </div>
+  </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: '10px', overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: '10px' }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -234,6 +237,7 @@ export default function DoctorConcern({ onRefresh }) {
 
       </div>
 
+     <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
       <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
@@ -252,10 +256,11 @@ export default function DoctorConcern({ onRefresh }) {
 
       </table>
     </div>
+   </div>
 
 
     <div className="d-flex  gap-3">
-      <div style={{ flex: '2 1 350px', minWidth: 250, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
+      <div style={{ flex: '2 1 350px', minWidth: 250 }}>
 
         <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -265,6 +270,8 @@ export default function DoctorConcern({ onRefresh }) {
           </button>
         </div>
 
+
+       <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2} >
           <thead>
             <tr className="table-secondary">
@@ -286,7 +293,7 @@ export default function DoctorConcern({ onRefresh }) {
 
         </table>
       </div>
-
+</div>
     </div>
 
 
@@ -302,7 +309,7 @@ export default function DoctorConcern({ onRefresh }) {
 
       </div>
 
-
+    <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
       <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
@@ -330,9 +337,10 @@ export default function DoctorConcern({ onRefresh }) {
         </tbody>
       </table>
     </div>
+</div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10,}}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -343,6 +351,8 @@ export default function DoctorConcern({ onRefresh }) {
 
       </div>
 
+
+      <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
       <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
@@ -365,6 +375,7 @@ export default function DoctorConcern({ onRefresh }) {
         </tbody>
       </table>
     </div>
+</div>
 
 
     <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
@@ -378,6 +389,8 @@ export default function DoctorConcern({ onRefresh }) {
 
       </div>
 
+
+   <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
       <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
@@ -400,7 +413,7 @@ export default function DoctorConcern({ onRefresh }) {
         </tbody>
       </table>
     </div>
-
+</div>
 
     <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
@@ -413,6 +426,8 @@ export default function DoctorConcern({ onRefresh }) {
 
       </div>
 
+
+     <div sclassName="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
       <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary">
@@ -434,7 +449,7 @@ export default function DoctorConcern({ onRefresh }) {
         </tbody>
       </table>
     </div>
-
+</div>
 
 
 
