@@ -2,6 +2,22 @@ export default function Anterior({onClose, onRefresh})
 {
   const fields = ["Intraocular pressure (NCT)", "Intraocular pressure (Tonopen)", "Intraocular pressure (AT)", "Eyelids", "Eyelashes", "Lacrimal punctum", "Orbit", "Extraocular movements", "Eye position", "Sclera/episclera", "Conjunctiva", "Cornea", "Anterior chamber", "Angles", "Iris/pupil", "Lens", "Lacrimal syringing", "Gonioscopy", "Others",];
 
+  
+  // sample dynamic data
+  const [data, setData] = useState({
+    "Cornea": { right: "Clear", left: "Scarred" },
+    "Lens": { right: "Normal", left: "Cataract" },
+  });
+
+  const handleChange = (field, side, value) => {
+    setData((prev) => ({
+      ...prev,
+      [field]: { ...prev[field], [side]: value },
+    }));
+  };
+
+
+
   function resetData()
   {
     onClose();
@@ -24,12 +40,15 @@ export default function Anterior({onClose, onRefresh})
             {fields.map((field, index) => (
               <tr key={index}>
                 <td className="text-start">{field}</td>
+
                 <td>
-                  <input type="text" className="form-control" />
+                  <input type="text" className="form-control"  value={data[field]?.right || ""}  onChange={(e) => handleChange(field, "right", e.target.value)} />
                 </td>
+
                 <td>
-                  <input type="text" className="form-control" />
+                  <input type="text" className="form-control"  value={data[field]?.left || ""}  onChange={(e) => handleChange(field, "left", e.target.value)} />
                 </td>
+                
               </tr>
             ))}
           </tbody>
