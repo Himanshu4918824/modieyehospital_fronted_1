@@ -1,6 +1,12 @@
-export default function Anterior() {
+export default function Anterior({onClose, onRefresh}) 
+{
   const fields = ["Intraocular pressure (NCT)", "Intraocular pressure (Tonopen)", "Intraocular pressure (AT)", "Eyelids", "Eyelashes", "Lacrimal punctum", "Orbit", "Extraocular movements", "Eye position", "Sclera/episclera", "Conjunctiva", "Cornea", "Anterior chamber", "Angles", "Iris/pupil", "Lens", "Lacrimal syringing", "Gonioscopy", "Others",];
 
+  function resetData()
+  {
+    onClose();
+    onRefresh();
+  }
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
@@ -30,8 +36,8 @@ export default function Anterior() {
         </table>
 
         <div className="d-flex justify-content-end gap-2">
-          <button className="btn btn-secondary">Cancel</button>
-          <button className="btn btn-primary">Confirm</button>
+          <button className="btn btn-secondary" onClick={resetData}>Cancel</button>
+          <button className="btn btn-primary" >Confirm</button>
         </div>
 
 

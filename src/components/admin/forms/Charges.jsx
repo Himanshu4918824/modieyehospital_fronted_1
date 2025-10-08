@@ -2,7 +2,7 @@ import { useState } from "react"
 import { currentDate, postData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 
-export default function Charges()
+export default function Charges({onClose, onRefresh})
 {
     const [particular,setParticular]=useState('');
     const [amount,setAmount]=useState('');
@@ -12,6 +12,9 @@ export default function Charges()
     {
         setParticular('')
         setAmount('');
+
+        onClose();
+        onRefresh();
     }
 
 
@@ -46,7 +49,10 @@ export default function Charges()
                        });
                    }
 
-                   resetData()
+                   resetData();
+                   onClose();
+                   onRefresh();
+                   
 
     }
 

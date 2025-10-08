@@ -13,78 +13,82 @@ import MainContext from "../../../context/MainContext";
 
 
 
-export default function DoctorConcern() {
+export default function DoctorConcern({ onRefresh }) 
+{
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
-  const { diagnosisList, Histroy, Advise, treatment, complaint } = useContext(MainContext)
-  const doctor = []
+  const { diagnosisList, Histroy, Advise, treatment, complaint } = useContext(MainContext);
+  const doctor = [];
+
   const openDialog = (e) => {
     setShowDialog(true);
     setModalPage(e)
   }
+
   const closeDialog = () => setShowDialog(false);
+
 
   const showPage = (props) => {
     if (props === "Complaints") {
       return (
         <div>
-          <Complaint stat = 'complaint'/>
+          <Complaint stat = 'complaint' onClose={closeDialog} onRefresh={onRefresh}/>
         </div>
       );
     }
     else if (props === "History") {
       return (
         <div>
-          <History />
+          <History onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "Allegries") {
       return (
         <div>
-          <Allegries stat = 'allergies'/>
+          <Allegries stat = 'allergies' onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "Doctor") {
       return (
         <div>
-          <Doctor />
+          <Doctor onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "Diagnosis") {
       return (
         <div>
-          <Diagnosis />
+          <Diagnosis onClose={closeDialog} onRefresh={onRefresh}/>
         </div>
       );
     }
     else if (props === "Treatment") {
       return (
         <div>
-          <Treatment stat="treatment" />
+          <Treatment stat="treatment" onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "Advice") {
       return (
         <div>
-          <Advice stat="advise" />
+          <Advice stat="advise" onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "Report") {
       return (
         <div>
-          <Report />
+          <Report onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "Medicine") {
       return (
         <div>
-          <Medicine />
+          <Medicine onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }

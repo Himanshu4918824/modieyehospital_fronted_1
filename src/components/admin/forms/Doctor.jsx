@@ -2,7 +2,7 @@ import { useState } from "react"
 import { currentDate } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 
-export default function Doctor()
+export default function Doctor({onClose, onRefresh})
 {
     const [name,setName]=useState('')
     const [consultationOne,setConsultationOne]=useState('');
@@ -50,7 +50,9 @@ export default function Doctor()
                      });
         }
 
-        resetData()
+        resetData();
+        onClose();
+        onRefresh();
 
     }
 
@@ -61,7 +63,10 @@ export default function Doctor()
         setConsultationThree('');
         setConsultationTwo('');
         setConsultationOne('');
-        setName('')
+        setName('');
+
+        onClose();
+        onRefresh();
 
     }
 

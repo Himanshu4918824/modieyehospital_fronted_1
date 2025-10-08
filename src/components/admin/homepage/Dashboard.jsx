@@ -17,8 +17,16 @@ export default function DashBoard() {
     SetP_id(id)
     SetAid(Aid)
     // console.log(patientData)
-  }, []);
+  }, [id, Aid]);
   // console.log(DoctorDetail)
+
+  const refreshDashboard = () => {
+  getPatientData(`v1/patient/${id}`);
+  getDoctorsDetail(localStorage.getItem('doctorId'));
+};
+
+
+
   let data = [
     "send",
     "History",
@@ -169,10 +177,10 @@ export default function DashBoard() {
         {/* Components in 3 columns */}
         <div className="row">
           <div className="col-lg-5 col-sm-12">
-            <DoctorConcern />
+            <DoctorConcern onRefresh={refreshDashboard} />
           </div>
           <div className="col-lg-7 col-sm-12">
-            <PatientHistory />
+            <PatientHistory onRefresh={refreshDashboard} />
           </div>
 
         </div>

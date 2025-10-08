@@ -8,7 +8,7 @@ import { useContext } from 'react';
 import MainContext from '../../../context/MainContext';
 import React, { useEffect } from 'react';
 
-export default function PatientHistory() {
+export default function PatientHistory({onRefresh}) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
 
@@ -28,41 +28,44 @@ export default function PatientHistory() {
     setShowDialog(true);
     setModalPage(e)
   }
+
+
   const closeDialog = () => setShowDialog(false);
+  
 
   const showPage = (props) => {
     if (props === "Medicines") {
       return (
         <div>
-          <Medicines />
+          <Medicines onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "Vision") {
       return (
         <div>
-          <Vision />
+          <Vision onClose={closeDialog} onRefresh={onRefresh}/>
         </div>
       );
     }
     else if (props === "Refraction") {
       return (
         <div>
-          <Refraction />
+          <Refraction onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "Anterior") {
       return (
         <div>
-          <Anterior />
+          <Anterior onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "Posterior") {
       return (
         <div>
-          <Posterior />
+          <Posterior onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }

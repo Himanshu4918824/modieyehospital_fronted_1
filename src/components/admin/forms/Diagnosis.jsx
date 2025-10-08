@@ -5,7 +5,7 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function Diagnosis() {
+export default function Diagnosis({onClose, onRefresh}) {
 
     const [leftEye, setLeftEye] = useState('');
     const [rightEye, setRightEye] = useState('');
@@ -57,6 +57,8 @@ export default function Diagnosis() {
             });
         }
         resetData()
+        onClose()
+        onRefresh()
 
     }
 
@@ -64,7 +66,10 @@ export default function Diagnosis() {
         setLeftEye('');
         setRightEye('');
         setSystemic('');
-        setOther('')
+        setOther('');
+
+        onClose();
+        onRefresh();
     }
 
 

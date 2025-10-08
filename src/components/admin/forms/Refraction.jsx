@@ -5,7 +5,8 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import Swal from "sweetalert2";
 
-export default function Refraction() {
+export default function Refraction({onClose, onRefresh}) 
+{
   const { refractionData, P_id, Aid } = useContext(MainContext)
   const [refraction, setRefraction] = useState('');
   const [leftEyeSPH, setLeftEyeSPH] = useState('');
@@ -29,6 +30,7 @@ export default function Refraction() {
   const [nearRightEyeAXIS, setNearRightEyeAXIS] = useState('')
   const [nearRightEyeVA, setNearRightEyeVA] = useState('');
   const [GlassType, setGlassType] = useState('');
+
 
 
   useEffect(() => {
@@ -65,6 +67,7 @@ export default function Refraction() {
     setGlassType(r?.Glass_Type);
 
   }, []);
+
 
 
   const handleSubmit = async () => {
@@ -121,7 +124,9 @@ export default function Refraction() {
       });
     }
 
-    resetData()
+    resetData();
+    onClose();
+    onRefresh();
 
   }
 
@@ -144,6 +149,9 @@ export default function Refraction() {
     setNearRightEyeAXIS('');
     setNearLeftEyeVA('');
     setNearRightEyeVA('');
+
+    onClose();
+    onRefresh();
 
   }
 

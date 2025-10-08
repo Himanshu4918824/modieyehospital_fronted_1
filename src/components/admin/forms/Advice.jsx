@@ -5,10 +5,13 @@ import { useEffect } from "react";
 import MainContext from "../../../context/MainContext";
 import { useContext } from "react";
 
-export default function Advice({ stat }) {
+export default function Advice({ stat, onClose, onRefresh }) 
+{
     const [details, setDetails] = useState('');
     const [type, setType] = useState('');
     const { Advise, P_id, treatment , Aid } = useContext(MainContext)
+
+
     useEffect(() => {
         if (stat === 'advise') {
             setDetails(Advise[0]?.message);
@@ -24,6 +27,9 @@ export default function Advice({ stat }) {
     function resetData() {
         setDetails('');
         setType('');
+
+        onClose();
+        onRefresh();
     }
 
     const handleSubmit = async () => {
@@ -65,7 +71,9 @@ export default function Advice({ stat }) {
             });
         }
 
-        resetData()
+        resetData();
+        onClose();
+        onRefresh();
 
     }
 

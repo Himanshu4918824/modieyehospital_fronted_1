@@ -2,7 +2,7 @@ import { useState, useRef  } from "react"
 import { currentDate, postData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 
-export default function Report()
+export default function Report({onClose, onRefresh})
 {
     const [reportName,setReportName]=useState('');
     const [uploadReport,setUploadReport]=useState('');
@@ -18,6 +18,9 @@ export default function Report()
             {
                 fileInputRef.current.value = ""; // <-- clear file input
             }
+
+            onClose();
+            onRefresh();
     }
 
     const handleSubmit=async()=>{
@@ -51,7 +54,9 @@ export default function Report()
                        });
                    }
 
-                   resetData()
+                   resetData();
+                   onClose();
+                   onRefresh();
 
     }
 

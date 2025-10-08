@@ -5,7 +5,8 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function Complaint({ stat }) {
+export default function Complaint({ stat, onClose, onRefresh }) {
+
     const [complain, setComplain] = useState('');
     const { complaint, P_id, Aid } = useContext(MainContext)
 
@@ -20,7 +21,9 @@ export default function Complaint({ stat }) {
     }, [])
 
     function resetData() {
-        setComplain('')
+        setComplain('');
+         onClose();      
+         onRefresh(); 
     }
 
     const handleSubmit = async () => {
@@ -59,7 +62,9 @@ export default function Complaint({ stat }) {
             });
         }
 
-        resetData()
+        resetData();
+         onClose();      
+         onRefresh(); 
 
     }
 

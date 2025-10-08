@@ -5,7 +5,8 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function Vision() {
+export default function Vision({onClose, onRefresh}) 
+{
   const { vision, P_id, Aid } = useContext(MainContext)
   const [unaidedRight, setUnaidedRight] = useState('');
   const [pinHoleRight, setPinHoleRight] = useState('');
@@ -26,6 +27,7 @@ export default function Vision() {
   const [nearUnaidedLeft, setNearUnaidedLeft] = useState('');
   const [nearGlassesLeft, setNearGlassesLeft] = useState('');
   const [nearSubjectiveLeft, setNearSubjectiveLeft] = useState('');
+
 
   useEffect(() => {
 
@@ -54,6 +56,7 @@ export default function Vision() {
     setNearSubjectiveLeft(v?.L_Near_with_current_subjective);
 
   }, [vision]);
+
 
 
   const handleSubmit = async () => {
@@ -106,6 +109,8 @@ export default function Vision() {
     }
 
     resetData();
+    onClose();
+    onRefresh();
 
   }
 
@@ -128,6 +133,9 @@ export default function Vision() {
     setNearGlassesRight('')
     setNearSubjectiveLeft('');
     setNearSubjectiveRight('');
+
+    onClose();
+    onRefresh();
 
   }
 

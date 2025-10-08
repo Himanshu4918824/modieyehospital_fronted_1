@@ -5,11 +5,13 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function History() {
+export default function History({onClose, onRefresh}) 
+{
     const [sysmetic, setSystemic] = useState('');
     const [treatment, setTreatment] = useState('');
     const [family, setFamily] = useState('');
     const [diet, setDiet] = useState('');
+
 
     const { Histroy, P_id, Aid } = useContext(MainContext)
     useEffect(() => {
@@ -18,6 +20,7 @@ export default function History() {
         setFamily(Histroy[0]?.Family_Histroy)
         setDiet(Histroy[0]?.Dite_Histroy)
     }, [])
+
 
     const handleSubmit = async () => {
 
@@ -56,7 +59,9 @@ export default function History() {
             });
         }
 
-        resetData()
+        resetData();
+        onClose();
+        onRefresh();
 
     }
 
@@ -65,6 +70,9 @@ export default function History() {
         setSystemic('');
         setTreatment('');
         setFamily('');
+
+        onClose();
+        onRefresh();
 
     }
 

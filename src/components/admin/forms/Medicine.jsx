@@ -5,13 +5,16 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 
-export default function Medicine() {
+export default function Medicine({onClose, onRefresh}) 
+{
     const [drug, setDrug] = useState('');
     const [days, setDays] = useState('');
     const [dose, setDose] = useState('');
     const [intake, setIntake] = useState('');
     const [comment, setComment] = useState('');
     const { Medicine, P_id, Aid } = useContext(MainContext)
+
+
     useEffect(() => {
         // setDrug(Medicine[0].Drug)
         setDays(Medicine[0]?.Days)
@@ -20,12 +23,16 @@ export default function Medicine() {
         setComment(Medicine[0]?.message)
     }, [])
 
+
     function resetData() {
         setDays('');
         setDose('');
         setComment('');
         setIntake('');
         setDrug('');
+
+        onClose();
+        onRefresh();
     }
 
     const handleSubmit = async () => {
@@ -65,7 +72,9 @@ export default function Medicine() {
             });
         }
 
-        resetData()
+        resetData();
+        onClose();
+        onRefresh();
 
     }
 

@@ -5,7 +5,8 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 
-export default function Posterior() {
+export default function Posterior({onClose, onRefresh})
+{
   const { P_id, posterior, Aid } = useContext(MainContext)
   const [leftMedia, setLeftMedia] = useState('');
   const [leftVitreous, setLeftVitreous] = useState('');
@@ -22,6 +23,8 @@ export default function Posterior() {
   const [rightChoroid, setRightChoroid] = useState('');
   const [rightMacula, setRightMacula] = useState('');
   const [rightOther, setRightOther] = useState('');
+
+
 
   useEffect(() => {
   
@@ -96,6 +99,8 @@ export default function Posterior() {
     }
 
     resetData();
+    onClose();
+    onRefresh();
 
   }
 
@@ -114,6 +119,9 @@ export default function Posterior() {
     setLeftChoroid('');
     setLeftOther('');
     setRightOther('');
+
+    onClose();
+    onRefresh();
   }
 
 
