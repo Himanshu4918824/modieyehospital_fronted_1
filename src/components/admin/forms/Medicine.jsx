@@ -1,28 +1,27 @@
 import { useState } from "react"
-import { postData, currentDate } from "../../../services/FetchNodeAdminServices";
+import { postData, currentDate, putData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 
-export default function Medicine({onClose, onRefresh}) 
-{
+export default function Medicine({ onClose, onRefresh }) {
     const [drug, setDrug] = useState('');
     const [days, setDays] = useState('');
     const [dose, setDose] = useState('');
     const [intake, setIntake] = useState('');
     const [comment, setComment] = useState('');
     const { Medicine, P_id, Aid } = useContext(MainContext)
-
+    const [id, setid] = useState()
 
     useEffect(() => {
-        // setDrug(Medicine[0].Drug)
+        setDrug(Medicine[0]?.medicine)
         setDays(Medicine[0]?.Days)
         setDose(Medicine[0]?.Dose)
         setIntake(Medicine[0]?.Intake)
         setComment(Medicine[0]?.message)
+        setid(Medicine[0]?.id)
     }, [])
-
 
     function resetData() {
         setDays('');
@@ -34,6 +33,50 @@ export default function Medicine({onClose, onRefresh})
         onClose();
         onRefresh();
     }
+
+    const Edit = async () => {
+        const formData = new FormData();
+
+        formData.append('medicine', drug);
+        formData.append('Days', days);
+        formData.append('Dose', dose);
+        formData.append('Intake', intake);
+        formData.append('message', comment);
+
+        const formDataObj = {};
+        formData.forEach((value, key) => {
+            formDataObj[key] = value;
+        });
+
+
+        const result = await putData(`v1/update/Medicine/${id}`, formDataObj)
+
+        if (result.status) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Category Submit Successfully",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+
+        else {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Your work has been not saved",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+
+        resetData();
+        onClose();
+        onRefresh();
+
+    }
+
 
     const handleSubmit = async () => {
         const formData = new FormData();
@@ -89,13 +132,12 @@ export default function Medicine({onClose, onRefresh})
                         value={drug}
                         onChange={(e) => setDrug(e.target.value)}
                     >
-
-                        <option value={'-Select-Type-'}>Select-Medicine</option>
-                        <option value={'Investigation (Ocular)'}>Investigation (Ocular)</option>
-                        <option value={'Investigation (Systemic)'}>Investigation (Systemic)</option>
-                        <option value={'Medicines'}>Medicines</option>
-                        <option value={'Glasses'}>Glasses</option>
-                        <option value={'Contact Lens'}>Contact Lens</option>
+                        <option value='-Select-Type-'>Select-Medicine</option>
+                        <option value='Investigation (Ocular)'>Investigation (Ocular)</option>
+                        <option value='Investigation (Systemic)'>Investigation (Systemic)</option>
+                        <option value='Medicines'>Medicines</option>
+                        <option value='Glasses'>Glasses</option>
+                        <option value='Contact Lens'>Contact Lens</option>
                     </select>
                 </div>
 
@@ -152,7 +194,7 @@ export default function Medicine({onClose, onRefresh})
                 </div>
 
                 <div className="col-6 d-flex justify-content-center">
-                    <button onClick={resetData} type="reset" className="btn btn-primary">Edit</button>
+                    <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
                 </div>
             </div>
 

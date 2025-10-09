@@ -15,7 +15,7 @@ import MainContext from "../../../context/MainContext";
 export default function DoctorConcern({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
-  const { diagnosisList, Histroy, Advise, treatment, complaint } = useContext(MainContext);
+  const { diagnosisList, histroy, Advise, complaint } = useContext(MainContext);
   const doctor = [];
 
   const openDialog = (e) => {
@@ -206,8 +206,8 @@ export default function DoctorConcern({ onRefresh }) {
         </thead>
 
         <tbody>
-          {Histroy.length > 0 ?
-            Histroy.map((item, i) => {
+          {histroy.length > 0 ?
+            histroy.map((item, i) => {
               return (<tr key={i} style={{ height: "20px", fontSize: '14px' }}>
                 <td className="p-1">{new Date(item.created_at).toLocaleDateString()}</td>
                 <td className="p-1">{item.Systemic_illness}</td>
@@ -298,7 +298,7 @@ export default function DoctorConcern({ onRefresh }) {
 
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10, overflowY: 'auto', display: 'block'}}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 

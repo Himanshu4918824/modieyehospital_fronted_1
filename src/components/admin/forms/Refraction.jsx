@@ -1,12 +1,11 @@
 import { useState } from "react"
-import { currentDate, postData } from "../../../services/FetchNodeAdminServices";
+import { currentDate, postData, putData } from "../../../services/FetchNodeAdminServices";
 import { useEffect } from "react";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import Swal from "sweetalert2";
 
-export default function Refraction({onClose, onRefresh}) 
-{
+export default function Refraction({ onClose, onRefresh }) {
   const { refractionData, P_id, Aid } = useContext(MainContext)
   const [refraction, setRefraction] = useState('');
   const [leftEyeSPH, setLeftEyeSPH] = useState('');
@@ -30,13 +29,14 @@ export default function Refraction({onClose, onRefresh})
   const [nearRightEyeAXIS, setNearRightEyeAXIS] = useState('')
   const [nearRightEyeVA, setNearRightEyeVA] = useState('');
   const [GlassType, setGlassType] = useState('');
-
+  const [id, setId] = useState()
 
 
   useEffect(() => {
 
     const r = refractionData[0]; // pick first object
-
+    console.log(r)
+    setId(r?.id)
     setRefraction(r?.refractionType);
 
     // Right Distance
@@ -68,6 +68,66 @@ export default function Refraction({onClose, onRefresh})
 
   }, []);
 
+
+  const Edit = async () => {
+    const formData = new FormData();
+    formData.append('refractionType', refraction);
+    formData.append('L_D_SPH', leftEyeSPH);
+    formData.append('L_D_CYL', leftEyeCYL);
+    formData.append('L_D_AXIS', leftEyeAXIS);
+    formData.append('L_D_VA', leftEyeVA);
+
+    formData.append('R_D_SPH', rightEyeSPH);
+    formData.append('R_D_CYL', rightEyeCYL);
+    formData.append('R_D_AXIS', rightEyeAXIS);
+    formData.append('R_D_VA', rightEyeVA);
+
+    // Near?.....
+
+    formData.append('L_N_SPH', nearLeftEyeSPH);
+    formData.append('L_N_CYL', nearLeftEyeCYL);
+    formData.append('L_N_AXIS', nearLeftEyeAXIS);
+    formData.append('L_N_VA', nearLeftEyeVA);
+
+    formData.append('R_N_SPH', nearRightEyeSPH);
+    formData.append('R_N_CYL', nearRightEyeCYL);
+    formData.append('R_N_AXIS', nearRightEyeAXIS);
+    formData.append('R_N_VA', nearRightEyeVA);
+
+    formData.append('Glass_Type', GlassType);
+
+    const formDataObj = {};
+
+    formData.forEach((value, key) => {
+      formDataObj[key] = value;
+    });
+
+
+    const result = await putData(`v1/update/Refraction/${id}`, formDataObj);
+    if (result.status) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Category Submit Successfully",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+    else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Your work has been not saved",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+
+    resetData();
+    onClose();
+    onRefresh();
+
+  }
 
 
   const handleSubmit = async () => {
@@ -261,7 +321,7 @@ export default function Refraction({onClose, onRefresh})
         </div>
 
         <div className="col-6 d-flex justify-content-center">
-          <button onClick={resetData} type="reset" className="btn btn-primary">Edit</button>
+          <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
         </div>
 
       </div>

@@ -46,7 +46,7 @@ const ContextProvider = ({ children }) => {
     patientId: ""
   }])
 
-  const [Histroy, setHistroy] = useState([{
+  const [histroy, setHistroy] = useState([{
     D_id: "",
     Dite_Histroy: "",
     Family_Histroy: "",
@@ -61,21 +61,24 @@ const ContextProvider = ({ children }) => {
   const [Advise, setAdvise] = useState([{
     Date: "",
     type: "",
-    message: ""
+    message: "",
+    id: ""
   }])
   const [complaint, setComplaint] = useState([{
     Date: "",
     Complaint: "",
-    AptId: ""
+    AptId: "",
+    id: ""
   }])
 
   const [treatment, setTreatment] = useState([{
     Date: "",
     type: "",
-    message: ""
+    message: "",
+    id: ""
   }])
   const [Medicine, setMedicine] = useState([{
-    Medicine: "", days: "", Dosa: "", Intake: "", Comment: "", date: ""
+    Medicine: "", days: "", Dosa: "", Intake: "", Comment: "", date: "", id: ""
   }])
 
   const [refractionData, setRefractionData] = useState([{
@@ -198,7 +201,8 @@ const ContextProvider = ({ children }) => {
           data.Advise.map((item) => ({
             Date: item.created_at || "",
             type: item.type || "",
-            message: item.message || ""
+            message: item.message || "",
+            id: item.id
           }))
         );
       }
@@ -215,7 +219,8 @@ const ContextProvider = ({ children }) => {
           data.Treatment.map((item) => ({
             Date: item.created_at || "",
             type: item.type || "",
-            message: item.message || ""
+            message: item.message || "",
+            id: item.id
           }))
         );
       }
@@ -227,7 +232,8 @@ const ContextProvider = ({ children }) => {
             Intake: item.Intake || "",
             message: item.message || "",
             medicine: item.medicine || "",
-            date: new Date(item.created_at).toLocaleDateString() || ""
+            date: new Date(item.created_at).toLocaleDateString() || "",
+            id: item.id
           }))
         );
       }
@@ -236,7 +242,8 @@ const ContextProvider = ({ children }) => {
           data.Complaint.map((item) => ({
             Date: item.created_at || "",
             Complaint: item.message,
-            AptId: item.appointmentId
+            AptId: item.appointmentId,
+            id: item.id
           }))
         );
       }
@@ -291,7 +298,7 @@ const ContextProvider = ({ children }) => {
 
 
   return (
-    <MainContext.Provider value={{ SetAid, Aid, getPatientData, diagnosisList, patientData, vision, Histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail }}>
+    <MainContext.Provider value={{ SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail }}>
       {children}
     </MainContext.Provider>
   )

@@ -39,4 +39,15 @@ const getData = async (url) => {
       }
 
 }
-export { postData, serverURL, currentDate, getData, createdDate }
+const putData = async (url,body) => {
+      try {
+            let response = await axios.put(`${serverURL}/${url}` , body)
+            let result = response;
+            return result;
+      }
+      catch (e) {
+            return e.response.data;
+      }
+
+}
+export { postData, serverURL, currentDate, getData, createdDate,putData }
