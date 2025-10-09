@@ -46,7 +46,7 @@ export default function MainDashboard() {
     return (
       <div>
 
-        <div className="modal show d-block" tabIndex="-1">
+        <div className="modal show d-flex" tabIndex="-1">
           <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 600, width: "92%", minHeight: 100 }} >
             <div className="modal-content" style={{ minHeight: 400, height: 500 }}>
               <div className="modal-header">
@@ -63,7 +63,7 @@ export default function MainDashboard() {
           </div>
         </div>
         {/* Overlay */}
-        <div className="modal-backdrop fade show"></div>
+         <div className="modal-backdrop fade show" style={{width:'100%',height:'100%'}}></div>
       </div>
     );
   };
