@@ -1,25 +1,70 @@
 import { useState } from "react"
-import { currentDate, postData } from "../../../services/FetchNodeAdminServices";
+import { currentDate, postData, putData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function History({onClose, onRefresh}) 
-{
+export default function History({ onClose, onRefresh }) {
     const [sysmetic, setSystemic] = useState('');
     const [treatment, setTreatment] = useState('');
     const [family, setFamily] = useState('');
     const [diet, setDiet] = useState('');
+    const [id, setid] = useState('');
 
 
-    const { Histroy, P_id, Aid } = useContext(MainContext)
+    const { histroy, P_id, Aid } = useContext(MainContext)
     useEffect(() => {
-        setSystemic(Histroy[0]?.Systemic_illness)
-        setTreatment(Histroy[0]?.Treatment_Histroy)
-        setFamily(Histroy[0]?.Family_Histroy)
-        setDiet(Histroy[0]?.Dite_Histroy)
+        setSystemic(histroy[0]?.Systemic_illness)
+        setTreatment(histroy[0]?.Treatment_Histroy)
+        setFamily(histroy[0]?.Family_Histroy)
+        setDiet(histroy[0]?.Dite_Histroy)
+        setid(histroy[0]?.id)
     }, [])
+   
+
+    const Edit = async () => {
+
+        const formData = new FormData();
+
+        formData.append('Systemic_illness', sysmetic);
+        formData.append('Treatment_Histroy', treatment);
+        formData.append('Family_Histroy', family);
+        formData.append('Dite_Histroy', diet);
+        formData.append('D_id', 'sasa');
+        const formDataObj = {};
+
+        formData.forEach((value, key) => {
+            formDataObj[key] = value;
+        });
+
+        // Now JSON
+        const result = await putData(`v1/update/Histroy/${id}`, formDataObj);
+
+        if (result.status) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Category Submit Successfully",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+        else {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Your work has been not saved",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+
+        resetData();
+        onClose();
+        onRefresh();
+
+    }
 
 
     const handleSubmit = async () => {
@@ -32,7 +77,7 @@ export default function History({onClose, onRefresh})
         formData.append('Dite_Histroy', diet);
         formData.append('D_id', 'sasa');
         const formDataObj = {};
-        
+
         formData.forEach((value, key) => {
             formDataObj[key] = value;
         });
@@ -115,7 +160,7 @@ export default function History({onClose, onRefresh})
                 </div>
 
                 <div className="col-6 d-flex justify-content-center">
-                    <button onClick={resetData} type="reset" className="btn btn-primary">Edit</button>
+                    <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
                 </div>
 
             </div>

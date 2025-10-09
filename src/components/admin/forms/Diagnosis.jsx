@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { currentDate, postData } from "../../../services/FetchNodeAdminServices";
+import { currentDate, postData, putData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
@@ -11,6 +11,7 @@ export default function Diagnosis({onClose, onRefresh}) {
     const [rightEye, setRightEye] = useState('');
     const [systemic, setSystemic] = useState('');
     const [other, setOther] = useState('');
+    const [id, setid] = useState();
 
     const { diagnosisList, P_id, Aid } = useContext(MainContext)
 
@@ -20,8 +21,50 @@ export default function Diagnosis({onClose, onRefresh}) {
         setRightEye(diagnosisList[0]?.R_eye)
         setSystemic(diagnosisList[0]?.Systemic)
         setOther(diagnosisList[0]?.Others)
+        setid(diagnosisList[0]?.id)
 
     }, [])
+ 
+    const Edit = async () => {
+        const formData = new FormData();
+
+        formData.append('L_eye', leftEye);
+        formData.append('R_eye', rightEye);
+        formData.append('Systemic', systemic);
+        formData.append('Others', other);
+
+        const formDataObj = {};
+        formData.forEach((value, key) => {
+            formDataObj[key] = value;
+        });
+
+
+        const result = await putData(`v1/update/Diagnosis/${id}`, formDataObj);
+        if (result.status) {
+           
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Category Submit Successfully",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+        else {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Your work has been not saved",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+        resetData()
+        onClose()
+        onRefresh()
+
+    }
+
 
     const handleSubmit = async () => {
         const formData = new FormData();
@@ -111,7 +154,7 @@ export default function Diagnosis({onClose, onRefresh}) {
                 </div>
 
                 <div className="col-6 d-flex justify-content-center">
-                    <button onClick={resetData} type="reset" className="btn btn-primary">Edit</button>
+                    <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
                 </div>
 
             </div>

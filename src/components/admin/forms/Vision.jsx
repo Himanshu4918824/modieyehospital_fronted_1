@@ -1,12 +1,11 @@
 import { useState } from "react"
-import { currentDate, postData } from "../../../services/FetchNodeAdminServices";
+import { currentDate, postData, putData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function Vision({onClose, onRefresh}) 
-{
+export default function Vision({ onClose, onRefresh }) {
   const { vision, P_id, Aid } = useContext(MainContext)
   const [unaidedRight, setUnaidedRight] = useState('');
   const [pinHoleRight, setPinHoleRight] = useState('');
@@ -17,7 +16,7 @@ export default function Vision({onClose, onRefresh})
   const [nearUnaidedRight, setNearUnaidedRight] = useState('');
   const [nearGlassesRight, setNearGlassesRight] = useState('');
   const [nearSubjectiveRight, setNearSubjectiveRight] = useState('');
-
+  const [id, setid] = useState()
   const [unaidedLeft, setUnaidedLeft] = useState('');
   const [pinHoleLeft, setPinHoleLeft] = useState('');
   const [cTLeft, setCTLeftt] = useState('');
@@ -32,8 +31,9 @@ export default function Vision({onClose, onRefresh})
   useEffect(() => {
 
     const v = vision[0];
-
+    // console.log(v)
     // Right Eye
+    setid(v?.id)
     setUnaidedRight(v?.R_Distance_unaided);
     setPinHoleRight(v?.R_Distance_With_Pin_Hole);
     setCTRight(v?.R_Distance_With_CT);
@@ -56,6 +56,63 @@ export default function Vision({onClose, onRefresh})
     setNearSubjectiveLeft(v?.L_Near_with_current_subjective);
 
   }, [vision]);
+
+
+
+  const Edit = async () => {
+    const formData = new FormData();
+    formData.append('R_Distance_unaided', unaidedRight);
+    formData.append('R_Distance_With_Pin_Hole', pinHoleRight);
+    formData.append('R_Distance_With_CT', cTRight);
+    formData.append('R_Distance_With_PMT', pMTRight);
+    formData.append('R_Distance_with_previous_glasses', glassesRight);
+    formData.append('R_Distance_with_current_subjective', subjectiveRight);
+    formData.append('R_Near_unaided', nearUnaidedRight);
+    formData.append('R_Near_with_previous_glasses', nearGlassesRight);
+    formData.append('R_Near_with_current_subjective', nearSubjectiveRight);
+
+    // Left Eye
+    formData.append('L_Distance_unaided', unaidedLeft);
+    formData.append('L_Distance_With_Pin_Hole', pinHoleLeft);
+    formData.append('L_Distance_With_CT', cTLeft);
+    formData.append('L_Distance_With_PMT', pMTLeft);
+    formData.append('L_Distance_with_previous_glasses', glassesLeft);
+    formData.append('L_Distance_with_current_subjective', subjectiveLeft);
+    formData.append('L_Near_unaided', nearUnaidedLeft);
+    formData.append('L_Near_with_previous_glasses', nearGlassesLeft);
+    formData.append('L_Near_with_current_subjective', nearSubjectiveLeft);
+
+    const formDataObj = {};
+    formData.forEach((value, key) => {
+      formDataObj[key] = value;
+    });
+
+    const result = await putData(`v1/update/Vision/${id}`, formDataObj);
+
+    if (result.status) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Category Submit Successfully",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+    else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Your work has been not saved",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+
+    resetData();
+    onClose();
+    onRefresh();
+
+  }
 
 
 
@@ -88,7 +145,7 @@ export default function Vision({onClose, onRefresh})
     });
 
     const result = await postData(`v1/pre-clinical/vision/${P_id}/${Aid}`, formDataObj);
-    
+
     if (result.status) {
       Swal.fire({
         position: "top-end",
@@ -219,7 +276,7 @@ export default function Vision({onClose, onRefresh})
         </div>
 
         <div className="col-6 d-flex justify-content-center">
-          <button onClick={resetData} type="reset" className="btn btn-primary">Edit</button>
+          <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
         </div>
 
       </div>

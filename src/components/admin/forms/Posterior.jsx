@@ -1,12 +1,11 @@
 import { useState } from "react"
-import { currentDate, postData } from "../../../services/FetchNodeAdminServices";
+import { currentDate, postData, putData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 
-export default function Posterior({onClose, onRefresh})
-{
+export default function Posterior({ onClose, onRefresh }) {
   const { P_id, posterior, Aid } = useContext(MainContext)
   const [leftMedia, setLeftMedia] = useState('');
   const [leftVitreous, setLeftVitreous] = useState('');
@@ -23,13 +22,13 @@ export default function Posterior({onClose, onRefresh})
   const [rightChoroid, setRightChoroid] = useState('');
   const [rightMacula, setRightMacula] = useState('');
   const [rightOther, setRightOther] = useState('');
-
+  const [id, setid] = useState()
 
 
   useEffect(() => {
-  
-    const v = posterior[0];
 
+    const v = posterior[0];
+    setid(v?.id)
     // Right Eye
     setRightMedia(v?.R_Media);
     setRightVitreous(v?.R_Vitreous);
@@ -50,6 +49,57 @@ export default function Posterior({onClose, onRefresh})
 
   }, []);
 
+  const Edit = async () => {
+    const formData = new FormData();
+    // Right Eye
+    formData.append('R_Media', rightMedia);
+    formData.append('R_Vitreous', rightVitreous);
+    formData.append('R_Retina', rightRetina);
+    formData.append('R_Optic_nerve_head', rightOptic);
+    formData.append('R_Choroid', rightChoroid);
+    formData.append('R_Macula', rightMacula);
+    formData.append('R_Others', rightOther);
+
+    // Left Eye
+    formData.append('L_Media', leftMedia);
+    formData.append('L_Vitreous', leftVitreous);
+    formData.append('L_Retina', leftRetina);
+    formData.append('L_Optic_nerve_head', leftOptic);
+    formData.append('L_Choroid', leftChoroid);
+    formData.append('L_Macula', leftMacula);
+    formData.append('L_Others', leftOther);
+
+    const formDataObj = {};
+
+    formData.forEach((value, key) => {
+      formDataObj[key] = value;
+    });
+
+    const result = await putData(`v1/update/Posterior/${id}`, formDataObj);
+    if (result.status) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Category Submit Successfully",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+    else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Your work has been not saved",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+
+    resetData();
+    onClose();
+    onRefresh();
+
+  }
 
 
   const handleSubmit = async () => {
@@ -194,7 +244,7 @@ export default function Posterior({onClose, onRefresh})
         </div>
 
         <div className="col-6 d-flex justify-content-center">
-          <button onClick={resetData} type="reset" className="btn btn-primary">Edit</button>
+          <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
         </div>
 
       </div>

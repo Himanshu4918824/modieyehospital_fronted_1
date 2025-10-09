@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { currentDate, postData } from "../../../services/FetchNodeAdminServices";
+import { currentDate, postData, putData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 import { useEffect } from "react";
 import MainContext from "../../../context/MainContext";
@@ -9,17 +9,22 @@ export default function Advice({ stat, onClose, onRefresh })
 {
     const [details, setDetails] = useState('');
     const [type, setType] = useState('');
+    const [id, setid] = useState();
     const { Advise, P_id, treatment , Aid } = useContext(MainContext)
 
 
     useEffect(() => {
         if (stat === 'advise') {
+            // console.log(Advise[0])
             setDetails(Advise[0]?.message);
             setType(Advise[0]?.type);
+            setid(Advise[0]?.id);
         }
         else if (stat === 'treatment') {
+            // console.log(treatment)
             setDetails(treatment[0]?.message);
             setType(treatment[0]?.type);
+            setid(treatment[0]?.id);
         }
     }, [])
 
@@ -31,6 +36,53 @@ export default function Advice({ stat, onClose, onRefresh })
         onClose();
         onRefresh();
     }
+
+    const Edit = async () => {
+        const formData = new FormData()
+        formData.append('type', type);
+        formData.append('message', details);
+
+        const formDataObj = {};
+        formData.forEach((value, key) => {
+            formDataObj[key] = value;
+        });
+        // cmg9id08z0001j7nomnxe5291
+        let result;
+        if (stat === 'advise') {
+            result = await putData(`v1/update/Advise/${id}`, formDataObj);
+        }
+        else if (stat === 'treatment') {
+            result = await putData(`v1/update/Treatment/${id}`, formDataObj);
+        }
+
+
+
+        if (result.status) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Category Submit Successfully",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+        else {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Your work has been not saved",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+
+        resetData();
+        onClose();
+        onRefresh();
+
+    }
+
+
 
     const handleSubmit = async () => {
         const formData = new FormData()
@@ -113,7 +165,7 @@ export default function Advice({ stat, onClose, onRefresh })
                     </div>
 
                     <div className="col-6 d-flex justify-content-center">
-                        <button onClick={resetData} type="reset" className="btn btn-primary">Edit</button>
+                        <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
                     </div>
 
                 </div>

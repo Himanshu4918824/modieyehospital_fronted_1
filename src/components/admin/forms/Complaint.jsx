@@ -1,18 +1,21 @@
 import { useState } from "react"
-import { currentDate, postData } from "../../../services/FetchNodeAdminServices";
+import { currentDate, postData, putData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
+
 export default function Complaint({ stat, onClose, onRefresh }) {
 
     const [complain, setComplain] = useState('');
+    const [complainId, setComplainId] = useState('');
     const { complaint, P_id, Aid } = useContext(MainContext)
 
     useEffect(() => {
         if (stat === 'complaint') {
             setComplain(complaint[0]?.Complaint)
+            setComplainId(complaint[0]?.id)
         }
         // else if (stat === 'allergies') {
         //     setComplain(allergies[0]?.Allergies)
@@ -21,14 +24,40 @@ export default function Complaint({ stat, onClose, onRefresh }) {
     }, [])
 
     function resetData() {
-        setComplain('');
-         onClose();      
-         onRefresh(); 
+        setComplain('')
+    }
+
+
+    const Edit_Compalin = async () => {
+
+        const result = await putData(`v1/update/complaint/${complainId}`, { message: complain });
+
+        if (result.status) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Category Submit Successfully",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+        else {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Your work has been not saved",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+
+        resetData();
+        onClose();
+        onRefresh();
     }
 
     const handleSubmit = async () => {
         const formData = new FormData()
-        formData.append('complain', complain);
         formData.append('D_id', "sasa");
         formData.append('message', complain);
 
@@ -38,7 +67,6 @@ export default function Complaint({ stat, onClose, onRefresh }) {
         formData.forEach((value, key) => {
             formDataObj[key] = value;
         });
-
 
         const result = await postData(`v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
 
@@ -63,8 +91,8 @@ export default function Complaint({ stat, onClose, onRefresh }) {
         }
 
         resetData();
-         onClose();      
-         onRefresh(); 
+        onClose();
+        onRefresh();
 
     }
 
@@ -82,7 +110,7 @@ export default function Complaint({ stat, onClose, onRefresh }) {
                 </div>
 
                 <div className="col-6 d-flex justify-content-center">
-                    <button onClick={resetData} type="reset" className="btn btn-primary">Edit</button>
+                    <button onClick={Edit_Compalin} type="Submit" className="btn btn-primary">Edit</button>
                 </div>
 
             </div>
