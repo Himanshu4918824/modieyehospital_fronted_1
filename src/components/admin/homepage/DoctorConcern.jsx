@@ -378,6 +378,7 @@ export default function DoctorConcern({ onRefresh }) {
 </div>
 
 
+{/*
     <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
@@ -451,6 +452,7 @@ export default function DoctorConcern({ onRefresh }) {
     </div>
 </div>
 
+*/}
 
 
   </div >)

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import DoctorConcern from "./DoctorConcern";
-//import Patient from "./Patient";
+import Patient from "./Patient";
 import PatientHistory from "./PatientHistory";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
@@ -188,11 +188,17 @@ export default function DashBoard()
 
         {/* Components in 3 columns */}
         <div className="row">
-          <div className="col-lg-5 col-sm-12">
+
+          <div className="col-lg-4 col-sm-12">
             <DoctorConcern onRefresh={refreshDashboard} />
           </div>
-          <div className="col-lg-7 col-sm-12">
+
+          <div className="col-lg-4 col-sm-12">
             <PatientHistory onRefresh={refreshDashboard} />
+          </div>
+
+            <div className="col-lg-4 col-sm-12">
+            <Patient onRefresh={refreshDashboard} />
           </div>
 
         </div>

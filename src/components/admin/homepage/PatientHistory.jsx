@@ -131,10 +131,10 @@ export default function PatientHistory({ onRefresh }) {
           <tr className="table-secondary">
             <th style={{ width: '25%' }}> Medicine</th>
             <th>Days</th>
-            <th style={{ width: '20%' }}>Dose</th>
+            <th style={{ width: '15%' }}>Dose</th>
             <th>Intake</th>
             <th>Comment</th>
-            <th>Date</th>
+            <th style={{ width: '18%' }}>Date</th>
           </tr>
         </thead>
         <tbody>
@@ -191,7 +191,7 @@ export default function PatientHistory({ onRefresh }) {
       </div>
 
 
-    <div className="hide-scrollbar" style={{ maxHeight: '200px', overflowY: "auto", display: 'block',scrollbarWidth: 'none'  }}>
+  
        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13px" }} border={2}>
         <thead className="table-secondary">
           <tr>
@@ -257,7 +257,6 @@ export default function PatientHistory({ onRefresh }) {
         </tbody>
       </table>
     </div>
-  </div>
 
 
 
@@ -362,6 +361,7 @@ export default function PatientHistory({ onRefresh }) {
   </div>
 
 
+{/*
     <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
       <h3 className="fs-6 fw-bold m-0">Anterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Anterior")}>
@@ -370,15 +370,15 @@ export default function PatientHistory({ onRefresh }) {
     </div>
 
    <div className="table-responsive mb-3">
-     <div className="hide-scrollbar" style={{ maxHeight: '280px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
-      <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13.5px" }} border={2}>
+     <div className="hide-scrollbar" style={{ maxHeight: '250px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+      <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13px" }} border={2}>
         <thead>
           <tr className="table-secondary border border-dark ">
             <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
             <th colSpan={18}>Right Eye</th>
           </tr>
 
-          <tr className="table-secondary border border-dark " style={{ fontSize: 14 }}>
+          <tr className="table-secondary border border-dark ">
             <th><i>Intraocular pressure(NCT)</i></th>
             <th><i>Intraocular pressure(Tonopen)</i></th>
             <th><i>Intraocular pressure(AT)</i></th>
@@ -436,14 +436,14 @@ export default function PatientHistory({ onRefresh }) {
       </table>
 
      
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13px" }} border={2}>
         <thead>
           <tr className="table-secondary border border-dark ">
             <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
             <th colSpan={18}>Left Eye</th>
           </tr>
 
-          <tr className="table-secondary border border-dark " style={{ fontSize: 14 }}>
+          <tr className="table-secondary border border-dark ">
             <th><i>Intraocular pressure(NCT)</i></th>
             <th><i>Intraocular pressure(Tonopen)</i></th>
             <th><i>Intraocular pressure(AT)</i></th>
@@ -500,6 +500,7 @@ export default function PatientHistory({ onRefresh }) {
       </table>
     </div>
   </div>
+
 
 
     <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
@@ -573,6 +574,7 @@ export default function PatientHistory({ onRefresh }) {
 
 </div>
 
+*/}
 
 
     {renderModal()}
