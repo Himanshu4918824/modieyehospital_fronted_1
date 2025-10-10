@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { currentDate, postData,  } from "../../../services/FetchNodeAdminServices";
+import { postData,  } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 
 export default function Anterior({ onClose, onRefresh }) {
@@ -58,7 +58,7 @@ export default function Anterior({ onClose, onRefresh }) {
   });
 
   const handleSubmitData=async()=>{
-    var formData=new FormData()
+    const formData=new FormData()
 
     formData.append( "R_Intraocular_pressure (NCT)",data.NCT.right);
     formData.append( "L_Intraocular_pressure (NCT)",data.NCT.left);
@@ -120,9 +120,6 @@ export default function Anterior({ onClose, onRefresh }) {
     formData.append( "R_Others",data.Others.right);
     formData.append( "L_Others",data.Others.left);
 
-     formData.append('created_at', currentDate());
-     formData.append('updated_at', currentDate());
-
 
      const formDataObj = {};
 
@@ -130,9 +127,9 @@ export default function Anterior({ onClose, onRefresh }) {
       formDataObj[key] = value;
     });
 
+console.log(formDataObj)
 
-
- const result = await postData(``, formDataObj);
+//  const result = await postData(``, formDataObj);
     if (result.status) {
       Swal.fire({
         position: "top-end",
