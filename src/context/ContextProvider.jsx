@@ -269,7 +269,7 @@ const ContextProvider = ({ children }) => {
   // fetch all the doctors
   const getAllDoctors = async () => {
     try {
-      const result = await axios.get('http://localhost:8000/api/v1/get/allDoctors')
+      const result = await axios.get('https://doctor-backend.up.railway.app/api/v1/get/allDoctors')
       // console.log(result)
       setAllDoctors(result.data)
     } catch (error) {
@@ -278,7 +278,7 @@ const ContextProvider = ({ children }) => {
   }
   const getDoctorsDetail = async (id) => {
     try {
-      const result = await axios.get(`http://localhost:8000/api/v1/${id}`)
+      const result = await axios.get(`https://doctor-backend.up.railway.app/api/v1/${id}`)
       // console.log(result)
       setDoctorDetail(result.data)
     } catch (error) {
