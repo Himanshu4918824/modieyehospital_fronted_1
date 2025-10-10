@@ -8,9 +8,8 @@ import { useParams } from "react-router-dom";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
-export default function DashBoard() 
-{
-  const navigate=useNavigate()
+export default function DashBoard() {
+  const navigate = useNavigate()
 
 
   const { patientData, getPatientData, SetP_id, SetAid, DoctorDetail, getDoctorsDetail } = useContext(MainContext);
@@ -26,9 +25,9 @@ export default function DashBoard()
   // console.log(DoctorDetail)
 
   const refreshDashboard = () => {
-  getPatientData(`v1/patient/${id}`);
-  getDoctorsDetail(localStorage.getItem('doctorId'));
-};
+    getPatientData(`v1/patient/${id}`);
+    getDoctorsDetail(localStorage.getItem('doctorId'));
+  };
 
 
 
@@ -67,12 +66,11 @@ export default function DashBoard()
 
   return (
     <>
+      <div style={{ background: "lightgrey", width: "100%", fontWeight: "bold", display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
 
-      <div style={{ background: "lightgrey", width: "100%", fontWeight: "bold",display:'flex',alignItems:'center',justifyContent:'center' }} >
-
-         <button className="btn p-0 border-0 bg-transparent" style={{  position: "absolute",left: "6px", fontSize:18, marginRight:10,fontWeight:600}} onClick={()=>navigate('/maindashboard')} >
-               Back
-          </button>
+        <button className="btn p-0 border-0 bg-transparent" style={{ position: "absolute", left: "6px", fontSize: 18, marginRight: 10, fontWeight: 600 }} onClick={() => navigate('/maindashboard')} >
+          Back
+        </button>
 
         Doctor Examination
       </div>
@@ -108,7 +106,7 @@ export default function DashBoard()
             </div>
           </div>
 
-           <div className="col-xs-12 col-lg-2">
+          <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
               <span className="input-group-text">Patient DOB:</span>
               <input type="text" className="form-control" disabled value={patientData.Dob} />
@@ -148,7 +146,7 @@ export default function DashBoard()
             </div>
           </div>
 
-           <div className="col-xs-12 col-lg-2">
+          <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
               <span className="input-group-text">Last Visit Date:</span>
               <input type="text" className="form-control" disabled value={patientData.Latest_Apt_Date} />
@@ -157,7 +155,7 @@ export default function DashBoard()
 
         </div>
 
-{/*
+        {/*
         <div className="row mb-3 mt-3">
 
           
@@ -197,7 +195,7 @@ export default function DashBoard()
             <PatientHistory onRefresh={refreshDashboard} />
           </div>
 
-            <div className="col-lg-4 col-sm-12">
+          <div className="col-lg-4 col-sm-12">
             <Patient onRefresh={refreshDashboard} />
           </div>
 

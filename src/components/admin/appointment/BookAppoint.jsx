@@ -112,13 +112,13 @@ export default function BookAppoint(props) {
                     <input type="date" required className="form-control" value={date} onChange={(e) => setDate(e.target.value)} />
                 </div>
             </div>
-            <div className="row mb-10" >
+            {/* <div className="row mb-10" >
                 <div className="col-xs-12">
 
                     <label style={{ fontSize: 15, color: '#000', margin: 5 }}>Complaint </label>
                     <input type="text" required placeholder="Enter your complaint here..." className="form-control" value={date} onChange={(e) => setDate(e.target.value)} />
                 </div>
-            </div>
+            </div> */}
 
             <div className="row" style={{ marginBottom: 5, marginTop: 20 }}>
                 <div className="col-6" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
