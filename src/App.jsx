@@ -28,6 +28,8 @@ import Charges from "./components/admin/forms/Charges";
 import Payment from "./components/admin/forms/Payment";
 import ContextProvider from "./context/ContextProvider";
 import ShowPatientDetails from "./components/admin/homepage/ShowPatientDetails";
+import AnteriorIcon from "./components/admin/forms/AnteriorIcon";
+import PosteriorIcon from "./components/admin/forms/PosteriorIcon";
 
 
 function App() {
@@ -60,6 +62,9 @@ function App() {
             <Route element={<Charges />} path="/charge"></Route>
             <Route element={<Payment />} path="/payment"></Route>
             <Route element={<NewAppoint />} path="/Newappoint"></Route>
+
+            <Route element={<AnteriorIcon/>} path="/anterioricon"></Route>
+            <Route element={<PosteriorIcon/>} path="/posterioricon"></Route>
           </Routes>
         </ContextProvider>
       </Router>

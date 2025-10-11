@@ -2,123 +2,113 @@ import { useState } from "react";
 import { postData,  } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 
-export default function Anterior({ onClose, onRefresh }) {
-  const fields = [
-    "Intraocular_pressure (NCT)",
-    "Intraocular_pressure (Tonopen)",
-    "Intraocular_pressure (AT)",
-    "Eyelids",
-    "Eyelashes",
-    "Lacrimal_punctum",
-    "Orbit",
-    "Extraocular_movements",
-    "Eye position",
-    "Sclera/episclera",
-    "Conjunctiva",
-    "Cornea",
-    "Anterior_chamber",
-    "Angles",
-    "Iris/pupil",
-    "Lens",
-    "Lacrimal_syringing",
-    "Gonioscopy",
-    "Others",
-  ];
+export default function Anterior({ onClose, onRefresh })
+{
 
-  const [data, setData] = useState({
-    Cornea: { right: "", left: "" },
-    Lens: { right: "", left: "" },
+  // Right side
+  const [rightNCT,setRightNCT]=useState('');
+  const [rightTonopen,setRightTonopen]=useState('');
+  const [rightAT,setRightAT]=useState('');
+  const [rightEyelids,setRightEyelids]=useState('');
+  const [rightEyelashes,setRightEyelashes]=useState('');
+  const [rightLacrimalPunctum,setRightLacrimalPunctum]=useState('');
+  const [rightOrbit,setRightOrbit]=useState('');
+  const [rightExtraocularMovements,setRightExtraocularMovements]=useState('');
+  const [rightEyePosition,setRightEyePosition]=useState('');
+  const [rightSclera,setRightSclera]=useState('');
+  const [rightConjunctiva,setRightConjunctiva]=useState('');
+  const [rightCornea,setRightCornea]=useState('');
+  const [rightAnteriorChamber,setRightAnteriorChamber]=useState('');
+  const [rightAngles,setRightAngles]=useState('');
+  const [rightPupil,setRightPupil]=useState('');
+  const [rightLens,setRightLens]=useState('');
+  const [rightLacrimalSyringing,setRightLacrimalSyringing]=useState('');
+  const [rightGonioscopy,setRightGonioscopy]=useState('');
+  const [rightOthers,setRightOthers]=useState('');
 
-    NCT: { right: "", left: "" },
-    Tonopen: { right: "", left: "" },
 
-    AT: { right: "", left: "" },
-    Eyelids: { right: "", left: "" },
+   // Left side
+  const [leftNCT,setLeftNCT]=useState('');
+  const [leftTonopen,setLeftTonopen]=useState('');
+  const [leftAT,setLeftAT]=useState('');
+  const [leftEyelids,setLeftEyelids]=useState('');
+  const [leftEyelashes,setLeftEyelashes]=useState('');
+  const [leftLacrimalPunctum,setLeftLacrimalPunctum]=useState('');
+  const [leftOrbit,setLeftOrbit]=useState('');
+  const [leftExtraocularMovements,setLeftExtraocularMovements]=useState('');
+  const [leftEyePosition,setLeftEyePosition]=useState('');
+  const [leftSclera,setLefttSclera]=useState('');
+  const [leftConjunctiva,setLeftConjunctiva]=useState('');
+  const [leftCornea,setLeftCornea]=useState('');
+  const [leftAnteriorChamber,setLeftAnteriorChamber]=useState('');
+  const [leftAngles,setLeftAngles]=useState('');
+  const [leftPupil,setLeftPupil]=useState('');
+  const [leftLens,setLeftLens]=useState('');
+  const [leftLacrimalSyringing,setLeftLacrimalSyringing]=useState('');
+  const [leftGonioscopy,setLeftGonioscopy]=useState('');
+  const [leftOthers,setLeftOthers]=useState('');
 
-    Eyelashes: { right: "", left: "" },
-    Lacrimal: { right: "", left: "" },
 
-    Orbit: { right: "", left: "" },
-    Extraocular: { right: "", left: "" },
-    
-    Eye: { right: "", left: "" },
-    Sclera: { right: "", left: "" },
-    
-    Conjunctiva: { right: "", left: "" },
-    Anterior: { right: "", left: "" },
-
-    Angles: { right: "", left: "" },
-    pupil: { right: "", left: "" },
-
-    Lacrimal_syringing: { right: "", left: "" },
-    Gonioscopy: { right: "", left: "" },
-
-    Others: { right: "", left: "" },
-    
-  });
 
   const handleSubmitData=async()=>{
     const formData=new FormData()
 
-    formData.append( "R_Intraocular_pressure (NCT)",data.NCT.right);
-    formData.append( "L_Intraocular_pressure (NCT)",data.NCT.left);
+    formData.append( "R_Intraocular_pressure (NCT)",rightNCT);
+    formData.append( "L_Intraocular_pressure (NCT)",leftNCT);
 
-    formData.append( "R_Intraocular_pressure (Tonopen)",data.Tonopen.right);
-    formData.append( "L_Intraocular_pressure (Tonopen)",data.Tonopen.left);
+    formData.append( "R_Intraocular_pressure (Tonopen)",rightTonopen);
+    formData.append( "L_Intraocular_pressure (Tonopen)",leftTonopen);
 
-    formData.append( "R_Intraocular_pressure (AT)",data.AT.right);
-    formData.append( "L_Intraocular_pressure (AT)",data.AT.left);
+    formData.append( "R_Intraocular_pressure (AT)",rightAT);
+    formData.append( "L_Intraocular_pressure (AT)",leftAT);
 
-    formData.append( "R_Eyelids",data.Eyelids.right);
-    formData.append( "L_Eyelids",data.Eyelids.left);
+    formData.append( "R_Eyelids",rightEyelids);
+    formData.append( "L_Eyelids",leftEyelids);
 
-    formData.append( "R_Eyelashes",data.Eyelashes.right);
-    formData.append( "L_Eyelashes",data.Eyelashes.left);
+    formData.append( "R_Eyelashes",rightEyelashes);
+    formData.append( "L_Eyelashes",leftEyelashes);
 
-    formData.append( "R_Lacrimal",data.Lacrimal.right);
-    formData.append( "L_Lacrimal",data.Lacrimal.left);
+    formData.append( "R_Lacrimal",rightLacrimalPunctum);
+    formData.append( "L_Lacrimal",leftLacrimalPunctum);
 
-    formData.append( "R_Orbit",data.Orbit.right);
-    formData.append( "L_Orbit",data.Orbit.left);
+    formData.append( "R_Orbit",rightOrbit);
+    formData.append( "L_Orbit",leftOrbit);
 
-    formData.append( "R_Extraocular",data.Extraocular.right);
-    formData.append( "L_Extraocular",data.Extraocular.left);
+    formData.append( "R_Extraocular",rightExtraocularMovements);
+    formData.append( "L_Extraocular",leftExtraocularMovements);
 
-    formData.append( "R_Eye",data.Eye.right);
-    formData.append( "L_Eye",data.Eye.left);
+    formData.append( "R_Eye",rightEyePosition);
+    formData.append( "L_Eye",leftEyePosition);
 
-    formData.append( "R_Sclera",data.Sclera.right);
-    formData.append( "L_Sclera",data.Sclera.left);
+    formData.append( "R_Sclera",rightSclera);
+    formData.append( "L_Sclera",leftSclera);
 
-    formData.append( "R_Conjunctiva",data.Conjunctiva.right);
-    formData.append( "L_Conjunctiva",data.Conjunctiva.left);
+    formData.append( "R_Conjunctiva",rightConjunctiva);
+    formData.append( "L_Conjunctiva",leftConjunctiva);
 
-    formData.append( "R_Cornea",data.Cornea.right);
-    formData.append( "L_Cornea",data.Cornea.left);
+    formData.append( "R_Cornea",rightCornea);
+    formData.append( "L_Cornea",leftCornea);
 
-    formData.append( "R_Anterior",data.Anterior.left);
-    formData.append( "L_Anterior",data.Anterior.left);
+    formData.append( "R_Anterior",rightAnteriorChamber);
+    formData.append( "L_Anterior",leftAnteriorChamber);
 
-    formData.append( "R_Angles",data.Angles.right);
-    formData.append( "L_Angles",data.Angles.left);
+    formData.append( "R_Angles",rightAngles);
+    formData.append( "L_Angles",leftAngles);
 
-    formData.append( "R_pupil",data.pupil.right);
-    formData.append( "L_pupil",data.pupil.left);
+    formData.append( "R_pupil",rightPupil);
+    formData.append( "L_pupil",leftPupil);
 
-    formData.append( "R_Lens",data.Lens.right);
-    formData.append( "L_Lens",data.Lens.left);
+    formData.append( "R_Lens",rightLens);
+    formData.append( "L_Lens",leftLens);
 
-    formData.append( "R_Lacrimal_syringing",data. Lacrimal_syringing.left);
-    formData.append( "L_Lacrimal_syringing",data. Lacrimal_syringing.left);
+    formData.append( "R_Lacrimal_syringing",rightLacrimalSyringing);
+    formData.append( "L_Lacrimal_syringing",leftLacrimalSyringing);
 
-    formData.append( "R_Angles",data.Angles.right);
-    formData.append( "L_Angles",data.Angles.left);
+    formData.append( "R_Gonioscopy",rightGonioscopy);
+    formData.append( "L_Gonioscopy",leftGonioscopy);
 
-    formData.append( "R_Gonioscopy",data.Gonioscopy.right);
-    formData.append( "L_Gonioscopy",data.Gonioscopy.left);
-
-    formData.append( "R_Others",data.Others.right);
-    formData.append( "L_Others",data.Others.left);
+    formData.append( "R_Others",rightOthers);
+    formData.append( "L_Others",leftOthers);
 
 
      const formDataObj = {};
@@ -129,8 +119,10 @@ export default function Anterior({ onClose, onRefresh }) {
 
 console.log(formDataObj)
 
-//  const result = await postData(``, formDataObj);
-    if (result.status) {
+ const result = await postData(``, formDataObj);
+
+    if (result.status) 
+      {
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -139,7 +131,9 @@ console.log(formDataObj)
         timer: 2000
       });
     }
-    else {
+
+    else
+       {
       Swal.fire({
         position: "top-end",
         icon: "error",
@@ -156,92 +150,162 @@ console.log(formDataObj)
   }
 
 
-
-
-  const handleChange = (field, side, value) => {
-    setData((prev) => ({
-      ...prev,
-      [field]: { ...prev[field], [side]: value },
-    }));
-  };
-
   const resetData = () => {
     onClose();
     onRefresh();
   };
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "flex-start",
-        padding: "20px",
-        width: "100%",
-      }}
-    >
-      <div
-        style={{
-          width: "85%",
-          maxWidth: "500px",
-          background: "#f8f9fa",
-          padding: "15px",
-          borderRadius: "10px",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-        }}
-      >
-        <h5 className="text-center mb-3">Anterior Segment Examination</h5>
 
-        <div style={{ maxHeight: "300px", overflowY: "auto" }}>
-          <table className="table table-sm table-bordered text-center align-middle mb-2">
-            <thead className="table-dark">
-              <tr>
-                <th style={{ width: "45%" }}>Parameter</th>
-                <th>Right Eye</th>
-                <th>Left Eye</th>
-              </tr>
-            </thead>
-            <tbody>
-              {fields.map((field, index) => (
-                <tr key={index}>
-                  <td className="text-start" style={{ fontSize: "12px" }}>
-                    {field}
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm"
-                      style={{ fontSize: "12px" }}
-                      value={data[field]?.right || ""}
-                      onChange={(e) =>
-                        handleChange(field, "right", e.target.value)
-                      }
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm"
-                      style={{ fontSize: "12px" }}
-                      value={data[field]?.left || ""}
-                      onChange={(e) =>
-                        handleChange(field, "left", e.target.value)
-                      }
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
 
-        <div className="d-flex justify-content-end gap-2 mt-2">
-          <button className="btn btn-secondary btn-sm" onClick={resetData}>
-            Edit
-          </button>
-          <button className="btn btn-primary btn-sm" onClick={handleSubmitData}>Submit</button>
-        </div>
+  return (<div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div style={{ width: 600, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10 }}>
+
+      <div className="table-responsive" style={{maxHeight:450}}>
+          <table className="table table-bordered align-middle" >
+          <thead className="table-secondary">
+            <tr>
+              <th>Visual Acuity</th>
+              <th>Right Eye</th>
+              <th>Left Eye</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td><b><i>Intraocular_pressure (NCT)</i></b></td>
+              <td><input value={rightNCT} onChange={(e) => setRightNCT(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftNCT} onChange={(e) => setLeftNCT(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+            <tr>
+              <td><b><i>Intraocular_pressure (Tonopen)</i></b></td>
+              <td><input value={rightTonopen} onChange={(e) => setRightTonopen(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftTonopen} onChange={(e) => setLeftTonopen(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+            <tr>
+              <td><b><i>Intraocular_pressure (AT)</i></b></td>
+              <td><input value={rightAT} onChange={(e) => setRightAT(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftAT} onChange={(e) => setLeftAT(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+            <tr>
+              <td><b><i>Eyelids</i></b></td>
+              <td><input value={rightEyelids} onChange={(e) => setRightEyelids(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftEyelids} onChange={(e) => setLeftEyelids(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+            <tr>
+              <td><b><i>Eyelashes</i></b></td>
+              <td><input value={rightEyelashes} onChange={(e) => setRightEyelashes(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftEyelashes} onChange={(e) => setLeftEyelashes(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+            <tr>
+              <td><b><i>Lacrimal Punctum</i></b></td>
+              <td><input value={rightLacrimalPunctum} onChange={(e) => setRightLacrimalPunctum(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftLacrimalPunctum} onChange={(e) => setLeftLacrimalPunctum(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+            <tr>
+              <td><b><i>Orbit</i></b></td>
+              <td><input value={rightOrbit} onChange={(e) => setRightOrbit(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={rightOrbit} onChange={(e) => setLeftOrbit(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+             <tr>
+              <td><b><i>Extraocular Movements</i></b></td>
+              <td><input value={rightExtraocularMovements} onChange={(e) => setRightExtraocularMovements(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftExtraocularMovements} onChange={(e) => setLeftExtraocularMovements(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+            <tr>
+              <td><b><i>Eye Position</i></b></td>
+              <td><input value={rightEyePosition} onChange={(e) => setRightEyePosition(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftEyePosition} onChange={(e) => setLeftEyePosition(e.target.value)} type="text" className="form-control" /></td>
+            </tr>
+
+             <tr>
+              <td><b><i>Sclera</i></b></td>
+              <td><input value={rightSclera} onChange={(e) => setRightSclera(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={rightSclera} onChange={(e) => setLefttSclera(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+            <tr>
+              <td><b><i>Conjunctiva</i></b></td>
+              <td><input value={rightConjunctiva} onChange={(e) => setRightConjunctiva(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftConjunctiva} onChange={(e) => setLeftConjunctiva(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+             <tr>
+              <td><b><i>Cornea</i></b></td>
+              <td><input value={rightCornea} onChange={(e) => setRightCornea(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftCornea} onChange={(e) => setLeftCornea(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+            <tr>
+              <td><b><i>Anterior Chamber</i></b></td>
+              <td><input value={rightAnteriorChamber} onChange={(e) => setRightAnteriorChamber(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftAnteriorChamber} onChange={(e) => setLeftAnteriorChamber(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+             <tr>
+              <td><b><i>Angles</i></b></td>
+              <td><input value={rightAngles} onChange={(e) => setRightAngles(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={rightAngles} onChange={(e) => setLeftAngles(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+            <tr>
+              <td><b><i>Pupil</i></b></td>
+              <td><input value={rightPupil} onChange={(e) => setRightPupil(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftPupil} onChange={(e) => setLeftPupil(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+             <tr>
+              <td><b><i>Lens</i></b></td>
+              <td><input value={rightLens} onChange={(e) => setRightLens(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftLens} onChange={(e) => setLeftLens(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+            <tr>
+              <td><b><i>Lacrimal Syringing</i></b></td>
+              <td><input value={rightLacrimalSyringing} onChange={(e) => setRightLacrimalSyringing(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftLacrimalSyringing} onChange={(e) => setLeftLacrimalSyringing(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+             <tr>
+              <td><b><i>Gonioscopy</i></b></td>
+              <td><input value={rightGonioscopy} onChange={(e) => setRightGonioscopy(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftGonioscopy} onChange={(e) => setLeftGonioscopy(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+            <tr>
+              <td><b><i>Others</i></b></td>
+              <td><input value={rightOthers} onChange={(e) => setRightOthers(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftOthers} onChange={(e) => setLeftOthers(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+            </tr>
+
+
+          </tbody>
+        </table>
       </div>
+
+
+      <div className="row mb-2">
+        <div className="col-6 d-flex justify-content-center">
+          <button onClick={handleSubmitData} type="Submit" className="btn btn-primary">Submit</button>
+        </div>
+
+        <div className="col-6 d-flex justify-content-center">
+          <button onClick={resetData} type="reset" className="btn btn-primary">Edit</button>
+        </div>
+
+      </div>
+
     </div>
+
+  </div>
+    
+
   );
 }

@@ -7,7 +7,8 @@ import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function MainDashboard() {
+export default function MainDashboard({onRefresh}) 
+{
   const { getAllTodayAppointments, allTodayAppointments,} = useContext(MainContext)
   useEffect(() => {
     getAllTodayAppointments()
@@ -85,8 +86,16 @@ export default function MainDashboard() {
         <button className="btn btn-dark btn-sm m-1">Diagnostic [0]</button>
         <button className="btn btn-secondary btn-sm m-1">Counsellor [0]</button>
         <button className="btn btn-danger btn-sm m-1">Waiting [0]</button>
-        <button className="btn btn-outline-secondary btn-sm m-1">Return [1196]{" "} </button>
         <button onClick={openDialog} className="btn btn-outline-dark btn-sm m-1">Appointment</button>
+
+<div style={{marginLeft:5}}>
+        <select className="form-select">
+          <option value="">-Select-Branch-</option>
+          <option value="Madhav Plaza">Madhav Plaza</option>
+          <option value="Gola Ka Mandir">Gola Ka Mandir</option>
+          <option value="Dabara">Dabara</option>
+        </select>
+</div>
 
         {renderModal()}
       </div>

@@ -1,17 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Complaint from '../forms/Complaint';
 import Treatment from '../forms/Advice';
-import Report from '../forms/Report';
+//import Report from '../forms/Report';
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import Anterior from '../forms/Anterior';
 import Posterior from '../forms/Posterior';
+import Advice from "../forms/Advice";
+import AnteriorIcon from "../forms/AnteriorIcon";
+import PosteriorIcon from "../forms/PosteriorIcon";
 
 
 export default function DoctorConcern({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
-  const { treatment, anterior, posterior } = useContext(MainContext);
+  const { treatment, anterior, posterior, Advise } = useContext(MainContext);
+
+   const [activeDate, setActiveDate] = useState(anterior[0]?.created_at);
+
+   const activeRecord = anterior.find((rec) => rec.created_at === activeDate);
+
+   
+    useEffect(() => {
+       if (anterior.length > 0 && !activeDate) 
+        {
+           setActiveDate(anterior[0].created_at);
+        }
+     }, [anterior, activeDate])
+   
+   
+
+
 
   const openDialog = (e) => {
     setShowDialog(true);
@@ -36,13 +55,13 @@ export default function DoctorConcern({ onRefresh }) {
         </div>
       );
     }
-    else if (props === "Report") {
-      return (
-        <div>
-          <Report onClose={closeDialog} onRefresh={onRefresh} />
-        </div>
-      );
-    }
+      else if (props === "Advice") {
+          return (
+            <div>
+              <Advice stat="advise" onClose={closeDialog} onRefresh={onRefresh} />
+            </div>
+          );
+        }
     else if (props === "Anterior") {
       return (
         <div>
@@ -54,6 +73,22 @@ export default function DoctorConcern({ onRefresh }) {
       return (
         <div>
           <Posterior onClose={closeDialog} onRefresh={onRefresh} />
+        </div>
+      );
+    }
+
+     else if (props === "Anterioricon") {
+      return (
+        <div>
+          <AnteriorIcon onClose={closeDialog} onRefresh={onRefresh} />
+        </div>
+      );
+    }
+
+     else if (props === "Posterioricon") {
+      return (
+        <div>
+          <PosteriorIcon onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
@@ -134,50 +169,71 @@ export default function DoctorConcern({ onRefresh }) {
       </div>
     </div>
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
-
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
-
-        <h3 className="fs-6 fw-bold m-0">Report</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Report")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
-        </button>
-
-      </div>
-
-
-      <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
-        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
-          <thead>
-            <tr className="table-secondary">
-              <th>Date</th>
-              <th>Report Name</th>
-              <th>Comment</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Report.length > 0 ? <tr style={{ fontSize: '14px' }}>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr> : (<tr>
-              <td colSpan="3">No record available</td>
-            </tr>)
-            }
-
-          </tbody>
-        </table>
-      </div>
-    </div>
-
+   <div className="table-responsive mb-3" style={{ marginBottom: 10,}}>
+   
+         <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
+   
+           <h3 className="fs-6 fw-bold m-0">Advice Given</h3>
+           <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Advice")}>
+             <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+           </button>
+   
+         </div>
+   
+   
+         <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+           <thead>
+             <tr className="table-secondary">
+               <th>Date</th>
+               <th>Type</th>
+               <th style={{ width: '60%' }}>Message</th>
+             </tr>
+           </thead>
+           <tbody>
+             {Advise.length > 0 ?
+               Advise.map((item, i) => {
+                 return (<tr key={i} style={{ fontSize: '14px' }}>
+                   <td>{new Date(item.Date).toLocaleDateString()}</td>
+                   <td>{item.type}</td>
+                   <td>{item.message}</td>
+                 </tr>)
+               }) : (<tr>
+                 <td colSpan="3">No record available</td>
+               </tr>)}
+           </tbody>
+         </table>
+       </div>
+   </div>
 
 
     <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
       <h3 className="fs-6 fw-bold m-0">Anterior</h3>
-      <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Anterior")}>
-        <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+      <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
+        <i className="bi bi-brush" style={{ fontSize: 18, color:' #ff8800'}} onClick={()=>openDialog("Anterioricon")}></i>
+        <img src="/images/pencil.png" alt="edit" style={{ width: 17,marginLeft:5 }} onClick={() => openDialog("Anterior")} />
       </button>
     </div>
+
+
+     {/* these are the date tabs which is used to see different appointment data in the table */}
+      <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+
+        <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
+          {anterior.map((rec, i) => (
+            <li className="nav-item" key={i}>
+              <button
+                className={`nav-link ${rec.created_at === activeDate ? "active" : ""}`}
+                onClick={() => setActiveDate(rec.created_at)}
+                style={{ fontSize: 13, fontWeight: 'bold', letterSpacing: 0.5 }}
+              >
+                {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
+
+      </div>
 
 
     <div className="table-responsive mb-3">
@@ -316,8 +372,9 @@ export default function DoctorConcern({ onRefresh }) {
     <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
       <h3 className="fs-5 fw-bold m-0">Posterior</h3>
-      <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Posterior")}>
-        <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+      <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
+         <i className="bi bi-brush" style={{ fontSize: 18, color:' #ff8800'}} onClick={()=>openDialog("Posterioricon")}></i>
+        <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:5 }} onClick={() => openDialog("Posterior")}/>
       </button>
 
     </div>

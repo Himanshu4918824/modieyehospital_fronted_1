@@ -3,7 +3,8 @@ import { useState } from "react";
 import RegistrationFrom from "../appointment/RegistrationFrom";
 import BookAppoint from "../appointment/BookAppoint";
 
-export default function NewAppoint() {
+export default function NewAppoint() 
+{
   const [modalPage, setModalPage] = useState("registration");
 
   const showPage = (props) => {
