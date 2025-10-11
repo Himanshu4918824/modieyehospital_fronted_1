@@ -7,13 +7,13 @@ import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function MainDashboard() {
+export default function MainDashboard()
+{
   const { getAllTodayAppointments, allTodayAppointments, } = useContext(MainContext)
   const navigate = useNavigate()
   const [doctorId, setDoctorId] = useState(localStorage.getItem('doctorId'))
-export default function MainDashboard({onRefresh}) 
-{
-  const { getAllTodayAppointments, allTodayAppointments,} = useContext(MainContext)
+
+
   useEffect(() => {
     if (!doctorId || doctorId === undefined || doctorId === "") {
       navigate('/')
@@ -22,6 +22,8 @@ export default function MainDashboard({onRefresh})
     getAllTodayAppointments()
 
   }, [])
+
+  
   // console.log(allTodayAppointments)
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("registration");
