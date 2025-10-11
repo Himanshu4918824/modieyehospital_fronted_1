@@ -5,7 +5,8 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import Swal from "sweetalert2";
 
-export default function Refraction({ onClose, onRefresh }) {
+export default function Refraction({ onClose, onRefresh }) 
+{
   const { refractionData, P_id, Aid } = useContext(MainContext)
   const [refraction, setRefraction] = useState('');
   const [leftEyeSPH, setLeftEyeSPH] = useState('');

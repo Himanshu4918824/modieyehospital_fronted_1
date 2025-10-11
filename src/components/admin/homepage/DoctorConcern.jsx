@@ -226,39 +226,8 @@ export default function DoctorConcern({ onRefresh }) {
   </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: '10px' }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
-
-        <h3 className="fs-6 fw-bold m-0">Allegries</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Allegries")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
-        </button>
-
-      </div>
-
-     <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
-        <thead>
-          <tr className="table-secondary">
-            <th className="p-1">Allergies</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {Report.length > 0 ? <tr style={{ height: "20px" }}>
-            <td className="p-1"></td>
-          </tr> : (<tr style={{ height: "20px", fontSize: '14px' }}>
-            <td colSpan="3">No record available</td>
-          </tr>)
-          }
-        </tbody>
-
-      </table>
-    </div>
-   </div>
-
-
+  
     <div className="d-flex  gap-3">
       <div style={{ flex: '2 1 350px', minWidth: 250 }}>
 
@@ -340,12 +309,49 @@ export default function DoctorConcern({ onRefresh }) {
 </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10,}}>
+
+
+    <div className="table-responsive mb-3" style={{ marginBottom: '10px' }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
-        <h3 className="fs-6 fw-bold m-0">Advice Given</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Advice")}>
+        <h3 className="fs-6 fw-bold m-0">Allegries</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Allegries")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+        </button>
+
+      </div>
+
+     <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+        <thead>
+          <tr className="table-secondary">
+            <th className="p-1">Allergies</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {Report.length > 0 ? <tr style={{ height: "20px" }}>
+            <td className="p-1"></td>
+          </tr> : (<tr style={{ height: "20px", fontSize: '14px' }}>
+            <td colSpan="3">No record available</td>
+          </tr>)
+          }
+        </tbody>
+
+      </table>
+    </div>
+   </div>
+
+
+    
+
+ <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
+
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
+
+        <h3 className="fs-6 fw-bold m-0">Report</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Report")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
         </button>
 
@@ -353,29 +359,29 @@ export default function DoctorConcern({ onRefresh }) {
 
 
       <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
-        <thead>
-          <tr className="table-secondary">
-            <th>Date</th>
-            <th>Type</th>
-            <th style={{ width: '60%' }}>Message</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Advise.length > 0 ?
-            Advise.map((item, i) => {
-              return (<tr key={i} style={{ fontSize: '14px' }}>
-                <td>{new Date(item.Date).toLocaleDateString()}</td>
-                <td>{item.type}</td>
-                <td>{item.message}</td>
-              </tr>)
-            }) : (<tr>
+        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+          <thead>
+            <tr className="table-secondary">
+              <th>Date</th>
+              <th>Report Name</th>
+              <th>Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Report.length > 0 ? <tr style={{ fontSize: '14px' }}>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr> : (<tr>
               <td colSpan="3">No record available</td>
-            </tr>)}
-        </tbody>
-      </table>
+            </tr>)
+            }
+
+          </tbody>
+        </table>
+      </div>
     </div>
-</div>
+
 
 
 {/*

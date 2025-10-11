@@ -5,7 +5,8 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function BookAppoint(props) {
+export default function BookAppoint({onRefresh}) 
+{
     const { getAllPatients, allPatients, getAllDoctors, allDoctors } = useContext(MainContext)
     const [patient, setPatient] = useState('');
     const [doctor, setDoctor] = useState('');
@@ -54,6 +55,7 @@ export default function BookAppoint(props) {
         }
 
         //resetData()
+        onRefresh();
 
     }
 

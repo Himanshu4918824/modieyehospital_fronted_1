@@ -8,7 +8,8 @@ import { useParams } from "react-router-dom";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
-export default function DashBoard() {
+export default function DashBoard() 
+{
   const navigate = useNavigate()
 
 
@@ -77,7 +78,7 @@ export default function DashBoard() {
 
       <div className="px-3">
 
-        <div className="row mb-2 mt-3">
+        <div className="row mb-2 mt-2">
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
               <span className="input-group-text">Appointment Id:</span>
@@ -85,33 +86,42 @@ export default function DashBoard() {
             </div>
           </div>
 
-          <div className="col-xs-12 col-lg-3">
+          <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
-              <span className="input-group-text">Patient Name</span>
+              <span className="input-group-text">Name</span>
               <input type="text" className="form-control" disabled value={patientData.FullName} />
             </div>
           </div>
 
-          <div className="col-xs-12 col-lg-3">
+          <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
-              <span className="input-group-text">Doctor Name</span>
+              <span className="input-group-text">Doctor</span>
               <input type="text" className="form-control" disabled value={DoctorDetail.FullName} />
             </div>
           </div>
 
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
-              <span className="input-group-text">Patient Age</span>
+              <span className="input-group-text">Age</span>
               <input type="text" className="form-control" disabled value={patientData.Age} />
             </div>
           </div>
 
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
-              <span className="input-group-text">Patient DOB:</span>
+              <span className="input-group-text">DOB:</span>
               <input type="text" className="form-control" disabled value={patientData.Dob} />
             </div>
           </div>
+
+           <div className="col-xs-12 col-lg-2">
+            <div className="input-group input-group-sm">
+              <span className="input-group-text">Reffered By:</span>
+              <input type="text" className="form-control" disabled />
+            </div>
+          </div>
+
+          
 
         </div>
 
@@ -120,31 +130,11 @@ export default function DashBoard() {
 
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
-              <span className="input-group-text">Reffered By:</span>
-              <input type="text" className="form-control" disabled />
-            </div>
-          </div>
-
-          <div className="col-xs-12 col-lg-3">
-            <div className="input-group input-group-sm">
-              <span className="input-group-text">Insurance:</span>
-              <input type="text" className="form-control" disabled />
-            </div>
-          </div>
-
-          <div className="col-xs-12 col-lg-3">
-            <div className="input-group input-group-sm">
               <span className="input-group-text">Address</span>
               <input type="text" className="form-control" disabled value={patientData.Address} />
             </div>
           </div>
 
-          <div className="col-xs-12 col-lg-2">
-            <div className="input-group input-group-sm">
-              <span className="input-group-text">City</span>
-              <input type="text" className="form-control" disabled value={patientData.City} />
-            </div>
-          </div>
 
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
@@ -153,7 +143,16 @@ export default function DashBoard() {
             </div>
           </div>
 
+          <div className="col-xs-12 col-lg-2">
+            <div className="input-group input-group-sm">
+              <span className="input-group-text">Send Where To:</span>
+              <input type="text" className="form-control" disabled value={''} />
+            </div>
+          </div>
+
         </div>
+
+        
 
         {/*
         <div className="row mb-3 mt-3">
