@@ -7,15 +7,22 @@ import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+export default function MainDashboard() {
+  const { getAllTodayAppointments, allTodayAppointments, } = useContext(MainContext)
+  const navigate = useNavigate()
+  const [doctorId, setDoctorId] = useState(localStorage.getItem('doctorId'))
 export default function MainDashboard({onRefresh}) 
 {
   const { getAllTodayAppointments, allTodayAppointments,} = useContext(MainContext)
   useEffect(() => {
+    if (!doctorId || doctorId === undefined || doctorId === "") {
+      navigate('/')
+    }
+
     getAllTodayAppointments()
-   
+
   }, [])
   // console.log(allTodayAppointments)
-  const navigate = useNavigate()
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("registration");
 
@@ -64,7 +71,7 @@ export default function MainDashboard({onRefresh})
           </div>
         </div>
         {/* Overlay */}
-         <div className="modal-backdrop fade show" style={{width:'100%',height:'100%'}}></div>
+        <div className="modal-backdrop fade show" style={{ width: '100%', height: '100%' }}></div>
       </div>
     );
   };
@@ -182,7 +189,7 @@ export default function MainDashboard({onRefresh})
                     <td className="text-center">{item.patient.Phone}</td>
                     <td className="text-center">{item.D_id} </td>
                     <td className="text-center">
-                      <button onClick={()=>navigate(`/dashboard/${item.P_id}/${item.id}`)} className="bg-primary px-3 text-uppercase text-white rounded border border-0">View</button>
+                      <button onClick={() => navigate(`/dashboard/${item.P_id}/${item.id}`)} className="bg-primary px-3 text-uppercase text-white rounded border border-0">View</button>
                     </td>
                   </tr>
                   )

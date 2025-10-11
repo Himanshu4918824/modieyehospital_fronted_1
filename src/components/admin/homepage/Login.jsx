@@ -18,7 +18,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post('http://localhost:8000/api/v1/login', {
+      const result = await axios.post('https://doctor-backend.up.railway.app/api/v1/login', {
         email, password
       })
       console.log(result)
