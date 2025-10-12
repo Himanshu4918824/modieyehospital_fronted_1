@@ -210,7 +210,7 @@ console.log(formDataObj)
             <tr>
               <td><b><i>Orbit</i></b></td>
               <td><input value={rightOrbit} onChange={(e) => setRightOrbit(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
-              <td><input value={rightOrbit} onChange={(e) => setLeftOrbit(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftOrbit} onChange={(e) => setLeftOrbit(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
             </tr>
 
              <tr>
@@ -228,7 +228,7 @@ console.log(formDataObj)
              <tr>
               <td><b><i>Sclera</i></b></td>
               <td><input value={rightSclera} onChange={(e) => setRightSclera(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
-              <td><input value={rightSclera} onChange={(e) => setLefttSclera(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftSclera} onChange={(e) => setLefttSclera(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
             </tr>
 
             <tr>
@@ -252,7 +252,7 @@ console.log(formDataObj)
              <tr>
               <td><b><i>Angles</i></b></td>
               <td><input value={rightAngles} onChange={(e) => setRightAngles(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
-              <td><input value={rightAngles} onChange={(e) => setLeftAngles(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
+              <td><input value={leftAngles} onChange={(e) => setLeftAngles(e.target.value)} type="text" className="form-control form-control-sm p-1" /></td>
             </tr>
 
             <tr>
