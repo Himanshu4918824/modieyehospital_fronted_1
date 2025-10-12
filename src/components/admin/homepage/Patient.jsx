@@ -103,8 +103,8 @@ export default function DoctorConcern({ onRefresh }) {
     return (
       <div>
         <div className="modal show d-flex" tabIndex="-1">
-          <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 700, width: "92%", minHeight: 100 }} >
-            <div className="modal-content" style={{ minHeight: 400, height: 'auto' }}>
+          <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 720, width: "92%", minHeight: 100 }} >
+            <div className="modal-content" style={{ minHeight: 400, height: 'auto', width:820 }}>
               <div className="modal-header h4">
                 {modalPage}
                 <button type="button" className="btn-close" onClick={closeDialog}></button>
