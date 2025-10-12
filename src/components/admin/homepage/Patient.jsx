@@ -16,20 +16,15 @@ export default function DoctorConcern({ onRefresh }) {
   const [modalPage, setModalPage] = useState("");
   const { treatment, anterior, posterior, Advise } = useContext(MainContext);
 
-   const [activeDate, setActiveDate] = useState(anterior[0]?.created_at);
+  const [activeDate, setActiveDate] = useState(anterior[0]?.created_at);
 
-   const activeRecord = anterior.find((rec) => rec.created_at === activeDate);
+  const activeRecord = anterior.find((rec) => rec.created_at === activeDate);
 
-   
-    useEffect(() => {
-       if (anterior.length > 0 && !activeDate) 
-        {
-           setActiveDate(anterior[0].created_at);
-        }
-     }, [anterior, activeDate])
-   
-   
-
+  useEffect(() => {
+    if (anterior.length > 0 && !activeDate) {
+      setActiveDate(anterior[0].created_at);
+    }
+  }, [anterior, activeDate])
 
 
   const openDialog = (e) => {
@@ -55,13 +50,13 @@ export default function DoctorConcern({ onRefresh }) {
         </div>
       );
     }
-      else if (props === "Advice") {
-          return (
-            <div>
-              <Advice stat="advise" onClose={closeDialog} onRefresh={onRefresh} />
-            </div>
-          );
-        }
+    else if (props === "Advice") {
+      return (
+        <div>
+          <Advice stat="advise" onClose={closeDialog} onRefresh={onRefresh} />
+        </div>
+      );
+    }
     else if (props === "Anterior") {
       return (
         <div>
@@ -77,7 +72,7 @@ export default function DoctorConcern({ onRefresh }) {
       );
     }
 
-     else if (props === "Anterioricon") {
+    else if (props === "Anterioricon") {
       return (
         <div>
           <AnteriorIcon onClose={closeDialog} onRefresh={onRefresh} />
@@ -85,7 +80,7 @@ export default function DoctorConcern({ onRefresh }) {
       );
     }
 
-     else if (props === "Posterioricon") {
+    else if (props === "Posterioricon") {
       return (
         <div>
           <PosteriorIcon onClose={closeDialog} onRefresh={onRefresh} />
@@ -104,7 +99,7 @@ export default function DoctorConcern({ onRefresh }) {
       <div>
         <div className="modal show d-flex" tabIndex="-1">
           <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 720, width: "92%", minHeight: 100 }} >
-            <div className="modal-content" style={{ minHeight: 400, height: 'auto', width:820 }}>
+            <div className="modal-content" style={{ minHeight: 400, height: 'auto', width: 820 }}>
               <div className="modal-header h4">
                 {modalPage}
                 <button type="button" className="btn-close" onClick={closeDialog}></button>
@@ -118,7 +113,7 @@ export default function DoctorConcern({ onRefresh }) {
           </div>
         </div>
         {/* Overlay */}
-        <div className="modal-backdrop fade show" style={{width:'100%',height:'100%'}}></div>
+        <div className="modal-backdrop fade show" style={{ width: '100%', height: '100%' }}></div>
       </div>
     );
   };
@@ -132,7 +127,7 @@ export default function DoctorConcern({ onRefresh }) {
 
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block'}}>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block' }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -169,71 +164,71 @@ export default function DoctorConcern({ onRefresh }) {
       </div>
     </div>
 
-   <div className="table-responsive mb-3" style={{ marginBottom: 10,}}>
-   
-         <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
-   
-           <h3 className="fs-6 fw-bold m-0">Advice Given</h3>
-           <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Advice")}>
-             <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
-           </button>
-   
-         </div>
-   
-   
-         <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
-         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
-           <thead>
-             <tr className="table-secondary">
-               <th>Date</th>
-               <th>Type</th>
-               <th style={{ width: '60%' }}>Message</th>
-             </tr>
-           </thead>
-           <tbody>
-             {Advise.length > 0 ?
-               Advise.map((item, i) => {
-                 return (<tr key={i} style={{ fontSize: '14px' }}>
-                   <td>{new Date(item.Date).toLocaleDateString()}</td>
-                   <td>{item.type}</td>
-                   <td>{item.message}</td>
-                 </tr>)
-               }) : (<tr>
-                 <td colSpan="3">No record available</td>
-               </tr>)}
-           </tbody>
-         </table>
-       </div>
-   </div>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10, }}>
+
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
+
+        <h3 className="fs-6 fw-bold m-0">Advice Given</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Advice")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+        </button>
+
+      </div>
+
+
+      <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+          <thead>
+            <tr className="table-secondary">
+              <th>Date</th>
+              <th>Type</th>
+              <th style={{ width: '60%' }}>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Advise.length > 0 ?
+              Advise.map((item, i) => {
+                return (<tr key={i} style={{ fontSize: '14px' }}>
+                  <td>{new Date(item.Date).toLocaleDateString()}</td>
+                  <td>{item.type}</td>
+                  <td>{item.message}</td>
+                </tr>)
+              }) : (<tr>
+                <td colSpan="3">No record available</td>
+              </tr>)}
+          </tbody>
+        </table>
+      </div>
+    </div>
 
 
     <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
       <h3 className="fs-6 fw-bold m-0">Anterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-        <i className="bi bi-brush" style={{ fontSize: 18, color:' #ff8800'}} onClick={()=>openDialog("Anterioricon")}></i>
-        <img src="/images/pencil.png" alt="edit" style={{ width: 17,marginLeft:5 }} onClick={() => openDialog("Anterior")} />
+        <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800' }} onClick={() => openDialog("Anterioricon")}></i>
+        <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 5 }} onClick={() => openDialog("Anterior")} />
       </button>
     </div>
 
 
-     {/* these are the date tabs which is used to see different appointment data in the table */}
-      <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+    {/* these are the date tabs which is used to see different appointment data in the table */}
+    <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
-        <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
-          {anterior.map((rec, i) => (
-            <li className="nav-item" key={i}>
-              <button
-                className={`nav-link ${rec.created_at === activeDate ? "active" : ""}`}
-                onClick={() => setActiveDate(rec.created_at)}
-                style={{ fontSize: 13, fontWeight: 'bold', letterSpacing: 0.5 }}
-              >
-                {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
-              </button>
-            </li>
-          ))}
-        </ul>
+      <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
+        {anterior.map((rec, i) => (
+          <li className="nav-item" key={i}>
+            <button
+              className={`nav-link ${rec.created_at === activeDate ? "active" : ""}`}
+              onClick={() => setActiveDate(rec.created_at)}
+              style={{ fontSize: 13, fontWeight: 'bold', letterSpacing: 0.5 }}
+            >
+              {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
+            </button>
+          </li>
+        ))}
+      </ul>
 
-      </div>
+    </div>
 
 
     <div className="table-responsive mb-3">
@@ -241,7 +236,7 @@ export default function DoctorConcern({ onRefresh }) {
         <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13px" }} border={2}>
           <thead>
             <tr className="table-secondary border border-dark ">
-              <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
+
               <th colSpan={18}>Right Eye</th>
             </tr>
 
@@ -269,32 +264,30 @@ export default function DoctorConcern({ onRefresh }) {
 
           </thead>
           <tbody>
+            {activeRecord ? (
+              <tr >
+                {/* <td>{new Date(item.created_at).toLocaleDateString()}</td> */}
+                <td>{activeRecord.R_Intraocular_pressure_NCT}</td>
+                <td>{activeRecord.R_Intraocular_pressure_Tonopen}</td>
+                <td>{activeRecord.R_Intraocular_pressure_AT}</td>
+                <td>{activeRecord.R_Eyelids}</td>
+                <td>{activeRecord.R_Eyelashes}</td>
+                <td>{activeRecord.R_Orbit}</td>
+                <td>{activeRecord.R_Extraocular_movements}</td>
+                <td>{activeRecord.R_Eye_position}</td>
+                <td>{activeRecord.R_Sclera_episclera}</td>
+                <td>{activeRecord.R_Conjunctiva}</td>
+                <td>{activeRecord.R_Cornea}</td>
+                <td>{activeRecord.R_Anterior_chamber}</td>
+                <td>{activeRecord.R_Angles}</td>
+                <td>{activeRecord.R_Iris_pupil}</td>
+                <td>{activeRecord.R_Lens}</td>
+                <td>{activeRecord.R_Lacrimal_syringing}</td>
+                <td>{activeRecord.R_Gonioscopy}</td>
+                <td>{activeRecord.R_Others}</td>
 
-            {anterior.length > 0 ? anterior.map((item, i) => {
-              return (
-                <tr key={i}>
-                  <td>{new Date(item.created_at).toLocaleDateString()}</td>
-                  <td>{item.R_Intraocular_pressure_NCT}</td>
-                  <td>{item.R_Intraocular_pressure_Tonopen}</td>
-                  <td>{item.R_Intraocular_pressure_AT}</td>
-                  <td>{item.R_Eyelids}</td>
-                  <td>{item.R_Eyelashes}</td>
-                  <td>{item.R_Orbit}</td>
-                  <td>{item.R_Extraocular_movements}</td>
-                  <td>{item.R_Eye_position}</td>
-                  <td>{item.R_Sclera_episclera}</td>
-                  <td>{item.R_Conjunctiva}</td>
-                  <td>{item.R_Cornea}</td>
-                  <td>{item.R_Anterior_chamber}</td>
-                  <td>{item.R_Angles}</td>
-                  <td>{item.R_Iris_pupil}</td>
-                  <td>{item.R_Lens}</td>
-                  <td>{item.R_Lacrimal_syringing}</td>
-                  <td>{item.R_Gonioscopy}</td>
-                  <td>{item.R_Others}</td>
+              </tr>)
 
-                </tr>)
-            })
               : (<tr>
                 <td colSpan="19">No record available</td>
               </tr>)
@@ -306,7 +299,7 @@ export default function DoctorConcern({ onRefresh }) {
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13px" }} border={2}>
           <thead>
             <tr className="table-secondary border border-dark ">
-              <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
+
               <th colSpan={18}>Left Eye</th>
             </tr>
 
@@ -334,31 +327,30 @@ export default function DoctorConcern({ onRefresh }) {
 
           </thead>
           <tbody>
-            {anterior.length > 0 ? anterior.map((item, i) => {
-              return (
-                <tr key={i}>
-                  <td>{new Date(item.created_at).toLocaleDateString()}</td>
-                  <td>{item.L_Intraocular_pressure_NCT}</td>
-                  <td>{item.L_Intraocular_pressure_Tonopen}</td>
-                  <td>{item.L_Intraocular_pressure_AT}</td>
-                  <td>{item.L_Eyelids}</td>
-                  <td>{item.L_Eyelashes}</td>
-                  <td>{item.L_Orbit}</td>
-                  <td>{item.L_Extraocular_movements}</td>
-                  <td>{item.L_Eye_position}</td>
-                  <td>{item.L_Sclera_episclera}</td>
-                  <td>{item.L_Conjunctiva}</td>
-                  <td>{item.L_Cornea}</td>
-                  <td>{item.L_Anterior_chamber}</td>
-                  <td>{item.L_Angles}</td>
-                  <td>{item.L_Iris_pupil}</td>
-                  <td>{item.L_Lens}</td>
-                  <td>{item.L_Lacrimal_syringing}</td>
-                  <td>{item.L_Gonioscopy}</td>
-                  <td>{item.L_Others}</td>
+            {activeRecord ? (
+              <tr>
 
-                </tr>)
-            })
+                <td>{activeRecord.L_Intraocular_pressure_NCT}</td>
+                <td>{activeRecord.L_Intraocular_pressure_Tonopen}</td>
+                <td>{activeRecord.L_Intraocular_pressure_AT}</td>
+                <td>{activeRecord.L_Eyelids}</td>
+                <td>{activeRecord.L_Eyelashes}</td>
+                <td>{activeRecord.L_Orbit}</td>
+                <td>{activeRecord.L_Extraocular_movements}</td>
+                <td>{activeRecord.L_Eye_position}</td>
+                <td>{activeRecord.L_Sclera_episclera}</td>
+                <td>{activeRecord.L_Conjunctiva}</td>
+                <td>{activeRecord.L_Cornea}</td>
+                <td>{activeRecord.L_Anterior_chamber}</td>
+                <td>{activeRecord.L_Angles}</td>
+                <td>{activeRecord.L_Iris_pupil}</td>
+                <td>{activeRecord.L_Lens}</td>
+                <td>{activeRecord.L_Lacrimal_syringing}</td>
+                <td>{activeRecord.L_Gonioscopy}</td>
+                <td>{activeRecord.L_Others}</td>
+
+              </tr>)
+
               : (<tr>
                 <td colSpan="19">No record available</td>
               </tr>)
@@ -373,8 +365,8 @@ export default function DoctorConcern({ onRefresh }) {
 
       <h3 className="fs-5 fw-bold m-0">Posterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-         <i className="bi bi-brush" style={{ fontSize: 18, color:' #ff8800'}} onClick={()=>openDialog("Posterioricon")}></i>
-        <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:5 }} onClick={() => openDialog("Posterior")}/>
+        <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800' }} onClick={() => openDialog("Posterioricon")}></i>
+        <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 5 }} onClick={() => openDialog("Posterior")} />
       </button>
 
     </div>
