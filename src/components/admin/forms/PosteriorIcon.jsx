@@ -1,14 +1,37 @@
- import React, { useRef } from "react";
-import { ReactSketchCanvas } from "react-sketch-canvas";
+ import React, { useRef, useState } from "react";
+import { Canvas, ReactSketchCanvas } from "react-sketch-canvas";
 
 export default function PosteriorIcon()
 {
     const leftcanvasRef = useRef(null);
     const rightcanvasRef = useRef(null);
 
+    const [strokeColor,setStrokeColor]=useState('red');
+
+
+
+    const changeStrokeColor=(color)=> {
+
+      setStrokeColor(color)
+  
+  }
+
+
 
     return(<div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
     <div style={{ width: 780, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10 }}>
+
+       <div className="d-flex flex-wrap mb-3">
+        <button onClick={()=>changeStrokeColor('red')} className="btn btn-danger btn-sm m-1">Red</button>
+        <button onClick={()=>changeStrokeColor('blue')} className="btn btn-primary btn-sm m-1">Blue</button>
+        <button onClick={()=>changeStrokeColor('green')} className="btn btn-success btn-sm m-1">Green</button>
+        <button onClick={()=>changeStrokeColor('yellow')} className="btn btn-warning btn-sm m-1">Yellow</button>
+        <button onClick={()=>changeStrokeColor('black')} className="btn btn-dark btn-sm m-1">Black</button> 
+          
+        <button onClick={()=>{leftcanvasRef.current.undo()}} className="btn btn-dark btn-sm m-1">Left Undo</button>   
+        <button onClick={()=>{rightcanvasRef.current.undo()}} className="btn btn-dark btn-sm m-1">Right Undo</button> 
+          
+      </div>
 
         <div className="row">
             <div className="col-lg-6 col-xs-12">
@@ -20,8 +43,8 @@ export default function PosteriorIcon()
                         ref={leftcanvasRef}
                         width="375px"
                         height="365px"
-                        strokeWidth={3}
-                        strokeColor="red"
+                        strokeWidth={2}
+                        strokeColor={strokeColor}
                         backgroundImage="transparent"
                         style={{ position: "absolute", top: 0, left: 0, zIndex:2 }}
                      />
@@ -37,8 +60,9 @@ export default function PosteriorIcon()
                         ref={rightcanvasRef}
                         width="375px"
                         height="365px"
-                        strokeWidth={3}
-                        strokeColor="red"
+                        strokeWidth={2}
+                        strokeColor={strokeColor}
+                        
                         backgroundImage="transparent"
                         style={{ position: "absolute", top: 0, left: 0 }}
                      />
@@ -69,11 +93,11 @@ export default function PosteriorIcon()
 
       </div>
 
-
-
 </div>
     </div>)
 }
+
+
 
 {/*
 

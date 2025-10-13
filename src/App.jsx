@@ -65,6 +65,7 @@ function App() {
 
             <Route element={<AnteriorIcon/>} path="/anterioricon"></Route>
             <Route element={<PosteriorIcon/>} path="/posterioricon"></Route>
+
           </Routes>
         </ContextProvider>
       </Router>
