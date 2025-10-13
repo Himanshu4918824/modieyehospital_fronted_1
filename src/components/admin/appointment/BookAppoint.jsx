@@ -11,6 +11,7 @@ export default function BookAppoint({onRefresh})
     const [patient, setPatient] = useState('');
     const [doctor, setDoctor] = useState('');
     const [date, setDate] = useState('');
+    const [time,setTime]= useState('');
 
     useEffect(() => {
         getAllPatients()
@@ -21,6 +22,7 @@ export default function BookAppoint({onRefresh})
         setPatient('');
         setDoctor('');
         setDate('');
+        setTime('');
     }
 
     const handleSubmit = async () => {
@@ -28,6 +30,8 @@ export default function BookAppoint({onRefresh})
         formData.append('P_id', patient);
         formData.append('D_id', doctor);
         formData.append('date', new Date(date).toISOString());
+        formData.append('time', time);
+        
 
         const formDataObj = {};
         formData.forEach((value, key) => {
@@ -114,13 +118,14 @@ export default function BookAppoint({onRefresh})
                     <input type="date" required className="form-control" value={date} onChange={(e) => setDate(e.target.value)} />
                 </div>
             </div>
-            {/* <div className="row mb-10" >
+
+             <div className="row mb-10" >
                 <div className="col-xs-12">
 
-                    <label style={{ fontSize: 15, color: '#000', margin: 5 }}>Complaint </label>
-                    <input type="text" required placeholder="Enter your complaint here..." className="form-control" value={date} onChange={(e) => setDate(e.target.value)} />
+                    <label style={{ fontSize: 15, color: '#000', margin: 5 }}>Time </label>
+                    <input type="time" required placeholder="Enter your Time here..." className="form-control" value={time} onChange={(e) => setTime(e.target.value)} />
                 </div>
-            </div> */}
+            </div> 
 
             <div className="row" style={{ marginBottom: 5, marginTop: 20 }}>
                 <div className="col-6" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

@@ -182,7 +182,13 @@ export default function MainDashboard()
                 allTodayAppointments.map((item, i) => {
                   return (<tr key={i}>
                     <td className="text-center">{i + 1}</td>
-                    <td className="text-center">Pending</td>
+                    <td className="text-center">
+                      <select className="form-select">
+                        <option value='Pending'>Pending</option>
+                        <option value='Completed'>Completed</option>
+                        <option value='Cancel'>Cancel</option>
+                      </select>
+                    </td>
                     <td className="text-center">{item.patient.FullName}</td>
                     <td className="text-center">{item.patient.Gender}/{item.patient.Age}</td>
                     <td className="text-center">{item.id}</td>
