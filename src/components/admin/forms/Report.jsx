@@ -39,7 +39,7 @@ export default function Report({onClose, onRefresh})
                        Swal.fire({
                            position: "top-end",
                            icon: "success",
-                           title: "Category Submit Successfully",
+                           title: "Report Submit Successfully",
                            showConfirmButton: false,
                            timer: 2000
                        });

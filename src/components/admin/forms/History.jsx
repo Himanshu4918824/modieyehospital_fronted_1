@@ -45,7 +45,7 @@ export default function History({ onClose, onRefresh }) {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Category Submit Successfully",
+                title: "Edit Submit Successfully",
                 showConfirmButton: false,
                 timer: 2000
             });

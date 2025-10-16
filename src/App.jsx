@@ -30,6 +30,10 @@ import ContextProvider from "./context/ContextProvider";
 import ShowPatientDetails from "./components/admin/homepage/ShowPatientDetails";
 import AnteriorIcon from "./components/admin/forms/AnteriorIcon";
 import PosteriorIcon from "./components/admin/forms/PosteriorIcon";
+import AddDoctor from "./components/admin/doctor/AddDoctor";
+import DisplayDoctor from "./components/admin/doctor/DisplayDoctor";
+import UserForm from "./components/admin/user/UserForm";
+import ShowUser from "./components/admin/user/ShowUser";
 
 
 function App() {
@@ -65,6 +69,12 @@ function App() {
 
             <Route element={<AnteriorIcon/>} path="/anterioricon"></Route>
             <Route element={<PosteriorIcon/>} path="/posterioricon"></Route>
+
+            <Route element={<AddDoctor/>} path="/adddoctor"></Route>
+            <Route element={<DisplayDoctor/>} path="/displaydoctor"></Route>
+            <Route element={<UserForm/>} path="/userform"></Route>
+            <Route element={<ShowUser/>} path="/showuser"></Route>
+            
 
           </Routes>
         </ContextProvider>
