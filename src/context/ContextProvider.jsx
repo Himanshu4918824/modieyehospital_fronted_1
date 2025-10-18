@@ -281,6 +281,7 @@ const ContextProvider = ({ children }) => {
       const result = await axios.get(`https://doctor-backend.up.railway.app/api/v1/${id}`)
       // console.log(result)
       setDoctorDetail(result.data)
+      return result.data
     } catch (error) {
       console.log(error)
     }
@@ -288,8 +289,16 @@ const ContextProvider = ({ children }) => {
   const getAllTodayAppointments = async () => {
     try {
       const result = await getData('v1/appointment/allAppointment')
-
-      setAllTodayAppointments(result)
+      // console.log(result)
+      const updateAppointment = await Promise.all(
+        result.map(async (appoint) => {
+          // console.log(appoint.D_id)
+          const doctor = await getDoctorsDetail(appoint.D_id);
+          return { ...appoint, doctor }
+        })
+      )
+      console.log("Appointments with Doctor Info:", updateAppointment);
+      setAllTodayAppointments(updateAppointment)
     } catch (error) {
       console.log(error)
     }

@@ -7,13 +7,12 @@ import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function MainDashboard()
-{
+export default function MainDashboard() {
   const { getAllTodayAppointments, allTodayAppointments, } = useContext(MainContext)
   const navigate = useNavigate()
   const [doctorId, setDoctorId] = useState(localStorage.getItem('doctorId'))
 
-
+  // console.log(allTodayAppointments)
   useEffect(() => {
     if (!doctorId || doctorId === undefined || doctorId === "") {
       navigate('/')
@@ -23,7 +22,12 @@ export default function MainDashboard()
 
   }, [])
 
-  
+  const refreshDashboard = () => {
+    getAllTodayAppointments()
+  };
+
+
+
   // console.log(allTodayAppointments)
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("registration");
@@ -36,14 +40,14 @@ export default function MainDashboard()
     if (props === "registration") {
       return (
         <div>
-          <RegistrationFrom />
+          <RegistrationFrom onRefresh={refreshDashboard}/>
         </div>
       );
     }
     else if (props === "bookappoint") {
       return (
         <div>
-          <BookAppoint />
+          <BookAppoint onRefresh={refreshDashboard}/>
         </div>
       );
     }
@@ -97,14 +101,14 @@ export default function MainDashboard()
         <button className="btn btn-danger btn-sm m-1">Waiting [0]</button>
         <button onClick={openDialog} className="btn btn-outline-dark btn-sm m-1">Appointment</button>
 
-<div style={{marginLeft:5}}>
-        <select className="form-select">
-          <option value="">-Select-Branch-</option>
-          <option value="Madhav Plaza">Madhav Plaza</option>
-          <option value="Gola Ka Mandir">Gola Ka Mandir</option>
-          <option value="Dabara">Dabara</option>
-        </select>
-</div>
+        <div style={{ marginLeft: 5 }}>
+          <select className="form-select">
+            <option value="">-Select-Branch-</option>
+            <option value="Madhav Plaza">Madhav Plaza</option>
+            <option value="Gola Ka Mandir">Gola Ka Mandir</option>
+            <option value="Dabara">Dabara</option>
+          </select>
+        </div>
 
         {renderModal()}
       </div>
@@ -193,9 +197,9 @@ export default function MainDashboard()
                     <td className="text-center">{item.patient.Gender}/{item.patient.Age}</td>
                     <td className="text-center">{item.id}</td>
                     <td className="text-center">{new Date(item.Appointment_date).toLocaleDateString()}</td>
-                    <td className="text-center">none</td>
+                    <td className="text-center">{new Date(item.created_at).toLocaleTimeString('en-US', { hour12: true })}</td>
                     <td className="text-center">{item.patient.Phone}</td>
-                    <td className="text-center">{item.D_id} </td>
+                    <td className="text-center">{item.doctor.FullName} </td>
                     <td className="text-center">
                       <button onClick={() => navigate(`/dashboard/${item.P_id}/${item.id}`)} className="bg-primary px-3 text-uppercase text-white rounded border border-0">View</button>
                     </td>
