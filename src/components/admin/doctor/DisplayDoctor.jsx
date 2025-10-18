@@ -1,14 +1,17 @@
 import { useState, useRef } from "react";
 import Header from "../homepage/Header";
 import { useNavigate } from "react-router-dom";
-import { currentDate, postData } from "../../../services/FetchNodeAdminServices";
+import { currentDate, postData, putData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function DisplayDoctor() {
-  const { getAllDoctors, allDoctors } = useContext(MainContext)
+export default function DisplayDoctor() 
+{
+  const { getAllDoctors, allDoctors } = useContext(MainContext);
+
+
   useEffect(() => {
     getAllDoctors();
   }, [])
@@ -18,6 +21,7 @@ export default function DisplayDoctor() {
   const fileInputRef = useRef(null);
 
   /******************Doctor Action *******************/
+  const [doctorId,setDoctorId]=useState('')
   const [name, setName] = useState('');
   const [department, setDepartment] = useState('');
   const [designation, setDesignation] = useState('');
@@ -30,9 +34,20 @@ export default function DisplayDoctor() {
   /*******************************************************/
 
 
-  const openDailog = () => {
-    setShowDialog(true)
-  }
+const openDailog = (doctor) => {
+  setShowDialog(true);
+
+  setDoctorId(doctor?.doctorId);
+  setName(doctor?.FullName);
+  setDepartment(doctor?.Department);
+  setDesignation(doctor?.Designation);
+  setMobile(doctor?.Phone);
+  setEmail(doctor?.email);
+  setAddrss(doctor?.Address);
+  setState(doctor?.State);
+  setCity(doctor?.City);
+  setUploadReport(doctor?.uploadReport || "");
+}
 
   const closeDailog = () => {
     setShowDialog(false)
@@ -128,19 +143,20 @@ export default function DisplayDoctor() {
 
 
   const handleEditSubmit = async () => {
-    const formData = new FormData();
+   var body={
+            'FullName':name,
+            'Department':department,
+            'Designation':designation,
+            'Phone':mobile,
+            'email':email,
+            'Address':address,
+            'State':state,
+            'City':city,
+            'uploadReport':uploadReport,
+            'updated_at': currentDate(),
+        }
 
-    formData.append('name', name);
-    formData.append('department', department);
-    formData.append('designation', designation);
-    formData.append('mobile', mobile);
-    formData.append('email', email);
-    formData.append('address', address);
-    formData.append('state', state);
-    formData.append('city', city);
-    formData.append('uploadReport', uploadReport);
-
-    const response = await postData('', formData);
+    const response = await putData('', body);
     if (response.status) {
       Swal.fire({
         position: "top-end",
@@ -160,6 +176,8 @@ export default function DisplayDoctor() {
         timer: 2000
       });
     }
+  
+    getAllDoctors();
 
   }
 
@@ -189,7 +207,7 @@ export default function DisplayDoctor() {
       doctorid: doctorId,
     }
 
-    const result = await postData('', body)
+    const result = await deleteData('', body)
 
     if (result.status) {
       Swal.fire({
@@ -279,7 +297,7 @@ export default function DisplayDoctor() {
                   <td className="text-center">{item.State}</td>
                   <td className="text-center">{item.City} </td>
                   <td className="text-center">
-                    <button onClick={openDailog} className="bg-warning px-3 text-uppercase text-white rounded border border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
+                    <button onClick={()=>openDailog(item)} className="bg-warning px-3 text-uppercase text-white rounded border border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
                   </td>
                 </tr>
                 )

@@ -20,19 +20,19 @@ export default function AddDoctor()
 
     const handleSubmit=async()=>{
         var body={
-            'name':name,
-            'department':department,
-            'designation':designation,
-            'mobile':mobile,
+            'FullName':name,
+            'Department':department,
+            'Designation':designation,
+            'Phone':mobile,
             'email':email,
-            'address':address,
-            'state':state,
-            'city':city,
+            'Address':address,
+            'State':state,
+            'City':city,
             'uploadReport':uploadReport,
             'updated_at': currentDate(),
         }
 
-        const response=await postData('',body);
+        const response=await postData('/addDoctor',body);
           if (response.status) 
             {
                 Swal.fire({

@@ -32,7 +32,7 @@ export default function UserForm()
             formDataObj[key] = value;
         });
 
-        var result= await postData('',formDataObj);
+        var result= await postData('/',formDataObj);
          if (result.status) 
                     {
                         Swal.fire({
