@@ -171,6 +171,7 @@ const ContextProvider = ({ children }) => {
     patientId: "",
   }]);
 
+  const [PatientReports, setReports] = useState([])
 
 
 
@@ -179,7 +180,7 @@ const ContextProvider = ({ children }) => {
     try {
       const data = await getData(url);
       // return data;
-      // console.log(data)
+      console.log(data)
       setDiagnosisList(data.Diagnosis)
       SetPatientData({
         Age: data.Age || "",
@@ -249,6 +250,7 @@ const ContextProvider = ({ children }) => {
       setRefractionData(data.Refraction)
       setAnterior(data.Anterior)
       setPosterior(data.Posterior)
+      setReports(data.Report[0].document)
     } catch (error) {
       console.log(error)
     }
@@ -304,9 +306,8 @@ const ContextProvider = ({ children }) => {
   }
 
 
-
   return (
-    <MainContext.Provider value={{ SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail }}>
+    <MainContext.Provider value={{ PatientReports,SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail }}>
       {children}
     </MainContext.Provider>
   )
