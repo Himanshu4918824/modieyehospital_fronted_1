@@ -36,7 +36,7 @@ export default function Refraction({ onClose, onRefresh })
   useEffect(() => {
 
     const r = refractionData[0]; // pick first object
-    console.log(r)
+    // console.log(r)
     setId(r?.id)
     setRefraction(r?.refractionType);
 
@@ -104,7 +104,7 @@ export default function Refraction({ onClose, onRefresh })
     });
 
 
-    const result = await putData(`v1/update/Refraction/${id}`, formDataObj);
+    const result = await putData(`patient/v1/update/Refraction/${id}`, formDataObj);
     if (result.status) {
       Swal.fire({
         position: "top-end",
@@ -165,7 +165,7 @@ export default function Refraction({ onClose, onRefresh })
     });
 
 
-    const result = await postData(`v1/pre-clinical/refraction/${P_id}/${Aid}`, formDataObj);
+    const result = await postData(`patient/v1/pre-clinical/refraction/${P_id}/${Aid}`, formDataObj);
     if (result.status) {
       Swal.fire({
         position: "top-end",

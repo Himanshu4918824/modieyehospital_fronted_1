@@ -40,14 +40,14 @@ export default function MainDashboard() {
     if (props === "registration") {
       return (
         <div>
-          <RegistrationFrom onRefresh={refreshDashboard}/>
+          <RegistrationFrom onRefresh={refreshDashboard} />
         </div>
       );
     }
     else if (props === "bookappoint") {
       return (
         <div>
-          <BookAppoint onRefresh={refreshDashboard}/>
+          <BookAppoint onRefresh={refreshDashboard} />
         </div>
       );
     }
@@ -197,7 +197,7 @@ export default function MainDashboard() {
                     <td className="text-center">{item.patient.Gender}/{item.patient.Age}</td>
                     <td className="text-center">{item.id}</td>
                     <td className="text-center">{new Date(item.Appointment_date).toLocaleDateString()}</td>
-                    <td className="text-center">{new Date(item.created_at).toLocaleTimeString('en-US', { hour12: true })}</td>
+                    <td className="text-center">{item.Time}</td>
                     <td className="text-center">{item.patient.Phone}</td>
                     <td className="text-center">{item.doctor.FullName} </td>
                     <td className="text-center">

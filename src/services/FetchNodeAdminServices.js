@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const serverURL = 'http://localhost:8001'
-const serverURL = 'https://patient-backend.up.railway.app'
+const serverURL = 'http://localhost:5000'
+// const serverURL = 'https://patient-backend.up.railway.app'
 
 const currentDate = () => {
       let d = new Date();
@@ -17,9 +17,9 @@ const createdDate = (date) => {
       return cd + " " + ct;
 }
 
-const postData = async (url, body) => {
+const postData = async (url, body, headers = {}) => {
       try {
-            let response = await axios.post(`${serverURL}/${url}`, body)
+            let response = await axios.post(`${serverURL}/${url}`, body, { headers })
             let result = response;
             return result;
       }
@@ -29,9 +29,9 @@ const postData = async (url, body) => {
 
 }
 
-const getData = async (url) => {
+const getData = async (url, headers = {}) => {
       try {
-            let response = await axios.get(`${serverURL}/${url}`)
+            let response = await axios.get(`${serverURL}/${url}`, { headers })
             let result = response.data;
             return result;
       }
@@ -40,9 +40,9 @@ const getData = async (url) => {
       }
 
 }
-const putData = async (url,body) => {
+const putData = async (url, body, headers = {}) => {
       try {
-            let response = await axios.put(`${serverURL}/${url}` , body)
+            let response = await axios.put(`${serverURL}/${url}`, body, { headers })
             let result = response;
             return result;
       }
@@ -51,4 +51,15 @@ const putData = async (url,body) => {
       }
 
 }
-export { postData, serverURL, currentDate, getData, createdDate,putData }
+const deleteData = async (url, headers = {}) => {
+      try {
+            let response = await axios.put(`${serverURL}/${url}`, { headers })
+            let result = response;
+            return result;
+      }
+      catch (e) {
+            return e.response.data;
+      }
+
+}
+export { postData, serverURL, currentDate, getData, createdDate, putData, deleteData }

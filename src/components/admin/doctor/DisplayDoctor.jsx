@@ -1,14 +1,14 @@
 import { useState, useRef } from "react";
 import Header from "../homepage/Header";
 import { useNavigate } from "react-router-dom";
-import { currentDate, postData, putData } from "../../../services/FetchNodeAdminServices";
+import { currentDate, deleteData, putData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
+// eske andr handle submit ka function bna de jo add doctor krne k liye ho or doctordialog mai edit button and delete button condational render krvnae hai mtlb agr doctor id hai to edit or delete show krna hai agr nhi hai to add doctor ka button show krna hai
 
-export default function DisplayDoctor() 
-{
+export default function DisplayDoctor() {
   const { getAllDoctors, allDoctors } = useContext(MainContext);
 
 
@@ -21,7 +21,7 @@ export default function DisplayDoctor()
   const fileInputRef = useRef(null);
 
   /******************Doctor Action *******************/
-  const [doctorId,setDoctorId]=useState('')
+  const [doctorId, setDoctorId] = useState('')
   const [name, setName] = useState('');
   const [department, setDepartment] = useState('');
   const [designation, setDesignation] = useState('');
@@ -34,20 +34,20 @@ export default function DisplayDoctor()
   /*******************************************************/
 
 
-const openDailog = (doctor) => {
-  setShowDialog(true);
-
-  setDoctorId(doctor?.doctorId);
-  setName(doctor?.FullName);
-  setDepartment(doctor?.Department);
-  setDesignation(doctor?.Designation);
-  setMobile(doctor?.Phone);
-  setEmail(doctor?.email);
-  setAddrss(doctor?.Address);
-  setState(doctor?.State);
-  setCity(doctor?.City);
-  setUploadReport(doctor?.uploadReport || "");
-}
+  const openDailog = (doctor) => {
+    setShowDialog(true);
+    // console.log(doctor)
+    setDoctorId(doctor?.id);
+    setName(doctor?.FullName);
+    setDepartment(doctor?.Department);
+    setDesignation(doctor?.Designation);
+    setMobile(doctor?.Phone);
+    setEmail(doctor?.email);
+    setAddrss(doctor?.Address);
+    setState(doctor?.State);
+    setCity(doctor?.City);
+    setUploadReport(doctor?.uploadReport || "");
+  }
 
   const closeDailog = () => {
     setShowDialog(false)
@@ -55,7 +55,7 @@ const openDailog = (doctor) => {
 
 
   const DoctorForm = () => {
-   
+    // console.log(doctorId)
     return (
       <>
         <div style={{ width: '100%' }}>
@@ -125,7 +125,7 @@ const openDailog = (doctor) => {
 
             <div className="row mt-3">
               <div className="col-6 d-flex justify-content-center">
-                <button onClick={handleEditSubmit} type="button" className="btn btn-primary">Edit</button>
+                <button onClick={() => handleEditSubmit(doctorId)} type="button" className="btn btn-primary">Edit</button>
               </div>
 
               <div className="col-6 d-flex justify-content-center">
@@ -142,21 +142,21 @@ const openDailog = (doctor) => {
   }
 
 
-  const handleEditSubmit = async () => {
-   var body={
-            'FullName':name,
-            'Department':department,
-            'Designation':designation,
-            'Phone':mobile,
-            'email':email,
-            'Address':address,
-            'State':state,
-            'City':city,
-            'uploadReport':uploadReport,
-            'updated_at': currentDate(),
-        }
+  const handleEditSubmit = async (id) => {
+    const body = {
+      'FullName': name,
+      'Department': department,
+      'Designation': designation,
+      'Phone': mobile,
+      'email': email,
+      'Address': address,
+      'State': state,
+      'City': city,
+      'uploadReport': uploadReport,
+      'updated_at': currentDate(),
+    }
 
-    const response = await putData('', body);
+    const response = await putData(`doctor/api/v1/${id}`, body);
     if (response.status) {
       Swal.fire({
         position: "top-end",
@@ -176,7 +176,7 @@ const openDailog = (doctor) => {
         timer: 2000
       });
     }
-  
+
     getAllDoctors();
 
   }
@@ -193,11 +193,10 @@ const openDailog = (doctor) => {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-
         DoctorDelete()
 
       } else if (result.isDenied) {
-        Swal.fire("Category  not change", "", "info");
+        Swal.fire("Category not change", "", "info");
       }
     });
   }
@@ -207,8 +206,7 @@ const openDailog = (doctor) => {
       doctorid: doctorId,
     }
 
-    const result = await deleteData('', body)
-
+    const result = await deleteData(`doctor/api/v1/${id}`, { Authorization: localStorage.getItem('token') })
     if (result.status) {
       Swal.fire({
         position: "top-end",
@@ -236,26 +234,28 @@ const openDailog = (doctor) => {
   const renderModal = () => {
     if (!showDialog) return null;
 
-    return (<div>
-      <div className="modal show d-flex" tabIndex="-1">
-        <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 720, width: "92%", minHeight: 100 }} >
-          <div className="modal-content" style={{ minHeight: 400, height: 'auto', width: 820 }}>
-            <div className="modal-header h4">
-              Add Doctor
-              <button type="button" className="btn-close" onClick={closeDailog}></button>
-            </div>
+    return (
+      <div>
+        <div className="modal show d-flex" tabIndex="-1">
+          <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 720, width: "92%", minHeight: 100 }} >
+            <div className="modal-content" style={{ minHeight: 400, height: 'auto', width: 820 }}>
+              <div className="modal-header h4">
+                Add Doctor
+                <button type="button" className="btn-close" onClick={closeDailog}></button>
+              </div>
 
-            <div className="modal-body">
-              {DoctorForm()}
-            </div>
+              <div className="modal-body">
+                {/* {DoctorForm()} */}
+                <DoctorForm />
+              </div>
 
+            </div>
           </div>
         </div>
-      </div>
-      {/* Overlay */}
-      <div className="modal-backdrop fade show" style={{ width: '100%', height: '100%' }}></div>
+        {/* Overlay */}
+        <div className="modal-backdrop fade show" style={{ width: '100%', height: '100%' }}></div>
 
-    </div>)
+      </div>)
   }
 
 
@@ -297,7 +297,7 @@ const openDailog = (doctor) => {
                   <td className="text-center">{item.State}</td>
                   <td className="text-center">{item.City} </td>
                   <td className="text-center">
-                    <button onClick={()=>openDailog(item)} className="bg-warning px-3 text-uppercase text-white rounded border border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
+                    <button onClick={() => openDailog(item)} className="bg-warning px-3 text-uppercase text-white rounded border border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
                   </td>
                 </tr>
                 )
@@ -315,6 +315,10 @@ const openDailog = (doctor) => {
         </tbody>
       </table>
     </div>
+    <div className="d-flex justify-content-center">
+      <button onClick={() => openDailog()} className="bg-primary rounded px-3 py-1 border-0">Add Doctor</button>
+    </div>
 
-  </div>)
+  </div>
+  )
 }

@@ -5,7 +5,7 @@ import PatientHistory from "./PatientHistory";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useParams } from "react-router-dom";
-import Header from "./Header";
+// import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
 export default function DashBoard() 
@@ -17,7 +17,7 @@ export default function DashBoard()
   const { id, Aid } = useParams();
 
   useEffect(() => {
-    getPatientData(`v1/patient/${id}`);
+    getPatientData(`patient/v1/patient/${id}`);
     getDoctorsDetail(localStorage.getItem('doctorId'));
     SetP_id(id)
     SetAid(Aid)
@@ -26,7 +26,7 @@ export default function DashBoard()
   // console.log(DoctorDetail)
 
   const refreshDashboard = () => {
-    getPatientData(`v1/patient/${id}`);
+    getPatientData(`patient/v1/patient/${id}`);
     getDoctorsDetail(localStorage.getItem('doctorId'));
   };
 

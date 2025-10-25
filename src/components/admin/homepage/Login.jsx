@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Header from "./Header";
-import axios from "axios";
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from "react";
+import { postData } from "../../../services/FetchNodeAdminServices";
 export default function Login() {
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
@@ -18,10 +18,13 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post('https://doctor-backend.up.railway.app/api/v1/login', {
+      const data = {
         email, password
-      })
-      console.log(result)
+      }
+      const result = await postData('doctor/api/v1/login', data)
+      // console.log(result)
+      const token = `Bearer ${result.data.token}`;
+      localStorage.setItem("token", token)
       localStorage.setItem("doctorId", result.data.id)
 
       if (result.id !== '') {

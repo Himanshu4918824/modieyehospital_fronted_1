@@ -5,13 +5,12 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function BookAppoint({onRefresh}) 
-{
+export default function BookAppoint({ onRefresh }) {
     const { getAllPatients, allPatients, getAllDoctors, allDoctors } = useContext(MainContext)
     const [patient, setPatient] = useState('');
     const [doctor, setDoctor] = useState('');
     const [date, setDate] = useState('');
-    const [time,setTime]= useState('');
+    const [time, setTime] = useState('');
 
     useEffect(() => {
         getAllPatients()
@@ -30,14 +29,14 @@ export default function BookAppoint({onRefresh})
         formData.append('P_id', patient);
         formData.append('D_id', doctor);
         formData.append('date', new Date(date).toISOString());
-        formData.append('time', time);
-        
+        formData.append('time', formatTo12Hour(time));
+
 
         const formDataObj = {};
         formData.forEach((value, key) => {
             formDataObj[key] = value
         })
-        const result = await postData('v1/appointment/createAppointment', formDataObj);
+        const result = await postData('patient/v1/appointment/createAppointment', formDataObj);
 
         if (result.status) {
             Swal.fire({
@@ -62,7 +61,14 @@ export default function BookAppoint({onRefresh})
         onRefresh();
 
     }
-
+    function formatTo12Hour(time) {
+        if (!time) return "";
+        let [hour, minute] = time.split(":");
+        hour = parseInt(hour);
+        const ampm = hour >= 12 ? "PM" : "AM";
+        hour = hour % 12 || 12;
+        return `${hour}:${minute} ${ampm}`;
+    }
     return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
         <div style={{ width: 600, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10 }}>
 
@@ -119,13 +125,13 @@ export default function BookAppoint({onRefresh})
                 </div>
             </div>
 
-             <div className="row mb-10" >
+            <div className="row mb-10" >
                 <div className="col-xs-12">
 
                     <label style={{ fontSize: 15, color: '#000', margin: 5 }}>Time </label>
                     <input type="time" required placeholder="Enter your Time here..." className="form-control" value={time} onChange={(e) => setTime(e.target.value)} />
                 </div>
-            </div> 
+            </div>
 
             <div className="row" style={{ marginBottom: 5, marginTop: 20 }}>
                 <div className="col-6" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

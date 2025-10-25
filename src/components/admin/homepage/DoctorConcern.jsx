@@ -15,7 +15,7 @@ import MainContext from "../../../context/MainContext";
 export default function DoctorConcern({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
-  const { diagnosisList, histroy, Advise, complaint } = useContext(MainContext);
+  const { diagnosisList, histroy, Advise, complaint, PatientReports } = useContext(MainContext);
   const doctor = [];
 
   const openDialog = (e) => {
@@ -116,7 +116,7 @@ export default function DoctorConcern({ onRefresh }) {
           </div>
         </div>
         {/* Overlay */}
-       <div className="modal-backdrop fade show" style={{width:'100%',height:'100%'}}></div>
+        <div className="modal-backdrop fade show" style={{ width: '100%', height: '100%' }}></div>
       </div>
     );
   };
@@ -193,41 +193,41 @@ export default function DoctorConcern({ onRefresh }) {
 
       </div>
 
-     <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
-        <thead>
-          <tr className="table-secondary">
-            <th className="p-1 w-25">Date</th>
-            <th className="p-1">Systemic illness</th>
-            <th className="p-1">Treatment History</th>
-            <th className="p-1">Diet History</th>
-            <th className="p-1">Family History</th>
-          </tr>
-        </thead>
+      <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+          <thead>
+            <tr className="table-secondary">
+              <th className="p-1 w-25">Date</th>
+              <th className="p-1">Systemic illness</th>
+              <th className="p-1">Treatment History</th>
+              <th className="p-1">Diet History</th>
+              <th className="p-1">Family History</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          {histroy.length > 0 ?
-            histroy.map((item, i) => {
-              return (<tr key={i} style={{ height: "20px", fontSize: '14px' }}>
-                <td className="p-1">{new Date(item.created_at).toLocaleDateString()}</td>
-                <td className="p-1">{item.Systemic_illness}</td>
-                <td className="p-1">{item.Treatment_Histroy}</td>
-                <td className="p-1">{item.Dite_Histroy}</td>
-                <td className="p-1">{item.Family_Histroy}</td>
+          <tbody>
+            {histroy.length > 0 ?
+              histroy.map((item, i) => {
+                return (<tr key={i} style={{ height: "20px", fontSize: '14px' }}>
+                  <td className="p-1">{new Date(item.created_at).toLocaleDateString()}</td>
+                  <td className="p-1">{item.Systemic_illness}</td>
+                  <td className="p-1">{item.Treatment_Histroy}</td>
+                  <td className="p-1">{item.Dite_Histroy}</td>
+                  <td className="p-1">{item.Family_Histroy}</td>
+                </tr>)
+              }) : (<tr>
+                <td colSpan="5">No record available</td>
               </tr>)
-            }) : (<tr>
-              <td colSpan="5">No record available</td>
-            </tr>)
-          }
-        </tbody>
+            }
+          </tbody>
 
-      </table>
+        </table>
+      </div>
     </div>
-  </div>
 
 
 
-  
+
     <div className="d-flex  gap-3">
       <div style={{ flex: '2 1 350px', minWidth: 250 }}>
 
@@ -240,34 +240,34 @@ export default function DoctorConcern({ onRefresh }) {
         </div>
 
 
-       <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
-        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2} >
-          <thead>
-            <tr className="table-secondary">
-              <th className="p-1">Doctor</th>
-              <th className="p-1">Date</th>
-              <th className="p-1">Branch</th>
-            </tr>
-          </thead>
+        <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+          <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2} >
+            <thead>
+              <tr className="table-secondary">
+                <th className="p-1">Doctor</th>
+                <th className="p-1">Date</th>
+                <th className="p-1">Branch</th>
+              </tr>
+            </thead>
 
-          <tbody>
-            {doctor.length > 0 ? <tr style={{ height: "20px", fontSize: '14px' }}>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-              <td className="p-1"></td>
-            </tr> : (<tr>
-              <td colSpan="3">No record available</td>
-            </tr>)}
-          </tbody>
+            <tbody>
+              {doctor.length > 0 ? <tr style={{ height: "20px", fontSize: '14px' }}>
+                <td className="p-1"></td>
+                <td className="p-1"></td>
+                <td className="p-1"></td>
+              </tr> : (<tr>
+                <td colSpan="3">No record available</td>
+              </tr>)}
+            </tbody>
 
-        </table>
+          </table>
+        </div>
       </div>
-</div>
     </div>
 
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10, overflowY: 'auto', display: 'block'}}>
+    <div className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10, overflowY: 'auto', display: 'block' }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -278,35 +278,35 @@ export default function DoctorConcern({ onRefresh }) {
 
       </div>
 
-    <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
-        <thead>
-          <tr className="table-secondary">
-            <th>Date</th>
-            <th>Right Eye</th>
-            <th>Left Eye</th>
-            <th className="w-25">Systemic</th>
-            <th>Other</th>
-          </tr>
-        </thead>
-        <tbody>
-          {diagnosisList.length > 0 ?
-            diagnosisList.map((diagnosis, i) => {
-              return (<tr key={i} style={{ fontSize: '14px' }}>
-                <td>{new Date(diagnosis.created_at).toLocaleDateString()}</td>
-                <td>{diagnosis.R_eye}</td>
-                <td>{diagnosis.L_eye}</td>
-                <td>{diagnosis.Systemic}</td>
-                <td>{diagnosis.Others}</td>
+      <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+          <thead>
+            <tr className="table-secondary">
+              <th>Date</th>
+              <th>Right Eye</th>
+              <th>Left Eye</th>
+              <th className="w-25">Systemic</th>
+              <th>Other</th>
+            </tr>
+          </thead>
+          <tbody>
+            {diagnosisList.length > 0 ?
+              diagnosisList.map((diagnosis, i) => {
+                return (<tr key={i} style={{ fontSize: '14px' }}>
+                  <td>{new Date(diagnosis.created_at).toLocaleDateString()}</td>
+                  <td>{diagnosis.R_eye}</td>
+                  <td>{diagnosis.L_eye}</td>
+                  <td>{diagnosis.Systemic}</td>
+                  <td>{diagnosis.Others}</td>
+                </tr>)
+              }) : (<tr>
+                <td colSpan="5">No record available</td>
               </tr>)
-            }) : (<tr>
-              <td colSpan="5">No record available</td>
-            </tr>)
-          }
-        </tbody>
-      </table>
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
-</div>
 
 
 
@@ -322,31 +322,31 @@ export default function DoctorConcern({ onRefresh }) {
 
       </div>
 
-     <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
-        <thead>
-          <tr className="table-secondary">
-            <th className="p-1">Allergies</th>
-          </tr>
-        </thead>
+      <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+          <thead>
+            <tr className="table-secondary">
+              <th className="p-1">Allergies</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          {Report.length > 0 ? <tr style={{ height: "20px" }}>
-            <td className="p-1"></td>
-          </tr> : (<tr style={{ height: "20px", fontSize: '14px' }}>
-            <td colSpan="3">No record available</td>
-          </tr>)
-          }
-        </tbody>
+          <tbody>
+            {Report.length > 0 ? <tr style={{ height: "20px" }}>
+              <td className="p-1"></td>
+            </tr> : (<tr style={{ height: "20px", fontSize: '14px' }}>
+              <td colSpan="3">No record available</td>
+            </tr>)
+            }
+          </tbody>
 
-      </table>
+        </table>
+      </div>
     </div>
-   </div>
 
 
-    
 
- <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
+
+    <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
@@ -362,17 +362,19 @@ export default function DoctorConcern({ onRefresh }) {
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
           <thead>
             <tr className="table-secondary">
-              <th>Date</th>
+
               <th>Report Name</th>
               <th>Comment</th>
             </tr>
           </thead>
           <tbody>
-            {Report.length > 0 ? <tr style={{ fontSize: '14px' }}>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr> : (<tr>
+            {PatientReports.length > 0 ? PatientReports.map((item , i) => {
+              return (
+                <tr style={{ fontSize: '14px' }} key={i}>
+                  <td>{item.name}</td>
+                  <td>download</td>
+                </tr>)
+            }) : (<tr>
               <td colSpan="3">No record available</td>
             </tr>)
             }
@@ -384,7 +386,7 @@ export default function DoctorConcern({ onRefresh }) {
 
 
 
-{/*
+    {/*
     <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
