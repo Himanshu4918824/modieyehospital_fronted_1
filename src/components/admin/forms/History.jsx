@@ -39,7 +39,7 @@ export default function History({ onClose, onRefresh }) {
         });
 
         // Now JSON
-        const result = await putData(`v1/update/Histroy/${id}`, formDataObj);
+        const result = await putData(`patient/v1/update/Histroy/${id}`, formDataObj);
 
         if (result.status) {
             Swal.fire({
@@ -83,7 +83,7 @@ export default function History({ onClose, onRefresh }) {
         });
 
         // Now JSON
-        const result = await postData(`v1/pre-clinical/histroy/${P_id}/${Aid}`, formDataObj);
+        const result = await postData(`patient/v1/pre-clinical/histroy/${P_id}/${Aid}`, formDataObj);
 
         if (result.status) {
             Swal.fire({

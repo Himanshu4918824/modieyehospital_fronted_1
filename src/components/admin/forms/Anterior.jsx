@@ -43,7 +43,7 @@ export default function Anterior({ onClose, onRefresh }) {
   const [leftCornea, setLeftCornea] = useState('');
   const [leftAnteriorChamber, setLeftAnteriorChamber] = useState('');
   const [leftAngles, setLeftAngles] = useState('');
-  const [leftPupil, setLeftPupil] = useState('');
+  const [leftPupil, setLeftPupil]= useState('');
   const [leftLens, setLeftLens] = useState('');
   const [leftLacrimalSyringing, setLeftLacrimalSyringing] = useState('');
   const [leftGonioscopy, setLeftGonioscopy] = useState('');
@@ -52,7 +52,7 @@ export default function Anterior({ onClose, onRefresh }) {
   useEffect(() => {
     const data = anterior[0];
     // Left eye
-    setId(data.id)
+    setId(data?.id)
     setLeftAngles(data?.L_Angles);
     setLeftAnteriorChamber(data?.L_Anterior_chamber);
     setLeftConjunctiva(data?.L_Conjunctiva);
@@ -164,7 +164,7 @@ export default function Anterior({ onClose, onRefresh }) {
     });
 
 
-    const result = await putData(`v1/update/Anterior/${id}`, formDataObj);
+    const result = await putData(`patient/v1/update/Anterior/${id}`, formDataObj);
 
     if (result.status) {
       Swal.fire({
@@ -261,7 +261,7 @@ export default function Anterior({ onClose, onRefresh }) {
     });
 
 
-    const result = await postData(`v1/Clinical/anterior/${P_id}/${Aid}`, formDataObj);
+    const result = await postData(`patient/v1/Clinical/anterior/${P_id}/${Aid}`, formDataObj);
 
     if (result.status) {
       Swal.fire({

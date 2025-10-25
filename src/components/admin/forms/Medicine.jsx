@@ -49,7 +49,7 @@ export default function Medicine({ onClose, onRefresh }) {
         });
 
 
-        const result = await putData(`v1/update/Medicine/${id}`, formDataObj)
+        const result = await putData(`patient/v1/update/Medicine/${id}`, formDataObj)
 
         if (result.status) {
             Swal.fire({
@@ -93,7 +93,7 @@ export default function Medicine({ onClose, onRefresh }) {
         });
 
 
-        const result = await postData(`v1/Medicine/${P_id}/${Aid}`, formDataObj)
+        const result = await postData(`patient/v1/Medicine/${P_id}/${Aid}`, formDataObj)
 
         if (result.status) {
             Swal.fire({

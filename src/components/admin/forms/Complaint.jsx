@@ -10,7 +10,7 @@ export default function Complaint({ stat, onClose, onRefresh }) {
 
     const [complain, setComplain] = useState('');
     const [complainId, setComplainId] = useState('');
-    const { complaint, P_id, Aid } = useContext(MainContext)
+    const { complaint, P_id, Aid  } = useContext(MainContext)
 
     useEffect(() => {
         if (stat === 'complaint') {
@@ -19,6 +19,7 @@ export default function Complaint({ stat, onClose, onRefresh }) {
         }
         // else if (stat === 'allergies') {
         //     setComplain(allergies[0]?.Allergies)
+        //     setComplainId(allergies[0]?.Allergies)
         // }
 
     }, [])
@@ -30,7 +31,7 @@ export default function Complaint({ stat, onClose, onRefresh }) {
 
     const Edit_Compalin = async () => {
 
-        const result = await putData(`v1/update/complaint/${complainId}`, { message: complain });
+        const result = await putData(`patient/v1/update/complaint/${complainId}`, { message: complain });
 
         if (result.status) {
             Swal.fire({
@@ -68,8 +69,7 @@ export default function Complaint({ stat, onClose, onRefresh }) {
             formDataObj[key] = value;
         });
 
-        const result = await postData(`v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
-
+        const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
 
         if (result.status) {
             Swal.fire({
