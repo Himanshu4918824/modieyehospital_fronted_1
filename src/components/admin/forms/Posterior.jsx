@@ -75,7 +75,7 @@ export default function Posterior({ onClose, onRefresh }) {
       formDataObj[key] = value;
     });
 
-    const result = await putData(`v1/update/Posterior/${id}`, formDataObj);
+    const result = await putData(`patient/v1/update/Posterior/${id}`, formDataObj);
     if (result.status) {
       Swal.fire({
         position: "top-end",
@@ -128,7 +128,7 @@ export default function Posterior({ onClose, onRefresh }) {
       formDataObj[key] = value;
     });
 
-    const result = await postData(`v1/Clinical/posterior/${P_id}/${Aid}`, formDataObj);
+    const result = await postData(`patient/v1/Clinical/posterior/${P_id}/${Aid}`, formDataObj);
     if (result.status) {
       Swal.fire({
         position: "top-end",

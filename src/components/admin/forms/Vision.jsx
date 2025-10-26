@@ -87,7 +87,7 @@ export default function Vision({ onClose, onRefresh }) {
       formDataObj[key] = value;
     });
 
-    const result = await putData(`v1/update/Vision/${id}`, formDataObj);
+    const result = await putData(`patient/v1/update/Vision/${id}`, formDataObj);
 
     if (result.status) {
       Swal.fire({
@@ -144,7 +144,7 @@ export default function Vision({ onClose, onRefresh }) {
       formDataObj[key] = value;
     });
 
-    const result = await postData(`v1/pre-clinical/vision/${P_id}/${Aid}`, formDataObj);
+    const result = await postData(`patient/v1/pre-clinical/vision/${P_id}/${Aid}`, formDataObj);
 
     if (result.status) {
       Swal.fire({
@@ -282,6 +282,6 @@ export default function Vision({ onClose, onRefresh }) {
       </div>
 
     </div>
-
+patient/
   </div>)
 }

@@ -39,7 +39,7 @@ export default function Diagnosis({onClose, onRefresh}) {
         });
 
 
-        const result = await putData(`v1/update/Diagnosis/${id}`, formDataObj);
+        const result = await putData(`patient/v1/update/Diagnosis/${id}`, formDataObj);
         if (result.status) {
            
             Swal.fire({
@@ -80,7 +80,7 @@ export default function Diagnosis({onClose, onRefresh}) {
         });
 
 
-        const result = await postData(`v1/diagnosis/${P_id}/${Aid}`, formDataObj);
+        const result = await postData(`patient/v1/diagnosis/${P_id}/${Aid}`, formDataObj);
         if (result.status) {
             Swal.fire({
                 position: "top-end",

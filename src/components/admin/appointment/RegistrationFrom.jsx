@@ -52,7 +52,7 @@ export default function RegistrationFrom() {
             formDataObj[key] = value;
         })
         console.log(formDataObj)
-        const result = await postData('v1/patient/NewPatient', formDataObj)
+        const result = await postData('patient/v1/patient/NewPatient', formDataObj)
 
         if (result.status) {
             Swal.fire({

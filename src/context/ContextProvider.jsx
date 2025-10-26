@@ -1,7 +1,6 @@
 import MainContext from './MainContext'
 import { getData } from "../services/FetchNodeAdminServices"
 import { useState } from 'react'
-import axios from 'axios'
 
 
 const ContextProvider = ({ children }) => {
@@ -172,6 +171,7 @@ const ContextProvider = ({ children }) => {
     patientId: "",
   }]);
 
+  const [PatientReports, setReports] = useState([])
 
 
 
@@ -180,7 +180,7 @@ const ContextProvider = ({ children }) => {
     try {
       const data = await getData(url);
       // return data;
-      // console.log(data)
+      console.log(data)
       setDiagnosisList(data.Diagnosis)
       SetPatientData({
         Age: data.Age || "",
@@ -250,6 +250,7 @@ const ContextProvider = ({ children }) => {
       setRefractionData(data.Refraction)
       setAnterior(data.Anterior)
       setPosterior(data.Posterior)
+      setReports(data.Report[0].document)
     } catch (error) {
       console.log(error)
     }
@@ -259,7 +260,7 @@ const ContextProvider = ({ children }) => {
   //  fetch all the patients
   const getAllPatients = async () => {
     try {
-      const result = await getData('v1/patient/allPatient')
+      const result = await getData('patient/v1/patient/allPatient')
       // console.log(result)
       setAllPatients(result)
     } catch (error) {
@@ -269,26 +270,26 @@ const ContextProvider = ({ children }) => {
   // fetch all the doctors
   const getAllDoctors = async () => {
     try {
-      const result = await axios.get('https://doctor-backend.up.railway.app/api/v1/get/allDoctors')
-      // console.log(result)
-      setAllDoctors(result.data)
+      const result = await getData('doctor/api/v1/get/allDoctors')
+      console.log(result)
+      setAllDoctors(result)
     } catch (error) {
       console.log(error)
     }
   }
   const getDoctorsDetail = async (id) => {
     try {
-      const result = await axios.get(`https://doctor-backend.up.railway.app/api/v1/${id}`)
+      const result = await getData(`doctor/api/v1/${id}`, { Authorization : localStorage.getItem('token')})
       // console.log(result)
-      setDoctorDetail(result.data)
-      return result.data
+      setDoctorDetail(result)
+      return result
     } catch (error) {
       console.log(error)
     }
   }
   const getAllTodayAppointments = async () => {
     try {
-      const result = await getData('v1/appointment/allAppointment')
+      const result = await getData('patient/v1/appointment/allAppointment')
       // console.log(result)
       const updateAppointment = await Promise.all(
         result.map(async (appoint) => {
@@ -297,7 +298,7 @@ const ContextProvider = ({ children }) => {
           return { ...appoint, doctor }
         })
       )
-      console.log("Appointments with Doctor Info:", updateAppointment);
+      // console.log("Appointments with Doctor Info:", updateAppointment);
       setAllTodayAppointments(updateAppointment)
     } catch (error) {
       console.log(error)
@@ -305,9 +306,8 @@ const ContextProvider = ({ children }) => {
   }
 
 
-
   return (
-    <MainContext.Provider value={{ SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail }}>
+    <MainContext.Provider value={{ PatientReports,SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail }}>
       {children}
     </MainContext.Provider>
   )
