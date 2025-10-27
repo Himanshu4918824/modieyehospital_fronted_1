@@ -1,5 +1,5 @@
 import MainContext from './MainContext'
-import { getData } from "../services/FetchNodeAdminServices"
+import { getData, putData } from "../services/FetchNodeAdminServices"
 import { useState } from 'react'
 
 
@@ -176,6 +176,7 @@ const ContextProvider = ({ children }) => {
 
 
 
+
   const getPatientData = async (url) => {
     try {
       const data = await getData(url);
@@ -279,7 +280,7 @@ const ContextProvider = ({ children }) => {
   }
   const getDoctorsDetail = async (id) => {
     try {
-      const result = await getData(`doctor/api/v1/${id}`, { Authorization : localStorage.getItem('token')})
+      const result = await getData(`doctor/api/v1/${id}`, { Authorization: localStorage.getItem('token') })
       // console.log(result)
       setDoctorDetail(result)
       return result
@@ -287,12 +288,21 @@ const ContextProvider = ({ children }) => {
       console.log(error)
     }
   }
+  const getAppointmentCount = async () => {
+    try {
+      const result = await getData(`patient/v1/appointment/latestCounts`)
+      // console.log(result)
+      return result
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const getAllTodayAppointments = async () => {
     try {
-      const result = await getData('patient/v1/appointment/allAppointment')
-      // console.log(result)
+      const { data } = await getData('patient/v1/appointment/allAppointment')
+      // console.log(counts)
       const updateAppointment = await Promise.all(
-        result.map(async (appoint) => {
+        data.map(async (appoint) => {
           // console.log(appoint.D_id)
           const doctor = await getDoctorsDetail(appoint.D_id);
           return { ...appoint, doctor }
@@ -305,9 +315,17 @@ const ContextProvider = ({ children }) => {
     }
   }
 
+  const changeStatus = async (id , status) => {
+    try {
+      const data = await putData(`patient/v1/appointment/updateStatus/${id}`, { status })
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
-    <MainContext.Provider value={{ PatientReports,SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail }}>
+    <MainContext.Provider value={{ changeStatus,getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail }}>
       {children}
     </MainContext.Provider>
   )
