@@ -14,7 +14,7 @@ export default function MainDashboard() {
   const [doctorId, setDoctorId] = useState(localStorage.getItem('doctorId'))
   const [deptCounts, setDeptCounts] = useState({});
 
-  const socket = io("http://localhost:8001/", {
+  const socket = io("https://hospitalmanagementsystembackend-production-bbf7.up.railway.app/", {
     transports: ["websocket"] // enforce WebSocket
   });
 
@@ -120,14 +120,15 @@ export default function MainDashboard() {
 
     <div className="p-3 bg-light">
       <div className="d-flex flex-wrap mb-3">
-        <button className="btn btn-warning btn-sm m-1">Completed [{deptCounts?.completed}]</button>
         <button className="btn btn-secondary btn-sm m-1">Pending [{deptCounts?.pending}]</button>
-
-        <button className="btn btn-primary btn-sm m-1">Cancel [{deptCounts?.cancel}]</button>
-        <button className="btn btn-dark btn-sm m-1">Diagnostic [0]</button>
-        <button className="btn btn-secondary btn-sm m-1">Counsellor [0]</button>
-        <button className="btn btn-danger btn-sm m-1">Waiting [0]</button>
-        <button onClick={openDialog} className="btn btn-outline-dark btn-sm m-1">Appointment</button>
+        <button className="btn btn-secondary btn-sm m-1">Reception[{deptCounts?.reception}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Dept[{deptCounts?.dept}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Optometrist[{deptCounts?.optometrist}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Doctor[{deptCounts?.doctor}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Diagnostic[{deptCounts?.diagnostic}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Counsellor[{deptCounts?.counsellor}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Waiting[{deptCounts?.waiting}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Appointment[{deptCounts?.appointment}]</button>
 
         <div style={{ marginLeft: 5 }}>
           <select className="form-select">
@@ -217,9 +218,14 @@ export default function MainDashboard() {
                     <td className="text-center">{i + 1}</td>
                     <td className="text-center">
                       <select className="form-select" value={item.status} onChange={e => handleStatusChange(item.id, e.target.value)}>
-                        <option value='pending'>Pending</option>
-                        <option value='completed'>Completed</option>
-                        <option value='cancel'>Cancel</option>
+                        <option value='reception'>Reception</option>
+                        <option value='dept'>Dept</option>
+                        <option value='optometrist'>Optometrist</option>
+                        <option value='doctor'>Doctor</option>
+                        <option value='diagnostic'>Diagnostic</option>
+                        <option value='Counsellor'>Counsellor</option>
+                        <option value='waiting'>Waiting</option>
+                        <option value='appointment'>Appointment</option>
                       </select>
                     </td>
                     <td className="text-center">{item.patient.FullName}</td>

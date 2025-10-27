@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const serverURL = 'http://localhost:5000'
+const serverURL = 'https://hospital-management-system.up.railway.app'
 // const serverURL = 'https://patient-backend.up.railway.app'
+// const serverURL = 'http://localhost:5000'
 
 const currentDate = () => {
       let d = new Date();

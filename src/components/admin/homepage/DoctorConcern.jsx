@@ -368,7 +368,7 @@ export default function DoctorConcern({ onRefresh }) {
             </tr>
           </thead>
           <tbody>
-            {PatientReports.length > 0 ? PatientReports.map((item , i) => {
+            {PatientReports?.length > 0 ? PatientReports.map((item , i) => {
               return (
                 <tr style={{ fontSize: '14px' }} key={i}>
                   <td>{item.name}</td>
