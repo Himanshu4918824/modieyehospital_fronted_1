@@ -68,7 +68,18 @@ export default function Complaint({ stat, onClose, onRefresh }) {
         formData.forEach((value, key) => {
             formDataObj[key] = value;
         });
+{/*
 
+        if (stat === 'complaint') {
+             const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
+        }
+        else if (stat === 'allegries') {
+            const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
+        }
+    
+
+
+    */}
         const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
 
         if (result.status) {

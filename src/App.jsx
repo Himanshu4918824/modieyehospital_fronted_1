@@ -34,6 +34,7 @@ import AddDoctor from "./components/admin/doctor/AddDoctor";
 import DisplayDoctor from "./components/admin/doctor/DisplayDoctor";
 import UserForm from "./components/admin/user/UserForm";
 import ShowUser from "./components/admin/user/ShowUser";
+import Patient from "./components/admin/homepage/Patient";
 
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
             <Route element={<DisplayDoctor/>} path="/displaydoctor"></Route>
             <Route element={<UserForm/>} path="/userform"></Route>
             <Route element={<ShowUser/>} path="/showuser"></Route>
+            <Route element={<Patient/>} path="/patient"></Route>
             
 
           </Routes>

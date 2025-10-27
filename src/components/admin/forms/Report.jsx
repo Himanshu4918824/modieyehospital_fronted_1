@@ -9,7 +9,34 @@ export default function Report({ onClose, onRefresh }) {
     const [uploadReport, setUploadReport] = useState('');
 
     const fileInputRef = useRef(null);
-    const { P_id } = useContext(MainContext)
+    const { P_id } = useContext(MainContext);
+
+    const [reports, setReports] = useState([]);
+
+
+
+      useEffect(() => {
+    if (P_id) fetchReports();
+  }, [P_id]);
+
+
+
+  const fetchReports = async () => {
+    try {
+      const res = await fetch(`/api/patient/v1/report/${P_id}`);
+      const json = await res.json();
+      if (json.success)
+        {
+            setReports(json.reports || json.files || []);
+        } 
+      else
+        {
+            setReports([]);
+        } 
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
     function resetData() {
         setReportName('');
@@ -31,7 +58,7 @@ export default function Report({ onClose, onRefresh }) {
         formData.forEach((value, key) => {
             formDataObj[key] = value;
         })
-
+//console.log('xxx',uploadReport)
 
         const result = await postData(`patient/v1/report/${P_id}`, formDataObj);
 

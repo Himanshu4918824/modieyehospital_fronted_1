@@ -11,7 +11,8 @@ import AnteriorIcon from "../forms/AnteriorIcon";
 import PosteriorIcon from "../forms/PosteriorIcon";
 
 
-export default function DoctorConcern({ onRefresh }) {
+export default function Patient({ onRefresh })
+{
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
   const { treatment, anterior, posterior, Advise } = useContext(MainContext);
@@ -99,7 +100,7 @@ export default function DoctorConcern({ onRefresh }) {
       <div>
         <div className="modal show d-flex" tabIndex="-1">
           <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 720, width: "92%", minHeight: 100 }} >
-            <div className="modal-content" style={{ minHeight: 400, height: 'auto', width: 820 }}>
+            <div className="modal-content" style={{ minHeight: 400, height: 'auto'}}>
               <div className="modal-header h4">
                 {modalPage}
                 <button type="button" className="btn-close" onClick={closeDialog}></button>

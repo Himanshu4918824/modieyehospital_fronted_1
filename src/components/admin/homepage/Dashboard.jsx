@@ -146,7 +146,16 @@ export default function DashBoard()
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
               <span className="input-group-text">Send Where To:</span>
-              <input type="text" className="form-control" disabled value={''} />
+               <select className="form-select">
+                        <option value='reception'>Reception</option>
+                        <option value='dept'>Dept</option>
+                        <option value='optometrist'>Optometrist</option>
+                        <option value='doctor'>Doctor</option>
+                        <option value='diagnostic'>Diagnostic</option>
+                        <option value='Counsellor'>Counsellor</option>
+                        <option value='waiting'>Waiting</option>
+                        <option value='appointment'>Appointment</option>
+                </select>
             </div>
           </div>
 

@@ -6,9 +6,11 @@ import Swal from "sweetalert2";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
+
 // eske andr handle submit ka function bna de jo add doctor krne k liye ho or doctordialog mai edit button and delete button condational render krvnae hai mtlb agr doctor id hai to edit or delete show krna hai agr nhi hai to add doctor ka button show krna hai
 
-export default function DisplayDoctor() {
+export default function DisplayDoctor() 
+{
   const { getAllDoctors, allDoctors } = useContext(MainContext);
 
 
@@ -316,7 +318,7 @@ export default function DisplayDoctor() {
       </table>
     </div>
     <div className="d-flex justify-content-center">
-      <button onClick={() => openDailog()} className="bg-primary rounded px-3 py-1 border-0">Add Doctor</button>
+      <button onClick={()=>navigate('/adddoctor')} className="bg-primary rounded px-3 py-1 border-0">Add Doctor</button>
     </div>
 
   </div>

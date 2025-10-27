@@ -26,7 +26,7 @@ export default function NewAppoint()
   };
 
 
-  return (<div style={{ backgroundImage: "url('/images/background.png')", backgroundSize: "cover", width: '100%', minHeight: "100vh" }}>
+  return (<div style={{ backgroundImage: "url('/images/background.png')", backgroundSize: "cover", width: '100%', minHeight: 820}}>
     <div>
       <Header />
     </div>

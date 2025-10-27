@@ -3,8 +3,13 @@ import { useState, useRef  } from "react"
 import { currentDate, postData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 
+import { useNavigate } from "react-router-dom";
+
 export default function AddDoctor()
 {
+    const navigate=useNavigate();
+
+
     const [name,setName]=useState('');
     const [department,setDepartment]=useState('');
     const [designation,setDesignation]=useState('');
@@ -82,7 +87,11 @@ export default function AddDoctor()
             <Header/>
         </div>
 
-       <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div onClick={()=>navigate('/displaydoctor')} style={{marginLeft:'90%',marginTop:7}}>
+           <button type="button" class="btn btn-secondary">Show Doctor List</button>
+        </div>
+
+       <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop:0 }}>
             <div style={{ width: 700, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10 }}>
 
                 <div className="row">
