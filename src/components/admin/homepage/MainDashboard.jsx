@@ -6,26 +6,55 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { io } from 'socket.io-client'
 
 export default function MainDashboard() {
-  const { getAllTodayAppointments, allTodayAppointments, } = useContext(MainContext)
+  const { getAllTodayAppointments, allTodayAppointments, getAppointmentCount, changeStatus } = useContext(MainContext)
   const navigate = useNavigate()
   const [doctorId, setDoctorId] = useState(localStorage.getItem('doctorId'))
+  const [deptCounts, setDeptCounts] = useState({});
 
-  // console.log(allTodayAppointments)
+  const socket = io("http://localhost:8001/", {
+    transports: ["websocket"] // enforce WebSocket
+  });
+
+
+  socket.on("connect", () => {
+    // console.log("Connected to main service:", socket.id);
+  });
+
   useEffect(() => {
+    getAppointmentCount().then((data) => {
+      // console.log(data.count)
+      setDeptCounts(data.count)
+    }).catch((e) => {
+      console.log(e)
+    })
     if (!doctorId || doctorId === undefined || doctorId === "") {
       navigate('/')
     }
 
     getAllTodayAppointments()
 
+    socket.on('appointmentUpdated', (data) => {
+      const { result } = data;
+      setDeptCounts(result);
+    })
+    return () => socket.off('appointmentUpdated');
+
   }, [])
+
+  const handleStatusChange = async (id, status) => {
+    await changeStatus(id, status);
+    refreshDashboard();
+  }
+
+
 
   const refreshDashboard = () => {
     getAllTodayAppointments()
   };
-
+  // console.log(deptCounts)
 
 
   // console.log(allTodayAppointments)
@@ -91,11 +120,10 @@ export default function MainDashboard() {
 
     <div className="p-3 bg-light">
       <div className="d-flex flex-wrap mb-3">
-        <button className="btn btn-warning btn-sm m-1">Reception [0]</button>
-        <button className="btn btn-secondary btn-sm m-1">Dept [0]</button>
-        <button className="btn btn-success btn-sm m-1">AutoRef [0]</button>
-        <button className="btn btn-info btn-sm m-1">Optometrist [0]</button>
-        <button className="btn btn-primary btn-sm m-1">Doctor [0]</button>
+        <button className="btn btn-warning btn-sm m-1">Completed [{deptCounts?.completed}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Pending [{deptCounts?.pending}]</button>
+
+        <button className="btn btn-primary btn-sm m-1">Cancel [{deptCounts?.cancel}]</button>
         <button className="btn btn-dark btn-sm m-1">Diagnostic [0]</button>
         <button className="btn btn-secondary btn-sm m-1">Counsellor [0]</button>
         <button className="btn btn-danger btn-sm m-1">Waiting [0]</button>
@@ -184,13 +212,14 @@ export default function MainDashboard() {
               allTodayAppointments.length > 0 ? (
 
                 allTodayAppointments.map((item, i) => {
+
                   return (<tr key={i}>
                     <td className="text-center">{i + 1}</td>
                     <td className="text-center">
-                      <select className="form-select">
-                        <option value='Pending'>Pending</option>
-                        <option value='Completed'>Completed</option>
-                        <option value='Cancel'>Cancel</option>
+                      <select className="form-select" value={item.status} onChange={e => handleStatusChange(item.id, e.target.value)}>
+                        <option value='pending'>Pending</option>
+                        <option value='completed'>Completed</option>
+                        <option value='cancel'>Cancel</option>
                       </select>
                     </td>
                     <td className="text-center">{item.patient.FullName}</td>
