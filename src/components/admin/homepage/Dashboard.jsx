@@ -17,7 +17,6 @@ export default function DashBoard() {
   const [status, setStatus] = useState("");
   useEffect(() => {
     getPatientData(`patient/v1/patient/${id}`);
-    getDoctorsDetail(localStorage.getItem('doctorId'));
     SetP_id(id)
     SetAid(Aid)
     // console.log(patientData)
@@ -112,12 +111,12 @@ export default function DashBoard() {
             </div>
           </div>
 
-          <div className="col-xs-12 col-lg-2">
+          {/* <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
               <span className="input-group-text">Doctor</span>
               <input type="text" className="form-control" disabled value={DoctorDetail.FullName} />
             </div>
-          </div>
+          </div> */}
 
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">

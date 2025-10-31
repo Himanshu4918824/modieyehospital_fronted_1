@@ -7,12 +7,16 @@ import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { io } from 'socket.io-client'
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function MainDashboard() {
   const { getAllTodayAppointments, allTodayAppointments, getAppointmentCount, changeStatus } = useContext(MainContext)
   const navigate = useNavigate()
   const [doctorId, setDoctorId] = useState(localStorage.getItem('doctorId'))
   const [deptCounts, setDeptCounts] = useState({});
+  const [hasMore, setHasMore] = useState(false);
+  const [page, setPage] = useState(1);
+
   const socketURL = import.meta.env.VITE_socketURL || "http://localhost:8001/"
   const socket = io(socketURL, {
     withCredentials: true,
@@ -28,7 +32,6 @@ export default function MainDashboard() {
 
   useEffect(() => {
     getAppointmentCount().then((data) => {
-      // console.log(data.count)
       setDeptCounts(data.count)
     }).catch((e) => {
       console.log(e)
@@ -37,7 +40,12 @@ export default function MainDashboard() {
       navigate('/')
     }
 
-    getAllTodayAppointments()
+    getAllTodayAppointments(page).then((stat) => {
+      console.log(stat)
+      setHasMore(stat)
+    }).catch(e => {
+      console.log(e)
+    })
 
     socket.on('appointmentUpdated', (data) => {
       const { result } = data;
@@ -47,9 +55,17 @@ export default function MainDashboard() {
 
   }, [])
 
+
+  const fetchMoreData = async() => {
+    const nextPage = page + 1;
+    await getAllTodayAppointments(nextPage);
+    setPage(nextPage);
+  };
+
+
   const handleStatusChange = async (id, status) => {
     await changeStatus(id, status);
-    refreshDashboard();
+    // refreshDashboard();
   }
 
 
@@ -133,6 +149,7 @@ export default function MainDashboard() {
         <button className="btn btn-secondary btn-sm m-1">Waiting[{deptCounts?.waiting}]</button>
         <button className="btn btn-secondary btn-sm m-1">Appointment[{deptCounts?.appointment}]</button>
 
+        <button onClick={() => openDialog()} className="btn btn-warning btn-sm m-1"> Registration / Book Appointment </button>
         <div style={{ marginLeft: 5 }}>
           <select className="form-select">
             <option value="">-Select-Branch-</option>
@@ -145,118 +162,80 @@ export default function MainDashboard() {
         {renderModal()}
       </div>
 
-      {/*
-      <div className="card p-3 mb-3">
-        <div className="row g-2">
-          <div className="col-md-3">
-            <input className="form-control" placeholder="Name" />
-          </div>
-          <div className="col-md-3">
-            <input className="form-control" placeholder="Address" />
-          </div>
-          <div className="col-md-3">
-            <input className="form-control" placeholder="Mobile No" />
-          </div>
-          <div className="col-md-3">
-            <input className="form-control" placeholder="Patient Doctor" />
-          </div>
-        </div>
 
-        <div className="row g-2 mt-2">
-          <div className="col-md-3">
-            <input className="form-control" placeholder="National ID" />
-          </div>
-          <div className="col-md-3">
-            <input className="form-control" placeholder="Language" />
-          </div>
-          <div className="col-md-3">
-            <input className="form-control" placeholder="Bio hazard" />
-          </div>
-          <div className="col-md-3">
-            <input className="form-control" placeholder="Nationality" />
-          </div>
-        </div>
+      <div id="scrollableDiv" className="table-responsive" style={{ height: "70vh", overflow: "auto" }}>
+        <InfiniteScroll
+          dataLength={allTodayAppointments.length}
+          next={fetchMoreData}
+          hasMore={hasMore}
+          loader={<h6 className="text-center p-2">Loading more...</h6>}
+          scrollableTarget="scrollableDiv"
+          endMessage={<p className="text-center text-muted">No more data to load</p>}
+        >
 
-        <div className="row g-2 mt-2">
-          <div className="col-md-3">
-            <input className="form-control" placeholder="Old MR No" />
-          </div>
-          <div className="col-md-3">
-            <input className="form-control" placeholder="Past History" />
-          </div>
-          <div className="col-md-3">
-            <input className="form-control" placeholder="Diabetes" />
-          </div>
-          <div className="col-md-3">
-            <input className="form-control" placeholder="HTN" />
-          </div>
-        </div>
-      </div>
+          <table className="table table-bordered table-sm">
+            <thead className="table-secondary">
+              <tr>
+                <th className="text-center">Seq</th>
+                <th className="text-center">Status</th>
+                <th className="text-center">Patient Name</th>
+                <th className="text-center">Age/Sex</th>
+                <th className="text-center">Appointment Id</th>
+                <th className="text-center">Date</th>
+                <th className="text-center">Time</th>
+                <th className="text-center">Contact</th>
+                {/* <th className="text-center">Doctor</th> */}
+                <th className="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                allTodayAppointments.length > 0 ? (
 
-  */}
+                  allTodayAppointments.map((item, i) => {
 
-      <div className="table-responsive">
-        <table className="table table-bordered table-sm">
-          <thead className="table-secondary">
-            <tr>
-              <th className="text-center">Seq</th>
-              <th className="text-center">Status</th>
-              <th className="text-center">Patient Name</th>
-              <th className="text-center">Age/Sex</th>
-              <th className="text-center">Appointment Id</th>
-              <th className="text-center">Date</th>
-              <th className="text-center">Time</th>
-              <th className="text-center">Contact</th>
-              {/* <th className="text-center">Doctor</th> */}
-              <th className="text-center">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              allTodayAppointments.length > 0 ? (
-
-                allTodayAppointments.map((item, i) => {
-
-                  return (<tr key={i}>
-                    <td className="text-center">{i + 1}</td>
-                    <td className="text-center">
-                      <select className="form-select" value={item.status} onChange={e => handleStatusChange(item.id, e.target.value)}>
-                        <option value='reception'>Reception</option>
-                        <option value='dept'>Dept</option>
-                        <option value='optometrist'>Optometrist</option>
-                        <option value='doctor'>Doctor</option>
-                        <option value='diagnostic'>Diagnostic</option>
-                        <option value='Counsellor'>Counsellor</option>
-                        <option value='waiting'>Waiting</option>
-                        <option value='appointment'>Appointment</option>
-                      </select>
-                    </td>
-                    <td className="text-center">{item.patient.FullName}</td>
-                    <td className="text-center">{item.patient.Gender}/{item.patient.Age}</td>
-                    <td className="text-center">{item.id}</td>
-                    <td className="text-center">{new Date(item.Appointment_date).toLocaleDateString()}</td>
-                    <td className="text-center">{item.Time}</td>
-                    <td className="text-center">{item.patient.Phone}</td>
-                    {/* <td className="text-center">{item.doctor.FullName} </td> */}
-                    <td className="text-center">
-                      <button onClick={() => navigate(`/dashboard/${item.P_id}/${item.id}`)} className="bg-primary px-3 text-uppercase text-white rounded border border-0">View</button>
-                    </td>
-                  </tr>
+                    return (<tr key={i}>
+                      <td className="text-center">{i + 1}</td>
+                      <td className="text-center">
+                        <select className="form-select" value={item?.status} onChange={e => handleStatusChange(item.id, e.target.value)}>
+                          <option value='reception'>Reception</option>
+                          <option value='dept'>Dept</option>
+                          <option value='optometrist'>Optometrist</option>
+                          <option value='doctor'>Doctor</option>
+                          <option value='diagnostic'>Diagnostic</option>
+                          <option value='Counsellor'>Counsellor</option>
+                          <option value='waiting'>Waiting</option>
+                          <option value='appointment'>Appointment</option>
+                        </select>
+                      </td>
+                      <td className="text-center">{item?.patient?.FullName}</td>
+                      <td className="text-center">{item?.patient?.Gender}/{item?.patient?.Age}</td>
+                      <td className="text-center">{item?.id}</td>
+                      <td className="text-center">{new Date(item?.Appointment_date).toLocaleDateString()}</td>
+                      <td className="text-center">{item?.Time}</td>
+                      <td className="text-center">{item?.patient?.Phone}</td>
+                      {/* <td className="text-center">{item.doctor.FullName} </td> */}
+                      <td className="text-center">
+                        <button onClick={() => navigate(`/dashboard/${item.P_id}/${item.id}`)} className="bg-primary px-3 text-uppercase text-white rounded border border-0">View</button>
+                      </td>
+                    </tr>
+                    )
+                  }
                   )
-                }
                 )
-              )
-                : (
-                  <tr>
-                    <td colSpan="10" className="text-center">
-                      No Data Available
-                    </td>
-                  </tr>
-                )
-            }
-          </tbody>
-        </table>
+                  : (
+                    <tr>
+                      <td colSpan="10" className="text-center">
+                        No Data Available
+                      </td>
+                    </tr>
+                  )
+              }
+            </tbody>
+          </table>
+        </InfiniteScroll>
       </div>
+
     </div >
 
 

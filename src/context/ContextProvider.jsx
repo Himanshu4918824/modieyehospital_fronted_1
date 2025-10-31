@@ -291,16 +291,22 @@ const ContextProvider = ({ children }) => {
   const getAppointmentCount = async () => {
     try {
       const result = await getData(`patient/v1/appointment/latestCounts`)
-      // console.log(result)
       return result
+      // console.log(result)
     } catch (error) {
       console.log(error)
     }
   }
-  const getAllTodayAppointments = async () => {
+  const getAllTodayAppointments = async (pageNum) => {
     try {
-      const { data } = await getData('patient/v1/appointment/allAppointment')
-      setAllTodayAppointments(data)
+      const { data, totalPages } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10`)
+      if (pageNum === 1) {
+        setAllTodayAppointments(data);
+      }
+      else {
+        setAllTodayAppointments((prev) => [...prev, ...data]);
+      }
+      return pageNum < totalPages;
     } catch (error) {
       console.log(error)
     }
