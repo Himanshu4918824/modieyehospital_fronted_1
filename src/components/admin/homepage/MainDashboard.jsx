@@ -16,7 +16,7 @@ export default function MainDashboard() {
   const socketURL = import.meta.env.VITE_socketURL || "http://localhost:8001/"
   const socket = io(socketURL, {
     withCredentials: true,
-    transports: ["websocket"] // enforce WebSocket
+    transports: ["websocket"]
   });
 
 
