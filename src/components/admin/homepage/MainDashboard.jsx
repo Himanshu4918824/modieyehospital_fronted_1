@@ -13,8 +13,9 @@ export default function MainDashboard() {
   const navigate = useNavigate()
   const [doctorId, setDoctorId] = useState(localStorage.getItem('doctorId'))
   const [deptCounts, setDeptCounts] = useState({});
-
-  const socket = io("https://hospitalmanagementsystembackend-production-bbf7.up.railway.app/", {
+  const socketURL = import.meta.env.VITE_socketURL || "http://localhost:8001/"
+  const socket = io(socketURL, {
+    withCredentials: true,
     transports: ["websocket"] // enforce WebSocket
   });
 
@@ -22,6 +23,8 @@ export default function MainDashboard() {
   socket.on("connect", () => {
     // console.log("Connected to main service:", socket.id);
   });
+
+  socket.on("connect_error", (err) => console.error("Socket Error:", err.message));
 
   useEffect(() => {
     getAppointmentCount().then((data) => {
@@ -126,7 +129,7 @@ export default function MainDashboard() {
         <button className="btn btn-secondary btn-sm m-1">Optometrist[{deptCounts?.optometrist}]</button>
         <button className="btn btn-secondary btn-sm m-1">Doctor[{deptCounts?.doctor}]</button>
         <button className="btn btn-secondary btn-sm m-1">Diagnostic[{deptCounts?.diagnostic}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Counsellor[{deptCounts?.counsellor}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Counsellor[{deptCounts?.Counsellor}]</button>
         <button className="btn btn-secondary btn-sm m-1">Waiting[{deptCounts?.waiting}]</button>
         <button className="btn btn-secondary btn-sm m-1">Appointment[{deptCounts?.appointment}]</button>
 
@@ -204,7 +207,7 @@ export default function MainDashboard() {
               <th className="text-center">Date</th>
               <th className="text-center">Time</th>
               <th className="text-center">Contact</th>
-              <th className="text-center">Doctor</th>
+              {/* <th className="text-center">Doctor</th> */}
               <th className="text-center">Action</th>
             </tr>
           </thead>
@@ -234,7 +237,7 @@ export default function MainDashboard() {
                     <td className="text-center">{new Date(item.Appointment_date).toLocaleDateString()}</td>
                     <td className="text-center">{item.Time}</td>
                     <td className="text-center">{item.patient.Phone}</td>
-                    <td className="text-center">{item.doctor.FullName} </td>
+                    {/* <td className="text-center">{item.doctor.FullName} </td> */}
                     <td className="text-center">
                       <button onClick={() => navigate(`/dashboard/${item.P_id}/${item.id}`)} className="bg-primary px-3 text-uppercase text-white rounded border border-0">View</button>
                     </td>

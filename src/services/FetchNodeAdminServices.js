@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const serverURL = 'https://hospital-management-system.up.railway.app'
-// const serverURL = 'https://patient-backend.up.railway.app'
-// const serverURL = 'http://localhost:5000'
+// const serverURL = 'https://hospital-management-system.up.railway.app'
+const serverURL = import.meta.env.VITE_serverURL || 'http://localhost:5000'
 
 const currentDate = () => {
       let d = new Date();

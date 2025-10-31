@@ -181,7 +181,7 @@ const ContextProvider = ({ children }) => {
     try {
       const data = await getData(url);
       // return data;
-//       console.log(data)
+      //       console.log(data)
       setDiagnosisList(data.Diagnosis)
       SetPatientData({
         Age: data.Age || "",
@@ -300,16 +300,7 @@ const ContextProvider = ({ children }) => {
   const getAllTodayAppointments = async () => {
     try {
       const { data } = await getData('patient/v1/appointment/allAppointment')
-      // console.log(counts)
-      const updateAppointment = await Promise.all(
-        data.map(async (appoint) => {
-          // console.log(appoint.D_id)
-          const doctor = await getDoctorsDetail(appoint.D_id);
-          return { ...appoint, doctor }
-        })
-      )
-      // console.log("Appointments with Doctor Info:", updateAppointment);
-      setAllTodayAppointments(updateAppointment)
+      setAllTodayAppointments(data)
     } catch (error) {
       console.log(error)
     }
