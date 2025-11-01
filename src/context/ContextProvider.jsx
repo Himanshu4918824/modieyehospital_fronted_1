@@ -181,7 +181,7 @@ const ContextProvider = ({ children }) => {
     try {
       const data = await getData(url);
       // return data;
-      console.log(data)
+      //       console.log(data)
       setDiagnosisList(data.Diagnosis)
       SetPatientData({
         Age: data.Age || "",
@@ -251,7 +251,7 @@ const ContextProvider = ({ children }) => {
       setRefractionData(data.Refraction)
       setAnterior(data.Anterior)
       setPosterior(data.Posterior)
-      setReports(data.Report[0].document)
+      setReports(data?.Report[0]?.document)
     } catch (error) {
       console.log(error)
     }
@@ -291,31 +291,37 @@ const ContextProvider = ({ children }) => {
   const getAppointmentCount = async () => {
     try {
       const result = await getData(`patient/v1/appointment/latestCounts`)
-      // console.log(result)
       return result
+      // console.log(result)
     } catch (error) {
       console.log(error)
     }
   }
-  const getAllTodayAppointments = async () => {
+  const getAllTodayAppointments = async (pageNum) => {
     try {
-      const { data } = await getData('patient/v1/appointment/allAppointment')
-      // console.log(counts)
-      const updateAppointment = await Promise.all(
-        data.map(async (appoint) => {
-          // console.log(appoint.D_id)
-          const doctor = await getDoctorsDetail(appoint.D_id);
-          return { ...appoint, doctor }
-        })
-      )
-      // console.log("Appointments with Doctor Info:", updateAppointment);
-      setAllTodayAppointments(updateAppointment)
+      const { data, totalPages } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10`)
+      if (pageNum === 1) {
+        setAllTodayAppointments(data);
+      }
+      else {
+        setAllTodayAppointments((prev) => [...prev, ...data]);
+      }
+      return pageNum < totalPages;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const getAptStatus = async (id) => {
+    try {
+      const data = await getData(`patient/v1/appointment/AppointmentDetail/${id}`)
+      return data
     } catch (error) {
       console.log(error)
     }
   }
 
-  const changeStatus = async (id , status) => {
+
+  const changeStatus = async (id, status) => {
     try {
       const data = await putData(`patient/v1/appointment/updateStatus/${id}`, { status })
       return data
@@ -325,7 +331,7 @@ const ContextProvider = ({ children }) => {
   }
 
   return (
-    <MainContext.Provider value={{ changeStatus,getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail }}>
+    <MainContext.Provider value={{ getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail }}>
       {children}
     </MainContext.Provider>
   )

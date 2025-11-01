@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import DoctorConcern from "./DoctorConcern";
 import Patient from "./Patient";
 import PatientHistory from "./PatientHistory";
@@ -8,26 +8,37 @@ import { useParams } from "react-router-dom";
 // import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
-export default function DashBoard() 
-{
+export default function DashBoard() {
   const navigate = useNavigate()
 
 
-  const { patientData, getPatientData, SetP_id, SetAid, DoctorDetail, getDoctorsDetail } = useContext(MainContext);
+  const { patientData, getPatientData, SetP_id, SetAid, DoctorDetail, getDoctorsDetail, changeStatus, getAptStatus } = useContext(MainContext);
   const { id, Aid } = useParams();
-
+  const [status, setStatus] = useState("");
   useEffect(() => {
     getPatientData(`patient/v1/patient/${id}`);
-    getDoctorsDetail(localStorage.getItem('doctorId'));
     SetP_id(id)
     SetAid(Aid)
     // console.log(patientData)
+    getAptStatus(Aid).then((status) => {
+      // console.log(status)
+      setStatus(status.status);
+    }).catch((e) => {
+      console.log(e)
+    })
+
+
   }, [id, Aid]);
   // console.log(DoctorDetail)
 
   const refreshDashboard = () => {
     getPatientData(`patient/v1/patient/${id}`);
     getDoctorsDetail(localStorage.getItem('doctorId'));
+    getAptStatus(Aid).then((status) => {
+      setStatus(status.status);
+    }).catch((e) => {
+      console.log(e)
+    })
   };
 
 
@@ -65,6 +76,13 @@ export default function DashBoard()
     ));
   };
 
+  const handleStatusChange = async (id, status) => {
+    await changeStatus(id, status);
+    refreshDashboard();
+  }
+
+
+
   return (
     <>
       <div style={{ background: "lightgrey", width: "100%", fontWeight: "bold", display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
@@ -93,12 +111,12 @@ export default function DashBoard()
             </div>
           </div>
 
-          <div className="col-xs-12 col-lg-2">
+          {/* <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
               <span className="input-group-text">Doctor</span>
               <input type="text" className="form-control" disabled value={DoctorDetail.FullName} />
             </div>
-          </div>
+          </div> */}
 
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
@@ -114,14 +132,14 @@ export default function DashBoard()
             </div>
           </div>
 
-           <div className="col-xs-12 col-lg-2">
+          <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
               <span className="input-group-text">Reffered By:</span>
               <input type="text" className="form-control" disabled />
             </div>
           </div>
 
-          
+
 
         </div>
 
@@ -146,22 +164,23 @@ export default function DashBoard()
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
               <span className="input-group-text">Send Where To:</span>
-               <select className="form-select">
-                        <option value='reception'>Reception</option>
-                        <option value='dept'>Dept</option>
-                        <option value='optometrist'>Optometrist</option>
-                        <option value='doctor'>Doctor</option>
-                        <option value='diagnostic'>Diagnostic</option>
-                        <option value='Counsellor'>Counsellor</option>
-                        <option value='waiting'>Waiting</option>
-                        <option value='appointment'>Appointment</option>
-                </select>
+
+              <select className="form-select" value={status} onChange={(e) => handleStatusChange(Aid, e.target.value)}>
+                <option value='reception'>Reception</option>
+                <option value='dept'>Dept</option>
+                <option value='optometrist'>Optometrist</option>
+                <option value='doctor'>Doctor</option>
+                <option value='diagnostic'>Diagnostic</option>
+                <option value='Counsellor'>Counsellor</option>
+                <option value='waiting'>Waiting</option>
+                <option value='appointment'>Appointment</option>
+              </select>
             </div>
           </div>
 
         </div>
 
-        
+
 
         {/*
         <div className="row mb-3 mt-3">

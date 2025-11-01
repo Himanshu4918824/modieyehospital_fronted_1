@@ -10,17 +10,17 @@ export default function Complaint({ stat, onClose, onRefresh }) {
 
     const [complain, setComplain] = useState('');
     const [complainId, setComplainId] = useState('');
-    const { complaint, P_id, Aid  } = useContext(MainContext)
+    const { complaint, P_id, Aid } = useContext(MainContext)
 
     useEffect(() => {
         if (stat === 'complaint') {
             setComplain(complaint[0]?.Complaint)
             setComplainId(complaint[0]?.id)
         }
-        // else if (stat === 'allergies') {
-        //     setComplain(allergies[0]?.Allergies)
-        //     setComplainId(allergies[0]?.Allergies)
-        // }
+        else if (stat === 'allergies') {
+            setComplain(allergies[0]?.Allergies)
+            setComplainId(allergies[0]?.Allergies)
+        }
 
     }, [])
 
@@ -59,7 +59,7 @@ export default function Complaint({ stat, onClose, onRefresh }) {
 
     const handleSubmit = async () => {
         const formData = new FormData()
-        formData.append('D_id', "sasa");
+        formData.append('D_id', localStorage.getItem('doctorId'));
         formData.append('message', complain);
 
 
@@ -68,19 +68,15 @@ export default function Complaint({ stat, onClose, onRefresh }) {
         formData.forEach((value, key) => {
             formDataObj[key] = value;
         });
-{/*
 
         if (stat === 'complaint') {
-             const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
+            const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
         }
         else if (stat === 'allegries') {
             const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
         }
-    
 
-
-    */}
-        const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
+        // const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
 
         if (result.status) {
             Swal.fire({
