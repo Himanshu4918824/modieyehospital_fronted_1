@@ -297,18 +297,20 @@ const ContextProvider = ({ children }) => {
       console.log(error)
     }
   }
-  const getAllTodayAppointments = async (pageNum) => {
+  const getAllTodayAppointments = async (pageNum = 1) => {
     try {
-      const { data, totalPages } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10`)
+      // console.log({ pageNum })
+      const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10`)
+      // console.log({ totalPages, currentPage })
       if (pageNum === 1) {
-        console.log(data)
+        // console.log(data)
         setAllTodayAppointments(data);
       }
       else {
-        console.log(data)
+        // console.log(data)
         setAllTodayAppointments((prev) => [...prev, ...data]);
       }
-      return pageNum < totalPages;
+      return pageNum < totalPages
     } catch (error) {
       console.log(error)
     }
@@ -325,9 +327,15 @@ const ContextProvider = ({ children }) => {
 
   const changeStatus = async (id, status) => {
     try {
-      const data = await putData(`patient/v1/appointment/updateStatus/${id}`, { status })
-      const stat = data?.data?.updatedAppointment?.status
-      return stat
+      const res = await putData(`patient/v1/appointment/updateStatus/${id}`, { status })
+      console.log(res.data.updatedAppointment)
+      const updatedAppointment = res.data.updatedAppointment;
+      setAllTodayAppointments(prevAppointments =>
+        prevAppointments.map(apt =>
+          apt.id === updatedAppointment.id ? { ...apt, ...updatedAppointment } : apt
+        )
+      );
+
     } catch (error) {
       console.log(error)
     }
