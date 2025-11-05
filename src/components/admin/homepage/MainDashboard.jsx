@@ -1,10 +1,8 @@
-import { useState } from "react";
 import RegistrationFrom from "../appointment/RegistrationFrom";
 import BookAppoint from "../appointment/BookAppoint";
 import Header from "../homepage/Header";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import MainContext from "../../../context/MainContext";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { io } from 'socket.io-client'
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -14,21 +12,13 @@ export default function MainDashboard() {
   const navigate = useNavigate()
   const [doctorId, setDoctorId] = useState(localStorage.getItem('doctorId'))
   const [deptCounts, setDeptCounts] = useState({});
-  const [hasMore, setHasMore] = useState(false);
+  const [hasMore, setHasMore] = useState();
   const [page, setPage] = useState(1);
 
   const socketURL = import.meta.env.VITE_socketURL || "http://localhost:8001/"
-  const socket = io(socketURL, {
-    withCredentials: true,
-    transports: ["websocket"]
-  });
 
 
-  socket.on("connect", () => {
-    // console.log("Connected to main service:", socket.id);
-  });
 
-  socket.on("connect_error", (err) => console.error("Socket Error:", err.message));
 
   useEffect(() => {
     getAppointmentCount().then((data) => {
@@ -41,30 +31,45 @@ export default function MainDashboard() {
     }
 
     getAllTodayAppointments(page).then((stat) => {
-      console.log(stat)
+      // console.log({ stat })
       setHasMore(stat)
     }).catch(e => {
-      console.log(e)
+      console.error(e)
     })
+    // socket io connection and event listeners
+    const socket = io(socketURL, {
+      withCredentials: true,
+      transports: ["websocket"],
+      secure: true,
+    });
+    socket.on("connect", () => {
+      // console.log("Connected to main service:", socket.id);
+    });
 
+    socket.on("connect_error", (err) => console.error("Socket Error:", err.message));
+    // this listen on the event appointmentUpdated
     socket.on('appointmentUpdated', (data) => {
       const { result } = data;
       setDeptCounts(result);
     })
-    return () => socket.off('appointmentUpdated');
+    return () => { socket.off('appointmentUpdated'); socket.disconnect(); }
 
   }, [])
 
 
-  const fetchMoreData = async() => {
+  const fetchMoreData = async () => {
     const nextPage = page + 1;
-    await getAllTodayAppointments(nextPage);
+    await getAllTodayAppointments(nextPage).then((stat) => {
+      setHasMore(stat)
+    }).catch(e => {
+      console.error(e)
+    });
     setPage(nextPage);
   };
 
 
   const handleStatusChange = async (id, status) => {
-    await changeStatus(id, status);
+    const data = await changeStatus(id, status);
     // refreshDashboard();
   }
 
@@ -139,15 +144,15 @@ export default function MainDashboard() {
 
     <div className="p-3 bg-light">
       <div className="d-flex flex-wrap mb-3">
-        <button className="btn btn-secondary btn-sm m-1">Pending [{deptCounts?.pending}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Reception[{deptCounts?.reception}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Dept[{deptCounts?.dept}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Optometrist[{deptCounts?.optometrist}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Doctor[{deptCounts?.doctor}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Diagnostic[{deptCounts?.diagnostic}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Counsellor[{deptCounts?.Counsellor}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Waiting[{deptCounts?.waiting}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Appointment[{deptCounts?.appointment}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Pending [{deptCounts.pending ? deptCounts?.pending : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Reception [{deptCounts.reception ? deptCounts?.reception : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Dept [{deptCounts.dept ? deptCounts?.dept : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Optometrist [{deptCounts.optometrist ? deptCounts?.optometrist : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Doctor [{deptCounts.doctor ? deptCounts?.doctor : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Diagnostic [{deptCounts.diagnostic ? deptCounts?.diagnostic : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Counsellor [{deptCounts.Counsellor ? deptCounts?.Counsellor : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Waiting [{deptCounts.waiting ? deptCounts?.waiting : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Appointment [{deptCounts.appointment ? deptCounts?.appointment : 0}]</button>
 
         <button onClick={() => openDialog()} className="btn btn-warning btn-sm m-1"> Registration / Book Appointment </button>
         <div style={{ marginLeft: 5 }}>
@@ -179,7 +184,7 @@ export default function MainDashboard() {
                 <th className="text-center">Seq</th>
                 <th className="text-center">Status</th>
                 <th className="text-center">Patient Name</th>
-                <th className="text-center">Age/Sex</th>
+                <th className="text-center">Sex/Age</th>
                 <th className="text-center">Appointment Id</th>
                 <th className="text-center">Date</th>
                 <th className="text-center">Time</th>

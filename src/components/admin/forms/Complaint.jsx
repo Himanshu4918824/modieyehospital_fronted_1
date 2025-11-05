@@ -4,13 +4,13 @@ import Swal from "sweetalert2";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
-
+//  this is the single form component use by complaint & allergies
 
 export default function Complaint({ stat, onClose, onRefresh }) {
 
     const [complain, setComplain] = useState('');
     const [complainId, setComplainId] = useState('');
-    const { complaint, P_id, Aid } = useContext(MainContext)
+    const { complaint, P_id, Aid, allergies } = useContext(MainContext)
 
     useEffect(() => {
         if (stat === 'complaint') {
@@ -18,8 +18,9 @@ export default function Complaint({ stat, onClose, onRefresh }) {
             setComplainId(complaint[0]?.id)
         }
         else if (stat === 'allergies') {
-            setComplain(allergies[0]?.Allergies)
-            setComplainId(allergies[0]?.Allergies)
+            // console.log(allergies)
+            setComplain(allergies)
+
         }
 
     }, [])
@@ -63,22 +64,29 @@ export default function Complaint({ stat, onClose, onRefresh }) {
         formData.append('message', complain);
 
 
-
-        const formDataObj = {};
-        formData.forEach((value, key) => {
-            formDataObj[key] = value;
-        });
-
         if (stat === 'complaint') {
+            const formDataObj = {};
+            formData.forEach((value, key) => {
+                formDataObj[key] = value;
+            });
             const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
+            DisplayAknowledgement(result.status);
         }
-        else if (stat === 'allegries') {
-            const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
+        else if (stat === 'allergies') {
+            const body = { allergies: complain };
+            // console.log(body)
+            const result = await postData(`patient/v1/pre-clinical/allergies/${P_id}/${Aid}`, body);
+            DisplayAknowledgement(result.status);
         }
 
-        // const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
+        resetData();
+        onClose();
+        onRefresh();
 
-        if (result.status) {
+    }
+
+    function DisplayAknowledgement(status) {
+        if (status) {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -96,13 +104,7 @@ export default function Complaint({ stat, onClose, onRefresh }) {
                 timer: 2000
             });
         }
-
-        resetData();
-        onClose();
-        onRefresh();
-
     }
-
 
     return (<div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ width: 600, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10 }}>
@@ -111,15 +113,15 @@ export default function Complaint({ stat, onClose, onRefresh }) {
                 <textarea value={complain} onChange={(e) => setComplain(e.target.value)} className="form-control" rows="3" placeholder="Add Compaint or Type Allegiers"></textarea>
             </div>
 
-            <div className="row">
-                <div className="col-6 d-flex justify-content-center">
+            <div className="d-flex justify-content-center gap-5">
+                <div>
                     <button onClick={handleSubmit} type="Submit" className="btn btn-primary">Submit</button>
                 </div>
-
-                <div className="col-6 d-flex justify-content-center">
-                    <button onClick={Edit_Compalin} type="Submit" className="btn btn-primary">Edit</button>
-                </div>
-
+                {stat === 'complaint' &&
+                    <div>
+                        <button onClick={Edit_Compalin} type="Submit" className="btn btn-primary">Edit</button>
+                    </div>
+                }
             </div>
 
 
