@@ -14,13 +14,14 @@ export default function MainDashboard() {
   const navigate = useNavigate()
   const [doctorId, setDoctorId] = useState(localStorage.getItem('doctorId'))
   const [deptCounts, setDeptCounts] = useState({});
-  const [hasMore, setHasMore] = useState(false);
+  const [hasMore, setHasMore] = useState();
   const [page, setPage] = useState(1);
 
   const socketURL = import.meta.env.VITE_socketURL || "http://localhost:8001/"
   const socket = io(socketURL, {
     withCredentials: true,
-    transports: ["websocket"]
+    transports: ["websocket"],
+    secure: true,
   });
 
 
@@ -65,7 +66,7 @@ export default function MainDashboard() {
 
   const handleStatusChange = async (id, status) => {
     await changeStatus(id, status);
-    // refreshDashboard();
+    refreshDashboard();
   }
 
 

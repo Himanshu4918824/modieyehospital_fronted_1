@@ -301,9 +301,11 @@ const ContextProvider = ({ children }) => {
     try {
       const { data, totalPages } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10`)
       if (pageNum === 1) {
+        console.log(data)
         setAllTodayAppointments(data);
       }
       else {
+        console.log(data)
         setAllTodayAppointments((prev) => [...prev, ...data]);
       }
       return pageNum < totalPages;
@@ -324,7 +326,8 @@ const ContextProvider = ({ children }) => {
   const changeStatus = async (id, status) => {
     try {
       const data = await putData(`patient/v1/appointment/updateStatus/${id}`, { status })
-      return data
+      const stat = data?.data?.updatedAppointment?.status
+      return stat
     } catch (error) {
       console.log(error)
     }
