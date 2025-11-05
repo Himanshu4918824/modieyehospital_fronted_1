@@ -97,7 +97,7 @@ export default function Patient({ onRefresh })
     if (!showDialog) return null;
 
     return (
-      <div>
+      <>
         <div className="modal show d-flex" tabIndex="-1">
           <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 720, width: "92%", minHeight: 100 }} >
             <div className="modal-content" style={{ minHeight: 400, height: 'auto'}}>
@@ -115,7 +115,7 @@ export default function Patient({ onRefresh })
         </div>
         {/* Overlay */}
         <div className="modal-backdrop fade show" style={{ width: '100%', height: '100%' }}></div>
-      </div>
+      </>
     );
   };
 

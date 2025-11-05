@@ -15,9 +15,10 @@ import MainContext from "../../../context/MainContext";
 export default function DoctorConcern({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
-  const { diagnosisList, histroy, Advise, complaint, PatientReports } = useContext(MainContext);
+  const { diagnosisList, histroy, Advise, complaint, PatientReports, allergies } = useContext(MainContext);
   const doctor = [];
 
+  
   const openDialog = (e) => {
     setShowDialog(true);
     setModalPage(e)
@@ -331,8 +332,10 @@ export default function DoctorConcern({ onRefresh }) {
           </thead>
 
           <tbody>
-            {Report.length > 0 ? <tr style={{ height: "20px" }}>
-              <td className="p-1"></td>
+            {allergies.length > 0 ? <tr style={{ height: "20px" }}>
+              <td className="p-1">{allergies.map((item, i) => {
+                return (item + (i !== allergies.length - 1 ? ", " : ""))
+              })}</td>
             </tr> : (<tr style={{ height: "20px", fontSize: '14px' }}>
               <td colSpan="3">No record available</td>
             </tr>)
@@ -368,7 +371,7 @@ export default function DoctorConcern({ onRefresh }) {
             </tr>
           </thead>
           <tbody>
-            {PatientReports?.length > 0 ? PatientReports.map((item , i) => {
+            {PatientReports?.length > 0 ? PatientReports.map((item, i) => {
               return (
                 <tr style={{ fontSize: '14px' }} key={i}>
                   <td>{item.name}</td>
