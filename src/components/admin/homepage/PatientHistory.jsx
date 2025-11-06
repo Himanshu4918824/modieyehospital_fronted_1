@@ -84,7 +84,7 @@ export default function PatientHistory({ onRefresh }) {
     return (
       <div>
         <div className="modal show d-flex" tabIndex="-1">
-          <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 700, width: "92%", minHeight: 100 }} >
+         <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 720, width: "92%", minHeight: 100 }} >
             <div className="modal-content" style={{ minHeight: 400, height: 'auto' }}>
               <div className="modal-header h4">
                 {modalPage}
@@ -160,7 +160,7 @@ export default function PatientHistory({ onRefresh }) {
   </div>
 
 
-    <div className="table-responsive mb-3" style={{ display: 'block' }}>
+    
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Vision</h3>
@@ -190,10 +190,10 @@ export default function PatientHistory({ onRefresh }) {
 
       </div>
 
-
-  
-       <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13px" }} border={2}>
-        <thead className="table-secondary">
+      <div className="table-responsive mb-3">
+      <div className="hide-scrollbar" style={{ maxHeight: '250px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+        <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13px" }} border={2}>
+          <thead>
           <tr>
             <th>Examination</th>
             <th>Right Eye</th>
@@ -256,6 +256,7 @@ export default function PatientHistory({ onRefresh }) {
           )}
         </tbody>
       </table>
+      </div>
     </div>
 
 

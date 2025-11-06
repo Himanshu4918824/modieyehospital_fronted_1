@@ -99,7 +99,7 @@ export default function Patient({ onRefresh })
     return (
       <>
         <div className="modal show d-flex" tabIndex="-1">
-          <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 720, width: "92%", minHeight: 100 }} >
+          <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 800, width: "92%", minHeight: 100 }} >
             <div className="modal-content" style={{ minHeight: 400, height: 'auto'}}>
               <div className="modal-header h4">
                 {modalPage}

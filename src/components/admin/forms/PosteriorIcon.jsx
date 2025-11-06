@@ -19,8 +19,8 @@ export default function PosteriorIcon()
 
 
     return(<div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <div style={{ width: 780, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10 }}>
-
+    <div style={{ width: 780, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10, overflow:'auto' }}>
+<div style={{maxHeight:450}}>
        <div className="d-flex flex-wrap mb-3">
         <button onClick={()=>changeStrokeColor('red')} className="btn btn-danger btn-sm m-1">Red</button>
         <button onClick={()=>changeStrokeColor('blue')} className="btn btn-primary btn-sm m-1">Blue</button>
@@ -94,6 +94,7 @@ export default function PosteriorIcon()
       </div>
 
 </div>
+    </div>
     </div>)
 }
 

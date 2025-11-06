@@ -199,9 +199,9 @@ export default function Vision({ onClose, onRefresh }) {
 
 
   return (<div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <div style={{ width: 600, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10, fontSize: 12 }}>
+    <div style={{ width: 600, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10, fontSize: 13 }}>
 
-      <div className="table-responsive">
+      <div className="table-responsive" style={{ maxHeight: 450 }}>
         <table className="table table-bordered align-middle">
           <thead className="table-secondary">
             <tr>

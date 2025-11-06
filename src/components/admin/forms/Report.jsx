@@ -1,47 +1,24 @@
 import { useState, useRef, useEffect } from "react"
 import { currentDate, postData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
-import { useContext } from "react";
-import MainContext from "../../../context/MainContext";
 
-export default function Report({ onClose, onRefresh }) {
+import cart from "../../../assets/cart.png";
+
+export default function Report({ onClose, onRefresh }) 
+{
     const [reportName, setReportName] = useState('');
-    const [uploadReport, setUploadReport] = useState('');
+    const [uploadReport, setUploadReport] = useState({bytes:'',fileName: cart});
 
-    const fileInputRef = useRef(null);
-    const { P_id } = useContext(MainContext);
-
-    const [reports, setReports] = useState([]);
-
+    const handleReport=(e)=>{
+         setUploadReport({ bytes: e.target.files[0], fileName: URL.createObjectURL(e.target.files[0]) })
+    }
 
 
-    useEffect(() => {
-        if (P_id) fetchReports();
-    }, [P_id]);
-
-
-
-    const fetchReports = async () => {
-        try {
-            const res = await fetch(`/api/patient/v1/report/${P_id}`);
-            const json = await res.json();
-            if (json.success) {
-                setReports(json.reports || json.files || []);
-            }
-            else {
-                setReports([]);
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    };
 
     function resetData() {
         setReportName('');
-        setUploadReport('');
-        if (fileInputRef.current) {
-            fileInputRef.current.value = ""; // <-- clear file input
-        }
+        setUploadReport({bytes:'',fileName: cart});
+    
 
         onClose();
         onRefresh();
@@ -50,7 +27,8 @@ export default function Report({ onClose, onRefresh }) {
         const formData = new FormData();
 
         formData.append('name', reportName);
-        formData.append('file', uploadReport)
+        formData.append('file', uploadReport.bytes);
+
         const formDataObj = {};
 
         formData.forEach((value, key) => {
@@ -95,10 +73,19 @@ export default function Report({ onClose, onRefresh }) {
                 <input value={reportName} onChange={(e) => setReportName(e.target.value)} className="form-control" placeholder="Type Report Name..." />
             </div>
 
-            <div className="mb-2">
-                <label className="from-control m-1 ms-3 fw-lightgrey" style={{ fontSize: 18 }}>Upload Report</label>
-                <input ref={fileInputRef} className="form-control" type="file" id="formFile" onChange={(e) => setUploadReport(e.target.files[0])} />
+
+          <div className="row m-2 mt-4">
+            <div className="col-6 d-flex justify-content-center">
+               <label htmlFor="reportUpload" className="btn btn-primary" style={{ cursor: "pointer" }}>Upload Report</label>
+                <input id="reportUpload" onChange={handleReport} type="file" accept="image/*" hidden/>
             </div>
+
+            <div className="col-6 d-flex justify-content-center">
+              <img src={uploadReport.fileName} style={{ width: 50, height: 50, borderRadius: 25 }} alt="preview" />
+            </div>
+             
+          </div>
+
 
 
 

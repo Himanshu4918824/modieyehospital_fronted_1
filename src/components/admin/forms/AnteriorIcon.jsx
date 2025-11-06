@@ -68,10 +68,12 @@ export default function AnteriorIcon()
   };
 
   return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <div style={{ width: 780, background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10 }}>
+   <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <div style={{ width: 750, height: 'auto',background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10, fontSize: 13,overflowY:'auto' }}>
 
-        <div className="d-flex flex-wrap mb-3">
+<div style={{maxHeight:450}}>
+        
+        <div className="d-flex flex-wrap mb-3 m-2">
           <button onClick={()=>changeStrokeColor('red')} className="btn btn-danger btn-sm m-1">Red</button>
           <button onClick={()=>changeStrokeColor('blue')} className="btn btn-primary btn-sm m-1">Blue</button>
           <button onClick={()=>changeStrokeColor('green')} className="btn btn-success btn-sm m-1">Green</button>
@@ -82,10 +84,13 @@ export default function AnteriorIcon()
           <button onClick={()=>{rightcanvasRef.current.undo()}} className="btn btn-dark btn-sm m-1">Right Undo</button> 
         </div>
 
+
+
+
         <div className="row">
           <div className="col-lg-6 col-xs-12">
 
-           <div className="fs-4 fw-bold mb-2">Left Eye</div>
+           <div className="fs-4 fw-bold mb-2 m-2">Left Eye</div>
             <div style={{ position: "relative", width: 320, height: 320, marginLeft: 8 }}>
               <img src="/images/lefteyeretinal.jpg" alt="lefteye" style={{ width: 320, height: 320, position: "absolute", top: 0, left: 0, zIndex: 1 }} />
                 <ReactSketchCanvas
@@ -109,7 +114,7 @@ export default function AnteriorIcon()
 
 
           <div className="col-lg-6 col-xs-12">
-            <div className="fs-4 fw-bold mb-2">Right Eye</div>
+            <div className="fs-4 fw-bold mb-2 m-2">Right Eye</div>
             <div style={{ position: "relative", width: 320, height: 320, marginLeft:15}}>
               <img src="/images/righteyeretinal.jpg" alt="righteye" style={{ width: 320, height: 320, position: "absolute", top: 0, left: 0, zIndex: 1 }}/>
                 <ReactSketchCanvas
@@ -132,5 +137,6 @@ export default function AnteriorIcon()
         </div>
       </div>
     </div>
+</div>
   );
 }
