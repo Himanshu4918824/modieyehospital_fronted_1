@@ -4,8 +4,8 @@ import Header from "../homepage/Header";
 import { useContext, useEffect, useState } from "react";
 import MainContext from "../../../context/MainContext";
 import { useNavigate } from "react-router-dom";
-//import { io } from 'socket.io-client'
-//import InfiniteScroll from "react-infinite-scroll-component";
+import { io } from 'socket.io-client'
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function MainDashboard() 
 {
