@@ -75,31 +75,70 @@ export default function Header()
 
 */}
 
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import logo1 from "../../../assets/logo1.png";
 import "./Menubar.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate()
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check login status on mount
+    const checkAuth = () => {
+      const token = localStorage.getItem("token");
+      const doctorId = localStorage.getItem("doctorId");
+      const designation = localStorage.getItem("designation");
+
+      setIsLoggedIn(!!(token && doctorId && designation));
+    };
+
+    // Initial check
+    checkAuth();
+
+    // Listen for storage changes (e.g. logout/login from another tab)
+    window.addEventListener("storage", checkAuth);
+
+    // Cleanup listener
+    return () => window.removeEventListener("storage", checkAuth);
+  }, []);
+
+
+
+
+  const handelLogOut = () => {
+    try {
+      localStorage.removeItem('token');
+      localStorage.removeItem('doctorId');
+      localStorage.removeItem('designation');
+      setIsLoggedIn(false);
+      navigate('/');
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   return (
     <div>
       {/* Header Top Bar */}
-      <div style={{ background: '#8395a7',color: "black",width: "100%", height: "70px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px",  }}  >
+      <div style={{ background: '#8395a7', color: "black", width: "100%", height: "70px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px", }}  >
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <img alt="logo" src={logo1} style={{ width: 90, height: 70 }} />
-          <div style={{fontSize: "clamp(16px, 3vw, 24px)", fontWeight: "bold", marginLeft: 10 }}>
+          <div style={{ fontSize: "clamp(16px, 3vw, 24px)", fontWeight: "bold", marginLeft: 10 }}>
             Modi Eye Care Hospital
-          </div>  
+          </div>
 
         </div>
 
-
-         <button className="btn d-lg-block d-none" type="button">
-               <i className="bi bi-telephone" style={{ fontSize: 30, color: "black" }}></i>
+        {isLoggedIn && 
+          <button className="btn d-lg-block d-none" onClick={handelLogOut} type="button">
+            <i className="bi bi-box-arrow-left" style={{ fontSize: 30, color: "black" }}></i>
           </button>
-
+        }
 
         {/* Bootstrap Hamburger Icon for small screens */}
         <button
@@ -117,7 +156,7 @@ export default function Header() {
       <div className="main-navbar d-none d-lg-block">
         <nav style={{ background: '#576574', width: "100%", height: "54px" }}>
           <div className="main">
-            <ul style={{ flexDirection: "row", color: "#000",fontWeight: 620}}>
+            <ul style={{ flexDirection: "row", color: "#000", fontWeight: 620 }}>
               <li className="dropdown-1">Patient</li>
               <li className="dropdown-2">Advice Report</li>
               <li className="dropdown-2">Appointment</li>
@@ -173,24 +212,24 @@ export default function Header() {
             <li className="py-2 border-bottom">Users</li>
             <li className="py-2 border-bottom">Staff</li>
             <li className="py-2 border-bottom">About</li>
-             <li className="dropdown-2">
-                Master Setup
-                <div className="Subdropdown-2">
-                  <ul>
-                    <li>Drug Type</li>
-                    <li>Drug</li>
-                    <li>Department</li>
-                    <li>Designation</li>
-                    <li>Patient Group</li>
-                    <li>Unit</li>
-                    <li>City</li>
-                    <li>State</li>
-                    <li>Medicine Frequency</li>
-                    <li>In Take</li>
-                    <li>Dr. Session</li>
-                  </ul>
-                </div>
-              </li>
+            <li className="dropdown-2">
+              Master Setup
+              <div className="Subdropdown-2">
+                <ul>
+                  <li>Drug Type</li>
+                  <li>Drug</li>
+                  <li>Department</li>
+                  <li>Designation</li>
+                  <li>Patient Group</li>
+                  <li>Unit</li>
+                  <li>City</li>
+                  <li>State</li>
+                  <li>Medicine Frequency</li>
+                  <li>In Take</li>
+                  <li>Dr. Session</li>
+                </ul>
+              </div>
+            </li>
           </ul>
         </div>
       </div>

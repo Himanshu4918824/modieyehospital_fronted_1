@@ -26,6 +26,7 @@ export default function Login() {
       const token = `Bearer ${result.data.token}`;
       localStorage.setItem("token", token)
       localStorage.setItem("doctorId", result.data.id)
+      localStorage.setItem("designation", result.data.designation)
 
       if (result.id !== '') {
         navigate('/maindashboard')
