@@ -35,6 +35,8 @@ import DisplayDoctor from "./components/admin/doctor/DisplayDoctor";
 import UserForm from "./components/admin/user/UserForm";
 import ShowUser from "./components/admin/user/ShowUser";
 import Patient from "./components/admin/homepage/Patient";
+import ProfilePage from "./components/admin/homepage/ProfilePage";
+import Contact from "./components/admin/homepage/Contact";
 
 
 function App() {
@@ -77,6 +79,8 @@ function App() {
             <Route element={<ShowUser/>} path="/showuser"></Route>
             <Route element={<Patient/>} path="/patient"></Route>
             
+            <Route element={<ProfilePage/>} path="/profilepage"></Route>
+            <Route element={<Contact/>} path="/contact"></Route>
 
           </Routes>
         </ContextProvider>
