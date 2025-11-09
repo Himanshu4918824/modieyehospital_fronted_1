@@ -13,6 +13,7 @@ const ContextProvider = ({ children }) => {
   const [DoctorDetail, setDoctorDetail] = useState([])
   const [allTodayAppointments, setAllTodayAppointments] = useState([])
   const [allDoctors, setAllDoctors] = useState([])
+  const [allUsers, setAllUsers] = useState([])
   const [diagnosisList, setDiagnosisList] = useState([])
   const [patientData, SetPatientData] = useState({
     Age: "",
@@ -264,7 +265,7 @@ const ContextProvider = ({ children }) => {
   const getAllPatients = async () => {
     try {
       const result = await getData('patient/v1/patient/allPatient')
-      // console.log(result)
+      console.log(result)
       setAllPatients(result)
     } catch (error) {
       console.log(error)
@@ -276,6 +277,16 @@ const ContextProvider = ({ children }) => {
       const result = await getData('doctor/api/v1/get/allDoctors')
       console.log(result)
       setAllDoctors(result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  // fetch all the users
+  const getAllUser = async () => {
+    try {
+      const result = await getData('doctor/api/v1/get/allUsers')
+      // console.log(result)
+      setAllUsers(result)
     } catch (error) {
       console.log(error)
     }
@@ -301,8 +312,9 @@ const ContextProvider = ({ children }) => {
   }
   const getAllTodayAppointments = async (pageNum = 1) => {
     try {
+      const designation = localStorage.getItem('designation')
       // console.log({ pageNum })
-      const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10`)
+      const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10&designation=${designation}`)
       // console.log({ totalPages, currentPage })
       if (pageNum === 1) {
         // console.log(data)
@@ -343,8 +355,10 @@ const ContextProvider = ({ children }) => {
     }
   }
 
+
+
   return (
-    <MainContext.Provider value={{ getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail, allergies }}>
+    <MainContext.Provider value={{allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail, allergies }}>
       {children}
     </MainContext.Provider>
   )

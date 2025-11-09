@@ -75,41 +75,80 @@ export default function Header()
 
 */}
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo1 from "../../../assets/logo1.png";
 import "./Menubar.css";
 import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 
-export default function Header()
- {
+export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const navigate=useNavigate('')
+  const navigate = useNavigate('')
+  useEffect(() => {
+    // Check login status on mount
+    const checkAuth = () => {
+      const token = localStorage.getItem("token");
+      const doctorId = localStorage.getItem("doctorId");
+      const designation = localStorage.getItem("designation");
+
+      setIsLoggedIn(!!(token && doctorId && designation));
+    };
+
+    // Initial check
+    checkAuth();
+
+    // Listen for storage changes (e.g. logout/login from another tab)
+    window.addEventListener("storage", checkAuth);
+
+    // Cleanup listener
+    return () => window.removeEventListener("storage", checkAuth);
+  }, []);
+
+
+
+  const handelLogOut = () => {
+    try {
+      localStorage.removeItem('token');
+      localStorage.removeItem('doctorId');
+      localStorage.removeItem('designation');
+      setIsLoggedIn(false);
+      navigate('/');
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
 
   return (
     <div>
       {/* Header Top Bar */}
-      <div style={{ background: '#8395a7',color: "black",width: "100%", height: "70px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px",  }}  >
+      <div style={{ background: '#8395a7', color: "black", width: "100%", height: "70px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px", }}  >
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <img alt="logo" src={logo1} style={{ width: 90, height: 70 }} />
-          <div style={{fontSize: "clamp(16px, 3vw, 24px)", fontWeight: "bold", marginLeft: 10 }}>
+          <div style={{ fontSize: "clamp(16px, 3vw, 24px)", fontWeight: "bold", marginLeft: 10 }}>
             Modi Eye Care Hospital
-          </div>  
+          </div>
 
         </div>
 
 
         <div className="d-flex align-items-center">
-            <a href="/contact" className="btn text-dark me-2">
-              <i className="bi bi-telephone-fill" style={{ fontSize: 24 }}></i>
-            </a>
-            <Link to="/profilepage" className="btn text-dark">
-              <i className="bi bi-person-circle" style={{ fontSize: 24 }}></i>
-            </Link>
-          </div>
+          <a href="/contact" className="btn text-dark me-2">
+            <i className="bi bi-telephone-fill" style={{ fontSize: 24 }}></i>
+          </a>
+          <Link to="/profilepage" className="btn text-dark">
+            <i className="bi bi-person-circle" style={{ fontSize: 24 }}></i>
+          </Link>
+          {isLoggedIn &&
+            <button className="btn d-lg-block d-none" onClick={handelLogOut} type="button">
+              <i className="bi bi-box-arrow-left" style={{ fontSize: 30, color: "black" }}></i>
+            </button>
+          }
+        </div>
 
 
         {/* Bootstrap Hamburger Icon for small screens */}
@@ -128,13 +167,13 @@ export default function Header()
       <div className="main-navbar d-none d-lg-block">
         <nav style={{ background: '#576574', width: "100%", height: "54px" }}>
           <div className="main">
-            <ul style={{ flexDirection: "row", color: "#000",fontWeight: 620}}>
-              <li className="dropdown-1" onClick={()=>navigate('/ShowPatient')}>Patient</li>
-              <li className="dropdown-2" onClick={()=>navigate('#')}>Advice Report</li>
-              <li className="dropdown-2" onClick={()=>navigate('/newappoint')}>Appointment</li>
-              <li className="dropdown-2" onClick={()=>navigate('/showuser')}>Users</li>
-              <li className="dropdown-2" onClick={()=>navigate('/displaydoctor')}>Staff</li>
-              <li className="dropdown-2" onClick={()=>navigate('#')}>About</li>
+            <ul style={{ flexDirection: "row", color: "#000", fontWeight: 620 }}>
+              <li className="dropdown-1" onClick={() => navigate('/ShowPatient')}>Patient</li>
+              <li className="dropdown-2" onClick={() => navigate('#')}>Advice Report</li>
+              <li className="dropdown-2" onClick={() => navigate('/newappoint')}>Appointment</li>
+              <li className="dropdown-2" onClick={() => navigate('/showuser')}>Users</li>
+              <li className="dropdown-2" onClick={() => navigate('/displaydoctor')}>Staff</li>
+              <li className="dropdown-2" onClick={() => navigate('#')}>About</li>
               <li className="dropdown-2">
                 Master Setup
                 <div className="Subdropdown-2">
@@ -184,28 +223,27 @@ export default function Header()
             <li className="py-2 border-bottom">Users</li>
             <li className="py-2 border-bottom">Staff</li>
             <li className="py-2 border-bottom">About</li>
-             <li className="dropdown-2">
-                Master Setup
-                <div className="Subdropdown-2">
-                  <ul>
-                    <li>Drug Type</li>
-                    <li>Drug</li>
-                    <li>Department</li>
-                    <li>Designation</li>
-                    <li>Patient Group</li>
-                    <li>Unit</li>
-                    <li>City</li>
-                    <li>State</li>
-                    <li>Medicine Frequency</li>
-                    <li>In Take</li>
-                    <li>Dr. Session</li>
-                  </ul>
-                </div>
-              </li>
+            <li className="dropdown-2">
+              Master Setup
+              <div className="Subdropdown-2">
+                <ul>
+                  <li>Drug Type</li>
+                  <li>Drug</li>
+                  <li>Department</li>
+                  <li>Designation</li>
+                  <li>Patient Group</li>
+                  <li>Unit</li>
+                  <li>City</li>
+                  <li>State</li>
+                  <li>Medicine Frequency</li>
+                  <li>In Take</li>
+                  <li>Dr. Session</li>
+                </ul>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
     </div>
   );
 }
-

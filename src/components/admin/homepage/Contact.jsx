@@ -3,8 +3,7 @@ import { useState } from "react";
 import { postData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 
-export default function Contact()
- {
+export default function Contact() {
 
     var [name, setName] = useState('');
     var [email, setEmail] = useState('');
@@ -26,16 +25,15 @@ export default function Contact()
             });
 
         }
-        
-        else
-        {
-             Swal.fire({
-                                position: "top-end",
-                                icon: "error",
-                                title: "Query not Successfully",
-                                showConfirmButton: false,
-                                timer: 2000
-                            });
+
+        else {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Query not Successfully",
+                showConfirmButton: false,
+                timer: 2000
+            });
 
         }
     }
@@ -69,38 +67,38 @@ export default function Contact()
         <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 30, marginBottom: 20, textAlign: 'center' }}>
 
             <div>
-                <i className="bi bi-envelope-fill fs-5"><div>editor@varsharesearchoriganization.com</div></i>  
+                <i className="bi bi-envelope-fill fs-5"><div>editor@varsharesearchoriganization.com</div></i>
             </div>
 
             <div>
-                <i className="bi bi-telephone-fill fs-5"><div> +91 8956231470</div></i>  
+                <i className="bi bi-telephone-fill fs-5"><div> +91 8956231470</div></i>
             </div>
 
         </div>
 
         <hr></hr>
-        
+
 
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 40, marginBottom: 40 }}>
             <div style={{ width: 500, height: 'auto', background: "#f7f1e3", padding: 10, margin: 10 }}>
                 <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Enter Name....." value={name} onChange={(e)=>setName(e.target.value)}/>
+                    <input type="text" class="form-control" placeholder="Enter Name....." value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
 
-                 <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Enter Phone No ....." value={phone} onChange={(e)=>setPhone(e.target.value)}/>
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Enter Phone No ....." value={phone} onChange={(e) => setPhone(e.target.value)} />
                 </div>
 
-                 <div class="mb-3">
-                  <input type="email" class="form-control" placeholder="Enter Email....." value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="Enter Email....." value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
 
-                 <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Enter Message....." value={message} onChange={(e)=>setMessage(e.target.value)}/>
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Enter Message....." value={message} onChange={(e) => setMessage(e.target.value)} />
                 </div>
 
-                 <div class="mb-3" onClick={handleSubmitData} style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-                  <button type="button" className="btn btn-primary" >Submit</button>
+                <div class="mb-3" onClick={handleSubmitData} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <button type="button" className="btn btn-primary" >Submit</button>
                 </div>
 
             </div>
