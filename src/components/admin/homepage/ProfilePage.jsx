@@ -1,8 +1,48 @@
+import { useEffect, useState } from "react";
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfilePage()
  {
 
+const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const navigate = useNavigate('')
+  useEffect(() => {
+    // Check login status on mount
+    const checkAuth = () => {
+      const token = localStorage.getItem("token");
+      const doctorId = localStorage.getItem("doctorId");
+      const designation = localStorage.getItem("designation");
+
+      setIsLoggedIn(!!(token && doctorId && designation));
+    };
+
+    // Initial check
+    checkAuth();
+
+    // Listen for storage changes (e.g. logout/login from another tab)
+    window.addEventListener("storage", checkAuth);
+
+    // Cleanup listener
+    return () => window.removeEventListener("storage", checkAuth);
+  }, []);
+  
+
+
+  const handelLogOut = () => {
+    try {
+      localStorage.removeItem('token');
+      localStorage.removeItem('doctorId');
+      localStorage.removeItem('designation');
+      setIsLoggedIn(false);
+      navigate('/');
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  
      const stats = [
     { title: "Total Patients", value: 320, color: "primary" },
     { title: "Appointments Today", value: 42, color: "success" },
@@ -41,7 +81,7 @@ export default function ProfilePage()
         </div>
 
          <div className="m-2 p-2 mt-5 text-center" style={{ letterSpacing: "1px" }}>
-            <a href="/" className="fw-bold text-black fs-5">Logout </a> 
+            <button onClick={handelLogOut} className="btn btn-danger">Logout </button> 
         </div>
 
        </div>
