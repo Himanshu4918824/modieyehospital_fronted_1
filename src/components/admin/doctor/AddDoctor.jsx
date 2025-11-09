@@ -87,11 +87,11 @@ export default function AddDoctor()
             <Header/>
         </div>
 
-        <div onClick={()=>navigate('/displaydoctor')} style={{marginLeft:'90%',marginTop:7}}>
+        <div onClick={()=>navigate('/displaydoctor')} style={{marginLeft:'85%',marginTop:7}}>
            <button type="button" class="btn btn-secondary">Show Doctor List</button>
         </div>
 
-       <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop:0 }}>
+       <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop:120 }}>
             <div style={{ width: 700, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10 }}>
 
                 <div className="row">

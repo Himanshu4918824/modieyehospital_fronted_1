@@ -78,9 +78,15 @@ export default function Header()
 import { useState } from "react";
 import logo1 from "../../../assets/logo1.png";
 import "./Menubar.css";
+import { Link } from "react-router-dom";
 
-export default function Header() {
+import { useNavigate } from "react-router-dom";
+
+export default function Header()
+ {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigate=useNavigate('')
 
   return (
     <div>
@@ -96,9 +102,14 @@ export default function Header() {
         </div>
 
 
-         <button className="btn d-lg-block d-none" type="button">
-               <i className="bi bi-telephone" style={{ fontSize: 30, color: "black" }}></i>
-          </button>
+        <div className="d-flex align-items-center">
+            <a href="/contact" className="btn text-dark me-2">
+              <i className="bi bi-telephone-fill" style={{ fontSize: 24 }}></i>
+            </a>
+            <Link to="/profilepage" className="btn text-dark">
+              <i className="bi bi-person-circle" style={{ fontSize: 24 }}></i>
+            </Link>
+          </div>
 
 
         {/* Bootstrap Hamburger Icon for small screens */}
@@ -118,12 +129,12 @@ export default function Header() {
         <nav style={{ background: '#576574', width: "100%", height: "54px" }}>
           <div className="main">
             <ul style={{ flexDirection: "row", color: "#000",fontWeight: 620}}>
-              <li className="dropdown-1">Patient</li>
-              <li className="dropdown-2">Advice Report</li>
-              <li className="dropdown-2">Appointment</li>
-              <li className="dropdown-2">Users</li>
-              <li className="dropdown-2">Staff</li>
-              <li className="dropdown-2">About</li>
+              <li className="dropdown-1" onClick={()=>navigate('/ShowPatient')}>Patient</li>
+              <li className="dropdown-2" onClick={()=>navigate('#')}>Advice Report</li>
+              <li className="dropdown-2" onClick={()=>navigate('/newappoint')}>Appointment</li>
+              <li className="dropdown-2" onClick={()=>navigate('/showuser')}>Users</li>
+              <li className="dropdown-2" onClick={()=>navigate('/displaydoctor')}>Staff</li>
+              <li className="dropdown-2" onClick={()=>navigate('#')}>About</li>
               <li className="dropdown-2">
                 Master Setup
                 <div className="Subdropdown-2">
