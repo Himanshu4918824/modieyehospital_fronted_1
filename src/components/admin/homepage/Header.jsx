@@ -129,7 +129,7 @@ export default function Header() {
 
         <div style={{ display: "flex", alignItems: "center" }}>
           <img alt="logo" src={logo1} style={{ width: 90, height: 70 }} />
-          <div style={{ fontSize: "clamp(16px, 3vw, 24px)", fontWeight: "bold", marginLeft: 10 }}>
+          <div onClick={()=>navigate('/mainDashboard')} style={{ fontSize: "clamp(16px, 3vw, 24px)", fontWeight: "bold", marginLeft: 10 , cursor:"pointer" }}>
             Modi Eye Care Hospital
           </div>
 
@@ -140,13 +140,16 @@ export default function Header() {
           <a href="/contact" className="btn text-dark me-2">
             <i className="bi bi-telephone-fill" style={{ fontSize: 24 }}></i>
           </a>
-          <Link to="/profilepage" className="btn text-dark">
-            <i className="bi bi-person-circle" style={{ fontSize: 24 }}></i>
-          </Link>
-          {isLoggedIn &&
-            <button className="btn d-lg-block d-none" onClick={handelLogOut} type="button">
-              <i className="bi bi-box-arrow-left" style={{ fontSize: 30, color: "black" }}></i>
-            </button>
+          {isLoggedIn && (
+            <>
+              <Link to="/profilepage" className="btn text-dark">
+                <i className="bi bi-person-circle" style={{ fontSize: 24 }}></i>
+              </Link>
+              <button className="btn d-lg-block d-none" onClick={handelLogOut} type="button">
+                <i className="bi bi-box-arrow-left" style={{ fontSize: 30, color: "black" }}></i>
+              </button>
+            </>
+          )
           }
         </div>
 

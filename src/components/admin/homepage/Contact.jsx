@@ -53,10 +53,10 @@ export default function Contact() {
 
         <div style={{ textAlign: 'center', marginTop: 40 }}>
             <div style={{ fontSize: 20, fontWeight: 500 }}>Addresses:</div>
-            <div style={{ fontSize: 16, letterSpacing: 0.5, marginTop: 3, marginLeft: 25 }}><b>Head office:-</b>PMAY Building ,E-52,Flate no- 403,Sagartal Road</div>
+            <div style={{ fontSize: 16, letterSpacing: 0.5, marginTop: 3, marginLeft: 25 }}><b>Head office:-</b>Madav plaza,Huzrat chowraya, Gwalior</div>
             <div style={{}}>Gwalior MP-474008</div>
-            <div style={{ fontSize: 16, letterSpacing: 0.5, marginTop: 5 }}><b>Admin office:-</b>39, Kishanbhag, Bahodapur</div>
-            <div style={{}}>Gwalior MP-474012</div>
+            <div style={{ fontSize: 16, letterSpacing: 0.5, marginTop: 5 }}><b>Admin office:-</b>Madav plaza,Huzrat chowraya, Gwalior</div>
+            <div style={{}}>Gwalior MP-474008</div>
 
         </div>
 
@@ -67,11 +67,11 @@ export default function Contact() {
         <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 30, marginBottom: 20, textAlign: 'center' }}>
 
             <div>
-                <i className="bi bi-envelope-fill fs-5"><div>editor@varsharesearchoriganization.com</div></i>
+                <i className="bi bi-envelope-fill fs-5"><div>abc@gmail.com</div></i>
             </div>
 
             <div>
-                <i className="bi bi-telephone-fill fs-5"><div> +91 8956231470</div></i>
+                <i className="bi bi-telephone-fill fs-5"><div> +91 xxxxxxxxxx</div></i>
             </div>
 
         </div>
@@ -81,23 +81,23 @@ export default function Contact() {
 
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 40, marginBottom: 40 }}>
             <div style={{ width: 500, height: 'auto', background: "#f7f1e3", padding: 10, margin: 10 }}>
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter Name....." value={name} onChange={(e) => setName(e.target.value)} />
+                <div className="mb-3">
+                    <input type="text" className="form-control" placeholder="Enter Name....." value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter Phone No ....." value={phone} onChange={(e) => setPhone(e.target.value)} />
+                <div className="mb-3">
+                    <input type="text" className="form-control" placeholder="Enter Phone No ....." value={phone} onChange={(e) => setPhone(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="Enter Email....." value={email} onChange={(e) => setEmail(e.target.value)} />
+                <div className="mb-3">
+                    <input type="email" className="form-control" placeholder="Enter Email....." value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
 
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter Message....." value={message} onChange={(e) => setMessage(e.target.value)} />
+                <div className="mb-3">
+                    <input type="text" className="form-control" placeholder="Enter Message....." value={message} onChange={(e) => setMessage(e.target.value)} />
                 </div>
 
-                <div class="mb-3" onClick={handleSubmitData} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <div className="mb-3" onClick={handleSubmitData} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <button type="button" className="btn btn-primary" >Submit</button>
                 </div>
 
