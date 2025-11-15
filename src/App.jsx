@@ -37,6 +37,7 @@ import ShowUser from "./components/admin/user/ShowUser";
 import Patient from "./components/admin/homepage/Patient";
 import ProfilePage from "./components/admin/homepage/ProfilePage";
 import Contact from "./components/admin/homepage/Contact";
+import ShowAllAppoint from "./components/admin/appointment/ShowAllAppoint";
 
 
 function App() {
@@ -81,6 +82,8 @@ function App() {
             
             <Route element={<ProfilePage/>} path="/profilepage"></Route>
             <Route element={<Contact/>} path="/contact"></Route>
+
+            <Route element={<ShowAllAppoint/>} path="/showallappoint"></Route>
 
           </Routes>
         </ContextProvider>

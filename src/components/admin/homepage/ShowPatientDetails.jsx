@@ -16,7 +16,7 @@ export default function ShowPatientDetails() {
                 Patient List
             </div>
 
-            <div>
+             <div className="table-responsive">
                 <table className='table'>
                     <thead>
                         <tr>

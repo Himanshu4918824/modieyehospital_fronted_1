@@ -3,7 +3,10 @@ import Header from "./Header";
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from "react";
 import { postData } from "../../../services/FetchNodeAdminServices";
-export default function Login() {
+import Swal from "sweetalert2";
+
+export default function Login() 
+{
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [DocId, setDocId] = useState(localStorage.getItem('doctorId'));
@@ -31,6 +34,15 @@ export default function Login() {
       if (result.id !== '') {
         navigate('/maindashboard')
       }
+      else {
+           Swal.fire({
+             position: "top-end",
+             icon: "error",
+             title: "Your work has been not saved",
+             showConfirmButton: false,
+             timer: 2000
+           });
+         }
 
     } catch (error) {
       console.log(error)
