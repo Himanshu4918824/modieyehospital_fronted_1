@@ -3,22 +3,23 @@ import { currentDate, postData } from "../../../services/FetchNodeAdminServices"
 import Swal from "sweetalert2";
 
 import cart from "../../../assets/cart.png";
+import { useParams } from "react-router-dom";
 
-export default function Report({ onClose, onRefresh }) 
-{
+export default function Report({ onClose, onRefresh }) {
+    const { id } = useParams()
     const [reportName, setReportName] = useState('');
-    const [uploadReport, setUploadReport] = useState({bytes:'',fileName: cart});
+    const [uploadReport, setUploadReport] = useState({ bytes: '', fileName: cart });
 
-    const handleReport=(e)=>{
-         setUploadReport({ bytes: e.target.files[0], fileName: URL.createObjectURL(e.target.files[0]) })
+    const handleReport = (e) => {
+        setUploadReport({ bytes: e.target.files[0], fileName: URL.createObjectURL(e.target.files[0]) })
     }
 
 
 
     function resetData() {
         setReportName('');
-        setUploadReport({bytes:'',fileName: cart});
-    
+        setUploadReport({ bytes: '', fileName: cart });
+
 
         onClose();
         onRefresh();
@@ -29,15 +30,9 @@ export default function Report({ onClose, onRefresh })
         formData.append('name', reportName);
         formData.append('file', uploadReport.bytes);
 
-        const formDataObj = {};
-
-        formData.forEach((value, key) => {
-            formDataObj[key] = value;
-        })
         //console.log('xxx',uploadReport)
 
-        const result = await postData(`patient/v1/report/${P_id}`, formDataObj);
-
+        const result = await postData(`patient/v1/report/${id}`, formData);
 
         if (result.status) {
             Swal.fire({
@@ -74,17 +69,17 @@ export default function Report({ onClose, onRefresh })
             </div>
 
 
-          <div className="row m-2 mt-4">
-            <div className="col-6 d-flex justify-content-center">
-               <label htmlFor="reportUpload" className="btn btn-primary" style={{ cursor: "pointer" }}>Upload Report</label>
-                <input id="reportUpload" onChange={handleReport} type="file" accept="image/*" hidden/>
-            </div>
+            <div className="row m-2 mt-4">
+                <div className="col-6 d-flex justify-content-center">
+                    <label htmlFor="reportUpload" className="btn btn-primary" style={{ cursor: "pointer" }}>Upload Report</label>
+                    <input id="reportUpload" onChange={handleReport} type="file" accept="image/*" hidden />
+                </div>
 
-            <div className="col-6 d-flex justify-content-center">
-              <img src={uploadReport.fileName} style={{ width: 50, height: 50, borderRadius: 25 }} alt="preview" />
+                <div className="col-6 d-flex justify-content-center">
+                    <img src={uploadReport.fileName} style={{ width: 50, height: 50, borderRadius: 25 }} alt="preview" />
+                </div>
+
             </div>
-             
-          </div>
 
 
 
