@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 export default function RegistrationFrom() {
     const [name, setName] = useState('');
     const [MobileNumber, setMobileNumber] = useState('');
-    const [Emgr_mobile_no, setEmgr_mobile_no] = useState('');
+    const [Emgr_mobile_no, setEmgr_mobile_no] = useState(MobileNumber);
     const [gender, setGender] = useState('');
     const [date, setDate] = useState('');
     const [age, setAge] = useState('');
@@ -132,9 +132,9 @@ export default function RegistrationFrom() {
                         <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
                             <input required type="text" className="form-control" value={city} placeholder="City" onChange={(e) => setCity(e.target.value)} />
                         </div>
-                        <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
+                        {/* <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
                             <input required type="text" className="form-control" placeholder="Enter Mobile Number" value={Emgr_mobile_no} onChange={(e) => setEmgr_mobile_no(e.target.value)} />
-                        </div>
+                        </div> */}
                         <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
                             <select className="form-select"
                                 value={Blood_group}

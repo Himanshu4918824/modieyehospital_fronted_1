@@ -7,9 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { io } from 'socket.io-client'
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export default function MainDashboard() 
-{
-  const { getAllTodayAppointments, allTodayAppointments, getAppointmentCount, changeStatus } = useContext(MainContext)
+export default function MainDashboard() {
+  const { getAllTodayAppointments, allTodayAppointments, getAppointmentCount, changeStatus, getPatientCities, PatientCity } = useContext(MainContext)
   const navigate = useNavigate()
   const [doctorId, setDoctorId] = useState(localStorage.getItem('doctorId'))
   const [deptCounts, setDeptCounts] = useState({});
@@ -22,6 +21,7 @@ export default function MainDashboard()
 
 
   useEffect(() => {
+    getPatientCities()
     getAppointmentCount().then((data) => {
       setDeptCounts(data.count)
     }).catch((e) => {
@@ -162,9 +162,11 @@ export default function MainDashboard()
         <div style={{ marginLeft: 5 }}>
           <select className="form-select">
             <option value="">-Select-Branch-</option>
-            <option value="Madhav Plaza">Madhav Plaza</option>
-            <option value="Gola Ka Mandir">Gola Ka Mandir</option>
-            <option value="Dabara">Dabara</option>
+            {PatientCity.map((city, i) => {
+              return (<option key={i} value="Madhav Plaza">{city.City}</option>)
+            }
+            )}
+
           </select>
         </div>
 
