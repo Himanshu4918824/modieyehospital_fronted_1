@@ -12,6 +12,7 @@ const ContextProvider = ({ children }) => {
   const [allPatients, setAllPatients] = useState([])
   const [DoctorDetail, setDoctorDetail] = useState([])
   const [allTodayAppointments, setAllTodayAppointments] = useState([])
+  const [allAppointments, setAllAppointments] = useState([])
   const [allDoctors, setAllDoctors] = useState([])
   const [allUsers, setAllUsers] = useState([])
   const [diagnosisList, setDiagnosisList] = useState([])
@@ -173,6 +174,7 @@ const ContextProvider = ({ children }) => {
   }]);
 
   const [PatientReports, setReports] = useState([])
+  const [PatientCity, setPatientCity] = useState([])
   const [allergies, setAllergies] = useState("")
 
 
@@ -312,9 +314,9 @@ const ContextProvider = ({ children }) => {
   }
   const getAllTodayAppointments = async (pageNum = 1) => {
     try {
-      const designation = localStorage.getItem('designation')
+      // const designation = localStorage.getItem('designation')
       // console.log({ pageNum })
-      const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10&designation=${designation}`)
+      const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allTodayAppointment?page=${pageNum}&limit=10`)
       // console.log({ totalPages, currentPage })
       if (pageNum === 1) {
         // console.log(data)
@@ -323,6 +325,34 @@ const ContextProvider = ({ children }) => {
       else {
         // console.log(data)
         setAllTodayAppointments((prev) => [...prev, ...data]);
+      }
+      return pageNum < totalPages
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const getPatientCities = async () => {
+    try {
+      const data = await getData('patient/v1/appointment/allPatientCity');
+      // console.log(data)
+      setPatientCity(data);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const getAllAppointments = async (pageNum = 1) => {
+    try {
+      // const designation = localStorage.getItem('designation')
+      // console.log({ pageNum })
+      const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10`)
+      // console.log({ totalPages, currentPage })
+      if (pageNum === 1) {
+        // console.log(data)
+        setAllAppointments(data);
+      }
+      else {
+        // console.log(data)
+        setAllAppointments((prev) => [...prev, ...data]);
       }
       return pageNum < totalPages
     } catch (error) {
@@ -358,7 +388,7 @@ const ContextProvider = ({ children }) => {
 
 
   return (
-    <MainContext.Provider value={{allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail, allergies }}>
+    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, allTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, allAppointments, getPatientCities , PatientCity }}>
       {children}
     </MainContext.Provider>
   )

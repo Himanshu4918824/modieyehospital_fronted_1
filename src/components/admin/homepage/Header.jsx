@@ -172,8 +172,8 @@ export default function Header() {
           <div className="main">
             <ul style={{ flexDirection: "row", color: "#000", fontWeight: 620 }}>
               <li className="dropdown-1" onClick={() => navigate('/ShowPatient')}>Patient</li>
-              <li className="dropdown-2" onClick={() => navigate('#')}>Advice Report</li>
-              <li className="dropdown-2" onClick={() => navigate('/showallappoint')}>Appointment</li>
+              <li className="dropdown-2" onClick={() => navigate('/maindashboard')}>Today Appointments</li>
+              <li className="dropdown-2" onClick={() => navigate('/showallappoint')}>All Appointment</li>
               <li className="dropdown-2" onClick={() => navigate('/showuser')}>Users</li>
               <li className="dropdown-2" onClick={() => navigate('/displaydoctor')}>Staff</li>
               <li className="dropdown-2" onClick={() => navigate('#')}>About</li>
