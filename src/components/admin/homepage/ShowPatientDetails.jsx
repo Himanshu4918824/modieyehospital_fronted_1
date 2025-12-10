@@ -33,7 +33,7 @@ export default function ShowPatientDetails() {
                             <th>Action</th>
                         </tr>
                     </thead>
-                    {console.log(allPatients)}
+                   
                     <tbody className="table-group-divider">
                         {allPatients.length > 0 ?
                             allPatients.map((item, i) => {

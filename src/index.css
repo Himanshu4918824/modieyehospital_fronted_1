@@ -1,0 +1,8 @@
+body {
+    zoom: 0.9;
+}
+
+.modal {
+    zoom: 1.1 !important; /* Fix mouse events */
+    transform: scale(1) !important; /* Extra safety */
+}

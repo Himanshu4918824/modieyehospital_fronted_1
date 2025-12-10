@@ -8,16 +8,15 @@ import { io } from 'socket.io-client'
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function MainDashboard() {
-  const { getAllTodayAppointments, allTodayAppointments, getAppointmentCount, changeStatus, getPatientCities, PatientCity } = useContext(MainContext)
+  const { getAllTodayAppointments, getAppointmentCount, changeStatus, getPatientCities, PatientCity } = useContext(MainContext)
   const navigate = useNavigate()
   const [doctorId, setDoctorId] = useState(localStorage.getItem('doctorId'))
   const [deptCounts, setDeptCounts] = useState({});
   const [hasMore, setHasMore] = useState();
+  const [allTodayAppointments, setallTodayAppointments] = useState([]);
   const [page, setPage] = useState(1);
-
+  const [city, setCity] = useState("Select-Branch")
   const socketURL = import.meta.env.VITE_socketURL || "http://localhost:8001/"
-
-
 
 
   useEffect(() => {
@@ -31,12 +30,18 @@ export default function MainDashboard() {
       navigate('/')
     }
 
-    getAllTodayAppointments(page).then((stat) => {
-      // console.log({ stat })
-      setHasMore(stat)
-    }).catch(e => {
-      console.error(e)
-    })
+
+    async function loadFirstPage() {
+      const res = await getAllTodayAppointments(1, city);
+      setallTodayAppointments(res.data);
+      setHasMore(1 < res.totalPages);
+    }
+
+    loadFirstPage();
+
+
+
+
     // socket io connection and event listeners
     const socket = io(socketURL, {
       withCredentials: true,
@@ -55,26 +60,24 @@ export default function MainDashboard() {
     })
     return () => { socket.off('appointmentUpdated'); socket.disconnect(); }
 
-  }, [])
+  }, [city])
 
 
   const fetchMoreData = async () => {
     const nextPage = page + 1;
-    await getAllTodayAppointments(nextPage).then((stat) => {
-      setHasMore(stat)
-    }).catch(e => {
-      console.error(e)
-    });
+    const res = await getAllTodayAppointments(nextPage, city);
+
+    setallTodayAppointments((prev) => [...prev, ...res.data])
     setPage(nextPage);
+    setHasMore(nextPage < res.totalPages);
   };
 
 
   const handleStatusChange = async (id, status) => {
-    const data = await changeStatus(id, status);
-    // refreshDashboard();
+    allTodayAppointments.find((item) => item.id === id).status = status;
+    await changeStatus(id, status);
+
   }
-
-
 
   const refreshDashboard = () => {
     getAllTodayAppointments()
@@ -160,10 +163,10 @@ export default function MainDashboard() {
 
         <button onClick={() => openDialog()} className="btn btn-warning btn-sm m-1"> Registration / Book Appointment </button>
         <div style={{ marginLeft: 5 }}>
-          <select className="form-select">
-            <option value="">-Select-Branch-</option>
+          <select className="form-select" onClick={e => setCity(e.target.value)}>
+            <option value="Select-Branch">-Select-Branch-</option>
             {PatientCity.map((city, i) => {
-              return (<option key={i} value="Madhav Plaza">{city.City}</option>)
+              return (<option key={i} value={city.City} >{city.City}</option>)
             }
             )}
 
