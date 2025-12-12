@@ -21,11 +21,7 @@ export default function MainDashboard() {
 
   useEffect(() => {
     getPatientCities()
-    getAppointmentCount().then((data) => {
-      setDeptCounts(data.count)
-    }).catch((e) => {
-      console.log(e)
-    })
+   
     if (!doctorId || doctorId === undefined || doctorId === "") {
       navigate('/')
     }
@@ -38,7 +34,12 @@ export default function MainDashboard() {
     }
 
     loadFirstPage();
-
+    
+    getAppointmentCount().then((data) => {
+      setDeptCounts(data.count)
+    }).catch((e) => {
+      console.log(e)
+    })
 
 
 

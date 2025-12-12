@@ -305,7 +305,7 @@ const ContextProvider = ({ children }) => {
     try {
       const result = await getData(`patient/v1/appointment/latestCounts`)
       return result
-      console.log(result)
+      // console.log(result)
     } catch (error) {
       console.log(error)
     }
