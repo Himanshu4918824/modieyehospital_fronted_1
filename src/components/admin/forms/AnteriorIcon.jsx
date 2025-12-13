@@ -279,7 +279,7 @@ const AnteriorIcon = () => {
               onMouseLeave={stopDrawing}
               className={isEraser ? "canvas-eraser" : ""}
               style={{
-                backgroundImage: "url('/images/lefteyeretinal.jpg')",
+                backgroundImage: "url('/images/rightanterior.png')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 border: "2px solid #333",
@@ -305,7 +305,7 @@ const AnteriorIcon = () => {
               onMouseLeave={stopDrawing}
               className={isEraser ? "canvas-eraser" : ""}
               style={{
-                backgroundImage: "url('/images/righteyeretinal.jpg')",
+                backgroundImage: "url('/images/rightanterior.png')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 border: "2px solid #333",
