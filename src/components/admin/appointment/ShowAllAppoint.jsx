@@ -4,6 +4,7 @@ import MainContext from '../../../context/MainContext'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import TextSearchbar from '../homepage/TextSearchbar'
 
 export default function ShowAllAppoint() {
     const { getAllAppointments, getPatientCities, PatientCity } = useContext(MainContext)
@@ -42,18 +43,31 @@ export default function ShowAllAppoint() {
             </div>
 
             <div style={{ background: "lightgrey", textAlign: 'center', width: "100%", height: '40px', fontWeight: "bold", fontSize: 20 }} >
-                Total Appointment
-            </div>
 
-            <div className='mx-2 my-1 '>
-                <select className="form-select" onClick={e => setCity(e.target.value)}>
+              <div className='mx-2 my-0 row '>
+                <div className='col-3'>
+                  <select className="form-select bg-transparent border border-dark" onClick={e => setCity(e.target.value)}>
                     <option value="Select-Branch">-Select-Branch-</option>
                     {PatientCity.map((city, i) => {
                         return (<option key={i} value={city.City}>{city.City}</option>)
                     }
                     )}
+                  </select>
+                </div>
 
-                </select>
+                 <div className='col-6'>
+                     Total Appointment
+                 </div>
+
+                 <div className='col-3'>
+                <TextSearchbar/>
+               </div>
+               
+            </div>
+
+           
+
+
             </div>
 
             <div id="scrollableDiv" className="table-responsive" style={{ height: "70vh", overflow: "auto" }}>
