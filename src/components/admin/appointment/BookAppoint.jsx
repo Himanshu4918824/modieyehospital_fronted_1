@@ -10,7 +10,7 @@ export default function BookAppoint({ onRefresh }) {
     const [patient, setPatient] = useState('');
     const [doctor, setDoctor] = useState('');
     const [date, setDate] = useState('');
-    const [time, setTime] = useState('');
+    const [time, setTime] = useState(new Date().toLocaleTimeString('en-IN', { hour12: false, hour: '2-digit', minute: '2-digit' }));
 
     useEffect(() => {
         getAllPatients()
