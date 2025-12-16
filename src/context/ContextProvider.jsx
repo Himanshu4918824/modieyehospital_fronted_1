@@ -186,6 +186,7 @@ const ContextProvider = ({ children }) => {
       // console.log(data)
       setDiagnosisList(data.Diagnosis)
       SetPatientData({
+        id: data.id || "",
         Age: data.Age || "",
         Address: data.Address || "",
         City: data.City || "",
