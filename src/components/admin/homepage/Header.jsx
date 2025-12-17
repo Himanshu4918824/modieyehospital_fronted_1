@@ -125,11 +125,11 @@ export default function Header() {
   return (
     <div>
       {/* Header Top Bar */}
-      <div style={{ background: '#8395a7', color: "black", width: "100%", height: "70px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px", }}  >
+      <div style={{ background: '#454545', color: "black", width: "100%", height: "70px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px", }}  >
 
         <div style={{ display: "flex", alignItems: "center" }}>
-          <img alt="logo" src={logo1} style={{ width: 90, height: 70 }} />
-          <div onClick={()=>navigate('/mainDashboard')} style={{ fontSize: "clamp(16px, 3vw, 24px)", fontWeight: "bold", marginLeft: 10 , cursor:"pointer" }}>
+          <img alt="logo" src={logo1} style={{ width: 100, height: 70 ,background:'transparent'}} />
+          <div onClick={()=>navigate('/mainDashboard')} style={{ fontSize: "clamp(16px, 3vw, 24px)", fontWeight: "bold", marginLeft: 10 , cursor:"pointer", color:'goldenrod' }}>
             Modi Eye Care Hospital
           </div>
 
@@ -168,7 +168,7 @@ export default function Header() {
 
       {/* Navbar for large screens */}
       <div className="main-navbar d-none d-lg-block">
-        <nav style={{ background: '#576574', width: "100%", height: "54px" }}>
+        <nav style={{ background: '#303030', width: "100%", height: "54px" }}>
           <div className="main">
             <ul style={{ flexDirection: "row", color: "#000", fontWeight: 620 }}>
               <li className="dropdown-1" onClick={() => navigate('/ShowPatient')}>Patient</li>

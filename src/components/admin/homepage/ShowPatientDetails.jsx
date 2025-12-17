@@ -20,8 +20,8 @@ export default function ShowPatientDetails() {
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th>Pateint Id</th>
-                            <th>Pateint Name</th>
+                            <th>Patient Id</th>
+                            <th>Patient Name</th>
                             <th>Mobile No.</th>
                             <th>Gender</th>
                             <th>Dob</th>

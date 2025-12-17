@@ -160,6 +160,9 @@ export default function Medicine({ onClose, onRefresh }) {
                         <option value={'Twice a day, 1-0-1'}>Twice a day, 1-0-1</option>
                         <option value={'Three Time, 1-1-1'}> Three Time, 1-1-1</option>
                         <option value={'One Time, 1-0-0'}>One Time, 1-0-0</option>
+                        <option value={'Morning Time Once'}>Morning Time Once</option>
+                        <option value={'Afternoon Time Once'}>Afternoon Time Once</option>
+                        <option value={'Night Time Once'}>Night Time Once</option>
 
                     </select>
                 </div>

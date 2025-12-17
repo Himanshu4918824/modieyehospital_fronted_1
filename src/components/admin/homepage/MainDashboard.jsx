@@ -192,8 +192,9 @@ export default function MainDashboard() {
             <thead className="table-secondary">
               <tr>
                 <th className="text-center">Seq</th>
-                <th className="text-center">Status</th>
-                <th className="text-center">Patient Name</th>
+                 <th className="text-center">MRD ID</th>
+                <th className="text-center">Patient Name</th> 
+                 <th className="text-center">Status</th>
                 <th className="text-center">Sex/Age</th>
                 <th className="text-center">Appointment Id</th>
                 <th className="text-center">Date</th>
@@ -211,6 +212,8 @@ export default function MainDashboard() {
 
                     return (<tr key={i}>
                       <td className="text-center">{i + 1}</td>
+                       <td className="text-center">{item?.patient?.id}</td>
+                       <td className="text-center">{item?.patient?.FullName}</td>
                       <td className="text-center">
                         <select className="form-select" value={item?.status} onChange={e => handleStatusChange(item.id, e.target.value)}>
                           {/* <option value='reception'>Reception</option>
@@ -229,7 +232,6 @@ export default function MainDashboard() {
                           {/* <option value="Developer">Developer</option> */}
                         </select>
                       </td>
-                      <td className="text-center">{item?.patient?.FullName}</td>
                       <td className="text-center">{item?.patient?.Gender}/{item?.patient?.Age}</td>
                       <td className="text-center">{item?.id}</td>
                       <td className="text-center">{new Date(item?.Appointment_date).toLocaleDateString()}</td>

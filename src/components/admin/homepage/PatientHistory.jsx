@@ -84,7 +84,7 @@ export default function PatientHistory({ onRefresh }) {
     return (
       <div>
         <div className="modal show d-flex" tabIndex="-1">
-         <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 720, width: "92%", minHeight: 100 }} >
+         <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 800, width: "92%", minHeight: 100 }} >
             <div className="modal-content" style={{ minHeight: 400, height: 'auto' }}>
               <div className="modal-header h4">
                 {modalPage}
@@ -116,7 +116,7 @@ export default function PatientHistory({ onRefresh }) {
 
     <div className="table-responsive mb-3">
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#dcfce7", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c4f3d4ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Medicines</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Medicines")}>
@@ -161,7 +161,7 @@ export default function PatientHistory({ onRefresh }) {
 
 
     
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#eef2ff", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d5ddfaff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Vision</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Vision")}>
@@ -263,7 +263,7 @@ export default function PatientHistory({ onRefresh }) {
 
     <div className="table-responsive mb-3">
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#7c3aed", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#af89f1ff", height: "27px" }} >
 
         <h3 className="fs-5 fw-bold m-0">Refraction</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Refraction")}>
@@ -292,7 +292,7 @@ export default function PatientHistory({ onRefresh }) {
       </div>
 
 
-     <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block' }}>
+     <div className="hide-scrollbar" style={{ maxHeight: '140px', overflowY: "auto", display: 'block' }}>
       <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
         <thead>
           <tr className="table-secondary border border-dark ">

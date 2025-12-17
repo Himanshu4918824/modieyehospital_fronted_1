@@ -10,9 +10,16 @@ export default function Report({ onClose, onRefresh }) {
     const [reportName, setReportName] = useState('');
     const [uploadReport, setUploadReport] = useState({ bytes: '', fileName: cart });
 
-    const handleReport = (e) => {
-        setUploadReport({ bytes: e.target.files[0], fileName: URL.createObjectURL(e.target.files[0]) })
-    }
+    /*
+    handle report ko e.target.files[0] ko store kra file m uska bd file ko use kiys sab jaba
+     */
+
+   const handleReport = (e) => {
+    const file = e.target.files[0];                 
+    if (!file) return;
+
+    setUploadReport({ bytes: file,  fileName: URL.createObjectURL(file), type: file.type });
+};
 
 
 
@@ -72,11 +79,23 @@ export default function Report({ onClose, onRefresh }) {
             <div className="row m-2 mt-4">
                 <div className="col-6 d-flex justify-content-center">
                     <label htmlFor="reportUpload" className="btn btn-primary" style={{ cursor: "pointer" }}>Upload Report</label>
-                    <input id="reportUpload" onChange={handleReport} type="file" accept="image/*" hidden />
+                    <input id="reportUpload" onChange={handleReport} type="file" accept="image/*,video/*" hidden />
                 </div>
 
                 <div className="col-6 d-flex justify-content-center">
-                    <img src={uploadReport.fileName} style={{ width: 50, height: 50, borderRadius: 25 }} alt="preview" />
+
+                     {uploadReport.type?.startsWith("image") ? (
+                     <img src={uploadReport.fileName} style={{ width: 50, height: 50, borderRadius: 25 }} alt="preview" />
+
+                     ) : uploadReport.type?.startsWith("video") ? (
+                     <video src={uploadReport.fileName} width="80" height="50"  controls />
+                     
+                     ) : (
+                      <img src={cart} style={{ width: 50, height: 50 }} alt="default" />
+                    )}
+
+
+
                 </div>
 
             </div>

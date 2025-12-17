@@ -14,7 +14,7 @@ export default function RegistrationFrom() {
     const [city, setCity] = useState('');
     const [reffered, setReffered] = useState('');
     const [insurance, setInsurance] = useState('');
-    const [Blood_group, setBloodGroup] = useState("O_NEG");
+    const [Blood_group, setBloodGroup] = useState("Blood Group");
 
     const resetData = () => {
         setName('');

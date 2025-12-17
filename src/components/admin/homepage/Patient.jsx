@@ -130,7 +130,7 @@ export default function Patient({ onRefresh })
 
     <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block' }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#fef2f2", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#f2b4b4ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Treatment</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Treatment")}>
@@ -167,7 +167,7 @@ export default function Patient({ onRefresh })
 
     <div className="table-responsive mb-3" style={{ marginBottom: 10, }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#f1f5f9", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d9e1e9ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Advice Given</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Advice")}>
@@ -203,7 +203,7 @@ export default function Patient({ onRefresh })
     </div>
 
 
-    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#fff7ed", height: "27px" }} >
+    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#ecc99aff", height: "27px" }} >
       <h3 className="fs-6 fw-bold m-0">Anterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
         <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800' }} onClick={() => openDialog("Anterioricon")}></i>
@@ -362,7 +362,7 @@ export default function Patient({ onRefresh })
     </div>
 
 
-    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#fdf4ff", height: "27px" }} >
+    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d4a7deff", height: "27px" }} >
 
       <h3 className="fs-5 fw-bold m-0">Posterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>

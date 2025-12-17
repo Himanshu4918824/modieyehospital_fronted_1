@@ -257,9 +257,9 @@ export default function Refraction({ onClose, onRefresh })
               <tbody>
                 <tr>
                   <td>Dist...</td>
-                  <td><input value={rightEyeSPH} onChange={(e) => setRightEyeSPH(e.target.value)} type="text" className="form-control" /></td>
+                  <td><input value={rightEyeSPH} onChange={(e) => setRightEyeSPH(e.target.value)} type="text" className="form-control"  /></td>
                   <td><input value={rightEyeCYL} onChange={(e) => setRightEyeCYL(e.target.value)} type="text" className="form-control" /></td>
-                  <td><input value={rightEyeAXIS} onChange={(e) => setRightEyeAXIS(e.target.value)} type="text" className="form-control" /></td>
+                  <td><input value={rightEyeAXIS} onChange={(e) => setRightEyeAXIS(e.target.value)} type="text" className="form-control"  /></td>
                   <td><input value={rightEyeVA} onChange={(e) => setRightEyeVA(e.target.value)} type="text" className="form-control" /></td>
                 </tr>
 

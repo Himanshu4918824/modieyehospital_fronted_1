@@ -15,6 +15,11 @@ export default function BookAppoint({ onRefresh }) {
     useEffect(() => {
         getAllPatients()
         getAllDoctors()
+
+        setTimeout(() => {
+        window.$('.selectpicker').selectpicker('refresh');
+    }, 500);
+    
     }, [])
 
     function resetData() {
@@ -76,16 +81,17 @@ export default function BookAppoint({ onRefresh }) {
                 <div className="col-xs-12">
 
                     <label style={{ fontSize: 15, color: '#000', margin: 5 }}>Appointment For Registered Patients  (पंजीकृत मरीज चुने)</label>
-                    <select className="form-select"
-                        value={patient}
-                        onChange={(e) => setPatient(e.target.value)}
-                        required
+                    <select className="form-select selectpicker"
+                            data-live-search="true"
+                            value={patient}
+                            onChange={(e) => setPatient(e.target.value)}
+                            required
 
                     >
                         <option value=''>Select-Patient</option>
                         {allPatients.map((item, i) => {
                             return (
-                                <option key={i} value={item.id}>{item.FullName}</option>
+                                <option key={i} value={item.id}> {item.FullName} {item.id} </option>
                             )
                         })
                         }
@@ -98,10 +104,11 @@ export default function BookAppoint({ onRefresh }) {
                 <div className="col-xs-12">
 
                     <label style={{ fontSize: 15, color: '#000', margin: 5 }}>Appointment with Doctor  ( डॉक्टर चुने )</label>
-                    <select className="form-select"
-                        value={doctor}
-                        onChange={(e) => setDoctor(e.target.value)}
-                        required
+                    <select className="form-select selectpicker"
+                            data-live-search="true"
+                            value={doctor}
+                            onChange={(e) => setDoctor(e.target.value)}
+                            required
 
                     >
                         <option value=''>Select-Doctor</option>

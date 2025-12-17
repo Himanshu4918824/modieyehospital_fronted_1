@@ -144,7 +144,7 @@ export default function DoctorConcern({ onRefresh }) {
 
 
     <div className="table-responsive mb-3" style={{ marginBottom: '10px', display: 'block' }}>
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#e0f2fe", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c5e1f4ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Complaints</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Complaints")}>
@@ -185,7 +185,7 @@ export default function DoctorConcern({ onRefresh }) {
 
     <div className="table-responsive mb-3" style={{ marginBottom: '5px', display: 'block', }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#ecfeff", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c8ebedff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">History</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("History")}>
@@ -232,7 +232,7 @@ export default function DoctorConcern({ onRefresh }) {
     <div className="d-flex  gap-3">
       <div style={{ flex: '2 1 350px', minWidth: 250 }}>
 
-        <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#f1f5f9", height: "27px" }} >
+        <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#dae6f2ff", height: "27px" }} >
 
           <h3 className="fs-6 fw-bold m-0">Doctor</h3>
           <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Doctor")}>
@@ -270,7 +270,7 @@ export default function DoctorConcern({ onRefresh }) {
 
     <div className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10, overflowY: 'auto', display: 'block' }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#fef3c7", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#e4dcbcff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Diagnosis</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Diagnosis")}>
@@ -314,7 +314,7 @@ export default function DoctorConcern({ onRefresh }) {
 
     <div className="table-responsive mb-3" style={{ marginBottom: '10px' }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#fff1f2", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#f0d5d6ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Allegries</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Allegries")}>
@@ -351,7 +351,7 @@ export default function DoctorConcern({ onRefresh }) {
 
     <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#f8fafc", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#8596a8ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Report</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Report")}>
@@ -368,6 +368,7 @@ export default function DoctorConcern({ onRefresh }) {
 
               <th>Report Name</th>
               <th>Comment</th>
+              <th>View</th>
             </tr>
           </thead>
           <tbody>
@@ -376,6 +377,7 @@ export default function DoctorConcern({ onRefresh }) {
                 <tr style={{ fontSize: '14px' }} key={i}>
                   <td>{item.name}</td>
                   <td>download</td>
+                  <td><a href="#">View</a></td>
                 </tr>)
             }) : (<tr>
               <td colSpan="3">No record available</td>
