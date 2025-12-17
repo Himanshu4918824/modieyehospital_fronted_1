@@ -282,6 +282,5 @@ export default function Vision({ onClose, onRefresh }) {
       </div>
 
     </div>
-patient/
   </div>)
 }
