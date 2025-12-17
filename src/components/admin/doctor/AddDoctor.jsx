@@ -20,6 +20,7 @@ export default function AddDoctor() {
     const [Pwd, setPwd] = useState('');
     const [Gender, setGender] = useState('');
     const [uploadReport, setUploadReport] = useState('');
+    const [area,setArea]=useState('')
 
     const fileInputRef = useRef(null);
 
@@ -123,6 +124,8 @@ export default function AddDoctor() {
                         </select>
                     </div>
 
+
+
                     <div className="col-lg-6 col-xs-12 mb-3">
                         <label className="form-label fw-bold ms-3">Mobile no.</label>
                         <input value={mobile} onChange={(e) => setMobile(e.target.value)} type="text" className="form-control" placeholder="Enter Mobile no." />
@@ -183,6 +186,21 @@ export default function AddDoctor() {
                         <label className="from-control m-1 ms-3 fw-bold ms-3" style={{ fontSize: 18 }}>Upload Report</label>
                         <input ref={fileInputRef} className="form-control" type="file" id="formFile" onChange={(e) => setUploadReport(e.target.files[0])} />
                     </div>
+
+                    {designation=='Receptionist'?
+                         <div className="col-lg-6 col-xs-12 mb-3">
+                        <label className="form-label fw-bold ms-3">Receptionist</label>
+                        <select className="form-select"
+                            value={area}
+                            onChange={(e) => setArea(e.target.value)}
+                            defaultValue="Select Receptionist"
+                        >
+                            <option value="Select Receptionist Area">Select Receptionist Area</option>
+                            <option value="GovindPuri">GovindPuri</option>
+                            <option value="Madhav Plaza">Madhav Plaza</option>
+                            <option value="Dabara">Dabara</option>
+                        </select>
+                    </div>:<></>}
                 </div>
 
 

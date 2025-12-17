@@ -138,6 +138,7 @@ export default function Medicine({ onClose, onRefresh }) {
                         <option value='Medicines'>Medicines</option>
                         <option value='Glasses'>Glasses</option>
                         <option value='Contact Lens'>Contact Lens</option>
+                         <option value={'Null'}>Null</option>
                     </select>
                 </div>
 

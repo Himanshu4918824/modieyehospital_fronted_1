@@ -8,7 +8,7 @@ export default function RegistrationFrom() {
     const [Emgr_mobile_no, setEmgr_mobile_no] = useState(MobileNumber);
     const [gender, setGender] = useState('');
     const [date, setDate] = useState('');
-    const [age, setAge] = useState('');
+    //const [age, setAge] = useState('');
     const [address, setAddress] = useState('');
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
@@ -37,7 +37,7 @@ export default function RegistrationFrom() {
         formData.append('Phone', MobileNumber);
         formData.append('Gender', gender);
         formData.append('DOB', new Date(date).toISOString());
-        formData.append('Age', age);
+     //   formData.append('Age', age);
         formData.append('Address', address);
         formData.append('State', state);
         formData.append('City', city);
@@ -113,21 +113,23 @@ export default function RegistrationFrom() {
                             <input required type="date" className="form-control" value={date} onChange={(e) => setDate(e.target.value)} />
                         </div>
 
-                        <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
+                      {/*  <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
                             <input required type="text" className="form-control" placeholder="Enter Age" value={age} onChange={(e) => setAge(e.target.value)} />
-                        </div>
+                        </div>  */}
 
                         <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
                             <textarea required className="form-control" placeholder="Enter Address" rows={1} value={address} onChange={(e) => setAddress(e.target.value)} />
+                        </div>
+
+                         <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
+                            <input required type="text" className="form-control" value={state} placeholder="State" onChange={(e) => setState(e.target.value)} />
                         </div>
 
                     </div>
 
 
                     <div className="row" style={{ marginBottom: 7 }}>
-                        <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
-                            <input required type="text" className="form-control" value={state} placeholder="State" onChange={(e) => setState(e.target.value)} />
-                        </div>
+                       
 
                         <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
                             <input required type="text" className="form-control" value={city} placeholder="City" onChange={(e) => setCity(e.target.value)} />
