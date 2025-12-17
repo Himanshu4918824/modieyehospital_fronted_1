@@ -99,8 +99,14 @@ export default function DashBoard() {
         <div className="row mb-2 mt-2">
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
-              <span className="input-group-text">Appointment Id:</span>
+              <span className="input-group-text">Appointment No:</span>
               <input type="text" className="form-control" disabled value={Aid} />
+            </div>
+          </div>
+          <div className="col-xs-12 col-lg-2">
+            <div className="input-group input-group-sm">
+              <span className="input-group-text">MRD No.:</span>
+              <input type="text" className="form-control" disabled value={patientData.id} />
             </div>
           </div>
 

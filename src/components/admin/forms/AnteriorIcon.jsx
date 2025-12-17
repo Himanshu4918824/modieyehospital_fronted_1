@@ -1,8 +1,15 @@
-import { useRef, useState, useEffect } from "react";
-import axios from "axios";
+import { useRef, useState, useEffect, useContext } from "react";
 import "./AnteriorIcon.css";
+import { getData, postData } from "../../../services/FetchNodeAdminServices";
+import MainContext from "../../../context/MainContext";
 
 const AnteriorIcon = () => {
+  const { P_id, Aid } = useContext(MainContext)
+
+  useEffect(() => {
+    loadDrawing()
+  }, []);
+
   const canvasRef_Left = useRef(null);
   const canvasRef_Right = useRef(null);
 
@@ -198,7 +205,7 @@ const AnteriorIcon = () => {
   // Save to server
   const saveDrawing = async () => {
     try {
-      await axios.post("http://localhost:5000/api/save", {
+      await postData(`patient/v1/Clinical/AnteriorDrawing/${P_id}`, {
         left: pathsLeft,
         right: pathsRight,
       });
@@ -212,11 +219,11 @@ const AnteriorIcon = () => {
   // Load from server
   const loadDrawing = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/load");
-      setPathsLeft(res.data.left || []);
-      setPathsRight(res.data.right || []);
+      const res = await getData(`patient/v1/Clinical/AnteriorDrawing/${P_id}`);
+      setPathsLeft(res.Anterior_Drawing.left || []);
+      setPathsRight(res.Anterior_Drawing.right || []);
       // redraw will be triggered by useEffect watchers
-      alert("Loaded!");
+      // alert("Loaded!");
     } catch (err) {
       console.error(err);
       alert("Load failed");

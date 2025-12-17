@@ -42,32 +42,28 @@ export default function ShowAllAppoint() {
                 <Header />
             </div>
 
-            <div style={{ background: "lightgrey", textAlign: 'center', width: "100%", height: '40px', fontWeight: "bold", fontSize: 20 }} >
+            <div  style={{ background: "lightgrey", textAlign: 'center', width: "100%", height: '40px', fontWeight: "bold", fontSize: 20 }} >
 
-              <div className='mx-2 my-0 row '>
-                <div className='col-3'>
-                  <select className="form-select bg-transparent border border-dark" onClick={e => setCity(e.target.value)}>
-                    <option value="Select-Branch">-Select-Branch-</option>
-                    {PatientCity.map((city, i) => {
-                        return (<option key={i} value={city.City}>{city.City}</option>)
-                    }
-                    )}
-                  </select>
-                </div>
+                <div className='mx-2 my-0  row align-items-center '>
+                    <div className='col-3'>
+                        <select className="form-select bg-transparent border border-dark" onClick={e => setCity(e.target.value)}>
+                            <option value="Select-Branch">-Select-Branch-</option>
+                            {PatientCity.map((city, i) => {
+                                return (<option key={i} value={city.City}>{city.City}</option>)
+                            }
+                            )}
+                        </select>
+                    </div>
 
-                 <div className='col-6'>
-                     Total Appointment
-                 </div>
+                    <div className='col-6'>
+                        Total Appointment
+                    </div>
 
-                 <div className='col-3'>
-                <TextSearchbar/>
-               </div>
+                    <div className='col-3'>
+                        <TextSearchbar/>
+                    </div>
                
-            </div>
-
-           
-
-
+                </div>
             </div>
 
             <div id="scrollableDiv" className="table-responsive" style={{ height: "70vh", overflow: "auto" }}>
