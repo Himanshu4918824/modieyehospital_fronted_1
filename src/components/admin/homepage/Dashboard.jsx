@@ -16,7 +16,7 @@ export default function DashBoard() {
   const { id, Aid } = useParams();
   const [status, setStatus] = useState("");
   useEffect(() => {
-    getPatientData(`patient/v1/patient/${id}`);
+    getPatientData(`patient/v1/patient/${id}/${Aid}`);
     SetP_id(id)
     SetAid(Aid)
     // console.log(patientData)
@@ -32,7 +32,7 @@ export default function DashBoard() {
   // console.log(DoctorDetail)
 
   const refreshDashboard = () => {
-    getPatientData(`patient/v1/patient/${id}`);
+    getPatientData(`patient/v1/patient/${id}/${Aid}`);
     getDoctorsDetail(localStorage.getItem('doctorId'));
     getAptStatus(Aid).then((status) => {
       setStatus(status.status);

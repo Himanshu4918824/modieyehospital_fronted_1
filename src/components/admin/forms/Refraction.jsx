@@ -165,7 +165,7 @@ export default function Refraction({ onClose, onRefresh })
     });
 
 
-    const result = await postData(`patient/v1/pre-clinical/refraction/${P_id}/${Aid}`, formDataObj);
+    const result = await postData(`patient/v1/pre-clinical/refraction/${Aid}`, formDataObj);
     if (result.status) {
       Swal.fire({
         position: "top-end",

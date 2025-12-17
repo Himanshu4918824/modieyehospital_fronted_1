@@ -20,7 +20,7 @@ export default function Patient({ onRefresh })
   const [activeDate, setActiveDate] = useState(anterior[0]?.created_at);
 
   const activeRecord = anterior.find((rec) => rec.created_at === activeDate);
-
+  
   useEffect(() => {
     if (anterior.length > 0 && !activeDate) {
       setActiveDate(anterior[0].created_at);

@@ -69,13 +69,13 @@ export default function Complaint({ stat, onClose, onRefresh }) {
             formData.forEach((value, key) => {
                 formDataObj[key] = value;
             });
-            const result = await postData(`patient/v1/pre-clinical/createComplaint/${P_id}/${Aid}`, formDataObj);
+            const result = await postData(`patient/v1/pre-clinical/createComplaint/${Aid}`, formDataObj);
             DisplayAknowledgement(result.status);
         }
         else if (stat === 'allergies') {
             const body = { allergies: complain };
             // console.log(body)
-            const result = await postData(`patient/v1/pre-clinical/allergies/${P_id}/${Aid}`, body);
+            const result = await postData(`patient/v1/pre-clinical/allergies/${P_id}`, body);
             DisplayAknowledgement(result.status);
         }
 

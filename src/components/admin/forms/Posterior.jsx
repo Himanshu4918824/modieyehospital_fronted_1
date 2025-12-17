@@ -128,7 +128,7 @@ export default function Posterior({ onClose, onRefresh }) {
       formDataObj[key] = value;
     });
 
-    const result = await postData(`patient/v1/Clinical/posterior/${P_id}/${Aid}`, formDataObj);
+    const result = await postData(`patient/v1/Clinical/posterior/${Aid}`, formDataObj);
     if (result.status) {
       Swal.fire({
         position: "top-end",
