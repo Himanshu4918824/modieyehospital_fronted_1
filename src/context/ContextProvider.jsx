@@ -183,8 +183,8 @@ const ContextProvider = ({ children }) => {
     try {
       const data = await getData(url);
       // return data;
-      // console.log(data)
-      setDiagnosisList(data.Diagnosis)
+      console.log(data)
+      setDiagnosisList(data?.Appointment[0]?.Diagnosis || [])
       SetPatientData({
         id: data.id || "",
         Age: data.Age || "",
@@ -197,12 +197,12 @@ const ContextProvider = ({ children }) => {
         Latest_Apt: data.Appointment[0].id || "",
         Latest_Apt_Date: new Date(data.Appointment[0].created_at).toLocaleDateString() || ""
       })
-      SetVision(data.Vision)
-      setHistroy(data.History)
+      SetVision(data?.Appointment[0]?.Vision || [])
+      setHistroy(data?.Appointment[0]?.History || [])
 
-      if (Array.isArray(data.Advise)) {
+      if (Array.isArray(data?.Appointment[0]?.Advise)) {
         setAdvise(
-          data.Advise.map((item) => ({
+          data?.Appointment[0]?.Advise.map((item) => ({
             Date: item.created_at || "",
             type: item.type || "",
             message: item.message || "",
@@ -211,16 +211,16 @@ const ContextProvider = ({ children }) => {
         );
       }
       // ✅ If Advise is a single object
-      else if (data.Advise) {
+      else if (data?.Appointment[0]?.Advise) {
         setAdvise([{
-          Date: data.Advise.created_at || "",
-          type: data.Advise.type || "",
-          message: data.Advise.message || ""
+          Date: data?.Appointment[0]?.Advise.created_at || "",
+          type: data?.Appointment[0]?.Advise.type || "",
+          message: data?.Appointment[0]?.Advise.message || ""
         }]);
       }
-      if (Array.isArray(data.Advise)) {
+      if (Array.isArray(data?.Appointment[0]?.Treatment)) {
         setTreatment(
-          data.Treatment.map((item) => ({
+          data?.Appointment[0]?.Treatment.map((item) => ({
             Date: item.created_at || "",
             type: item.type || "",
             message: item.message || "",
@@ -228,9 +228,9 @@ const ContextProvider = ({ children }) => {
           }))
         );
       }
-      if (Array.isArray(data.Medicine)) {
+      if (Array.isArray(data?.Appointment[0]?.Medicine)) {
         setMedicine(
-          data.Medicine.map((item) => ({
+          data?.Appointment[0]?.Medicine.map((item) => ({
             Days: item.Days || "",
             Dose: item.Dose || "",
             Intake: item.Intake || "",
@@ -241,9 +241,9 @@ const ContextProvider = ({ children }) => {
           }))
         );
       }
-      if (Array.isArray(data.Complaint)) {
+      if (Array.isArray(data?.Appointment[0]?.Complaint)) {
         setComplaint(
-          data.Complaint.map((item) => ({
+          data?.Appointment[0]?.Complaint.map((item) => ({
             Date: item.created_at || "",
             Complaint: item.message,
             AptId: item.appointmentId,
@@ -251,11 +251,16 @@ const ContextProvider = ({ children }) => {
           }))
         );
       }
-      setRefractionData(data.Refraction)
-      setAnterior(data.Anterior)
-      setPosterior(data.Posterior)
-      setAllergies((data.Allergies[0]?.allergies) || "")
+      setRefractionData(data?.Appointment[0]?.Refraction || [])
+      setAnterior(data?.Appointment[0]?.Anterior || [])
+      setPosterior(data?.Appointment[0]?.Posterior || [])
+      setAllergies((data.allergies[0]?.allergies) || "")
       setReports(data?.Report[0]?.document)
+      
+      
+      
+      console.log(data?.Appointment[0]?.Anterior[0])
+
     } catch (error) {
       console.error(error)
     }

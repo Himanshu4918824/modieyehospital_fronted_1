@@ -14,7 +14,7 @@ export default function RegistrationFrom() {
     const [city, setCity] = useState('');
     const [reffered, setReffered] = useState('');
     const [insurance, setInsurance] = useState('');
-    const [Blood_group, setBloodGroup] = useState("Blood Group");
+    const [Blood_group, setBloodGroup] = useState("NULL");
 
     const resetData = () => {
         setName('');
@@ -143,7 +143,7 @@ export default function RegistrationFrom() {
                                 onChange={(e) => setBloodGroup(e.target.value)}
 
                             >
-                                <option >Blood Group</option>
+                                <option value="NULL">NULL</option>
                                 <option value="O_NEG">O-</option>
                                 <option value="O_POS">O+</option>
                                 <option value="A_POS">A+</option>

@@ -96,10 +96,10 @@ export default function Advice({ stat, onClose, onRefresh })
         // cmg9id08z0001j7nomnxe5291
         let result;
         if (stat === 'advise') {
-            result = await postData(`patient/v1/advice/${P_id}/${Aid}`, formDataObj);
+            result = await postData(`patient/v1/advice/${Aid}`, formDataObj);
         }
         else if (stat === 'treatment') {
-            result = await postData(`patient/v1/treatment/${P_id}/${Aid}`, formDataObj);
+            result = await postData(`patient/v1/treatment/${Aid}`, formDataObj);
         }
 
 

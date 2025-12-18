@@ -261,7 +261,7 @@ export default function Anterior({ onClose, onRefresh }) {
     });
 
 
-    const result = await postData(`patient/v1/Clinical/anterior/${P_id}/${Aid}`, formDataObj);
+    const result = await postData(`patient/v1/Clinical/anterior/${Aid}`, formDataObj);
 
     if (result.status) {
       Swal.fire({

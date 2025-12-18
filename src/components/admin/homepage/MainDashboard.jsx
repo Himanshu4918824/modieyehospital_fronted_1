@@ -212,7 +212,7 @@ export default function MainDashboard() {
 
                     return (<tr key={i}>
                       <td className="text-center">{i + 1}</td>
-                       <td className="text-center">{item?.patient?.id}</td>
+                       <td className="text-center">{item?.P_id}</td>
                        <td className="text-center">{item?.patient?.FullName}</td>
                       <td className="text-center">
                         <select className="form-select" value={item?.status} onChange={e => handleStatusChange(item.id, e.target.value)}>
