@@ -17,7 +17,7 @@ const ContextProvider = ({ children }) => {
   const [patientData, SetPatientData] = useState({
     Age: "",
     Address: "",
-    City: "",
+    Branch: "",
     State: "",
     RegDt: "",
     FullName: "",
@@ -172,7 +172,7 @@ const ContextProvider = ({ children }) => {
   }]);
 
   const [PatientReports, setReports] = useState([])
-  const [PatientCity, setPatientCity] = useState([])
+  const [PatientBranch, setPatientBranch] = useState([])
   const [allergies, setAllergies] = useState("")
 
 
@@ -183,13 +183,13 @@ const ContextProvider = ({ children }) => {
     try {
       const data = await getData(url);
       // return data;
-      console.log(data)
+      // console.log(data)
       setDiagnosisList(data?.Appointment[0]?.Diagnosis || [])
       SetPatientData({
         id: data.id || "",
         Age: data.Age || "",
         Address: data.Address || "",
-        City: data.City || "",
+        Branch: data.Branch || "",
         State: data.State || "",
         RegDt: new Date(data.created_at).toLocaleDateString() || "",
         FullName: data.FullName || "",
@@ -256,10 +256,10 @@ const ContextProvider = ({ children }) => {
       setPosterior(data?.Appointment[0]?.Posterior || [])
       setAllergies((data.allergies[0]?.allergies) || "")
       setReports(data?.Report[0]?.document)
-      
-      
-      
-      console.log(data?.Appointment[0]?.Anterior[0])
+
+
+
+      // console.log(data?.Appointment[0]?.Anterior[0])
 
     } catch (error) {
       console.error(error)
@@ -302,6 +302,7 @@ const ContextProvider = ({ children }) => {
       const result = await getData(`doctor/api/v1/${id}`, { Authorization: localStorage.getItem('token') })
       // console.log(result)
       setDoctorDetail(result)
+      localStorage.setItem('branch', result.branch);
       return result
     } catch (error) {
       console.log(error)
@@ -316,11 +317,11 @@ const ContextProvider = ({ children }) => {
       console.log(error)
     }
   }
-  const getAllTodayAppointments = async (pageNum = 1, city) => {
+  const getAllTodayAppointments = async (pageNum = 1, Branch) => {
     try {
       // const designation = localStorage.getItem('designation')
       // console.log({ pageNum })
-      if (city === "Select-Branch" || city === "" || city === null) {
+      if (Branch === "Select-Branch" || Branch === "" || Branch === null) {
         const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allTodayAppointment?page=${pageNum}&limit=10`)
         return {
           data,
@@ -330,7 +331,7 @@ const ContextProvider = ({ children }) => {
 
       }
       else {
-        const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allTodayAppointment?page=${pageNum}&limit=10&city=${city}`)
+        const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allTodayAppointment?page=${pageNum}&limit=10&Branch=${Branch}`)
         return {
           data,
           totalPages,
@@ -342,18 +343,18 @@ const ContextProvider = ({ children }) => {
       return { data: [], totalPages: 0, currentPage: 0 };
     }
   }
-  const getPatientCities = async () => {
+  const getPatientBranch = async () => {
     try {
-      const data = await getData('patient/v1/appointment/allPatientCity');
+      const data = await getData('patient/v1/appointment/allPatientBranch');
       // console.log(data)
-      setPatientCity(data);
+      setPatientBranch(data);
     } catch (error) {
       console.error(error)
     }
   }
-  const getAllAppointments = async (pageNum = 1, city) => {
+  const getAllAppointments = async (pageNum = 1, Branch) => {
     try {
-      if (city === "Select-Branch" || city === "" || city === null) {
+      if (Branch === "Select-Branch" || Branch === "" || Branch === null) {
         const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10`)
         return {
           data,
@@ -362,7 +363,7 @@ const ContextProvider = ({ children }) => {
         };
       }
       else {
-        const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10&city=${city}`)
+        const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10&Branch=${Branch}`)
         // console.log({ data, totalPages, currentPage })
         return {
           data,
@@ -396,9 +397,28 @@ const ContextProvider = ({ children }) => {
   }
 
 
+  const AppointmentSearch = async (searchKey , nextPage) => {
+    try {
+      if (searchKey === '') {
+        return { data: [], totalPages: 0, currentPage: 0 }
+      }
+      else {
+        const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/Appointments/search?search=${searchKey}&page=${nextPage}&limit=10`)
+        // console.log({data, totalPages, currentPage})
+        return {
+          data, totalPages, currentPage
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+
 
   return (
-    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientCities, PatientCity }}>
+    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch }}>
       {children}
     </MainContext.Provider>
   )

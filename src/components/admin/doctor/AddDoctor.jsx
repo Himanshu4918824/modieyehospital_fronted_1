@@ -20,7 +20,7 @@ export default function AddDoctor() {
     const [Pwd, setPwd] = useState('');
     const [Gender, setGender] = useState('');
     const [uploadReport, setUploadReport] = useState('');
-    const [area,setArea]=useState('')
+    const [area, setArea] = useState('')
 
     const fileInputRef = useRef(null);
 
@@ -36,10 +36,12 @@ export default function AddDoctor() {
             "State": state,
             "City": city,
             "Password": Pwd,
+            "branch": area,
             "Gender": Gender
             // 'uploadReport':uploadReport,
         }
         const response = await postData('doctor/api/v1/addDoctor', body);
+        localStorage.setItem('branch', response.branch);
         if (response.status) {
             Swal.fire({
                 position: "top-end",
@@ -85,11 +87,11 @@ export default function AddDoctor() {
             <Header />
         </div>
 
-        <div onClick={()=>navigate('/displaydoctor')} style={{marginLeft:'90%',marginTop:7}}>
-           <button type="button" className="btn btn-secondary">Show Doctor List</button>
+        <div onClick={() => navigate('/displaydoctor')} style={{ marginLeft: '90%', marginTop: 7 }}>
+            <button type="button" className="btn btn-secondary">Show Doctor List</button>
         </div>
 
-       <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',marginTop:0 }}>
+        <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 0 }}>
             <div style={{ width: 700, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10 }}>
 
                 <div className="row">
@@ -187,20 +189,20 @@ export default function AddDoctor() {
                         <input ref={fileInputRef} className="form-control" type="file" id="formFile" onChange={(e) => setUploadReport(e.target.files[0])} />
                     </div>
 
-                    {designation=='Receptionist'?
-                         <div className="col-lg-6 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">Receptionist</label>
-                        <select className="form-select"
-                            value={area}
-                            onChange={(e) => setArea(e.target.value)}
-                            defaultValue="Select Receptionist"
-                        >
-                            <option value="Select Receptionist Area">Select Receptionist Area</option>
-                            <option value="GovindPuri">GovindPuri</option>
-                            <option value="Madhav Plaza">Madhav Plaza</option>
-                            <option value="Dabara">Dabara</option>
-                        </select>
-                    </div>:<></>}
+                    {designation == 'Receptionist' ?
+                        <div className="col-lg-6 col-xs-12 mb-3">
+                            <label className="form-label fw-bold ms-3">Receptionist</label>
+                            <select className="form-select"
+                                value={area}
+                                onChange={(e) => setArea(e.target.value)}
+                                defaultValue="Select Receptionist"
+                            >
+                                <option value="Select Receptionist Area">Select Receptionist Area</option>
+                                <option value="GovindPuri">GovindPuri</option>
+                                <option value="Madhav Plaza">Madhav Plaza</option>
+                                <option value="Dabara">Dabra</option>
+                            </select>
+                        </div> : <></>}
                 </div>
 
 

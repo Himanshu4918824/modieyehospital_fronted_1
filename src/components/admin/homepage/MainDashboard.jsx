@@ -8,7 +8,7 @@ import { io } from 'socket.io-client'
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function MainDashboard() {
-  const { getAllTodayAppointments, getAppointmentCount, changeStatus, getPatientCities, PatientCity } = useContext(MainContext)
+  const { getAllTodayAppointments, getAppointmentCount, changeStatus, getPatientBranch, PatientBranch, getDoctorsDetail } = useContext(MainContext)
   const navigate = useNavigate()
   const [doctorId, setDoctorId] = useState(localStorage.getItem('doctorId'))
   const [deptCounts, setDeptCounts] = useState({});
@@ -20,8 +20,9 @@ export default function MainDashboard() {
 
 
   useEffect(() => {
-    getPatientCities()
-   
+
+    getPatientBranch()
+
     if (!doctorId || doctorId === undefined || doctorId === "") {
       navigate('/')
     }
@@ -34,13 +35,18 @@ export default function MainDashboard() {
     }
 
     loadFirstPage();
-    
+
     getAppointmentCount().then((data) => {
       setDeptCounts(data.count)
     }).catch((e) => {
       console.log(e)
     })
 
+
+    if (!localStorage.getItem('branch') || localStorage.getItem('branch') === "undefined" || localStorage.getItem('branch') === "") {
+      const id = localStorage.getItem('doctorId');
+      getDoctorsDetail(id)
+    }
 
 
     // socket io connection and event listeners
@@ -166,8 +172,8 @@ export default function MainDashboard() {
         <div style={{ marginLeft: 5 }}>
           <select className="form-select" onClick={e => setCity(e.target.value)}>
             <option value="Select-Branch">-Select-Branch-</option>
-            {PatientCity.map((city, i) => {
-              return (<option key={i} value={city.City} >{city.City}</option>)
+            {PatientBranch.map((Patient, i) => {
+              return (<option key={i} value={Patient.Branch} >{Patient.Branch}</option>)
             }
             )}
 
@@ -192,9 +198,9 @@ export default function MainDashboard() {
             <thead className="table-secondary">
               <tr>
                 <th className="text-center">Seq</th>
-                 <th className="text-center">MRD ID</th>
-                <th className="text-center">Patient Name</th> 
-                 <th className="text-center">Status</th>
+                <th className="text-center">MRD ID</th>
+                <th className="text-center">Patient Name</th>
+                <th className="text-center">Status</th>
                 <th className="text-center">Sex/Age</th>
                 <th className="text-center">Appointment Id</th>
                 <th className="text-center">Date</th>
@@ -212,8 +218,8 @@ export default function MainDashboard() {
 
                     return (<tr key={i}>
                       <td className="text-center">{i + 1}</td>
-                       <td className="text-center">{item?.P_id}</td>
-                       <td className="text-center">{item?.patient?.FullName}</td>
+                      <td className="text-center">{item?.P_id}</td>
+                      <td className="text-center">{item?.patient?.FullName}</td>
                       <td className="text-center">
                         <select className="form-select" value={item?.status} onChange={e => handleStatusChange(item.id, e.target.value)}>
                           {/* <option value='reception'>Reception</option>
