@@ -86,10 +86,18 @@ export default function MainDashboard() {
 
   }
 
-  const refreshDashboard = () => {
-    getAllTodayAppointments()
-  };
+ const refreshDashboard = async () => {
+  setPage(1);
+
+  const res = await getAllTodayAppointments(1, city);
+  setallTodayAppointments(res.data);
+  setHasMore(1 < res.totalPages);
+
+  closeDialog(); // 🔥 close modal
+};
+
   // console.log(deptCounts)
+
 
 
   // console.log(allTodayAppointments)
@@ -111,7 +119,7 @@ export default function MainDashboard() {
     else if (props === "bookappoint") {
       return (
         <div>
-          <BookAppoint onRefresh={refreshDashboard} />
+          <BookAppoint onRefresh={refreshDashboard} close={closeDialog} />
         </div>
       );
     }
@@ -151,6 +159,7 @@ export default function MainDashboard() {
     <div>
       <Header />
     </div>
+    
 
 
     <div className="p-3 bg-light">

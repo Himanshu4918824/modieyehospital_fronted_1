@@ -76,7 +76,7 @@ export default function Header()
 */}
 
 import { useEffect, useState } from "react";
-import logo1 from "../../../assets/logo1.png";
+import logo2 from "../../../assets/logo2.png";
 import "./Menubar.css";
 import { Link } from "react-router-dom";
 
@@ -125,10 +125,10 @@ export default function Header() {
   return (
     <div>
       {/* Header Top Bar */}
-      <div style={{ background: '#454545', color: "black", width: "100%", height: "70px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px", }}  >
+      <div style={{ background: '#141414ff', color: "black", width: "100%", height: "70px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px", }}  >
 
         <div style={{ display: "flex", alignItems: "center" }}>
-          <img alt="logo" src={logo1} style={{ width: 100, height: 70 ,background:'transparent'}} />
+          <img alt="logo2" src={logo2} style={{ width: 100, height: 70 ,background:'transparent'}} />
           <div onClick={()=>navigate('/mainDashboard')} style={{ fontSize: "clamp(16px, 3vw, 24px)", fontWeight: "bold", marginLeft: 10 , cursor:"pointer", color:'goldenrod' }}>
             Modi Eye Care Hospital
           </div>
@@ -138,15 +138,15 @@ export default function Header() {
 
         <div className="d-flex align-items-center">
           <a href="/contact" className="btn text-dark me-2">
-            <i className="bi bi-telephone-fill" style={{ fontSize: 24 }}></i>
+            <i className="bi bi-telephone-fill" style={{ fontSize: 24,color:'goldenrod' }}></i>
           </a>
           {isLoggedIn && (
             <>
               <Link to="/profilepage" className="btn text-dark">
-                <i className="bi bi-person-circle" style={{ fontSize: 24 }}></i>
+                <i className="bi bi-person-circle" style={{ fontSize: 24, color:'goldenrod' }}></i>
               </Link>
               <button className="btn d-lg-block d-none" onClick={handelLogOut} type="button">
-                <i className="bi bi-box-arrow-left" style={{ fontSize: 30, color: "black" }}></i>
+                <i className="bi bi-box-arrow-left" style={{ fontSize: 30, color: "black", color:'goldenrod' }}></i>
               </button>
             </>
           )
@@ -168,9 +168,9 @@ export default function Header() {
 
       {/* Navbar for large screens */}
       <div className="main-navbar d-none d-lg-block">
-        <nav style={{ background: '#303030', width: "100%", height: "54px" }}>
+        <nav style={{ background: '#1e1c1cff', width: "100%", height: "54px" }}>
           <div className="main">
-            <ul style={{ flexDirection: "row", color: "#000", fontWeight: 620 }}>
+            <ul style={{ flexDirection: "row", color: "#b19d9dff", fontWeight: 620 }}>
               <li className="dropdown-1" onClick={() => navigate('/ShowPatient')}>Patient</li>
               <li className="dropdown-2" onClick={() => navigate('/maindashboard')}>Today Appointments</li>
               <li className="dropdown-2" onClick={() => navigate('/showallappoint')}>All Appointment</li>
