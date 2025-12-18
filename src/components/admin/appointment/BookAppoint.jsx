@@ -5,7 +5,7 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function BookAppoint({ onRefresh }) {
+export default function BookAppoint({ onRefresh,close  }) {
     const { getAllPatients, allPatients, getAllDoctors, allDoctors } = useContext(MainContext)
     const [patient, setPatient] = useState('');
     const [doctor, setDoctor] = useState('');
@@ -64,6 +64,7 @@ export default function BookAppoint({ onRefresh }) {
 
         //resetData()
         onRefresh();
+        close();
 
     }
     function formatTo12Hour(time) {
@@ -142,7 +143,7 @@ export default function BookAppoint({ onRefresh }) {
 
             <div className="row" style={{ marginBottom: 5, marginTop: 20 }}>
                 <div className="col-6" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <button onClick={handleSubmit} type="button" className="btn btn-primary">Book Now</button>
+                    <button type="submit" className="btn btn-primary">Book Now</button>
                 </div>
 
                 <div className="col-6" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
