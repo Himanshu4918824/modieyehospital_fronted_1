@@ -15,10 +15,8 @@ import MainContext from "../../../context/MainContext";
 export default function DoctorConcern({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
-  const { diagnosisList, histroy, Advise, complaint, PatientReports, allergies } = useContext(MainContext);
+  const { diagnosisList, histroy, complaint, PatientReports, allergies } = useContext(MainContext);
   const doctor = [];
-
-  
   const openDialog = (e) => {
     setShowDialog(true);
     setModalPage(e)

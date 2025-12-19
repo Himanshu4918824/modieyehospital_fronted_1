@@ -12,7 +12,9 @@ export default function PatientHistory({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
 
-  const { vision, Medicine, refractionData, anterior, posterior } = useContext(MainContext)
+  const { vision, Medicine, refractionData } = useContext(MainContext)
+
+
   const [activeDate, setActiveDate] = useState(vision[0]?.created_at);
   const [RefactiveDate, setRefActiveDate] = useState(refractionData[0]?.created_at);
 
@@ -84,7 +86,7 @@ export default function PatientHistory({ onRefresh }) {
     return (
       <div>
         <div className="modal show d-flex" tabIndex="-1">
-         <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 800, width: "92%", minHeight: 100 }} >
+          <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 800, width: "92%", minHeight: 100 }} >
             <div className="modal-content" style={{ minHeight: 400, height: 'auto' }}>
               <div className="modal-header h4">
                 {modalPage}
@@ -99,7 +101,7 @@ export default function PatientHistory({ onRefresh }) {
           </div>
         </div>
         {/* Overlay */}
-          <div className="modal-backdrop fade show" style={{width:'100%',height:'100%'}}></div>
+        <div className="modal-backdrop fade show" style={{ width: '100%', height: '100%' }}></div>
       </div>
     );
   };
@@ -125,137 +127,137 @@ export default function PatientHistory({ onRefresh }) {
 
       </div>
 
-    <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px"}} border={2}>
-        <thead>
-          <tr className="table-secondary">
-            <th style={{ width: '25%' }}> Medicine</th>
-            <th>Days</th>
-            <th style={{ width: '15%' }}>Dose</th>
-            <th>Intake</th>
-            <th>Comment</th>
-            <th style={{ width: '18%' }}>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Medicine.length > 0 ? Medicine.map((item, i) => {
-            return (
-              <tr key={i}>
-                <td>{item.medicine}</td>
-                <td>{item.Days}</td>
-                <td>{item.Dose}</td>
-                <td>{item.Intake}</td>
-                <td>{item.message}</td>
-                <td>{item.date}</td>
-              </tr>
-            )
-          }
-          ) : (<tr>
-            <td colSpan="5">No record available</td>
-          </tr>)
-          }
-        </tbody>
-      </table>
+      <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+          <thead>
+            <tr className="table-secondary">
+              <th style={{ width: '25%' }}> Medicine</th>
+              <th>Days</th>
+              <th style={{ width: '15%' }}>Dose</th>
+              <th>Intake</th>
+              <th>Comment</th>
+              <th style={{ width: '18%' }}>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Medicine.length > 0 ? Medicine.map((item, i) => {
+              return (
+                <tr key={i}>
+                  <td>{item.medicine}</td>
+                  <td>{item.Days}</td>
+                  <td>{item.Dose}</td>
+                  <td>{item.Intake}</td>
+                  <td>{item.message}</td>
+                  <td>{new Date(item.Date).toLocaleDateString()}</td>
+                </tr>
+              )
+            }
+            ) : (<tr>
+              <td colSpan="5">No record available</td>
+            </tr>)
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
 
 
-    
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d5ddfaff", height: "27px" }} >
 
-        <h3 className="fs-6 fw-bold m-0">Vision</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Vision")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
-        </button>
+    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d5ddfaff", height: "27px" }} >
 
-      </div>
+      <h3 className="fs-6 fw-bold m-0">Vision</h3>
+      <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Vision")}>
+        <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+      </button>
+
+    </div>
 
 
-      {/* these are the date tabs which is used to see different appointment data in the table */}
-      <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+    {/* these are the date tabs which is used to see different appointment data in the table */}
+    <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
-        <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
-          {vision.map((rec, i) => (
-            <li className="nav-item" key={i}>
-              <button
-                className={`nav-link ${rec.created_at === activeDate ? "active" : ""}`}
-                onClick={() => setActiveDate(rec.created_at)}
-                style={{ fontSize: 13, fontWeight: 'bold', letterSpacing: 0.5 }}
-              >
-                {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
-              </button>
-            </li>
-          ))}
-        </ul>
+      <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
+        {vision.map((rec, i) => (
+          <li className="nav-item" key={i}>
+            <button
+              className={`nav-link ${rec.created_at === activeDate ? "active" : ""}`}
+              onClick={() => setActiveDate(rec.created_at)}
+              style={{ fontSize: 13, fontWeight: 'bold', letterSpacing: 0.5 }}
+            >
+              {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
+            </button>
+          </li>
+        ))}
+      </ul>
 
-      </div>
+    </div>
 
-      <div className="table-responsive mb-3">
+    <div className="table-responsive mb-3">
       <div className="hide-scrollbar" style={{ maxHeight: '250px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13px" }} border={2}>
           <thead>
-          <tr>
-            <th>Examination</th>
-            <th>Right Eye</th>
-            <th>Left Eye</th>
-          </tr>
-        </thead>
-        <tbody>
-          {activeRecord ? (
-            <>
-              <tr>
-                <td>Distance unaided</td>
-                <td>{activeRecord.R_Distance_unaided}</td>
-                <td>{activeRecord.L_Distance_unaided}</td>
-              </tr>
-              <tr>
-                <td>Distance With Pin Hole</td>
-                <td>{activeRecord.R_Distance_With_Pin_Hole}</td>
-                <td>{activeRecord.L_Distance_With_Pin_Hole}</td>
-              </tr>
-              <tr>
-                <td>Distance With CT</td>
-                <td>{activeRecord.R_Distance_With_CT}</td>
-                <td>{activeRecord.L_Distance_With_CT}</td>
-              </tr>
-              <tr>
-                <td>Distance With PMT</td>
-                <td>{activeRecord.R_Distance_With_PMT}</td>
-                <td>{activeRecord.L_Distance_With_PMT}</td>
-              </tr>
-              <tr>
-                <td>Distance With Previous Glasses</td>
-                <td>{activeRecord.R_Distance_with_previous_glasses}</td>
-                <td>{activeRecord.L_Distance_with_previous_glasses}</td>
-              </tr>
-              <tr>
-                <td>Distance With Current Subjective</td>
-                <td>{activeRecord.R_Distance_with_current_subjective}</td>
-                <td>{activeRecord.L_Distance_with_current_subjective}</td>
-              </tr>
-              <tr>
-                <td>Near Unaided</td>
-                <td>{activeRecord.R_Near_unaided}</td>
-                <td>{activeRecord.L_Near_unaided}</td>
-              </tr>
-              <tr>
-                <td>Near With Previous Glasses</td>
-                <td>{activeRecord.R_Near_with_previous_glasses}</td>
-                <td>{activeRecord.L_Near_with_previous_glasses}</td>
-              </tr>
-              <tr>
-                <td>Near With Current Subjective</td>
-                <td>{activeRecord.R_Near_with_current_subjective}</td>
-                <td>{activeRecord.L_Near_with_current_subjective}</td>
-              </tr>
-            </>
-          ) : (
             <tr>
-              <td colSpan="3">No record available</td>
+              <th>Examination</th>
+              <th>Right Eye</th>
+              <th>Left Eye</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {activeRecord ? (
+              <>
+                <tr>
+                  <td>Distance unaided</td>
+                  <td>{activeRecord.R_Distance_unaided}</td>
+                  <td>{activeRecord.L_Distance_unaided}</td>
+                </tr>
+                <tr>
+                  <td>Distance With Pin Hole</td>
+                  <td>{activeRecord.R_Distance_With_Pin_Hole}</td>
+                  <td>{activeRecord.L_Distance_With_Pin_Hole}</td>
+                </tr>
+                <tr>
+                  <td>Distance With CT</td>
+                  <td>{activeRecord.R_Distance_With_CT}</td>
+                  <td>{activeRecord.L_Distance_With_CT}</td>
+                </tr>
+                <tr>
+                  <td>Distance With PMT</td>
+                  <td>{activeRecord.R_Distance_With_PMT}</td>
+                  <td>{activeRecord.L_Distance_With_PMT}</td>
+                </tr>
+                <tr>
+                  <td>Distance With Previous Glasses</td>
+                  <td>{activeRecord.R_Distance_with_previous_glasses}</td>
+                  <td>{activeRecord.L_Distance_with_previous_glasses}</td>
+                </tr>
+                <tr>
+                  <td>Distance With Current Subjective</td>
+                  <td>{activeRecord.R_Distance_with_current_subjective}</td>
+                  <td>{activeRecord.L_Distance_with_current_subjective}</td>
+                </tr>
+                <tr>
+                  <td>Near Unaided</td>
+                  <td>{activeRecord.R_Near_unaided}</td>
+                  <td>{activeRecord.L_Near_unaided}</td>
+                </tr>
+                <tr>
+                  <td>Near With Previous Glasses</td>
+                  <td>{activeRecord.R_Near_with_previous_glasses}</td>
+                  <td>{activeRecord.L_Near_with_previous_glasses}</td>
+                </tr>
+                <tr>
+                  <td>Near With Current Subjective</td>
+                  <td>{activeRecord.R_Near_with_current_subjective}</td>
+                  <td>{activeRecord.L_Near_with_current_subjective}</td>
+                </tr>
+              </>
+            ) : (
+              <tr>
+                <td colSpan="3">No record available</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -292,77 +294,77 @@ export default function PatientHistory({ onRefresh }) {
       </div>
 
 
-     <div className="hide-scrollbar" style={{ maxHeight: '140px', overflowY: "auto", display: 'block' }}>
-      <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
-        <thead>
-          <tr className="table-secondary border border-dark ">
-            <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Refraction Type</th>
-            <th colSpan={5}>Right Eye</th>
-            <th colSpan={5}>Left Eye</th>
-          </tr>
-
-
-          <tr className="table-secondary border border-dark ">
-            <th className="fw-bold">Refraction</th>
-            <th>Sph</th>
-            <th>Cyl</th>
-            <th>Axis</th>
-            <th>VA</th>
-            <th>Sph</th>
-            <th>Cyl</th>
-            <th>Axis</th>
-            <th>VA</th>
-          </tr>
-        </thead>
-        <tbody>
-          {RefactiveRecord ? (
-            <>
-              {/* First Row: Distance */}
-              <tr className="border border-dark">
-                <td rowSpan={2}>
-                  {RefactiveRecord.refractionType}
-                  <br />
-                  Glass: {RefactiveRecord.Glass_Type}
-                </td>
-                <td>Distance</td>
-                <td>{RefactiveRecord.R_D_SPH}</td>
-                <td>{RefactiveRecord.R_D_CYL}</td>
-                <td>{RefactiveRecord.R_D_AXIS}</td>
-                <td>{RefactiveRecord.R_D_VA}</td>
-                <td>{RefactiveRecord.L_D_SPH}</td>
-                <td>{RefactiveRecord.L_D_CYL}</td>
-                <td>{RefactiveRecord.L_D_AXIS}</td>
-                <td>{RefactiveRecord.L_D_VA}</td>
-              </tr>
-
-              {/* Second Row: Near */}
-              <tr className="border border-dark">
-                <td>Near</td>
-                <td>{RefactiveRecord.R_N_SPH}</td>
-                <td>{RefactiveRecord.R_N_CYL}</td>
-                <td>{RefactiveRecord.R_N_AXIS}</td>
-                <td>{RefactiveRecord.R_N_VA}</td>
-                <td>{RefactiveRecord.L_N_SPH}</td>
-                <td>{RefactiveRecord.L_N_CYL}</td>
-                <td>{RefactiveRecord.L_N_AXIS}</td>
-                <td>{RefactiveRecord.L_N_VA}</td>
-              </tr>
-            </>
-          ) : (
-            <tr>
-              <td colSpan="10">No record available</td>
+      <div className="hide-scrollbar" style={{ maxHeight: '140px', overflowY: "auto", display: 'block' }}>
+        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+          <thead>
+            <tr className="table-secondary border border-dark ">
+              <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Refraction Type</th>
+              <th colSpan={5}>Right Eye</th>
+              <th colSpan={5}>Left Eye</th>
             </tr>
-          )}
-
-        </tbody>
 
 
-      </table>
+            <tr className="table-secondary border border-dark ">
+              <th className="fw-bold">Refraction</th>
+              <th>Sph</th>
+              <th>Cyl</th>
+              <th>Axis</th>
+              <th>VA</th>
+              <th>Sph</th>
+              <th>Cyl</th>
+              <th>Axis</th>
+              <th>VA</th>
+            </tr>
+          </thead>
+          <tbody>
+            {RefactiveRecord ? (
+              <>
+                {/* First Row: Distance */}
+                <tr className="border border-dark">
+                  <td rowSpan={2}>
+                    {RefactiveRecord.refractionType}
+                    <br />
+                    Glass: {RefactiveRecord.Glass_Type}
+                  </td>
+                  <td>Distance</td>
+                  <td>{RefactiveRecord.R_D_SPH}</td>
+                  <td>{RefactiveRecord.R_D_CYL}</td>
+                  <td>{RefactiveRecord.R_D_AXIS}</td>
+                  <td>{RefactiveRecord.R_D_VA}</td>
+                  <td>{RefactiveRecord.L_D_SPH}</td>
+                  <td>{RefactiveRecord.L_D_CYL}</td>
+                  <td>{RefactiveRecord.L_D_AXIS}</td>
+                  <td>{RefactiveRecord.L_D_VA}</td>
+                </tr>
+
+                {/* Second Row: Near */}
+                <tr className="border border-dark">
+                  <td>Near</td>
+                  <td>{RefactiveRecord.R_N_SPH}</td>
+                  <td>{RefactiveRecord.R_N_CYL}</td>
+                  <td>{RefactiveRecord.R_N_AXIS}</td>
+                  <td>{RefactiveRecord.R_N_VA}</td>
+                  <td>{RefactiveRecord.L_N_SPH}</td>
+                  <td>{RefactiveRecord.L_N_CYL}</td>
+                  <td>{RefactiveRecord.L_N_AXIS}</td>
+                  <td>{RefactiveRecord.L_N_VA}</td>
+                </tr>
+              </>
+            ) : (
+              <tr>
+                <td colSpan="10">No record available</td>
+              </tr>
+            )}
+
+          </tbody>
+
+
+        </table>
+      </div>
     </div>
-  </div>
 
 
-{/*
+    {/*
     <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "lightgrey", height: "27px" }} >
       <h3 className="fs-6 fw-bold m-0">Anterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Anterior")}>

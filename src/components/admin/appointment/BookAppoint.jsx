@@ -143,7 +143,7 @@ export default function BookAppoint({ onRefresh,close  }) {
 
             <div className="row" style={{ marginBottom: 5, marginTop: 20 }}>
                 <div className="col-6" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <button type="submit" className="btn btn-primary">Book Now</button>
+                    <button type="submit" onClick={handleSubmit} className="btn btn-primary">Book Now</button>
                 </div>
 
                 <div className="col-6" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

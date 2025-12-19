@@ -146,7 +146,7 @@ export default function Header() {
                 <i className="bi bi-person-circle" style={{ fontSize: 24, color:'goldenrod' }}></i>
               </Link>
               <button className="btn d-lg-block d-none" onClick={handelLogOut} type="button">
-                <i className="bi bi-box-arrow-left" style={{ fontSize: 30, color: "black", color:'goldenrod' }}></i>
+                <i className="bi bi-box-arrow-left" style={{ fontSize: 30, color:'goldenrod' }}></i>
               </button>
             </>
           )
@@ -162,7 +162,7 @@ export default function Header() {
           data-bs-target="#mobileMenu"
           aria-controls="mobileMenu"
         >
-          <i className="bi bi-list" style={{ fontSize: 30, color: "black" }}></i>
+          <i className="bi bi-list" style={{ fontSize: 30, color: "goldenrod" }}></i>
         </button>
       </div>
 

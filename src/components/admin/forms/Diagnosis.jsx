@@ -148,16 +148,16 @@ export default function Diagnosis({onClose, onRefresh}) {
             </div>
 
 
-            <div className="row mb-2 mt-3">
-                <div className="col-6 d-flex justify-content-center">
+            {/* <div className="row mb-2 mt-3"> */}
+                <div className="d-flex justify-content-center">
                     <button onClick={handleSubmit} type="Submit" className="btn btn-primary">Submit</button>
                 </div>
-
+{/* 
                 <div className="col-6 d-flex justify-content-center">
                     <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
                 </div>
 
-            </div>
+            </div> */}
 
 
 

@@ -11,16 +11,14 @@ import AnteriorIcon from "../forms/AnteriorIcon";
 import PosteriorIcon from "../forms/PosteriorIcon";
 
 
-export default function Patient({ onRefresh })
-{
+export default function Patient({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
   const { treatment, anterior, posterior, Advise } = useContext(MainContext);
-
   const [activeDate, setActiveDate] = useState(anterior[0]?.created_at);
 
   const activeRecord = anterior.find((rec) => rec.created_at === activeDate);
-  
+
   useEffect(() => {
     if (anterior.length > 0 && !activeDate) {
       setActiveDate(anterior[0].created_at);
@@ -100,7 +98,7 @@ export default function Patient({ onRefresh })
       <>
         <div className="modal show d-flex" tabIndex="-1">
           <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 800, width: "92%", minHeight: 100 }} >
-            <div className="modal-content" style={{ minHeight: 400, height: 'auto'}}>
+            <div className="modal-content" style={{ minHeight: 400, height: 'auto' }}>
               <div className="modal-header h4">
                 {modalPage}
                 <button type="button" className="btn-close" onClick={closeDialog}></button>
@@ -238,7 +236,7 @@ export default function Patient({ onRefresh })
           <thead>
             <tr className="table-secondary border border-dark ">
 
-              <th style={{textAlign:'left'}} colSpan={18}>Right Eye</th>
+              <th style={{ textAlign: 'left' }} colSpan={18}>Right Eye</th>
             </tr>
 
             <tr className="table-secondary border border-dark ">
@@ -301,7 +299,7 @@ export default function Patient({ onRefresh })
           <thead>
             <tr className="table-secondary border border-dark ">
 
-              <th style={{textAlign:'left'}} colSpan={18}>Left Eye</th>
+              <th style={{ textAlign: 'left' }} colSpan={18}>Left Eye</th>
             </tr>
 
             <tr className="table-secondary border border-dark ">

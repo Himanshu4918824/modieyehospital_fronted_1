@@ -21,7 +21,7 @@ export default function History({ onClose, onRefresh }) {
         setDiet(histroy[0]?.Dite_Histroy)
         setid(histroy[0]?.id)
     }, [])
-   
+
 
     const Edit = async () => {
 
@@ -154,16 +154,16 @@ export default function History({ onClose, onRefresh }) {
             </div>
 
 
-            <div className="row">
-                <div className="col-6 d-flex justify-content-center">
+            {/* <div className="d-flex"> */}
+                <div className=" d-flex justify-content-center">
                     <button onClick={handleSubmit} type="Submit" className="btn btn-primary">Submit</button>
                 </div>
+            {/* </div> */}
 
-                <div className="col-6 d-flex justify-content-center">
+            {/* <div className="col-6 d-flex justify-content-center">
                     <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
-                </div>
+                </div> */}
 
-            </div>
 
         </div>
 

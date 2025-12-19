@@ -431,16 +431,16 @@ export default function Anterior({ onClose, onRefresh }) {
       </div>
 
 
-      <div className="row mb-2">
-        <div className="col-6 d-flex justify-content-center">
+      {/* <div className="row mb-2"> */}
+        <div className="d-flex justify-content-center">
           <button onClick={handleSubmitData} type="Submit" className="btn btn-primary">Submit</button>
         </div>
 
-        <div className="col-6 d-flex justify-content-center">
+        {/* <div className="col-6 d-flex justify-content-center">
           <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
-        </div>
+        </div> */}
 
-      </div>
+      {/* </div> */}
 
     </div>
 
