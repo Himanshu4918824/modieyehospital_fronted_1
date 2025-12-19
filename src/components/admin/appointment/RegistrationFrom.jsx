@@ -14,6 +14,7 @@ export default function RegistrationFrom() {
     const [city, setCity] = useState('');
     const [reffered, setReffered] = useState('');
     const [insurance, setInsurance] = useState('');
+    const [Branch, setBranch] = useState(localStorage.getItem('branch') || '');
     const [Blood_group, setBloodGroup] = useState("NULL");
 
     const resetData = () => {
@@ -37,13 +38,14 @@ export default function RegistrationFrom() {
         formData.append('Phone', MobileNumber);
         formData.append('Gender', gender);
         formData.append('DOB', new Date(date).toISOString());
-     //   formData.append('Age', age);
+        //   formData.append('Age', age);
         formData.append('Address', address);
         formData.append('State', state);
         formData.append('City', city);
         formData.append('Reffered_by', reffered);
         formData.append('Insurance', insurance);
         formData.append('Blood_group', Blood_group);
+        formData.append('Branch', Branch);
         formData.append('Emgr_mobile_no', Emgr_mobile_no);
 
         const formDataObj = {};
@@ -73,7 +75,7 @@ export default function RegistrationFrom() {
             });
         }
 
-       // resetData();
+        // resetData();
     }
 
 
@@ -113,7 +115,7 @@ export default function RegistrationFrom() {
                             <input required type="date" className="form-control" value={date} onChange={(e) => setDate(e.target.value)} />
                         </div>
 
-                      {/*  <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
+                        {/*  <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
                             <input required type="text" className="form-control" placeholder="Enter Age" value={age} onChange={(e) => setAge(e.target.value)} />
                         </div>  */}
 
@@ -121,7 +123,7 @@ export default function RegistrationFrom() {
                             <textarea required className="form-control" placeholder="Enter Address" rows={1} value={address} onChange={(e) => setAddress(e.target.value)} />
                         </div>
 
-                         <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
+                        <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
                             <input required type="text" className="form-control" value={state} placeholder="State" onChange={(e) => setState(e.target.value)} />
                         </div>
 
@@ -129,7 +131,7 @@ export default function RegistrationFrom() {
 
 
                     <div className="row" style={{ marginBottom: 7 }}>
-                       
+
 
                         <div className="col-lg-4 col-xs-12 col-sm-12" style={{ marginBottom: 5 }}>
                             <input required type="text" className="form-control" value={city} placeholder="City" onChange={(e) => setCity(e.target.value)} />
@@ -164,7 +166,7 @@ export default function RegistrationFrom() {
 
                     <div className="row" style={{ marginBottom: 7 }}>
                         <div className="col-12">
-                            <textarea  className="form-control" placeholder="Insurance" value={insurance} onChange={(e) => setInsurance(e.target.value)} />
+                            <textarea className="form-control" placeholder="Insurance" value={insurance} onChange={(e) => setInsurance(e.target.value)} />
                         </div>
                     </div>
 

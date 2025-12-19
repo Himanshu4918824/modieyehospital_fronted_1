@@ -265,7 +265,7 @@ const AnteriorIcon = () => {
 
       <div style={{ marginTop: 10 }}>
         <button className="btn btn-success me-2" onClick={saveDrawing}>Save</button>
-        <button className="btn btn-info" onClick={loadDrawing}>Load</button>
+        {/* <button className="btn btn-info" onClick={loadDrawing}>Load</button> */}
       </div>
 
       <div className="row mt-3">

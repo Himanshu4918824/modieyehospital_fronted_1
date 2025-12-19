@@ -119,7 +119,7 @@ export default function Complaint({ stat, onClose, onRefresh }) {
                 </div>
                 {stat === 'complaint' &&
                     <div>
-                        <button onClick={Edit_Compalin} type="Submit" className="btn btn-primary">Edit</button>
+                        {/* <button onClick={Edit_Compalin} type="Submit" className="btn btn-primary">Edit</button> */}
                     </div>
                 }
             </div>

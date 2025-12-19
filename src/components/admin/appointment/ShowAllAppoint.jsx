@@ -4,16 +4,18 @@ import MainContext from '../../../context/MainContext'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import TextSearchbar from '../homepage/TextSearchbar'
+// import TextSearchbar from '../homepage/TextSearchbar'
 
 export default function ShowAllAppoint() {
-    const { getAllAppointments, getPatientCities, PatientCity } = useContext(MainContext)
+    const { getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch } = useContext(MainContext)
     const [allAppointments, setallAppointments] = useState([]);
     const [city, setCity] = useState("Select-Branch")
+    const [searchKey, setSearchKey] = useState("");
     useEffect(() => {
-        getPatientCities()
+        getPatientBranch()
         async function loadFirstPage() {
             const res = await getAllAppointments(1, city);
+            // console.log(res)
             setallAppointments(res.data);
             setHasMore(1 < res.totalPages);
         }
@@ -25,15 +27,38 @@ export default function ShowAllAppoint() {
     const [hasMore, setHasMore] = useState(true);
     const [page, setPage] = useState(1);
 
-    const fetchMoreData = async () => {
+    const fetchMoreData = async (searchKey) => {
         // console.log('hitt')
         const nextPage = page + 1;
-        const res = await getAllAppointments(nextPage , city);
-
+        let res 
+        if (searchKey) {
+            // 🔍 Search pagination
+            res = await AppointmentSearch(searchKey, nextPage);
+        } else {
+            // 📄 Normal pagination
+            res = await getAllAppointments(nextPage, city);
+        }
         setallAppointments((prev) => [...prev, ...res.data])
         setPage(nextPage);
         setHasMore(nextPage < res.totalPages);
     };
+
+    const searchAppointments = async (searchKey) => { 
+        setSearchKey(searchKey);
+        setPage(1);
+
+        // if (!searchKey) {
+        //     // 🔄 Reset to normal list
+        //     const res = await getAllAppointments(1, city);
+        //     setallAppointments(res.data);
+        //     setHasMore(1 < res.totalPages);
+        //     return;
+        // }
+
+        const res = await AppointmentSearch(searchKey);
+        setallAppointments(res.data);
+        setHasMore(1 < res.totalPages);
+    }
 
 
     return (
@@ -42,14 +67,14 @@ export default function ShowAllAppoint() {
                 <Header />
             </div>
 
-            <div  style={{ background: "lightgrey", textAlign: 'center', width: "100%", height: '40px', fontWeight: "bold", fontSize: 20 }} >
+            <div style={{ background: "lightgrey", textAlign: 'center', width: "100%", height: '40px', fontWeight: "bold", fontSize: 20 }} >
 
                 <div className='mx-2 my-0  row align-items-center '>
                     <div className='col-3'>
                         <select className="form-select bg-transparent border border-dark" onClick={e => setCity(e.target.value)}>
                             <option value="Select-Branch">-Select-Branch-</option>
-                            {PatientCity.map((city, i) => {
-                                return (<option key={i} value={city.City}>{city.City}</option>)
+                            {PatientBranch.map((Patient, i) => {
+                                return (<option key={i} value={Patient.Branch}>{Patient.Branch}</option>)
                             }
                             )}
                         </select>
@@ -60,9 +85,18 @@ export default function ShowAllAppoint() {
                     </div>
 
                     <div className='col-3'>
-                        <TextSearchbar/>
+                        {/* <TextSearchbar /> */}
+                        <div style={{ display: 'flex', alignItems: 'center', background: "lightgrey", borderRadius: 25, margin: 0 }}>
+
+                            <i className="bi bi-search fs-4 ms-4" ></i>
+                            <input type="text" value={searchKey} onChange={(e) => {
+                                searchAppointments(e.target.value)
+                                setSearchKey(e.target.value)
+                            }} placeholder=" Search Here....." style={{ width: '40%', height: 30, border: 0, marginLeft: 10, borderWidth: 0, outline: 0, fontSize: 18, color: '#000', background: 'transparent' }} />
+
+                        </div>
                     </div>
-               
+
                 </div>
             </div>
 
@@ -80,7 +114,7 @@ export default function ShowAllAppoint() {
                         <thead>
                             <tr>
                                 <th className="text-center">Seq</th>
-                                {/* <th className="text-center">Status</th> */}
+                                <th className="text-center">MRD No</th>
                                 <th className="text-center">Patient Name</th>
                                 <th className="text-center">Sex/Age</th>
                                 <th className="text-center">City</th>
@@ -105,6 +139,7 @@ export default function ShowAllAppoint() {
                                            <option value="Doctor">Doctor</option>
                                          </select>
                                       </td> */}
+                                            <td className="text-center">{item?.P_id}</td>
                                             <td className="text-center">{item?.patient?.FullName}</td>
                                             <td className="text-center">{item?.patient?.Gender}/{item?.patient?.Age}</td>
                                             <td className="text-center">{item?.patient?.City}</td>

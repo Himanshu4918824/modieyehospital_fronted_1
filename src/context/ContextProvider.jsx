@@ -17,7 +17,7 @@ const ContextProvider = ({ children }) => {
   const [patientData, SetPatientData] = useState({
     Age: "",
     Address: "",
-    City: "",
+    Branch: "",
     State: "",
     RegDt: "",
     FullName: "",
@@ -172,101 +172,194 @@ const ContextProvider = ({ children }) => {
   }]);
 
   const [PatientReports, setReports] = useState([])
-  const [PatientCity, setPatientCity] = useState([])
+  const [PatientBranch, setPatientBranch] = useState([])
   const [allergies, setAllergies] = useState("")
-
-
-
-
-
   const getPatientData = async (url) => {
     try {
-      const data = await getData(url);
-      // return data;
-      console.log(data)
-      setDiagnosisList(data?.Appointment[0]?.Diagnosis || [])
-      SetPatientData({
-        id: data.id || "",
-        Age: data.Age || "",
-        Address: data.Address || "",
-        City: data.City || "",
-        State: data.State || "",
-        RegDt: new Date(data.created_at).toLocaleDateString() || "",
-        FullName: data.FullName || "",
-        Dob: new Date(data.DOB).toLocaleDateString() || "",
-        Latest_Apt: data.Appointment[0].id || "",
-        Latest_Apt_Date: new Date(data.Appointment[0].created_at).toLocaleDateString() || ""
-      })
-      SetVision(data?.Appointment[0]?.Vision || [])
-      setHistroy(data?.Appointment[0]?.History || [])
+      const response = await getData(url);
+      const data = response;
 
-      if (Array.isArray(data?.Appointment[0]?.Advise)) {
-        setAdvise(
-          data?.Appointment[0]?.Advise.map((item) => ({
-            Date: item.created_at || "",
-            type: item.type || "",
-            message: item.message || "",
-            id: item.id
+      console.log("Patient API Response:", data);
+
+      // ✅ normalize Appointment once
+      const appointments = Array.isArray(data?.Appointment)
+        ? data.Appointment
+        : [];
+
+      // ---------------- PATIENT BASIC INFO ----------------
+      SetPatientData({
+        id: data?.id ?? "",
+        Age: data?.Age ?? "",
+        Address: data?.Address ?? "",
+        Branch: data?.Branch ?? "",
+        State: data?.State ?? "",
+        RegDt: data?.RegDt ?? "",
+        FullName: data?.FullName ?? "",
+        Dob: data?.DOB ? new Date(data.DOB).toLocaleDateString() : "",
+        Latest_Apt: data?.Latest_Apt ?? "",
+        Latest_Apt_Date: data?.Latest_Apt_Date ?? ""
+      });
+
+      // ---------------- COMPLAINT ----------------
+      setComplaint(
+        appointments
+          .filter(apt => apt?.Complaint)
+          .map(apt => ({
+            Date: apt.Complaint?.created_at ?? "",
+            Complaint: apt.Complaint?.message ?? "",
+            AptId: apt?.id ?? "",
+            id: apt?.id ?? ""
           }))
-        );
-      }
-      // ✅ If Advise is a single object
-      else if (data?.Appointment[0]?.Advise) {
-        setAdvise([{
-          Date: data?.Appointment[0]?.Advise.created_at || "",
-          type: data?.Appointment[0]?.Advise.type || "",
-          message: data?.Appointment[0]?.Advise.message || ""
-        }]);
-      }
-      if (Array.isArray(data?.Appointment[0]?.Treatment)) {
-        setTreatment(
-          data?.Appointment[0]?.Treatment.map((item) => ({
-            Date: item.created_at || "",
-            type: item.type || "",
-            message: item.message || "",
-            id: item.id
+      );
+
+      // ---------------- HISTORY ----------------
+      setHistroy(
+        appointments
+          .filter(apt => apt?.History)
+          .map(apt => ({
+            id: apt.History?.id ?? "",
+            D_id: apt.History?.D_id ?? "",
+            Systemic_illness: apt.History?.Systemic_illness ?? "",
+            Treatment_Histroy: apt.History?.Treatment_Histroy ?? "",
+            Dite_Histroy: apt.History?.Dite_Histroy ?? "",
+            Family_Histroy: apt.History?.Family_Histroy ?? "",
+            appointmentId: apt?.id ?? "",
+            created_at: apt.History?.created_at ?? ""
           }))
-        );
-      }
-      if (Array.isArray(data?.Appointment[0]?.Medicine)) {
-        setMedicine(
-          data?.Appointment[0]?.Medicine.map((item) => ({
-            Days: item.Days || "",
-            Dose: item.Dose || "",
-            Intake: item.Intake || "",
-            message: item.message || "",
-            medicine: item.medicine || "",
-            date: new Date(item.created_at).toLocaleDateString() || "",
-            id: item.id
+      );
+
+      // ---------------- DIAGNOSIS ----------------
+      setDiagnosisList(
+        appointments
+          .filter(apt => apt?.Diagnosis)
+          .map(apt => ({
+            L_eye: apt.Diagnosis?.L_eye ?? "",
+            R_eye: apt.Diagnosis?.R_eye ?? "",
+            Systemic: apt.Diagnosis?.Systemic ?? "",
+            Others: apt.Diagnosis?.Others ?? "",
+            appointmentId: apt?.id ?? "",
+            created_at: apt.Diagnosis?.created_at ?? "",
+            id: apt.Diagnosis?.id ?? ""
           }))
-        );
-      }
-      if (Array.isArray(data?.Appointment[0]?.Complaint)) {
-        setComplaint(
-          data?.Appointment[0]?.Complaint.map((item) => ({
-            Date: item.created_at || "",
-            Complaint: item.message,
-            AptId: item.appointmentId,
-            id: item.id
+      );
+
+      // ---------------- ALLERGIES ----------------
+      setAllergies(
+        Array.isArray(data?.allergies) && data.allergies[0]
+          ? data.allergies[0].allergies ?? ""
+          : ""
+      );
+
+      // ---------------- REPORTS ----------------
+      setReports(
+        Array.isArray(data?.Report) && data.Report[0]
+          ? data.Report[0].document ?? []
+          : []
+      );
+
+      // ---------------- VISION ----------------
+      SetVision(
+        appointments
+          .filter(apt => apt?.Vision)
+          .map(apt => ({
+            ...apt.Vision,
+            appointmentId: apt.Vision?.appointmentId ?? "",
+            created_at: apt.Vision?.created_at ?? "",
+            id: apt.Vision?.id ?? ""
           }))
-        );
-      }
-      setRefractionData(data?.Appointment[0]?.Refraction || [])
-      setAnterior(data?.Appointment[0]?.Anterior || [])
-      setPosterior(data?.Appointment[0]?.Posterior || [])
-      setAllergies((data.allergies[0]?.allergies) || "")
-      setReports(data?.Report[0]?.document)
-      
-      
-      
-      console.log(data?.Appointment[0]?.Anterior[0])
+      );
+
+      // ---------------- MEDICINE ----------------
+      setMedicine(
+        appointments.flatMap(apt =>
+          Array.isArray(apt?.Medicine)
+            ? apt.Medicine.map(med => ({
+              id: med?.id ?? "",
+              medicine: med?.medicine ?? "",
+              Days: med?.Days ?? "",
+              Dose: med?.Dose ?? "",
+              Intake: med?.Intake ?? "",
+              message: med?.message ?? "",
+              appointmentId: apt?.id ?? "",
+              Date: med?.created_at ?? ""
+            }))
+            : []
+        )
+      );
+
+      // ---------------- REFRACTION ----------------
+      setRefractionData(
+        appointments
+          .filter(apt => apt?.Refraction)
+          .map(apt => ({
+            ...apt.Refraction,
+            appointmentId: apt.Refraction?.appointmentId ?? "",
+            created_at: apt.Refraction?.created_at ?? "",
+            id: apt.Refraction?.id ?? ""
+          }))
+      );
+
+      // ---------------- TREATMENT ----------------
+      setTreatment(
+        appointments.flatMap(apt =>
+          Array.isArray(apt?.Treatment)
+            ? apt.Treatment.map(trt => ({
+              id: trt?.id ?? "",
+              type: trt?.type ?? "",
+              message: trt?.message ?? "",
+              appointmentId: apt?.id ?? "",
+              Date: trt?.created_at ?? ""
+            }))
+            : []
+        )
+      );
+
+      // ---------------- ANTERIOR ----------------
+      setAnterior(
+        appointments
+          .filter(apt => apt?.Anterior)
+          .map(apt => ({
+            ...apt.Anterior,
+            appointmentId: apt.Anterior?.appointmentId ?? "",
+            created_at: apt.Anterior?.created_at ?? "",
+            id: apt.Anterior?.id ?? ""
+          }))
+      );
+
+      // ---------------- POSTERIOR ----------------
+      setPosterior(
+        appointments
+          .filter(apt => apt?.Posterior)
+          .map(apt => ({
+            ...apt.Posterior,
+            appointmentId: apt.Posterior?.appointmentId ?? "",
+            created_at: apt.Posterior?.created_at ?? "",
+            id: apt.Posterior?.id ?? ""
+          }))
+      );
+
+      // ---------------- ADVISE ----------------
+      setAdvise(
+        appointments.flatMap(apt =>
+          Array.isArray(apt?.Advise)
+            ? apt.Advise.map(adv => ({
+              id: adv?.id ?? "",
+              type: adv?.type ?? "",
+              message: adv?.message ?? "",
+              appointmentId: apt?.id ?? "",
+              Date: adv?.created_at ?? ""
+            }))
+            : []
+        )
+      );
 
     } catch (error) {
-      console.error(error)
+      console.error("Error fetching patient data:", error);
     }
+  };
 
 
-  }
+
   //  fetch all the patients
   const getAllPatients = async () => {
     try {
@@ -302,6 +395,7 @@ const ContextProvider = ({ children }) => {
       const result = await getData(`doctor/api/v1/${id}`, { Authorization: localStorage.getItem('token') })
       // console.log(result)
       setDoctorDetail(result)
+      localStorage.setItem('branch', result.branch);
       return result
     } catch (error) {
       console.log(error)
@@ -316,11 +410,11 @@ const ContextProvider = ({ children }) => {
       console.log(error)
     }
   }
-  const getAllTodayAppointments = async (pageNum = 1, city) => {
+  const getAllTodayAppointments = async (pageNum = 1, Branch) => {
     try {
       // const designation = localStorage.getItem('designation')
       // console.log({ pageNum })
-      if (city === "Select-Branch" || city === "" || city === null) {
+      if (Branch === "Select-Branch" || Branch === "" || Branch === null) {
         const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allTodayAppointment?page=${pageNum}&limit=10`)
         return {
           data,
@@ -330,7 +424,7 @@ const ContextProvider = ({ children }) => {
 
       }
       else {
-        const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allTodayAppointment?page=${pageNum}&limit=10&city=${city}`)
+        const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allTodayAppointment?page=${pageNum}&limit=10&Branch=${Branch}`)
         return {
           data,
           totalPages,
@@ -342,18 +436,18 @@ const ContextProvider = ({ children }) => {
       return { data: [], totalPages: 0, currentPage: 0 };
     }
   }
-  const getPatientCities = async () => {
+  const getPatientBranch = async () => {
     try {
-      const data = await getData('patient/v1/appointment/allPatientCity');
+      const data = await getData('patient/v1/appointment/allPatientBranch');
       // console.log(data)
-      setPatientCity(data);
+      setPatientBranch(data);
     } catch (error) {
       console.error(error)
     }
   }
-  const getAllAppointments = async (pageNum = 1, city) => {
+  const getAllAppointments = async (pageNum = 1, Branch) => {
     try {
-      if (city === "Select-Branch" || city === "" || city === null) {
+      if (Branch === "Select-Branch" || Branch === "" || Branch === null) {
         const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10`)
         return {
           data,
@@ -362,7 +456,7 @@ const ContextProvider = ({ children }) => {
         };
       }
       else {
-        const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10&city=${city}`)
+        const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/allAppointment?page=${pageNum}&limit=10&Branch=${Branch}`)
         // console.log({ data, totalPages, currentPage })
         return {
           data,
@@ -396,9 +490,28 @@ const ContextProvider = ({ children }) => {
   }
 
 
+  const AppointmentSearch = async (searchKey, nextPage) => {
+    try {
+      if (searchKey === '') {
+        return { data: [], totalPages: 0, currentPage: 0 }
+      }
+      else {
+        const { data, totalPages, currentPage } = await getData(`patient/v1/appointment/Appointments/search?search=${searchKey}&page=${nextPage}&limit=10`)
+        // console.log({data, totalPages, currentPage})
+        return {
+          data, totalPages, currentPage
+        }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+
 
   return (
-    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientCities, PatientCity }}>
+    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch }}>
       {children}
     </MainContext.Provider>
   )
