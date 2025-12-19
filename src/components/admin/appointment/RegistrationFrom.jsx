@@ -171,7 +171,7 @@ export default function RegistrationFrom() {
 
                     <div className="row" style={{ marginBottom: 7, marginTop: 20 }}>
                         <div className="col-6" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                            <button onClick={handleSubmit} type="button" className="btn btn-primary">Registed Now</button>
+                            <button onClick={handleSubmit} type="button" className="btn btn-primary">Register Now</button>
                         </div>
 
                         <div className="col-6" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
