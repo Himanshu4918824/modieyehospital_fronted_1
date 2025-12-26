@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Header from "../../admin/homepage/Header";
+import { postData } from "../../../services/FetchNodeAdminServices";
 
 export default function AddProduct()
 {
@@ -35,6 +36,109 @@ export default function AddProduct()
    const [rateC,setRateC]=useState('');
    const [neg,setNeg]=useState('');
 
+
+   const handleSubmitData=async()=>{
+    alert(1)
+    var formData= new FormData()
+
+    formData.append('status',status);
+    formData.append('type',type);
+    formData.append('hide',hide);
+    formData.append('product',product);
+    formData.append('packing',packing);
+    formData.append('ask',ask);
+    formData.append('unit1',unit1);
+    formData.append('unit2',unit2);
+    formData.append('decimal',decimal);
+    formData.append('color',color);
+    formData.append('item',item);
+    formData.append('company',company);
+    formData.append('salt',salt);
+    formData.append('category',category);
+    formData.append('hsn',hsn);
+    formData.append('local',local);
+    formData.append('central',cental);
+    formData.append('mrp',mrp);
+    formData.append('rateA',rateA);
+    formData.append('case1',case1);
+
+    formData.append('sgst',sgst);
+    formData.append('rateA',rateA);
+    formData.append('igst',igst);
+    formData.append('prate',prate);
+    formData.append('rateB',rateB);
+    formData.append('case2',case2);
+    formData.append('cgst',cgst);
+    formData.append('csr',csr);
+    formData.append('cost',cost);
+    formData.append('rateC',rateC);
+    formData.append('neg',neg);
+    
+    
+
+    var result =await postData('',formData);
+    
+    if(result.status)
+    {
+        Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Category Submit Successfully",
+                showConfirmButton: false,
+                timer: 2000
+            });
+      }
+
+    else
+    {
+         Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Your work has been not saved",
+                showConfirmButton: false,
+                timer: 2000
+               });
+   }
+
+
+
+   }
+
+
+   function resetData()
+   {
+      setStataus('');
+      setType('');
+      setHide('');
+      setProduct('');
+      setPacking('');
+      setAsk('');
+      setUnit1('')
+      setUnit2('');
+      setDecimal('');
+      setColor('');
+      setItem('');
+      setCompany('');
+      setSalt('');
+      setCategory('');
+      setHsn('');
+      setLocal('');
+      setCentral('');
+      setMRP('');
+      setRateA('');
+      setCase1('');
+      setSgst('');
+      setIgst('');
+      setPRate('');
+      setRateB('');
+      setCase2('');
+      setCGST('');
+      setCSR('');
+      setCost('');
+      setRateC('');
+      setNeg('');
+
+   }
 
 
 
@@ -165,99 +269,99 @@ export default function AddProduct()
 
 
  <div className="row">
-               <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">Local:</label>
+               <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0">Local: </label>
                         <input type="text" value={local} onChange={(event)=>setLocal(event.target.value)} className="form-control" placeholder="Enter here..." />
                     </div>
 
-                    <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">SGST % :</label>
+                    <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>SGST % : </label>
                         <input type="text" value={sgst} onChange={(event)=>setSgst(event.target.value)} className="form-control" placeholder="Enter SGST." />
                     </div>
 
-                    <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">CGST % :</label>
+                    <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>CGST % : </label>
                         <input type="text" value={cgst} onChange={(event)=>setCGST(event.target.value)} className="form-control" placeholder="Enter CGST." />
                     </div>
             </div>
 
 
              <div className="row">
-               <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">Central:</label>
+               <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0">Central: </label>
                         <input type="text" value={cental} onChange={(event)=>setCentral(event.target.value)} className="form-control" placeholder="Enter Here..." />
                     </div>
 
-                    <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">IGST % :</label>
+                    <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>IGST % : </label>
                         <input type="text" value={igst} onChange={(event)=>setIgst(event.target.value)} className="form-control" placeholder="Enter IGST." />
                     </div>
 
-                    <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">C.S.R.:</label>
+                    <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0">C.S.R.: </label>
                         <input type="text" value={csr} onChange={(event)=>setCSR(event.target.value)} className="form-control" placeholder="Enter C.S.R...." />
                     </div>
             </div>
 
 
              <div className="row">
-               <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">M.R.P.:</label>
+               <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0">M.R.P.: </label>
                         <input type="text" value={mrp} onChange={(event)=>setMRP(event.target.value)} className="form-control" placeholder="Enter M.R.P...." />
                     </div>
 
-                    <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">P Rate:</label>
+                    <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>P Rate: </label>
                         <input type="text" value={prate} onChange={(event)=>setPRate(event.target.value)} className="form-control" placeholder="Enter rate..." />
                     </div>
 
-                    <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">Cost/:</label>
+                    <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0">Cost/: </label>
                         <input type="text" value={cost} onChange={(event)=>setCost(event.target.value)} className="form-control" placeholder="Enter Product." />
                     </div>
             </div>
 
              <div className="row">
-               <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">Rate-A:</label>
+               <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Rate-A: </label>
                         <input type="text" value={rateA} onChange={(event)=>setRateA(event.target.value)} className="form-control" placeholder="Enter Here..." />
                     </div>
 
-                    <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">Rate-B:</label>
+                    <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Rate-B: </label>
                         <input type="text" value={rateB} onChange={(event)=>setRateB(event.target.value)} className="form-control" placeholder="Enter Her..." />
                     </div>
 
-                    <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">Rate-C:</label>
+                    <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Rate-C </label>
                         <input type="text" value={rateC} onChange={(event)=>setRateC(event.target.value)} className="form-control" placeholder="Enter Here..." />
                     </div>
             </div>
 
              <div className="row">
-               <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">Conv.CASE:</label>
-                        <input type="text" value={product} onChange={(event)=>setProduct(event.target.value)} className="form-control" placeholder="Enter Here...." />
+               <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0">Conv.CASE: </label>
+                        <input type="text" value={case1} onChange={(event)=>setCase1(event.target.value)} className="form-control" placeholder="Enter Here...." />
                     </div>
 
-                    <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">Conv.CAS:</label>
-                        <input type="text" className="form-control" placeholder="Enter Here..." />
+                    <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0">Conv.CAS: </label>
+                        <input type="text" value={case2} onChange={(event)=>setCase2(event.target.value)} className="form-control" placeholder="Enter Here..." />
                     </div>
 
-                    <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">Negative:</label>
-                        <input type="text" className="form-control" placeholder="Enter Here...." />
+                    <div className="col-lg-4 col-xs-12 mb-3" style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+                        <label className="form-label fw-bold me-2 mb-0">Negative: </label>
+                        <input type="text" value={neg} onChange={(event)=>setNeg(event.target.value)} className="form-control" placeholder="Enter Here...." />
                     </div>
             </div>
 
             <div className="row">
                <div className="col-lg-6" style={{display:'flex', alignItems:'center',justifyContent:'center'}}>
-                  <button type="button" class="btn btn-primary">Save</button>
+                  <button onClick={handleSubmitData} type="button" class="btn btn-primary">Save</button>
                </div>
 
                <div className="col-lg-6" style={{display:'flex', alignItems:'center',justifyContent:'center'}}>
-                  <button type="button" class="btn btn-primary">Cancel</button>
+                  <button onClick={resetData} type="button" class="btn btn-primary">Cancel</button>
                </div>
               
             </div>
