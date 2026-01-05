@@ -39,6 +39,7 @@ import ProfilePage from "./components/admin/homepage/ProfilePage";
 import Contact from "./components/admin/homepage/Contact";
 import ShowAllAppoint from "./components/admin/appointment/ShowAllAppoint";
 import TextSearchbar from "./components/admin/homepage/TextSearchbar";
+import AddProduct from "./components/medical/product/AddProduct";
 
 
 function App() {
@@ -87,6 +88,8 @@ function App() {
             <Route element={<ShowAllAppoint/>} path="/showallappoint"></Route>
 
             <Route element={<TextSearchbar/>} path="/searchbar"></Route>
+
+            <Route element={<AddProduct/>} path="/addproduct"></Route>
 
           </Routes>
         </ContextProvider>
