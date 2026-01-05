@@ -40,6 +40,8 @@ import Contact from "./components/admin/homepage/Contact";
 import ShowAllAppoint from "./components/admin/appointment/ShowAllAppoint";
 import TextSearchbar from "./components/admin/homepage/TextSearchbar";
 import AddProduct from "./components/medical/product/AddProduct";
+import AddCompany from "./components/medical/company/AddCompany";
+import Bill from "./components/medical/bill/Bill";
 
 
 function App() {
@@ -90,6 +92,8 @@ function App() {
             <Route element={<TextSearchbar/>} path="/searchbar"></Route>
 
             <Route element={<AddProduct/>} path="/addproduct"></Route>
+            <Route element={<AddCompany/>} path="/addcompany"></Route>
+            <Route element={<Bill/>} path="/bill"></Route>
 
           </Routes>
         </ContextProvider>
