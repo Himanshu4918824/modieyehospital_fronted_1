@@ -172,14 +172,14 @@ export default function DashBoard() {
               <span className="input-group-text">Send Where To:</span>
 
               <select className="form-select" value={status} onChange={(e) => handleStatusChange(Aid, e.target.value)}>
-                <option value='reception'>Reception</option>
-                <option value='dept'>Dept</option>
-                <option value='optometrist'>Optometrist</option>
-                <option value='doctor'>Doctor</option>
-                <option value='diagnostic'>Diagnostic</option>
-                <option value='Counsellor'>Counsellor</option>
-                <option value='waiting'>Waiting</option>
-                <option value='appointment'>Appointment</option>
+                <option value="Reception">Reception</option>
+                <option value='Refraction'>Refraction</option>
+                <option value="Consultation">Consultation</option>
+                <option value='Investigation'>Investigation</option>
+                <option value='Pharmacy'>Pharmacy</option>
+                <option value='Optical'>Optical</option>
+                <option value='Counselling'>Counselling</option>
+                <option value='Miscellaneous'>Miscellaneous</option>
               </select>
             </div>
           </div>
