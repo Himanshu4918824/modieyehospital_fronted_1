@@ -114,6 +114,7 @@ export default function Header() {
       localStorage.removeItem('token');
       localStorage.removeItem('doctorId');
       localStorage.removeItem('designation');
+      localStorage.removeItem('branch');
       setIsLoggedIn(false);
       navigate('/');
     } catch (e) {
