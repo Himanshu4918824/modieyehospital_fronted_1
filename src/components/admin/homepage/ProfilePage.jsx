@@ -19,6 +19,7 @@ export default function DoctorProfile() {
       localStorage.removeItem('token');
       localStorage.removeItem('doctorId');
       localStorage.removeItem('designation');
+      localStorage.removeItem('branch');
       setIsLoggedIn(false);
       navigate('/');
     } catch (e) {
@@ -48,8 +49,8 @@ export default function DoctorProfile() {
         <div className="card shadow-sm mb-4">
           <div className="card-body d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
             <div>
-              <h2 className="fw-bold mb-0">{DoctorDetail.FullName}</h2>
-              <p className="text-muted mb-0">{DoctorDetail.Designation}</p>
+              <h2 className="fw-bold mb-0">{DoctorDetail?.FullName}</h2>
+              <p className="text-muted mb-0">{DoctorDetail?.Designation}</p>
             </div>
 
             <button onClick={handelLogOut} className="btn btn-primary px-4 fw-bold">
@@ -79,22 +80,22 @@ export default function DoctorProfile() {
             <div className="row">
               <div className="col-md-6 border-top py-3">
                 <p className="text-muted mb-1">Full Name</p>
-                <p>{DoctorDetail.FullName}</p>
+                <p>{DoctorDetail?.FullName}</p>
               </div>
 
               <div className="col-md-6 border-top py-3">
                 <p className="text-muted mb-1">Email Address</p>
-                <p>{DoctorDetail.email}</p>
+                <p>{DoctorDetail?.email}</p>
               </div>
 
               <div className="col-md-6 border-top py-3">
                 <p className="text-muted mb-1">Phone Number</p>
-                <p>{DoctorDetail.Phone}</p>
+                <p>{DoctorDetail?.Phone}</p>
               </div>
 
               <div className="col-md-6 border-top py-3">
                 <p className="text-muted mb-1">Address</p>
-                <p>{DoctorDetail.Address}</p>
+                <p>{DoctorDetail?.Address}</p>
               </div>
             </div>
           </div>

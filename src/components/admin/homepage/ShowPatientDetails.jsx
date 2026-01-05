@@ -28,6 +28,7 @@ export default function ShowPatientDetails() {
                             <th>Address</th>
                             <th>State</th>
                             <th>City</th>
+                            <th>Hospital Branch</th>
                             <th>Reffered By</th>
                             <th>Insurance</th>
                             <th>Action</th>
@@ -47,6 +48,7 @@ export default function ShowPatientDetails() {
                                         <td>{item.Address}</td>
                                         <td>{item.State}</td>
                                         <td>{item.City}</td>
+                                        <td>{item.Branch}</td>
                                         <td>{item.Reffered_by}</td>
                                         <td>{item.Insurance}</td>
                                         <td><button type='button' className="btn btn-warning">Update</button></td>

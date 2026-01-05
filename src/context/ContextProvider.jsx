@@ -395,7 +395,9 @@ const ContextProvider = ({ children }) => {
       const result = await getData(`doctor/api/v1/${id}`, { Authorization: localStorage.getItem('token') })
       // console.log(result)
       setDoctorDetail(result)
-      localStorage.setItem('branch', result.branch);
+      if (result.branch) {
+        localStorage.setItem('branch', result.branch);
+      }
       return result
     } catch (error) {
       console.log(error)

@@ -365,7 +365,6 @@ export default function DoctorConcern({ onRefresh }) {
             <tr className="table-secondary">
 
               <th>Report Name</th>
-              <th>Comment</th>
               <th>View</th>
             </tr>
           </thead>
@@ -374,8 +373,7 @@ export default function DoctorConcern({ onRefresh }) {
               return (
                 <tr style={{ fontSize: '14px' }} key={i}>
                   <td>{item.name}</td>
-                  <td>download</td>
-                  <td><a href="#">View</a></td>
+                  <td><a target="blank" href={`http://localhost:8001/${item.path}`}>View</a></td>
                 </tr>)
             }) : (<tr>
               <td colSpan="3">No record available</td>
