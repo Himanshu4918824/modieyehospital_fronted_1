@@ -28,7 +28,7 @@ export default function AddCompany()
         Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Medicine Submit Successfully",
+                title: "Company Submit Successfully",
                 showConfirmButton: false,
                 timer: 2000
             });
