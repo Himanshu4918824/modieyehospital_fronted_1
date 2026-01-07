@@ -22,7 +22,7 @@ export default function AddCompany()
         formData.append('gstno',gstno);
         formData.append('dlno',dlno);
 
-        var result=await postData('',formData)
+        var result = await postData('medical/api/createCompany',formData)
           if(result.status)
     {
         Swal.fire({
