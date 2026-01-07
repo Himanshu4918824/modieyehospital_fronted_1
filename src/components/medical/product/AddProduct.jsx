@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Header from "../../admin/homepage/Header";
 import { postData } from "../../../services/FetchNodeAdminServices";
+import Swal from "sweetalert2";
 
 export default function AddProduct()
 {
    const [status,setStataus]=useState('');
    const [type,setType]=useState('');
-   const [hide,setHide]=useState('');
+   const [supplierId,setSupplierId]=useState('');
    const [product,setProduct]=useState('');
    const [packing,setPacking]=useState('');
    const [ask,setAsk]=useState('');
@@ -156,6 +157,12 @@ export default function AddProduct()
            <div style={{ width: 900, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10 }}>
 
             <div className="row">
+                  <div className="col-lg-4 col-xs-12 mb-3">
+                        <label className="form-label fw-bold ms-3">Product Name:</label>
+                        <input type="text" value={product} onChange={(event)=>setProduct(event.target.value)} className="form-control" placeholder="Enter Product Name." />
+                    </div>
+
+
                <div className="col-lg-4 col-xs-12 mb-3">
                         <label className="form-label fw-bold ms-3">Status:</label>
                         <select className="form-select"
@@ -181,7 +188,7 @@ export default function AddProduct()
                         </select>
                     </div>
 
-                     <div className="col-lg-4 col-xs-12 mb-3">
+                   {/*  <div className="col-lg-4 col-xs-12 mb-3">
                         <label className="form-label fw-bold ms-3">Hide:</label>
                         <select className="form-select"
                              value={hide}
@@ -191,13 +198,15 @@ export default function AddProduct()
                             <option value="Yes">Yes</option>
                             <option value="No">No</option> 
                         </select>
-                    </div>
+                    </div>  */}
+
+
             </div>
 
             <div className="row">
                <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">Product:</label>
-                        <input type="text" value={product} onChange={(event)=>setProduct(event.target.value)} className="form-control" placeholder="Enter Product." />
+                        <label className="form-label fw-bold ms-3">Supplier Id:</label>
+                        <input type="text" value={supplierId} onChange={(event)=>setSupplierId(event.target.value)} className="form-control" placeholder="Enter supplierId." />
                     </div>
 
                     <div className="col-lg-4 col-xs-12 mb-3">
