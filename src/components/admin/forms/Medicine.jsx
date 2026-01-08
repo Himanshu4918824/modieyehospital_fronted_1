@@ -13,6 +13,7 @@ export default function Medicine({ onClose, onRefresh }) {
     const [comment, setComment] = useState('');
     const { Medicine, P_id, Aid } = useContext(MainContext)
     const [id, setid] = useState()
+    const [name,setName]=useState();
 
     useEffect(() => {
         setDrug(Medicine[0]?.medicine)
@@ -21,6 +22,13 @@ export default function Medicine({ onClose, onRefresh }) {
         setIntake(Medicine[0]?.Intake)
         setComment(Medicine[0]?.message)
         setid(Medicine[0]?.id)
+        setName(Medicine[0]?.name)
+
+         setTimeout(() => {
+        window.$('.selectpicker').selectpicker('refresh');
+    }, 500);
+
+        
     }, [])
 
     function resetData() {
@@ -42,6 +50,7 @@ export default function Medicine({ onClose, onRefresh }) {
         formData.append('Dose', dose);
         formData.append('Intake', intake);
         formData.append('message', comment);
+        formData.append('name',name)
 
         const formDataObj = {};
         formData.forEach((value, key) => {
@@ -86,6 +95,7 @@ export default function Medicine({ onClose, onRefresh }) {
         formData.append('Dose', dose);
         formData.append('Intake', intake);
         formData.append('message', comment);
+         formData.append('name',name);
 
         const formDataObj = {};
         formData.forEach((value, key) => {
@@ -124,6 +134,27 @@ export default function Medicine({ onClose, onRefresh }) {
 
     return (<div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ width: 600, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10 }}>
+
+             <div className="row">
+                <div className="col-12 mb-2">
+                    <div style={{ fontSize: 16, fontWeight: 'bold', margin: 3, marginLeft: 10 }}>Disease Name</div>
+                    <select className="form-select selectpicker"
+                            data-live-search="true"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                    >
+                        <option value='-Select-Type-'>Select-Disease Name</option>
+                        <option value='Investigation (Ocular)'>Investigation (Ocular)</option>
+                        <option value='Investigation (Systemic)'>Investigation (Systemic)</option>
+                        <option value='Medicines'>Medicines</option>
+                        <option value='Glasses'>Glasses</option>
+                        <option value='Contact Lens'>Contact Lens</option>
+                         <option value={'Null'}>Null</option>
+                    </select>
+                 </div>
+             </div>
+
+
 
             <div className="row">
                 <div className="col-12 col-lg-6 mb-2">
@@ -193,12 +224,16 @@ export default function Medicine({ onClose, onRefresh }) {
 
 
             <div className="row">
-                <div className="col-6 d-flex justify-content-center">
+                <div className="col-4 d-flex justify-content-center">
                     <button onClick={handleSubmit} type="Submit" className="btn btn-primary">Submit</button>
                 </div>
 
-                <div className="col-6 d-flex justify-content-center">
+                <div className="col-4 d-flex justify-content-center">
                     <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
+                </div>
+
+                 <div className="col-4 d-flex justify-content-center">
+                    <button type="reset" className="btn btn-primary">Create Templeate</button>
                 </div>
             </div>
 

@@ -205,8 +205,8 @@ export default function AddProduct()
 
             <div className="row">
                <div className="col-lg-4 col-xs-12 mb-3">
-                        <label className="form-label fw-bold ms-3">Supplier Id:</label>
-                        <input type="text" value={supplierId} onChange={(event)=>setSupplierId(event.target.value)} className="form-control" placeholder="Enter supplierId." />
+                        <label className="form-label fw-bold ms-3">Supplier:</label>
+                        <input type="text" value={supplierId} onChange={(event)=>setSupplierId(event.target.value)} className="form-control" placeholder="Enter supplier." />
                     </div>
 
                     <div className="col-lg-4 col-xs-12 mb-3">

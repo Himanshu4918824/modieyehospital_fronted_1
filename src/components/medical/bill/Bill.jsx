@@ -1,11 +1,21 @@
+import { Link, useNavigate } from "react-router-dom";
+import MainContext from "../../../context/MainContext";
+import { postData } from "../../../services/FetchNodeAdminServices";
 import Header from "../../admin/homepage/Header";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 export default function Bill()
 {
+  const { products, companies } = useContext(MainContext);
+  const navigate=useNavigate();
 
   const emptyRow = { product: "", pack: "", batch: "", expdate: "", qty: "", free: "", mrp: "", purchaserate: "", gst: "", amount: "" };
   const [items, setItems] = useState([emptyRow]);
+
+  const [companyName,setCompanyName]=useState('');
+  const [billNo,setBillNo]=useState('');
+  const [type,settype]=useState('');
+  const [date,setDate]=useState('');
 
    // Update input
   const handleChange = (index, field, value) => {
@@ -45,15 +55,15 @@ export default function Bill()
   }
 
   const billData = {
-    customerName: "",   // you can bind later
-    billNo: "",
-    type: "",
+    customerName: companyName,   // you can bind later
+    billNo: billNo,
+    type: type,
     date: new Date(),
     items: filteredItems
   };
 
   try {
-    const response = await fetch("http://localhost:5000/bill/save", {body: JSON.stringify(billData)});
+    const response = await postData("medical/api/PurchaseBill", {body: JSON.stringify(billData)});
 
     const result = await response.json();
 
@@ -92,23 +102,42 @@ function resetData()
 
               <div className="row mb-2">
                 <div className="col-md-3">
-                 <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Name :</label>
-                  <input type="text" className="form-control form-control-sm" />
+                   <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Company Name :</label>
+                     <select className="form-select"
+                              value={companyName}
+                               onChange={(e) =>{const value = e.target.value;
+                                                   if (value === "other") {
+                                                       navigate("/addcompany");
+                                                      } else {
+                                                       setCompanyName(value);
+                                                      }
+
+                               }}
+                      >
+                       <option value="">Select Company Name</option>
+
+                         {companies?.map((item) => (
+                          <option key={item.id} value={item.id}>{item.name}</option>
+                         ))}
+                         
+                         <option value="other">Other</option>
+                    </select>
+
                  </div>
 
         <div className="col-md-3">
           <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Bill No :</label>
-          <input type="text" className="form-control form-control-sm" />
+          <input value={billNo} onChange={(e)=>setBillNo(e.target.value)} type="text" className="form-control form-control-sm" />
         </div>
 
         <div className="col-md-3">
           <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Type :</label>
-          <input type="text" className="form-control form-control-sm" />
+          <input value={type} onChange={(e)=>settype(e.target.value)} type="text" className="form-control form-control-sm" />
         </div>
 
         <div className="col-md-3">
           <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Date :</label>
-          <input type="text" className="form-control form-control-sm" />
+          <input value={date} onChange={(e)=>setDate(e.target.value)} type="text" className="form-control form-control-sm" />
         </div>
 
       </div>
@@ -138,13 +167,23 @@ function resetData()
               <td><select className="form-select"
                             aria-label="Default select example"
                             value={item.product} 
-                            onChange={(e) => handleChange(index, "product", e.target.value)}
+                            onChange={(e) => {const value = e.target.value;
+                                                   if (value === "Other") {
+                                                       navigate("/addproduct");
+                                                      } else {
+                                                       handleChange(index, "product", value)
+                                                      }
+                                   
+                            }}
                             onKeyDown={(e) => handleKeyDown(e, index)}
                       >
-                      <option selected>Open this select menu</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                      <option selected>Select Product Name</option>
+                      
+                     {products?.map((item) => (
+                       <option key={item.id} value={item.id}>{item.productname}</option>
+                       ))}
+
+                      <option value="Other">Other</option>
                      </select>
                 </td>
 
