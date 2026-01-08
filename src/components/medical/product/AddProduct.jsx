@@ -77,7 +77,7 @@ export default function AddProduct()
     
     
 
-    var result =await postData('',formData);
+       var result = await postData('medical/api/addMedicine',formData);
     
     if(result.status)
     {

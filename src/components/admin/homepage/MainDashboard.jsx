@@ -86,15 +86,15 @@ export default function MainDashboard() {
 
   }
 
- const refreshDashboard = async () => {
-  setPage(1);
+  const refreshDashboard = async () => {
+    setPage(1);
 
-  const res = await getAllTodayAppointments(1, city);
-  setallTodayAppointments(res.data);
-  setHasMore(1 < res.totalPages);
+    const res = await getAllTodayAppointments(1, city);
+    setallTodayAppointments(res.data);
+    setHasMore(1 < res.totalPages);
 
-  closeDialog(); // 🔥 close modal
-};
+    closeDialog(); // 🔥 close modal
+  };
 
   // console.log(deptCounts)
 
@@ -159,23 +159,19 @@ export default function MainDashboard() {
     <div>
       <Header />
     </div>
-    
+
 
 
     <div className="p-3 bg-light">
       <div className="d-flex flex-wrap mb-3">
-        {/* <button className="btn btn-secondary btn-sm m-1">Pending [{deptCounts.pending ? deptCounts?.pending : 0}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Reception [{deptCounts.reception ? deptCounts?.reception : 0}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Dept [{deptCounts.dept ? deptCounts?.dept : 0}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Optometrist [{deptCounts.optometrist ? deptCounts?.optometrist : 0}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Doctor [{deptCounts.doctor ? deptCounts?.doctor : 0}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Diagnostic [{deptCounts.diagnostic ? deptCounts?.diagnostic : 0}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Counsellor [{deptCounts.Counsellor ? deptCounts?.Counsellor : 0}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Waiting [{deptCounts.waiting ? deptCounts?.waiting : 0}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Appointment [{deptCounts.appointment ? deptCounts?.appointment : 0}]</button> */}
-        <button className="btn btn-secondary btn-sm m-1">Front Desk [{deptCounts.Front_Desk ? deptCounts?.Front_Desk : 0}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Receptionist [{deptCounts.Receptionist ? deptCounts?.Receptionist : 0}]</button>
-        <button className="btn btn-secondary btn-sm m-1">Doctor [{deptCounts.Doctor ? deptCounts?.Doctor : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Reception [{deptCounts.Reception ? deptCounts?.Reception : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Refraction [{deptCounts.Refraction ? deptCounts?.Refraction : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Consultation [{deptCounts.Consultation ? deptCounts?.Consultation : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Investigation [{deptCounts.Investigation ? deptCounts?.Investigation : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Pharmacy [{deptCounts.Pharmacy ? deptCounts?.Pharmacy : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Optical [{deptCounts.Optical ? deptCounts?.Optical : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Councelling [{deptCounts.Councelling ? deptCounts?.Councelling : 0}]</button>
+        <button className="btn btn-secondary btn-sm m-1">Miscellaneous [{deptCounts.Miscellaneous ? deptCounts?.Miscellaneous : 0}]</button>
 
         <button onClick={() => openDialog()} className="btn btn-warning btn-sm m-1"> Registration / Book Appointment </button>
         <div style={{ marginLeft: 5 }}>
@@ -231,20 +227,14 @@ export default function MainDashboard() {
                       <td className="text-center">{item?.patient?.FullName}</td>
                       <td className="text-center">
                         <select className="form-select" value={item?.status} onChange={e => handleStatusChange(item.id, e.target.value)}>
-                          {/* <option value='reception'>Reception</option>
-                          <option value='dept'>Dept</option>
-                          <option value='optometrist'>Optometrist</option>
-                          <option value='doctor'>Doctor</option>
-                          <option value='diagnostic'>Diagnostic</option>
-                          <option value='Counsellor'>Counsellor</option>
-                          <option value='waiting'>Waiting</option>
-                          <option value='appointment'>Appointment</option>
-                          <option value="CONSULTANT">CONSULTANT</option> */}
-                          {/* <option value="Admin">Admin</option> */}
-                          <option value="Front_Desk">Front Desk</option>
-                          <option value="Receptionist">Receptionist</option>
-                          <option value="Doctor">Doctor</option>
-                          {/* <option value="Developer">Developer</option> */}
+                          <option value="Reception">Reception</option>
+                          <option value='Refraction'>Refraction</option>
+                          <option value="Consultation">Consultation</option>
+                          <option value='Investigation'>Investigation</option>
+                          <option value='Pharmacy'>Pharmacy</option>
+                          <option value='Optical'>Optical</option>
+                          <option value='Counselling'>Counselling</option>
+                          <option value='Miscellaneous'>Miscellaneous</option>
                         </select>
                       </td>
                       <td className="text-center">{item?.patient?.Gender}/{item?.patient?.Age}</td>
