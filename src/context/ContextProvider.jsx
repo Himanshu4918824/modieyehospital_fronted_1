@@ -175,8 +175,8 @@ const ContextProvider = ({ children }) => {
   const [PatientBranch, setPatientBranch] = useState([])
   const [allergies, setAllergies] = useState("")
 
-  const [product,setProduct]=useState([]);
-  const [company,setCompany]=useState([]);
+  const [product, setProduct] = useState([]);
+  const [supplier, setCompany] = useState([]);
 
 
   const getPatientData = async (url) => {
@@ -516,7 +516,7 @@ const ContextProvider = ({ children }) => {
 
 
   //fetch  all Product
-  const getAllProduct=async()=>{
+  const getAllProduct = async () => {
     try {
       const result = await getData('medical/api/getProduct')
       // console.log(result)
@@ -528,8 +528,8 @@ const ContextProvider = ({ children }) => {
   }
 
 
-   //fetch  all company
-  const getAllCompany=async()=>{
+  //fetch  all company
+  const getAllCompany = async () => {
     try {
       const result = await getData('medical/api/getSuppliers')
       // console.log(result)
@@ -540,13 +540,13 @@ const ContextProvider = ({ children }) => {
 
   }
 
-  
+
 
 
 
 
   return (
-    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch, getAllCompany, getAllProduct }}>
+    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch, getAllCompany, getAllProduct, supplier, product }}>
       {children}
     </MainContext.Provider>
   )
