@@ -204,6 +204,8 @@ export default function Header() {
                   <ul>
                     <li onClick={() => navigate('/addcompany')}>Add Company</li>
                     <li onClick={() => navigate('/addproduct')}>Add Medicine</li>
+                    <li onClick={() => navigate('/showcompany')}>Show Company</li>
+                    <li onClick={() => navigate('/showproduct')}>Show Medicine</li>
                     <li onClick={() => navigate('/bill')}>Bill</li>
                   </ul>
                 </div>

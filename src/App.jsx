@@ -42,6 +42,8 @@ import TextSearchbar from "./components/admin/homepage/TextSearchbar";
 import AddProduct from "./components/medical/product/AddProduct";
 import AddCompany from "./components/medical/company/AddCompany";
 import Bill from "./components/medical/bill/Bill";
+import ShowCompany from "./components/medical/company/ShowCompany";
+import ShowProduct from "./components/medical/product/ShowProduct";
 
 
 function App() {
@@ -94,6 +96,9 @@ function App() {
             <Route element={<AddProduct/>} path="/addproduct"></Route>
             <Route element={<AddCompany/>} path="/addcompany"></Route>
             <Route element={<Bill/>} path="/bill"></Route>
+
+            <Route element={<ShowCompany/>} path="/showcompany"></Route>
+            <Route element={<ShowProduct/>} path="/showproduct"></Route>
 
           </Routes>
         </ContextProvider>

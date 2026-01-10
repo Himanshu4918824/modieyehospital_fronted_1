@@ -3,7 +3,8 @@ import Header from "../../admin/homepage/Header";
 import { postData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 
-export default function AddCompany() {
+export default function AddCompany()
+ {
    
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
