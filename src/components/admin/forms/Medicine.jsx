@@ -11,10 +11,10 @@ export default function Medicine({ onClose, onRefresh }) {
     const [dose, setDose] = useState('');
     const [intake, setIntake] = useState('');
     const [comment, setComment] = useState('');
-    const { Medicine, P_id, Aid } = useContext(MainContext)
+    const { Medicine, P_id, Aid, getAllTemplates, templates, getAllTemplatesData, templateData } = useContext(MainContext)
     const [id, setid] = useState()
-    const [name,setName]=useState();
-
+    const [name, setName] = useState();
+    console.log(templateData)
     useEffect(() => {
         setDrug(Medicine[0]?.medicine)
         setDays(Medicine[0]?.Days)
@@ -24,12 +24,27 @@ export default function Medicine({ onClose, onRefresh }) {
         setid(Medicine[0]?.id)
         setName(Medicine[0]?.name)
 
-         setTimeout(() => {
-        window.$('.selectpicker').selectpicker('refresh');
-    }, 500);
+        getAllTemplates()
 
-        
+        setTimeout(() => {
+            window.$('.selectpicker').selectpicker('refresh');
+        }, 500);
+
+
     }, [])
+
+    useEffect(() => {
+        if (templateData?.description) {
+            setDrug(templateData.description.medicine || '');
+            setDays(templateData.description.Days || '');
+            setDose(templateData.description.Dose || '');
+            setIntake(templateData.description.Intake || '');
+            setComment(templateData.description.message || '');
+            setName(templateData.name || '');
+        }
+    }, [templateData]);
+
+
 
     function resetData() {
         setDays('');
@@ -50,7 +65,6 @@ export default function Medicine({ onClose, onRefresh }) {
         formData.append('Dose', dose);
         formData.append('Intake', intake);
         formData.append('message', comment);
-        formData.append('name',name)
 
         const formDataObj = {};
         formData.forEach((value, key) => {
@@ -95,7 +109,7 @@ export default function Medicine({ onClose, onRefresh }) {
         formData.append('Dose', dose);
         formData.append('Intake', intake);
         formData.append('message', comment);
-         formData.append('name',name);
+        // formData.append('name', name);
 
         const formDataObj = {};
         formData.forEach((value, key) => {
@@ -131,28 +145,69 @@ export default function Medicine({ onClose, onRefresh }) {
 
     }
 
+    const handleCreateTemplate = async () => {
+        try {
+            const formData = new FormData();
+
+            formData.append('medicine', drug);
+            formData.append('Days', days);
+            formData.append('Dose', dose);
+            formData.append('Intake', intake);
+            formData.append('message', comment);
+
+            const formDataObj = {};
+            formData.forEach((value, key) => {
+                formDataObj[key] = value;
+            });
+
+            const Name = prompt("Template Name:", ""); // Prompt for template name
+
+            const result = await postData(`medical/api/addTemplate`, { description: formDataObj, name: Name });
+            if (result.status) {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Template Created Successfully",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
+            else {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "Your work has been not saved",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const handletemplateChange = (id) => {
+        getAllTemplatesData(id);
+    }
 
     return (<div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ width: 600, height: 'auto', background: '#f7f1e3', margin: 10, padding: 10, borderRadius: 10 }}>
 
-             <div className="row">
+            <div className="row">
                 <div className="col-12 mb-2">
-                    <div style={{ fontSize: 16, fontWeight: 'bold', margin: 3, marginLeft: 10 }}>Disease Name</div>
+                    <div style={{ fontSize: 16, fontWeight: 'bold', margin: 3, marginLeft: 10 }}>Choose Template</div>
                     <select className="form-select selectpicker"
-                            data-live-search="true"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                        data-live-search="true"
+                        value={templateData?.id || ''}
+                        onChange={(e) => handletemplateChange(e.target.value)}
                     >
-                        <option value='-Select-Type-'>Select-Disease Name</option>
-                        <option value='Investigation (Ocular)'>Investigation (Ocular)</option>
-                        <option value='Investigation (Systemic)'>Investigation (Systemic)</option>
-                        <option value='Medicines'>Medicines</option>
-                        <option value='Glasses'>Glasses</option>
-                        <option value='Contact Lens'>Contact Lens</option>
-                         <option value={'Null'}>Null</option>
+                        <option value=''>Select Template</option>
+                        {templates.map((item) => {
+                            return (<option key={item.id} value={item.id}>{item.name}</option>)
+                        })}
                     </select>
-                 </div>
-             </div>
+                </div>
+            </div>
 
 
 
@@ -169,7 +224,7 @@ export default function Medicine({ onClose, onRefresh }) {
                         <option value='Medicines'>Medicines</option>
                         <option value='Glasses'>Glasses</option>
                         <option value='Contact Lens'>Contact Lens</option>
-                         <option value={'Null'}>Null</option>
+                        <option value={'Null'}>Null</option>
                     </select>
                 </div>
 
@@ -210,9 +265,9 @@ export default function Medicine({ onClose, onRefresh }) {
                         <option value={'Before Lunch'}>Before Lunch</option>
                         <option value={'After Lunch'}>After Lunch</option>
                         <option value={'Before Dinner'}>Before Dinner</option>
-                        <option value={'Before Dinner'}>After Dinner</option>
+                        <option value={'After Dinner'}>After Dinner</option>
                         <option value={'Before Breakfast'}>Before Breakfast</option>
-                        <option value={'Before Breakfast'}>After Breakfast</option>
+                        <option value={'After Breakfast'}>After Breakfast</option>
                     </select>
                 </div>
             </div>
@@ -232,8 +287,8 @@ export default function Medicine({ onClose, onRefresh }) {
                     <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
                 </div>
 
-                 <div className="col-4 d-flex justify-content-center">
-                    <button type="reset" className="btn btn-primary">Create Templeate</button>
+                <div className="col-4 d-flex justify-content-center">
+                    <button type="submit" onClick={handleCreateTemplate} className="btn btn-primary">Create Templeate</button>
                 </div>
             </div>
 
