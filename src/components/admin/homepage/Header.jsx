@@ -178,7 +178,7 @@ export default function Header() {
               <li className="dropdown-2" onClick={() => navigate('/showuser')}>Users</li>
               <li className="dropdown-2" onClick={() => navigate('/displaydoctor')}>Staff</li>
               <li className="dropdown-2" onClick={() => navigate('#')}>About</li>
-              <li className="dropdown-2">
+            {/*  <li className="dropdown-2">
                 Master Setup
                 <div className="Subdropdown-2">
                   <ul>
@@ -192,10 +192,24 @@ export default function Header() {
                     <li>State</li>
                     <li>Medicine Frequency</li>
                     <li>In Take</li>
-                    <li>Dr. Session</li>
+                    <li>Dr. Session</li>  
+                  </ul>  
+
+                </div>
+              </li>  */}
+
+              <li className="dropdown-2">
+                Medicial
+                <div className="Subdropdown-2">
+                  <ul>
+                    <li onClick={() => navigate('/addcompany')}>Add Company</li>
+                    <li onClick={() => navigate('/addproduct')}>Add Medicine</li>
+                    <li onClick={() => navigate('/bill')}>Bill</li>
                   </ul>
                 </div>
               </li>
+
+
             </ul>
           </div>
         </nav>
