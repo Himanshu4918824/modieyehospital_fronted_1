@@ -7,6 +7,7 @@ import Posterior from '../forms/Posterior';
 import { useContext } from 'react';
 import MainContext from '../../../context/MainContext';
 import React, { useEffect } from 'react';
+import Medicine1 from '../forms/Medicine1';
 
 export default function PatientHistory({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
@@ -44,7 +45,8 @@ export default function PatientHistory({ onRefresh }) {
     if (props === "Medicines") {
       return (
         <div>
-          <Medicines onClose={closeDialog} onRefresh={onRefresh} />
+          {/*<Medicines onClose={closeDialog} onRefresh={onRefresh} />*/}
+          <Medicine1 onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
@@ -86,7 +88,7 @@ export default function PatientHistory({ onRefresh }) {
     return (
       <div>
         <div className="modal show d-flex" tabIndex="-1">
-          <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 800, width: "92%", minHeight: 100 }} >
+          <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: 1000, width: "92%", minHeight: 100 }} >
             <div className="modal-content" style={{ minHeight: 400, height: 'auto' }}>
               <div className="modal-header h4">
                 {modalPage}
@@ -131,10 +133,11 @@ export default function PatientHistory({ onRefresh }) {
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
           <thead>
             <tr className="table-secondary">
-              <th style={{ width: '25%' }}> Medicine</th>
-              <th>Days</th>
+              <th style={{ width: '25%' }}> Drug Name</th>
+              <th>Eye</th>
+              <th>Type</th>
               <th style={{ width: '15%' }}>Dose</th>
-              <th>Intake</th>
+              <th>Days</th>
               <th>Comment</th>
               <th style={{ width: '18%' }}>Date</th>
             </tr>
@@ -144,9 +147,10 @@ export default function PatientHistory({ onRefresh }) {
               return (
                 <tr key={i}>
                   <td>{item.medicine}</td>
-                  <td>{item.Days}</td>
-                  <td>{item.Dose}</td>
-                  <td>{item.Intake}</td>
+                  <td>{item.eye}</td>
+                  <td>{item.type}</td>
+                  <td>{item.dose}</td>
+                  <td>{item.day}</td>
                   <td>{item.message}</td>
                   <td>{new Date(item.Date).toLocaleDateString()}</td>
                 </tr>

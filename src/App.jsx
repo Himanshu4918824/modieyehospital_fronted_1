@@ -44,6 +44,7 @@ import AddCompany from "./components/medical/company/AddCompany";
 import Bill from "./components/medical/bill/Bill";
 import ShowCompany from "./components/medical/company/ShowCompany";
 import ShowProduct from "./components/medical/product/ShowProduct";
+import Medicine1 from "./components/admin/forms/Medicine1";
 
 
 function App() {
@@ -99,6 +100,8 @@ function App() {
 
             <Route element={<ShowCompany/>} path="/showcompany"></Route>
             <Route element={<ShowProduct/>} path="/showproduct"></Route>
+
+            <Route element={<Medicine1/>} path="/med"></Route>
 
           </Routes>
         </ContextProvider>
