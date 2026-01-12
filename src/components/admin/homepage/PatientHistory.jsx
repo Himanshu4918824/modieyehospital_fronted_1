@@ -137,20 +137,21 @@ export default function PatientHistory({ onRefresh }) {
               <th>Eye</th>
               <th>Type</th>
               <th style={{ width: '15%' }}>Dose</th>
-              <th>Days</th>
+              <th>Duration</th>
               <th>Comment</th>
               <th style={{ width: '18%' }}>Date</th>
             </tr>
           </thead>
           <tbody>
+            {console.log(Medicine)}
             {Medicine.length > 0 ? Medicine.map((item, i) => {
               return (
                 <tr key={i}>
                   <td>{item.medicine}</td>
                   <td>{item.eye}</td>
                   <td>{item.type}</td>
-                  <td>{item.dose}</td>
-                  <td>{item.day}</td>
+                  <td>{item.Dose}</td>
+                  <td>{item.duration}</td>
                   <td>{item.message}</td>
                   <td>{new Date(item.Date).toLocaleDateString()}</td>
                 </tr>
