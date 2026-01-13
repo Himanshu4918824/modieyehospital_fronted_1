@@ -143,7 +143,7 @@ export default function PatientHistory({ onRefresh }) {
             </tr>
           </thead>
           <tbody>
-            {console.log(Medicine)}
+            {/* {console.log(Medicine)} */}
             {Medicine.length > 0 ? Medicine.map((item, i) => {
               return (
                 <tr key={i}>
