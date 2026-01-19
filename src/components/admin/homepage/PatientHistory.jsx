@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import MainContext from '../../../context/MainContext';
 import React, { useEffect } from 'react';
 import Medicine1 from '../forms/Medicine1';
+import Surgery from '../forms/Surgery';
 
 export default function PatientHistory({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
@@ -61,6 +62,13 @@ export default function PatientHistory({ onRefresh }) {
       return (
         <div>
           <Refraction onClose={closeDialog} onRefresh={onRefresh} />
+        </div>
+      );
+    }
+    else if (props === "Surgery") {
+      return (
+        <div>
+          <Surgery onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
@@ -365,6 +373,49 @@ export default function PatientHistory({ onRefresh }) {
 
         </table>
       </div>
+    </div>
+
+
+
+    <div>
+
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c4f3d4ff", height: "27px" }} >
+        <h3 className="fs-6 fw-bold m-0">Surgery</h3>
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Surgery")}>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+        </button>
+      </div>
+
+
+       <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+        <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
+          <thead>
+            <tr className="table-secondary">
+              <th style={{ width: '35%' }}>Surgery Name</th>
+              <th style={{ width: '15%' }}>Eye</th>
+              <th>Personal Comment</th>
+              <th style={{ width: '18%' }}>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Medicine.length > 0 ? Medicine.map((item, i) => {
+              return (
+                <tr key={i}>
+                  <td>{item.surgery}</td>
+                  <td>{item.eye}</td>
+                  <td>{item.message}</td>
+                  <td>{new Date(item.Date).toLocaleDateString()}</td>
+                </tr>
+              )
+            }
+            ) : (<tr>
+              <td colSpan="5">No record available</td>
+            </tr>)
+            }
+          </tbody>
+        </table>
+      </div>
+
     </div>
 
 

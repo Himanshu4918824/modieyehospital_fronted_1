@@ -67,11 +67,11 @@ export default function Contact() {
         <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 30, marginBottom: 20, textAlign: 'center' }}>
 
             <div>
-                <i className="bi bi-envelope-fill fs-5"><div>abc@gmail.com</div></i>
+                <i className="bi bi-envelope-fill fs-5"><div>modieyecaregroup@gmail.com</div></i>
             </div>
 
             <div>
-                <i className="bi bi-telephone-fill fs-5"><div> +91 xxxxxxxxxx</div></i>
+                <i className="bi bi-telephone-fill fs-5"><div> +91 7610228113</div></i>
             </div>
 
         </div>
