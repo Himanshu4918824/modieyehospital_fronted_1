@@ -77,7 +77,7 @@ const ContextProvider = ({ children }) => {
     id: ""
   }])
   const [Medicine, setMedicine] = useState([{
-    Medicine: "", days: "", Dosa: "", Intake: "", Comment: "", date: "", id: ""
+    Medicine: "", duration: "", Dose: "", Intake: "", Comment: "", date: "", id: "" , eye : "", type : ""
   }])
 
   const [refractionData, setRefractionData] = useState([{
@@ -283,8 +283,10 @@ const ContextProvider = ({ children }) => {
             ? apt.Medicine.map(med => ({
               id: med?.id ?? "",
               medicine: med?.medicine ?? "",
-              Days: med?.Days ?? "",
+              duration: med?.Duration ?? "",
               Dose: med?.Dose ?? "",
+              eye: med?.eye ?? "",
+              type: med?.type ?? "",
               Intake: med?.Intake ?? "",
               message: med?.message ?? "",
               appointmentId: apt?.id ?? "",

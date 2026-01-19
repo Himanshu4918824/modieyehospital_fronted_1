@@ -280,7 +280,16 @@ export default function AddProduct() {
 
                     <div className="col-lg-4 col-xs-12 mb-3">
                         <label className="form-label fw-bold ms-3">Item Type:</label>
-                        <input type="text" value={item} onChange={(event) => setItem(event.target.value)} className="form-control" placeholder="Enter......" />
+                        {/* <input type="text" value={item} onChange={(event) => setItem(event.target.value)} className="form-control" placeholder="Enter......" /> */}
+                        <select className="form-select"
+                            value={item}
+                            onChange={(event) => setItem(event.target.value)}
+                        >
+                            <option value="Select-Item-Type">Select-Item-Type</option>
+                            <option value="NORMAL">Normal</option>
+                            <option value="CONTROLLED">Controlled</option>
+                            <option value="SCHEDULED">Scheduled</option>
+                        </select>
                     </div>
 
                     <div className="col-lg-4 col-xs-12 mb-3">
