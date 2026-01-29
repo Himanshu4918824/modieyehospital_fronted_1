@@ -82,7 +82,8 @@ import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({show})
+ {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -167,6 +168,7 @@ export default function Header() {
         </button>
       </div>
 
+{show=='nav'?<></>:<div>
       {/* Navbar for large screens */}
       <div className="main-navbar d-none d-lg-block">
         <nav style={{ background: '#1e1c1cff', width: "100%", height: "54px" }}>
@@ -262,8 +264,10 @@ export default function Header() {
               </div>
             </li>
           </ul>
-        </div>
+        </div> 
       </div>
+      
+      </div>  }
     </div>
   );
 }

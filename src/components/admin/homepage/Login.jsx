@@ -53,7 +53,7 @@ export default function Login()
   return (
     <div>
       <div>
-        <Header />
+        <Header show="nav"/>
       </div>
 
 
