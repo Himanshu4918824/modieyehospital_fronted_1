@@ -8,7 +8,10 @@ import { useParams } from "react-router-dom";
 // import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
-export default function DashBoard() {
+import "./HiddenFields.css";
+
+export default function DashBoard() 
+{
   const navigate = useNavigate()
 
 
@@ -96,7 +99,7 @@ export default function DashBoard() {
 
       <div className="px-3">
 
-        <div className="row mb-2 mt-2">
+        <div id="printArea" className="row mb-2 mt-2">
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
               <span className="input-group-text">Appointment No:</span>
@@ -150,7 +153,7 @@ export default function DashBoard() {
         </div>
 
 
-        <div className="row mb-3 mt-3">
+        <div id="printArea" className="row mb-3 mt-3">
 
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">

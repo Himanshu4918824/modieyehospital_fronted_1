@@ -10,6 +10,8 @@ import React, { useEffect } from 'react';
 import Medicine1 from '../forms/Medicine1';
 import Surgery from '../forms/Surgery';
 
+import "./HiddenFields.css";
+
 export default function PatientHistory({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
@@ -126,7 +128,7 @@ export default function PatientHistory({ onRefresh }) {
     </div>  */}
 
 
-    <div className="table-responsive mb-3">
+    <div id="printArea" className="table-responsive mb-3">
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c4f3d4ff", height: "27px" }} >
 
@@ -176,7 +178,7 @@ export default function PatientHistory({ onRefresh }) {
 
 
 
-    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d5ddfaff", height: "27px" }} >
+    <div id="printArea" className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d5ddfaff", height: "27px" }} >
 
       <h3 className="fs-6 fw-bold m-0">Vision</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Vision")}>
@@ -205,7 +207,7 @@ export default function PatientHistory({ onRefresh }) {
 
     </div>
 
-    <div className="table-responsive mb-3">
+    <div id="printArea" className="table-responsive mb-3">
       <div className="hide-scrollbar" style={{ maxHeight: '250px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13px" }} border={2}>
           <thead>
@@ -275,8 +277,8 @@ export default function PatientHistory({ onRefresh }) {
     </div>
 
 
-
-    <div className="table-responsive mb-3">
+ 
+    <div id="printArea" className="table-responsive mb-3">
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#af89f1ff", height: "27px" }} >
 
@@ -307,7 +309,7 @@ export default function PatientHistory({ onRefresh }) {
       </div>
 
 
-      <div className="hide-scrollbar" style={{ maxHeight: '140px', overflowY: "auto", display: 'block' }}>
+      <div id="printArea" className="hide-scrollbar" style={{ maxHeight: '140px', overflowY: "auto", display: 'block' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
           <thead>
             <tr className="table-secondary border border-dark ">
@@ -380,7 +382,7 @@ export default function PatientHistory({ onRefresh }) {
 
     <div>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c4f3d4ff", height: "27px" }} >
+      <div id="printArea" className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c4f3d4ff", height: "27px" }} >
         <h3 className="fs-6 fw-bold m-0">Surgery</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Surgery")}>
           <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
@@ -388,7 +390,7 @@ export default function PatientHistory({ onRefresh }) {
       </div>
 
 
-       <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+       <div id="printArea" className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
           <thead>
             <tr className="table-secondary">

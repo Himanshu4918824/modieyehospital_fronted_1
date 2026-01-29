@@ -10,6 +10,8 @@ import Advice from "../forms/Advice";
 import AnteriorIcon from "../forms/AnteriorIcon";
 import PosteriorIcon from "../forms/PosteriorIcon";
 
+import "./HiddenFields.css";
+
 
 export default function Patient({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
@@ -126,7 +128,7 @@ export default function Patient({ onRefresh }) {
 
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block' }}>
+    <div id="printArea" className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block' }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#f2b4b4ff", height: "27px" }} >
 
@@ -163,7 +165,7 @@ export default function Patient({ onRefresh }) {
       </div>
     </div>
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10, }}>
+    <div id="printArea" className="table-responsive mb-3" style={{ marginBottom: 10, }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d9e1e9ff", height: "27px" }} >
 
@@ -201,7 +203,7 @@ export default function Patient({ onRefresh }) {
     </div>
 
 
-    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#ecc99aff", height: "27px" }} >
+    <div id="printArea" className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#ecc99aff", height: "27px" }} >
       <h3 className="fs-6 fw-bold m-0">Anterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
         <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800' }} onClick={() => openDialog("Anterioricon")}></i>
@@ -230,7 +232,7 @@ export default function Patient({ onRefresh }) {
     </div>
 
 
-    <div className="table-responsive mb-3">
+    <div id="printArea" className="table-responsive mb-3">
       <div className="hide-scrollbar" style={{ maxHeight: '250px', overflowY: "auto", display: 'block' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13px" }} border={2}>
           <thead>
@@ -360,7 +362,7 @@ export default function Patient({ onRefresh }) {
     </div>
 
 
-    <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d4a7deff", height: "27px" }} >
+    <div id="printArea" className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d4a7deff", height: "27px" }} >
 
       <h3 className="fs-5 fw-bold m-0">Posterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
@@ -370,7 +372,7 @@ export default function Patient({ onRefresh }) {
 
     </div>
 
-    <div className="table-responsive mb-3">
+    <div id="printArea" className="table-responsive mb-3">
 
       <div className="hide-scrollbar" style={{ maxHeight: '170px', overflowY: "auto", display: 'block' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>

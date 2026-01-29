@@ -10,6 +10,8 @@ import Report from '../forms/Report';
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 
+import "./HiddenFields.css";
+
 
 
 export default function DoctorConcern({ onRefresh }) {
@@ -141,7 +143,7 @@ export default function DoctorConcern({ onRefresh }) {
 
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: '10px', display: 'block' }}>
+    <div className="table-responsive mb-3 noPrint" style={{ marginBottom: '10px', display: 'block' }}>
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c5e1f4ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Complaints</h3>
@@ -181,7 +183,7 @@ export default function DoctorConcern({ onRefresh }) {
     </div>
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: '5px', display: 'block', }}>
+    <div className="table-responsive mb-3 noPrint" style={{ marginBottom: '5px', display: 'block', }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c8ebedff", height: "27px" }} >
 
@@ -227,7 +229,7 @@ export default function DoctorConcern({ onRefresh }) {
 
 
 
-    <div className="d-flex  gap-3">
+    <div id="printArea" className="d-flex  gap-3">
       <div style={{ flex: '2 1 350px', minWidth: 250 }}>
 
         <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#dae6f2ff", height: "27px" }} >
@@ -266,7 +268,7 @@ export default function DoctorConcern({ onRefresh }) {
 
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10, overflowY: 'auto', display: 'block' }}>
+    <div id="printArea" className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10, overflowY: 'auto', display: 'block' }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#e4dcbcff", height: "27px" }} >
 
@@ -310,7 +312,7 @@ export default function DoctorConcern({ onRefresh }) {
 
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: '10px' }}>
+    <div className="table-responsive mb-3 noPrint" style={{ marginBottom: '10px' }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#f0d5d6ff", height: "27px" }} >
 
@@ -347,7 +349,7 @@ export default function DoctorConcern({ onRefresh }) {
 
 
 
-    <div className="table-responsive mb-3" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
+    <div className="table-responsive mb-3 noPrint" style={{ marginBottom: 10, overflowY: 'auto', display: 'block', maxHeight: "130px" }}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#8596a8ff", height: "27px" }} >
 

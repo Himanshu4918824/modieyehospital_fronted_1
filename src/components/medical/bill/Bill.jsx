@@ -8,7 +8,7 @@ export default function Bill() {
   const { product, supplier, getAllCompany, getAllProduct } = useContext(MainContext);
   const navigate = useNavigate();
 
-  const emptyRow = { productId: "", pack: "", batchNo: "", expiryDate: "", quantity: "", freeQty: "", mrp: "", purchaseRate: "", gstPercent: "", amount: "" };
+  const emptyRow = { productId: "", pack: "", batchNo: "", expiryDate: "", quantity: "", freeQty: "", mrp: "", purchaseRate: "", gstPercent: "",sgst:"",cgst:"", amount: "" };
   const [items, setItems] = useState([emptyRow]);
 
   const [companyName, setCompanyName] = useState('');
@@ -163,6 +163,8 @@ export default function Bill() {
                 <th>M.R.P</th>
                 <th>P. RATE/S</th>
                 <th>GST %</th>
+                <th>SGST</th>
+                <th>CGST</th>
                 <th>AMOUNT</th>
               </tr>
             </thead>
@@ -203,6 +205,8 @@ export default function Bill() {
                   <td><input size={2} type="text" className="form-control form-control-sm" value={item.mrp} onChange={(e) => handleChange(index, "mrp", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
                   <td><input size={4} type="text" className="form-control form-control-sm" value={item.purchaseRate} onChange={(e) => handleChange(index, "purchaseRate", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
                   <td><input size={2} type="text" className="form-control form-control-sm" value={item.gstPercent} onChange={(e) => handleChange(index, "gstPercent", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
+                  <td><input size={2} type="text" className="form-control form-control-sm" value={item.sgst} onChange={(e) => handleChange(index, "sgst", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
+                  <td><input size={2} type="text" className="form-control form-control-sm" value={item.cgst} onChange={(e) => handleChange(index, "cgst", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
                   <td><input size={2} type="text" className="form-control form-control-sm" value={item.mrp * item.quantity + (item.mrp * item.quantity) * item.gstPercent / 100} /></td>
                 </tr>
               ))}
