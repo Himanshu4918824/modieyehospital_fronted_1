@@ -25,7 +25,7 @@ export default function DoctorConcern({ onRefresh }) {
   }
 
   const closeDialog = () => setShowDialog(false);
-
+  const serverURL = import.meta.env.VITE_Server_files_url || "http://localhost:8001";
 
   const showPage = (props) => {
     if (props === "Complaints") {
@@ -375,7 +375,7 @@ export default function DoctorConcern({ onRefresh }) {
               return (
                 <tr style={{ fontSize: '14px' }} key={i}>
                   <td>{item.name}</td>
-                  <td><a target="blank" href={`http://localhost:8001/${item.path}`}>View</a></td>
+                  <td><a target="blank" href={`${serverURL}/${item.path}`}>View</a></td>
                 </tr>)
             }) : (<tr>
               <td colSpan="3">No record available</td>
