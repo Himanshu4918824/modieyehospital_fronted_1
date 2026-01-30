@@ -8,13 +8,66 @@ export default function Bill() {
   const { product, supplier, getAllCompany, getAllProduct } = useContext(MainContext);
   const navigate = useNavigate();
 
-  const emptyRow = { productId: "", pack: "", batchNo: "", expiryDate: "", quantity: "", freeQty: "", mrp: "", purchaseRate: "", gstPercent: "",sgst:"",cgst:"", amount: "" };
+  const emptyRow = { productId: "", pack: "", batchNo: "", expiryDate: "", quantity: "", freeQty: "", mrp: "", purchaseRate: "", gstPercent: "", amount: "" };
   const [items, setItems] = useState([emptyRow]);
 
   const [companyName, setCompanyName] = useState('');
   const [billNo, setBillNo] = useState('');
   const [type, settype] = useState('');
   const [date, setDate] = useState('');
+
+  const [gst1,setGst1]=useState('GST 0.00%');
+  const [gst2,setGst2]=useState('GST 5.00%');
+  const [gst3,setGst3]=useState('GST 12.00%');
+  const [gst4,setGst4]=useState('GST 18.00%');
+  const [gst5,setGst5]=useState('GST 28.00%');
+
+  const [tot1,settot1]=useState('');
+  const [tot2,settot2]=useState('');
+  const [tot3,settot3]=useState('');
+  const [tot4,settot4]=useState('');
+  const [tot5,settot5]=useState('');
+
+  const [dis1,setDis1]=useState('');
+  const [dis2,setDis2]=useState('');
+  const [dis3,setDis3]=useState('');
+  const [dis4,setDis4]=useState('');
+  const [dis5,setDis5]=useState('');
+
+  const [tax1,setTax1]=useState('');
+  const [tax2,setTax2]=useState('');
+  const [tax3,setTax3]=useState('');
+  const [tax4,setTax4]=useState('');
+  const [tax5,setTax5]=useState('');
+  
+
+  const [sgst1,setSgst1]=useState('');
+  const [sgst2,setSgst2]=useState('');
+  const [sgst3,setSgst3]=useState('');
+  const [sgst4,setSgst4]=useState('');
+  const [sgst5,setSgst5]=useState('');
+
+  const [cgst1,setCgst1]=useState('');
+  const [cgst2,setCgst2]=useState('');
+  const [cgst3,setCgst3]=useState('');
+  const [cgst4,setCgst4]=useState('');
+  const [cgst5,setCgst5]=useState('');
+
+  const [tolGst1,setTolGst1]=useState('');
+  const [tolGst2,setTolGst2]=useState('');
+  const [tolGst3,setTolGst3]=useState('');
+  const [tolGst4,setTolGst4]=useState('');
+  const [tolGst5,setTolGst5]=useState('');
+
+
+  const [sgstPay,setSgstPay]=useState('');
+  const [CgstPay,setCgstPay]=useState('');
+  const [round,setRound]=useState('');
+  const [discount,setDiscount]=useState('');
+  const [totalAmount,setTotalAmount]=useState('');
+  
+
+ 
 
   useEffect(() => {
     getAllCompany();
@@ -163,8 +216,6 @@ export default function Bill() {
                 <th>M.R.P</th>
                 <th>P. RATE/S</th>
                 <th>GST %</th>
-                <th>SGST</th>
-                <th>CGST</th>
                 <th>AMOUNT</th>
               </tr>
             </thead>
@@ -205,14 +256,110 @@ export default function Bill() {
                   <td><input size={2} type="text" className="form-control form-control-sm" value={item.mrp} onChange={(e) => handleChange(index, "mrp", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
                   <td><input size={4} type="text" className="form-control form-control-sm" value={item.purchaseRate} onChange={(e) => handleChange(index, "purchaseRate", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
                   <td><input size={2} type="text" className="form-control form-control-sm" value={item.gstPercent} onChange={(e) => handleChange(index, "gstPercent", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
-                  <td><input size={2} type="text" className="form-control form-control-sm" value={item.sgst} onChange={(e) => handleChange(index, "sgst", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
-                  <td><input size={2} type="text" className="form-control form-control-sm" value={item.cgst} onChange={(e) => handleChange(index, "cgst", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
                   <td><input size={2} type="text" className="form-control form-control-sm" value={item.mrp * item.quantity + (item.mrp * item.quantity) * item.gstPercent / 100} /></td>
                 </tr>
               ))}
 
             </tbody>
           </table>
+        </div>
+
+        <div style={{padding:10,width:'100%',display:'flex',marginTop:'10%'}} className="table-responsive">
+          <table style={{width:'80%',borderCollapse:'collapse',fontSize:14}} className="table table-bordered table-sm purchase-table">
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Total</th>
+                <th>Discount</th>
+                <th>TAXABLE</th>
+                <th>SGST</th>
+                <th>CGST</th>
+                <th>Total GST</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                  
+                  <th><input type="text" className="form-control form-control-sm" value={gst1} onChange={(e)=>setGst1(e.target.value)} /></th>
+                  <td><input type="text" className="form-control form-control-sm" value={tot1} onChange={(e)=>settot1(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={dis1} onChange={(e)=>setDis1(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={tax1} onChange={(e)=>setTax1(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={sgst1} onChange={(e)=>setSgst1(e.target.value)}  /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={cgst1} onChange={(e)=>setCgst1(e.target.value)}  /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={tolGst1} onChange={(e)=>setTolGst1(e.target.value)} /></td>
+
+              </tr>
+
+              <tr>
+                  <th><input size={2} type="text" className="form-control form-control-sm" value={gst2} /></th>
+                  <td><input type="text" className="form-control form-control-sm" value={tot2} onChange={(e)=>settot2(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={dis2} onChange={(e)=>setDis2(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={tax2} onChange={(e)=>setTax2(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={sgst2} onChange={(e)=>setSgst2(e.target.value)}  /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={cgst2} onChange={(e)=>setCgst2(e.target.value)}  /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={tolGst2} onChange={(e)=>setTolGst2(e.target.value)} /></td>
+
+              </tr>
+
+              <tr>
+                  <th><input size={2} type="text" className="form-control form-control-sm" value={gst3} /></th>
+                  <td><input type="text" className="form-control form-control-sm" value={tot3} onChange={(e)=>settot3(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={dis3} onChange={(e)=>setDis3(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={tax3} onChange={(e)=>setTax3(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={sgst3} onChange={(e)=>setSgst3(e.target.value)}  /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={cgst3} onChange={(e)=>setCgst3(e.target.value)}  /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={tolGst3} onChange={(e)=>setTolGst3(e.target.value)} /></td>
+
+              </tr>
+
+              <tr>
+                  <th><input size={2} type="text" className="form-control form-control-sm" value={gst4} /></th>
+                 <td><input type="text" className="form-control form-control-sm" value={tot4} onChange={(e)=>settot4(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={dis4} onChange={(e)=>setDis4(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={tax4} onChange={(e)=>setTax4(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={sgst4} onChange={(e)=>setSgst4(e.target.value)}  /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={cgst4} onChange={(e)=>setCgst4(e.target.value)}  /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={tolGst4} onChange={(e)=>setTolGst4(e.target.value)} /></td>
+
+              </tr>
+
+              <tr>
+                  <th><input size={2} type="text" className="form-control form-control-sm" value={gst5} /></th>
+                  <td><input type="text" className="form-control form-control-sm" value={tot5} onChange={(e)=>settot5(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={dis5} onChange={(e)=>setDis5(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={tax5} onChange={(e)=>setTax5(e.target.value)} /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={sgst5} onChange={(e)=>setSgst5(e.target.value)}  /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={cgst5} onChange={(e)=>setCgst5(e.target.value)}  /></td>
+                  <td><input type="text" className="form-control form-control-sm" value={tolGst5} onChange={(e)=>setTolGst5(e.target.value)} /></td>
+              </tr>
+            </tbody>
+
+          </table>
+
+           <div style={{marginTop:10,marginLeft:'auto'}}>
+            <div style={{display:'flex', alignItems:'center', gap:'10px', marginBottom:'8px'}}>
+              <b>SGST PAYABLE:</b>
+              <input value={sgstPay} onChange={(e)=>setSgstPay(e.target.value)} type="text" className="form-control form-control-sm" style={{width:'150px'}} />
+            </div>
+            <div style={{display:'flex', alignItems:'center', gap:'10px', marginBottom:'8px'}}>
+              <b>CGST PAYABLE:</b>
+              <input value={CgstPay} onChange={(e)=>setCgstPay(e.target.value)} type="text" className="form-control form-control-sm" style={{width:'150px'}} />
+            </div>
+            <div style={{display:'flex', alignItems:'center', gap:'10px', marginBottom:'8px'}}>
+              <b>ROUND OFF:</b>
+              <input value={round} onChange={(e)=>setRound(e.target.value)} type="text" className="form-control form-control-sm" style={{width:'150px', marginLeft:'17px'}} />
+            </div>
+            <div style={{display:'flex', alignItems:'center', gap:'10px', marginBottom:'8px'}}>
+              <b>Discount:</b>
+              <input value={discount} onChange={(e)=>setDiscount(e.target.value)} type="text" className="form-control form-control-sm" style={{width:'150px', marginLeft:'40px'}} />
+            </div>
+            <div style={{display:'flex', alignItems:'center', gap:'10px'}}>
+              <h3 style={{margin:0}}>TOTAL: ₹</h3>
+              <input value={totalAmount} onChange={(e)=>setTotalAmount(e.target.value)} type="text" className="form-control form-control-sm" style={{width:'150px', marginLeft:'6px'}} />
+            </div>
+      </div>
+
         </div>
 
         <div className="row">
