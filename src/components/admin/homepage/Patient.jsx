@@ -250,7 +250,7 @@ export default function Patient({ onRefresh }) {
               <th><i>Orbit</i></th>
               <th><i>Extraocular movements</i></th>
               <th><i>Eye position</i></th>
-              <th><i>Sclera/episclera</i></th>
+              <th><i>Sclera</i></th>
               <th><i>Conjunctiva</i></th>
               <th><i>Cornea</i></th>
               <th><i>Anterior chamber</i></th>
@@ -313,7 +313,7 @@ export default function Patient({ onRefresh }) {
               <th><i>Orbit</i></th>
               <th><i>Extraocular movements</i></th>
               <th><i>Eye position</i></th>
-              <th><i>Sclera/episclera</i></th>
+              <th><i>Sclera</i></th>
               <th><i>Conjunctiva</i></th>
               <th><i>Cornea</i></th>
               <th><i>Anterior chamber</i></th>

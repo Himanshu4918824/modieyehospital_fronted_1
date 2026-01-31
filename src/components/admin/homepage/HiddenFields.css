@@ -17,4 +17,13 @@
       margin: 0 !important;
       padding: 0 !important;
   }
+
+  .table-responsive,
+  .hide-scrollbar {
+    overflow: visible !important;
+    max-height: none !important;
+    max-width: none !important;
+  }
+
+  
 }
