@@ -80,6 +80,8 @@ const ContextProvider = ({ children }) => {
     Medicine: "", duration: "", Dose: "", Intake: "", Comment: "", date: "", id: "" , eye : "", type : ""
   }])
 
+  const [Surgery, setSurgery]=useState([{Surgery:"", eye:"", comment:"", id:"", date:"" }]);
+
   const [refractionData, setRefractionData] = useState([{
     Glass_Type: "",
     L_D_AXIS: "",
@@ -296,6 +298,20 @@ const ContextProvider = ({ children }) => {
         )
       );
 
+      //----------------- Surgery -------------------
+       setSurgery(
+          appointments.flatMap(apt =>Array.isArray(apt?.Surgery) ? apt.Surgery.map(surgery => ({
+              id: surgery?.id ?? "",
+              surgery: surgery?.surgery ?? "",
+              eye: surgery?.eye ?? "",
+              message: surgery?.message ?? "",
+              appointmentId: apt?.id ?? "",
+              Date: surgery?.created_at ?? ""
+            }))
+            : []
+        )
+       )
+
       // ---------------- REFRACTION ----------------
       setRefractionData(
         appointments
@@ -379,6 +395,8 @@ const ContextProvider = ({ children }) => {
       console.log(error)
     }
   }
+
+
   // fetch all the doctors
   const getAllDoctors = async () => {
     try {
@@ -389,6 +407,8 @@ const ContextProvider = ({ children }) => {
       console.log(error)
     }
   }
+
+
   // fetch all the users
   const getAllUser = async () => {
     try {
@@ -399,6 +419,8 @@ const ContextProvider = ({ children }) => {
       console.log(error)
     }
   }
+
+
   const getDoctorsDetail = async (id) => {
     try {
       const result = await getData(`doctor/api/v1/${id}`, { Authorization: localStorage.getItem('token') })
@@ -412,6 +434,8 @@ const ContextProvider = ({ children }) => {
       console.log(error)
     }
   }
+
+
   const getAppointmentCount = async () => {
     try {
       const result = await getData(`patient/v1/appointment/latestCounts`)
@@ -421,6 +445,8 @@ const ContextProvider = ({ children }) => {
       console.log(error)
     }
   }
+
+
   const getAllTodayAppointments = async (pageNum = 1, Branch) => {
     try {
       // const designation = localStorage.getItem('designation')
@@ -447,6 +473,8 @@ const ContextProvider = ({ children }) => {
       return { data: [], totalPages: 0, currentPage: 0 };
     }
   }
+
+
   const getPatientBranch = async () => {
     try {
       const data = await getData('patient/v1/appointment/allPatientBranch');
@@ -456,6 +484,8 @@ const ContextProvider = ({ children }) => {
       console.error(error)
     }
   }
+
+
   const getAllAppointments = async (pageNum = 1, Branch) => {
     try {
       if (Branch === "Select-Branch" || Branch === "" || Branch === null) {
@@ -480,6 +510,8 @@ const ContextProvider = ({ children }) => {
       return { data: [], totalPages: 0, currentPage: 0 };
     }
   }
+
+
   const getAptStatus = async (id) => {
     try {
       const data = await getData(`patient/v1/appointment/AppointmentDetail/${id}`)

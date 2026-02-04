@@ -74,7 +74,7 @@ export default function Surgery()
 
     try {
       console.log(filteredItems)
-      const response = await postData("", filteredItems);
+      const response = await postData(`patient/v1/surgery/${Aid}`, filteredItems);
 
       const result = response.data;
       // console.log(response)
@@ -120,7 +120,7 @@ export default function Surgery()
       formDataObj[key] = value;
     });
 
-    const result = await putData( `patient/v1/update/Medicine/${id}`, formDataObj);
+    const result = await putData( `patient/v1/update/surgery/${id}`, formDataObj);
 
     if (result.status) {
       Swal.fire({

@@ -138,7 +138,7 @@ export default function Header({show})
         </div>
 
 
-        <div className="d-flex align-items-center">
+        <div className="d-none d-lg-flex align-items-center">
           <a href="/contact" className="btn text-dark me-2">
             <i className="bi bi-telephone-fill" style={{ fontSize: 24,color:'goldenrod' }}></i>
           </a>

@@ -16,7 +16,7 @@ export default function PatientHistory({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
 
-  const { vision, Medicine, refractionData } = useContext(MainContext)
+  const { vision, Medicine, refractionData, Surgery } = useContext(MainContext)
 
 
   const [activeDate, setActiveDate] = useState(vision[0]?.created_at);
@@ -401,7 +401,7 @@ export default function PatientHistory({ onRefresh }) {
             </tr>
           </thead>
           <tbody>
-            {Medicine.length > 0 ? Medicine.map((item, i) => {
+            {Surgery.length > 0 ? Surgery.map((item, i) => {
               return (
                 <tr key={i}>
                   <td>{item.surgery}</td>
