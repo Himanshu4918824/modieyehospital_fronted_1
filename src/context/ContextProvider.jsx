@@ -598,7 +598,7 @@ const ContextProvider = ({ children }) => {
 
 
   return (
-    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch, getAllCompany, getAllProduct, supplier, product, getAllTemplates, templates, getAllTemplatesData , templateData }}>
+    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch, getAllCompany, getAllProduct, supplier, product, getAllTemplates, templates, getAllTemplatesData , templateData, Surgery, setSurgery }}>
       {children}
     </MainContext.Provider>
   )

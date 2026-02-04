@@ -209,6 +209,7 @@ export default function Header({show})
                     <li onClick={() => navigate('/showcompany')}>Show Company</li>
                     <li onClick={() => navigate('/showproduct')}>Show Medicine</li>
                     <li onClick={() => navigate('/bill')}>Bill</li>
+                    <li onClick={() => navigate('/customerbill')}>Customer Bill</li>
                   </ul>
                 </div>
               </li>
@@ -239,29 +240,25 @@ export default function Header({show})
         </div>
         <div className="offcanvas-body">
           <ul className="list-unstyled">
-            <li className="py-2 border-bottom">Patient</li>
-            <li className="py-2 border-bottom">Advice Report</li>
-            <li className="py-2 border-bottom">Appointment</li>
-            <li className="py-2 border-bottom">Users</li>
-            <li className="py-2 border-bottom">Staff</li>
-            <li className="py-2 border-bottom">About</li>
+              <li className="dropdown-1 py-2 border-bottom" onClick={() => navigate('/ShowPatient')}>Patient</li>
+              <li className="dropdown-2 py-2 border-bottom" onClick={() => navigate('/maindashboard')}>Today Appointments</li>
+              <li className="dropdown-2 py-2 border-bottom" onClick={() => navigate('/showallappoint')}>All Appointment</li>
+              <li className="dropdown-2 py-2 border-bottom" onClick={() => navigate('/showuser')}>Users</li>
+              <li className="dropdown-2 py-2 border-bottom" onClick={() => navigate('/displaydoctor')}>Staff</li>
+              <li className="dropdown-2" onClick={() => navigate('#')}>About</li>
+  
             <li className="dropdown-2">
-              Master Setup
+              Medicial
               <div className="Subdropdown-2">
-                <ul>
-                  <li>Drug Type</li>
-                  <li>Drug</li>
-                  <li>Department</li>
-                  <li>Designation</li>
-                  <li>Patient Group</li>
-                  <li>Unit</li>
-                  <li>City</li>
-                  <li>State</li>
-                  <li>Medicine Frequency</li>
-                  <li>In Take</li>
-                  <li>Dr. Session</li>
-                </ul>
-              </div>
+                  <ul>
+                    <li onClick={() => navigate('/addcompany')}>Add Company</li>
+                    <li onClick={() => navigate('/addproduct')}>Add Medicine</li>
+                    <li onClick={() => navigate('/showcompany')}>Show Company</li>
+                    <li onClick={() => navigate('/showproduct')}>Show Medicine</li>
+                    <li onClick={() => navigate('/bill')}>Bill</li>
+                    <li onClick={() => navigate('/customerbill')}>Customer Bill</li>
+                  </ul>
+                </div>
             </li>
           </ul>
         </div> 
