@@ -77,10 +77,10 @@ const ContextProvider = ({ children }) => {
     id: ""
   }])
   const [Medicine, setMedicine] = useState([{
-    Medicine: "", duration: "", Dose: "", Intake: "", Comment: "", date: "", id: "" , eye : "", type : ""
+    Medicine: "", duration: "", Dose: "", Intake: "", Comment: "", date: "", id: "", eye: "", type: ""
   }])
 
-  const [Surgery, setSurgery]=useState([{Surgery:"", eye:"", comment:"", id:"", date:"" }]);
+  const [surgery, setSurgery] = useState([{ name: "", eye: "", message: "", id: "", date: "" }]);
 
   const [refractionData, setRefractionData] = useState([{
     Glass_Type: "",
@@ -299,31 +299,32 @@ const ContextProvider = ({ children }) => {
       );
 
       //----------------- Surgery -------------------
-       setSurgery(
-          appointments.flatMap(apt =>Array.isArray(apt?.Surgery) ? apt.Surgery.map(surgery => ({
-              id: surgery?.id ?? "",
-              surgery: surgery?.surgery ?? "",
-              eye: surgery?.eye ?? "",
-              message: surgery?.message ?? "",
-              appointmentId: apt?.id ?? "",
-              Date: surgery?.created_at ?? ""
-            }))
-            : []
+      setSurgery(
+        appointments.flatMap(apt => Array.isArray(apt?.Surgery) ? apt.Surgery.map(surgery => ({
+          id: surgery?.id ?? "",
+          name: surgery?.SurgeryName ?? "",
+          eye: surgery?.eye ?? "",
+          message: surgery?.message ?? "",
+          appointmentId: apt?.id ?? "",
+          Date: surgery?.created_at ?? ""
+        }))
+          : []
         )
-       )
+      )
 
       // ---------------- REFRACTION ----------------
       setRefractionData(
-        appointments
-          .filter(apt => apt?.Refraction)
-          .map(apt => ({
-            ...apt.Refraction,
-            appointmentId: apt.Refraction?.appointmentId ?? "",
-            created_at: apt.Refraction?.created_at ?? "",
-            id: apt.Refraction?.id ?? ""
-          }))
+        appointments.flatMap(apt =>
+          Array.isArray(apt?.Refraction)
+            ? apt.Refraction.map(ref => ({
+              ...ref,
+              appointmentId: apt.id,
+              created_at: ref.created_at ?? "",
+              id: ref.id ?? ""
+            }))
+            : []
+        )
       );
-
       // ---------------- TREATMENT ----------------
       setTreatment(
         appointments.flatMap(apt =>
@@ -577,28 +578,28 @@ const ContextProvider = ({ children }) => {
   }
 
   const getAllTemplates = async () => {
-  try {
-    const result = await getData('medical/api/getTemplates')
-    setTemplates(result)
-  } catch (error) {
-    console.log(error)
+    try {
+      const result = await getData('medical/api/getTemplates')
+      setTemplates(result)
+    } catch (error) {
+      console.log(error)
+    }
   }
-}
 
   const getAllTemplatesData = async (id) => {
-  try {
-    const result = await getData(`medical/api/getTemplatesData/${id}`)
-    setTemplatesData(result)
-  } catch (error) {
-    console.log(error)
+    try {
+      const result = await getData(`medical/api/getTemplatesData/${id}`)
+      setTemplatesData(result)
+    } catch (error) {
+      console.log(error)
+    }
   }
-}
 
 
 
 
   return (
-    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch, getAllCompany, getAllProduct, supplier, product, getAllTemplates, templates, getAllTemplatesData , templateData, Surgery, setSurgery }}>
+    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch, getAllCompany, getAllProduct, supplier, product, getAllTemplates, templates, getAllTemplatesData, templateData, surgery, setSurgery }}>
       {children}
     </MainContext.Provider>
   )

@@ -16,12 +16,12 @@ export default function PatientHistory({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
 
-  const { vision, Medicine, refractionData, Surgery } = useContext(MainContext)
+  const { vision, Medicine, refractionData, surgery } = useContext(MainContext)
 
-
+  
   const [activeDate, setActiveDate] = useState(vision[0]?.created_at);
   const [RefactiveDate, setRefActiveDate] = useState(refractionData[0]?.created_at);
-
+  
   const activeRecord = vision.find((rec) => rec.created_at === activeDate);
   const RefactiveRecord = refractionData.find((rec) => rec.created_at === RefactiveDate);
 
@@ -277,7 +277,7 @@ export default function PatientHistory({ onRefresh }) {
     </div>
 
 
- 
+
     <div id="printArea" className="table-responsive mb-3">
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#af89f1ff", height: "27px" }} >
@@ -390,7 +390,7 @@ export default function PatientHistory({ onRefresh }) {
       </div>
 
 
-       <div id="printArea" className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+      <div id="printArea" className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
           <thead>
             <tr className="table-secondary">
@@ -401,10 +401,10 @@ export default function PatientHistory({ onRefresh }) {
             </tr>
           </thead>
           <tbody>
-            {Surgery.length > 0 ? Surgery.map((item, i) => {
+            {surgery.length > 0 ? surgery.map((item, i) => {
               return (
                 <tr key={i}>
-                  <td>{item.surgery}</td>
+                  <td>{item.name}</td>
                   <td>{item.eye}</td>
                   <td>{item.message}</td>
                   <td>{new Date(item.Date).toLocaleDateString()}</td>
