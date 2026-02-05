@@ -208,13 +208,13 @@ export default function CustomerBill()
 
         <div className="col-lg-3 col-md-12">
            <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Amount:</label>
-           <input value={subtotal} readOnly type="text" className="form-control form-control-sm" />
+           <input value={subtotal.toFixed(2)} readOnly type="text" className="form-control form-control-sm" />
 
              <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Discount:</label>
              <input type="number" min="0" step="0.01" value={discount} onChange={(e) => setDiscount(e.target.value)} className="form-control form-control-sm" />
 
              <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Total Amount :</label>
-            <input value={totalAmount} readOnly type="text" className="form-control form-control-sm" />
+            <input value={totalAmount.toFixed(2)} readOnly type="text" className="form-control form-control-sm" />
         </div>
 
     </div>
