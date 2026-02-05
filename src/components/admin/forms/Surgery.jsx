@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import MainContext from "../../../context/MainContext";
-import { postData } from "../../../services/FetchNodeAdminServices";
+import { postData, putData } from "../../../services/FetchNodeAdminServices";
 import Header from "../../admin/homepage/Header";
 import { useContext, useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function Surgery() 
 {
-  const { Surgery } = useContext(MainContext);
+  const { Surgery, Aid } = useContext(MainContext);
   const navigate = useNavigate();
 
   const emptyRow = { SurgeryName: "", eye: "", comment: ""};
