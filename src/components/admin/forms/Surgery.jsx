@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import MainContext from "../../../context/MainContext";
-import { postData } from "../../../services/FetchNodeAdminServices";
 // import Header from "../../admin/homepage/Header";
 import { postData, putData } from "../../../services/FetchNodeAdminServices";
 import Header from "../../admin/homepage/Header";
@@ -9,9 +8,7 @@ import Swal from "sweetalert2";
 
 export default function Surgery() {
   const { surgery , Aid } = useContext(MainContext);
-export default function Surgery() 
-{
-  const { Surgery, Aid } = useContext(MainContext);
+  
   const navigate = useNavigate();
 
   const emptyRow = { name: "", eye: "", comment: "" };
