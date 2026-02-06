@@ -7,20 +7,20 @@ import { useContext, useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
 export default function Surgery() {
-  const { surgery , Aid } = useContext(MainContext);
-  
+  const { surgery, Aid } = useContext(MainContext);
+
   const navigate = useNavigate();
 
-  const emptyRow = { name: "", eye: "", comment: "" };
+  const emptyRow = { SurgeryName: "", eye: "", message: "" };
   const [items, setItems] = useState([emptyRow]);
 
   function normalizeItems(data) {
     if (!data?.length) return [emptyRow];
 
     return data.map(item => ({
-      name: item?.name || "",
+      SurgeryName: item?.name || "",
       eye: item?.eye || "",
-      comment: item?.message || "",
+      message: item?.message || "",
       id: item?.id || ""
     }));
   }
@@ -49,12 +49,11 @@ export default function Surgery() {
 
   // Check row complete
   const isRowComplete = (row) => {
-    return (
-      row.name &&
-      row.eye &&
-      row.comment
+    return Boolean(
+      row?.SurgeryName?.trim() &&
+      ["left", "right", "both"].includes(row?.eye) &&
+      row?.message?.trim()
     );
-
   };
 
 
@@ -84,10 +83,10 @@ export default function Surgery() {
 
     try {
       console.log(filteredItems)
-      const response = await postData(`patient/v1/Surgery/${Aid}`, filteredItems);
+      const response = await postData(`patient/v1/Surgery/${Aid}`, {filteredItems});
 
       const result = response.data;
-      // console.log(response)
+      console.log(response)
       if (result.success) {
         alert("surgery Saved Successfully ✅");
         setItems([emptyRow]); // reset table
@@ -109,56 +108,56 @@ export default function Surgery() {
 
 
 
-  const handleEditData = async () => {
-    try {
-      const surgeries = items.filter(row => isRowComplete(row));
+  // const handleEditData = async () => {
+  //   try {
+  //     const surgeries = items.filter(row => isRowComplete(row));
 
-      if (surgeries.length === 0) {
-        alert("Please enter at least one item");
-        return;
-      }
+  //     if (surgeries.length === 0) {
+  //       alert("Please enter at least one item");
+  //       return;
+  //     }
 
 
-      const formData = new FormData();
+  //     const formData = new FormData();
 
-      // append surgeries array
-      formData.append("surgeries", JSON.stringify(surgeries));
+  //     // append surgeries array
+  //     formData.append("surgeries", JSON.stringify(surgeries));
 
-      // convert FormData → Object (like your code)
-      const formDataObj = {};
-      formData.forEach((value, key) => {
-        formDataObj[key] = value;
-      });
+  //     // convert FormData → Object (like your code)
+  //     const formDataObj = {};
+  //     formData.forEach((value, key) => {
+  //       formDataObj[key] = value;
+  //     });
 
-      const result = await putData(`patient/v1/update/surgery/${id}`, formDataObj);
+  //     const result = await putData(`patient/v1/update/surgery/${id}`, formDataObj);
 
-      if (result.status) {
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "surgeries Updated Successfully",
-          showConfirmButton: false,
-          timer: 2000
-        });
-      } else {
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: "surgeries Update Failed",
-          showConfirmButton: false,
-          timer: 2000
-        });
-      }
+  //     if (result.status) {
+  //       Swal.fire({
+  //         position: "top-end",
+  //         icon: "success",
+  //         title: "surgeries Updated Successfully",
+  //         showConfirmButton: false,
+  //         timer: 2000
+  //       });
+  //     } else {
+  //       Swal.fire({
+  //         position: "top-end",
+  //         icon: "error",
+  //         title: "surgeries Update Failed",
+  //         showConfirmButton: false,
+  //         timer: 2000
+  //       });
+  //     }
 
-    } catch (error) {
-      console.error(error);
-      Swal.fire({
-        icon: "error",
-        title: "Server Error",
-        timer: 2000
-      });
-    }
-  };
+  //   } catch (error) {
+  //     console.error(error);
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Server Error",
+  //       timer: 2000
+  //     });
+  //   }
+  // };
 
 
 
@@ -175,7 +174,7 @@ export default function Surgery() {
           <table className="table table-bordered table-sm purchase-table">
             <thead className="table-light">
               <tr>
-                <th style={{ width: '45%' }}>surgery Name</th>
+                <th style={{ width: '45%' }}>Surgery Name</th>
                 <th style={{ width: '15%' }}>Eye</th>
                 <th>Personal Comment</th>
               </tr>
@@ -188,8 +187,8 @@ export default function Surgery() {
                     <select className="form-select selectpicker"
                       data-live-search="true"
                       aria-label="Default select example"
-                      value={item.name}
-                      onChange={(e) => handleChange(index, "name", e.target.value)}
+                      value={item.SurgeryName}
+                      onChange={(e) => handleChange(index, "SurgeryName", e.target.value)}
                       onKeyDown={(e) => handleKeyDown(e, index)}
                     >
                       <option defaultValue={true}>Select surgery Name</option>
@@ -281,7 +280,7 @@ export default function Surgery() {
                     </select>
                   </td>
 
-                  <td><input size={2} type="text" className="form-control" value={item.comment} onChange={(e) => handleChange(index, "comment", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
+                  <td><input size={2} type="text" className="form-control" value={item.message} onChange={(e) => handleChange(index, "message", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
                 </tr>
               ))}
 
@@ -298,13 +297,13 @@ export default function Surgery() {
             <button onClick={resetData} type="button" className="btn btn-primary">Cancel</button>
           </div>
 
-          <div className="col-lg-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {/* <div className="col-lg-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <button onClick={handleEditData} type="reset" className="btn btn-primary">Edit</button>
           </div>
 
           <div className="col-lg-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <button type="submit" className="btn btn-primary">Create Templeate</button>
-          </div>
+          </div> */}
 
         </div>
 

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import MainContext from "../../../context/MainContext";
 import { postData } from "../../../services/FetchNodeAdminServices";
 import Header from "../../admin/homepage/Header";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useMemo } from "react";
 
 export default function Bill() {
   const { product, supplier, getAllCompany, getAllProduct } = useContext(MainContext);
@@ -16,58 +16,63 @@ export default function Bill() {
   const [type, settype] = useState('');
   const [date, setDate] = useState('');
 
-  const [gst1,setGst1]=useState('GST 0.00%');
-  const [gst2,setGst2]=useState('GST 5.00%');
-  const [gst3,setGst3]=useState('GST 12.00%');
-  const [gst4,setGst4]=useState('GST 18.00%');
-  const [gst5,setGst5]=useState('GST 28.00%');
+  const [sgstPay, setSgstPay] = useState(0);
+  const [CgstPay, setCgstPay] = useState(0);
+  const [round, setRound] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  // const [totalAmount,setTotalAmount]=useState(0);
 
-  const [tot1,settot1]=useState('');
-  const [tot2,settot2]=useState('');
-  const [tot3,settot3]=useState('');
-  const [tot4,settot4]=useState('');
-  const [tot5,settot5]=useState('');
+  const GST_SLABS = [0, 5, 12, 18, 28];
 
-  const [dis1,setDis1]=useState('');
-  const [dis2,setDis2]=useState('');
-  const [dis3,setDis3]=useState('');
-  const [dis4,setDis4]=useState('');
-  const [dis5,setDis5]=useState('');
+  const [gstSummary, setGstSummary] = useState(
+    GST_SLABS.map(rate => ({
+      rate,
+      total: 0,
+      discount: 0,
+      taxable: 0,
+      sgst: 0,
+      cgst: 0,
+      totalGst: 0
+    }))
+  );
 
-  const [tax1,setTax1]=useState('');
-  const [tax2,setTax2]=useState('');
-  const [tax3,setTax3]=useState('');
-  const [tax4,setTax4]=useState('');
-  const [tax5,setTax5]=useState('');
-  
+  const calculatedGST = useMemo(() => {
+    return GST_SLABS.map(rate => {
 
-  const [sgst1,setSgst1]=useState('');
-  const [sgst2,setSgst2]=useState('');
-  const [sgst3,setSgst3]=useState('');
-  const [sgst4,setSgst4]=useState('');
-  const [sgst5,setSgst5]=useState('');
+      const filteredItems = items.filter(
+        item => Number(item.gstPercent) === rate
+      );
 
-  const [cgst1,setCgst1]=useState('');
-  const [cgst2,setCgst2]=useState('');
-  const [cgst3,setCgst3]=useState('');
-  const [cgst4,setCgst4]=useState('');
-  const [cgst5,setCgst5]=useState('');
+      const total = filteredItems.reduce((sum, item) => {
+        const qty = Number(item.quantity) || 0;
+        const mrp = Number(item.mrp) || 0;
 
-  const [tolGst1,setTolGst1]=useState('');
-  const [tolGst2,setTolGst2]=useState('');
-  const [tolGst3,setTolGst3]=useState('');
-  const [tolGst4,setTolGst4]=useState('');
-  const [tolGst5,setTolGst5]=useState('');
+        return sum + qty * mrp;
+      }, 0);
 
+      const taxable = total;
+      const gstAmount = taxable * rate / 100;
 
-  const [sgstPay,setSgstPay]=useState('');
-  const [CgstPay,setCgstPay]=useState('');
-  const [round,setRound]=useState('');
-  const [discount,setDiscount]=useState('');
-  const [totalAmount,setTotalAmount]=useState('');
-  
+      return {
+        rate,
+        total,
+        discount: 0,
+        taxable,
+        sgst: gstAmount / 2,
+        cgst: gstAmount / 2,
+        totalGst: gstAmount
+      };
+    });
 
- 
+  }, [items]);
+
+  const totalAmount = useMemo(() => {
+    return calculatedGST.reduce((sum, slab) => sum + slab.total + slab.totalGst, 0);
+  }, [calculatedGST]);
+
+  const totalGst = useMemo(() => {
+    return calculatedGST.reduce((sum, slab) => sum + slab.totalGst, 0);
+  },[calculatedGST])
 
   useEffect(() => {
     getAllCompany();
@@ -116,8 +121,10 @@ export default function Bill() {
       supplierId: companyName,   // you can bind later
       invoiceNo: billNo,
       type: type,
-      invoiceDate: new Date(),
-      items: filteredItems
+      invoiceDate: new Date(date),
+      items: filteredItems,
+      roundOff : Math.ceil(totalAmount) ,
+      discount : discount,
     };
 
     try {
@@ -189,10 +196,10 @@ export default function Bill() {
             <input value={billNo} onChange={(e) => setBillNo(e.target.value)} type="text" className="form-control form-control-sm" />
           </div>
 
-          <div className="col-md-3">
+          {/* <div className="col-md-3">
             <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Type :</label>
             <input value={type} onChange={(e) => settype(e.target.value)} type="text" className="form-control form-control-sm" />
-          </div>
+          </div> */}
 
           <div className="col-md-3">
             <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Date :</label>
@@ -264,8 +271,8 @@ export default function Bill() {
           </table>
         </div>
 
-        <div style={{padding:10,width:'100%',display:'flex',marginTop:'10%'}} className="table-responsive">
-          <table style={{width:'80%',borderCollapse:'collapse',fontSize:14}} className="table table-bordered table-sm purchase-table">
+        <div style={{ padding: 10, width: '100%', display: 'flex', marginTop: '10%' }} className="table-responsive">
+          <table style={{ width: '80%', borderCollapse: 'collapse', fontSize: 14 }} className="table table-bordered table-sm purchase-table">
             <thead>
               <tr>
                 <th>Class</th>
@@ -279,86 +286,43 @@ export default function Bill() {
             </thead>
 
             <tbody>
-              <tr>
-                  
-                  <th><input type="text" className="form-control form-control-sm" value={gst1} onChange={(e)=>setGst1(e.target.value)} /></th>
-                  <td><input type="text" className="form-control form-control-sm" value={tot1} onChange={(e)=>settot1(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={dis1} onChange={(e)=>setDis1(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={tax1} onChange={(e)=>setTax1(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={sgst1} onChange={(e)=>setSgst1(e.target.value)}  /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={cgst1} onChange={(e)=>setCgst1(e.target.value)}  /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={tolGst1} onChange={(e)=>setTolGst1(e.target.value)} /></td>
-
-              </tr>
-
-              <tr>
-                  <th><input size={2} type="text" className="form-control form-control-sm" value={gst2} /></th>
-                  <td><input type="text" className="form-control form-control-sm" value={tot2} onChange={(e)=>settot2(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={dis2} onChange={(e)=>setDis2(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={tax2} onChange={(e)=>setTax2(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={sgst2} onChange={(e)=>setSgst2(e.target.value)}  /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={cgst2} onChange={(e)=>setCgst2(e.target.value)}  /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={tolGst2} onChange={(e)=>setTolGst2(e.target.value)} /></td>
-
-              </tr>
-
-              <tr>
-                  <th><input size={2} type="text" className="form-control form-control-sm" value={gst3} /></th>
-                  <td><input type="text" className="form-control form-control-sm" value={tot3} onChange={(e)=>settot3(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={dis3} onChange={(e)=>setDis3(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={tax3} onChange={(e)=>setTax3(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={sgst3} onChange={(e)=>setSgst3(e.target.value)}  /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={cgst3} onChange={(e)=>setCgst3(e.target.value)}  /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={tolGst3} onChange={(e)=>setTolGst3(e.target.value)} /></td>
-
-              </tr>
-
-              <tr>
-                  <th><input size={2} type="text" className="form-control form-control-sm" value={gst4} /></th>
-                 <td><input type="text" className="form-control form-control-sm" value={tot4} onChange={(e)=>settot4(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={dis4} onChange={(e)=>setDis4(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={tax4} onChange={(e)=>setTax4(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={sgst4} onChange={(e)=>setSgst4(e.target.value)}  /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={cgst4} onChange={(e)=>setCgst4(e.target.value)}  /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={tolGst4} onChange={(e)=>setTolGst4(e.target.value)} /></td>
-
-              </tr>
-
-              <tr>
-                  <th><input size={2} type="text" className="form-control form-control-sm" value={gst5} /></th>
-                  <td><input type="text" className="form-control form-control-sm" value={tot5} onChange={(e)=>settot5(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={dis5} onChange={(e)=>setDis5(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={tax5} onChange={(e)=>setTax5(e.target.value)} /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={sgst5} onChange={(e)=>setSgst5(e.target.value)}  /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={cgst5} onChange={(e)=>setCgst5(e.target.value)}  /></td>
-                  <td><input type="text" className="form-control form-control-sm" value={tolGst5} onChange={(e)=>setTolGst5(e.target.value)} /></td>
-              </tr>
+              {calculatedGST.map((slab) => (
+                <tr key={slab.rate}>
+                  <th>GST {slab.rate}%</th>
+                  <td>{slab.total.toFixed(2)}</td>
+                  <td>{slab.discount}</td>
+                  <td>{slab.taxable.toFixed(2)}</td>
+                  <td>{slab.sgst.toFixed(2)}</td>
+                  <td>{slab.cgst.toFixed(2)}</td>
+                  <td>{slab.totalGst.toFixed(2)}</td>
+                </tr>
+              ))}
             </tbody>
 
           </table>
 
-           <div style={{marginTop:10,marginLeft:'auto'}}>
-            <div style={{display:'flex', alignItems:'center', gap:'10px', marginBottom:'8px'}}>
+          <div style={{ marginTop: 10, marginLeft: 'auto' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
               <b>SGST PAYABLE:</b>
-              <input value={sgstPay} onChange={(e)=>setSgstPay(e.target.value)} type="text" className="form-control form-control-sm" style={{width:'150px'}} />
+              <input value={totalGst/2} disabled type="text" className="form-control form-control-sm" style={{ width: '150px' }} />
             </div>
-            <div style={{display:'flex', alignItems:'center', gap:'10px', marginBottom:'8px'}}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
               <b>CGST PAYABLE:</b>
-              <input value={CgstPay} onChange={(e)=>setCgstPay(e.target.value)} type="text" className="form-control form-control-sm" style={{width:'150px'}} />
+              <input value={totalGst/2} disabled type="text" className="form-control form-control-sm" style={{ width: '150px' }} />
             </div>
-            <div style={{display:'flex', alignItems:'center', gap:'10px', marginBottom:'8px'}}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
               <b>ROUND OFF:</b>
-              <input value={round} onChange={(e)=>setRound(e.target.value)} type="text" className="form-control form-control-sm" style={{width:'150px', marginLeft:'17px'}} />
+              <input value={Math.ceil(totalAmount) - totalAmount} disabled type="text" className="form-control form-control-sm" style={{ width: '150px', marginLeft: '17px' }} />
             </div>
-            <div style={{display:'flex', alignItems:'center', gap:'10px', marginBottom:'8px'}}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
               <b>Discount:</b>
-              <input value={discount} onChange={(e)=>setDiscount(e.target.value)} type="text" className="form-control form-control-sm" style={{width:'150px', marginLeft:'40px'}} />
+              <input value={discount} disabled type="text" className="form-control form-control-sm" style={{ width: '150px', marginLeft: '40px' }} />
             </div>
-            <div style={{display:'flex', alignItems:'center', gap:'10px'}}>
-              <h3 style={{margin:0}}>TOTAL: ₹</h3>
-              <input value={totalAmount} onChange={(e)=>setTotalAmount(e.target.value)} type="text" className="form-control form-control-sm" style={{width:'150px', marginLeft:'6px'}} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <h3 style={{ margin: 0 }}>TOTAL: ₹</h3>
+              <input value={totalAmount} disabled type="text" className="form-control form-control-sm" style={{ width: '150px', marginLeft: '6px' }} />
             </div>
-      </div>
+          </div>
 
         </div>
 
