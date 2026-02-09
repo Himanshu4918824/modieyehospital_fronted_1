@@ -206,6 +206,11 @@ export default function Bill() {
             <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="form-control form-control-sm" />
           </div>
 
+<div className="col-md-2"></div>
+          <div onClick={() => navigate('/showbill')} className="col-md-1 d-flex align-items-center mt-3">
+            <button type="button" className="btn btn-primary">Show Bill</button>
+          </div>
+
         </div>
 
 

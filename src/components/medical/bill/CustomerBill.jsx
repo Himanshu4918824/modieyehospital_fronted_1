@@ -121,6 +121,7 @@ export default function CustomerBill() {
 
     <div style={{ background: "lightgrey", width: "100%", fontWeight: "bold", display: 'flex', alignItems: 'center', justifyContent: 'center', height: '20' }} >
       Customer Bill
+      
     </div>
 
     <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -137,6 +138,15 @@ export default function CustomerBill() {
             <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Phone No :</label>
             <input value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} type="text" className="form-control form-control-sm" />
           </div>
+
+
+          <div className="col-md-2 mt-3"></div>
+
+          <div onClick={() => navigate('/showcustomerbill')} className="col-md-2 mt-3">
+             <button type="button" class="btn btn-primary">Show Customer Bill</button> 
+          </div>
+
+
 
 
           {/* <div className="col-md-4">

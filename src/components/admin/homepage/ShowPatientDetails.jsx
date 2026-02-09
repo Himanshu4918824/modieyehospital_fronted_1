@@ -1,13 +1,115 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Header from '../homepage/Header'
 import MainContext from '../../../context/MainContext'
 import { useEffect } from 'react'
 
 export default function ShowPatientDetails() {
-    const { allPatients, getAllPatients } = useContext(MainContext)
-    useEffect(() => { getAllPatients() }, [])
-    return (
-        <div>
+    const { allPatients, getAllPatients } = useContext(MainContext);
+
+    const [showModal, setShowModal] = useState(false)
+    const [selectedPatient, setSelectedPatient] = useState({})
+
+
+   useEffect(() => {
+    getAllPatients()
+  }, [])
+
+
+
+  const handleUpdateData = (patient) => {
+    setSelectedPatient(patient)
+    setShowModal(true)
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setSelectedPatient({ ...selectedPatient, [name]: value })
+  }
+
+  const handleClose = () => setShowModal(false)
+
+  const handleSave = () => {
+    console.log("Updated Patient:", selectedPatient)
+    // call update API here
+    setShowModal(false)
+  }
+
+  /*************Dialog Box *************** */
+  {showModal && (
+  <div className="modal fade show d-block" tabIndex="-1">
+    <div className="modal-dialog modal-lg">
+      <div className="modal-content">
+
+        <div className="modal-header">
+          <h5 className="modal-title">Update Patient</h5>
+          <button type="button" className="btn-close" onClick={handleClose}></button>
+        </div>
+
+        <div className="modal-body">
+          <div className="row g-3">
+
+            <div className="col-md-6">
+              <label className="form-label">Full Name</label>
+              <input type="text" className="form-control" name="FullName" value={selectedPatient.FullName || ''} onChange={handleChange} />
+            </div>
+
+            <div className="col-md-6">
+              <label className="form-label">Mobile</label>
+              <input  type="text" className="form-control" name="Phone" value={selectedPatient.Phone || ''} onChange={handleChange} />
+            </div>
+
+            <div className="col-md-6">
+              <label className="form-label">Gender</label>
+              <select className="form-select" name="Gender" value={selectedPatient.Gender || ''} onChange={handleChange} >
+                <option value="">Select</option>
+                <option value='Male'>Male</option>
+                <option value='Female'>Female</option>
+              </select>
+            </div>
+
+            <div className="col-md-6">
+              <label className="form-label">DOB</label>
+              <input type="date" className="form-control" name="DOB" value={selectedPatient.DOB?.split('T')[0] || ''} onChange={handleChange} />
+            </div>
+
+            <div className="col-md-12">
+              <label className="form-label">Address</label>
+              <textarea className="form-control" name="Address" value={selectedPatient.Address || ''} onChange={handleChange}/>
+            </div>
+
+            <div className="col-md-4">
+              <label className="form-label">State</label>
+              <input className="form-control"  name="State" value={selectedPatient.State || ''} onChange={handleChange}/>
+            </div>
+
+            <div className="col-md-4">
+              <label className="form-label">City</label>
+              <input className="form-control" name="City" value={selectedPatient.City || ''} onChange={handleChange} />
+            </div>
+
+            <div className="col-md-4">
+              <label className="form-label">Branch</label>
+              <input className="form-control" name="Branch" value={selectedPatient.Branch || ''} onChange={handleChange}/>
+            </div>
+
+          </div>
+        </div>
+
+        <div className="modal-footer">
+          <button className="btn btn-secondary" onClick={handleClose}> Cancel</button>
+          <button className="btn btn-primary" onClick={handleSave}> Save Changes </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+)}
+
+  /** **************************************/
+  {showModal && <div className="modal-backdrop fade show"></div>}
+
+
+    return (<div>
             <div>
                 <Header />
             </div>
@@ -51,7 +153,7 @@ export default function ShowPatientDetails() {
                                         <td>{item.Branch}</td>
                                         <td>{item.Reffered_by}</td>
                                         <td>{item.Insurance}</td>
-                                        <td><button type='button' className="btn btn-warning">Update</button></td>
+                                        <td><button onClick={() => handleUpdateData(item)} type='button' className="btn btn-warning">Update</button></td>
                                     </tr>)
                             })
                             : (

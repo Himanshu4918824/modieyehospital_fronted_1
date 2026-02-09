@@ -47,6 +47,8 @@ import ShowProduct from "./components/medical/product/ShowProduct";
 import Medicine1 from "./components/admin/forms/Medicine1";
 import Surgery from "./components/admin/forms/Surgery";
 import CustomerBill from "./components/medical/bill/CustomerBill";
+import ShowBill from "./components/medical/bill/ShowBill";
+import ShowCustomerBill from "./components/medical/bill/ShowCustomerBill";
 
 
 function App() {
@@ -108,6 +110,9 @@ function App() {
             <Route element={<Surgery/>} path="/surg"></Route>
 
             <Route element={<CustomerBill/>} path="/customerbill"></Route>
+
+            <Route element={<ShowBill/>} path="/showbill"></Route>
+            <Route element={<ShowCustomerBill/>} path="/showcustomerbill"></Route>
 
           </Routes>
         </ContextProvider>
