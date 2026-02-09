@@ -4,23 +4,19 @@ import { postData } from "../../../services/FetchNodeAdminServices";
 import Header from "../../admin/homepage/Header";
 import { useContext, useState, useEffect } from "react";
 
-export default function CustomerBill() 
-{
+export default function CustomerBill() {
   const { product, supplier, getAllCompany, getAllProduct } = useContext(MainContext);
   const navigate = useNavigate();
 
-  const emptyRow = { productId: "", quantity: "",  mrp: "", amount: "" };
+  const emptyRow = { productId: "", quantity: "", mrp: "", amount: "" };
   const [items, setItems] = useState([emptyRow]);
 
   const [patientName, setPatientName] = useState('');
   const [phoneNo, setPhoneNo] = useState('');
-  const [date, setDate] = useState('');
   const [subtotal, setSubtotal] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
-  
 
- 
 
   useEffect(() => {
     getAllCompany();
@@ -51,7 +47,7 @@ export default function CustomerBill()
 
   // Check row complete
   const isRowComplete = (row) => {
-    return row.quantity && row.mrp;
+    return row.quantity && row.mrp && row.productId;
   };
 
 
@@ -71,7 +67,12 @@ export default function CustomerBill()
   const handleSave = async () => {
 
     // remove empty rows
-    const filteredItems = items.filter(row => isRowComplete(row));
+    const filteredItems = items
+      .filter(row => isRowComplete(row))
+      .map(row => ({
+        ...row,
+        amount: Number(row.quantity) * Number(row.mrp)
+      }));;
 
     if (filteredItems.length === 0) {
       alert("Please enter at least one item");
@@ -79,9 +80,11 @@ export default function CustomerBill()
     }
 
     const billData = {
-      supplierId: patientName,   // you can bind later
-      phoneNo: phoneNo,
-      invoiceDate: new Date(),
+      name: patientName,   // you can bind later
+      phone: phoneNo,
+      amount: subtotal,
+      TotalAmount: totalAmount,
+      discount: discount,
       items: filteredItems
     };
 
@@ -90,7 +93,7 @@ export default function CustomerBill()
       const response = await postData("medical/api/saleBill", billData);
 
       const result = response.data;
-      // console.log(response)
+      console.log(response)
       if (result.success) {
         alert("Bill Saved Successfully ✅");
         setItems([emptyRow]); // reset table
@@ -136,89 +139,89 @@ export default function CustomerBill()
           </div>
 
 
-          <div className="col-md-4">
+          {/* <div className="col-md-4">
             <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Date :</label>
             <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="form-control form-control-sm" />
+          </div> */}
+
+        </div>
+
+        <div className="row">
+          <div className="col-lg-9 col-md-12">
+            <div className="table-responsive">
+              <table className="table table-bordered table-sm purchase-table">
+                <thead className="table-light">
+                  <tr>
+                    <th>PRODUCT NAME</th>
+                    <th>QTY</th>
+                    <th>M.R.P</th>
+                    <th>AMOUNT</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {items.map((item, index) => {
+                    const q = Number(item.quantity) || 0;
+                    const m = Number(item.mrp) || 0;
+                    const rowAmount = q * m;
+                    return (
+                      <tr key={index}>
+                        <td>
+                          <select className="form-select"
+                            aria-label="Default select example"
+                            value={item.productId}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              if (value === "Other") {
+                                navigate("/addproduct");
+                              } else {
+                                handleChange(index, "productId", value);
+                              }
+                            }}
+                            onKeyDown={(e) => handleKeyDown(e, index)}
+                          >
+                            <option value="">Select Product Name</option>
+
+                            {product?.map((prod) => (
+                              <option key={prod.id} value={prod.id}>{prod.name}</option>
+                            ))}
+
+                            <option value="Other">Other</option>
+                          </select>
+                        </td>
+
+                        <td>
+                          <input type="number" min="0" className="form-control form-control-sm" value={item.quantity} onChange={(e) => handleChange(index, "quantity", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} />
+                        </td>
+
+                        <td>
+                          <input type="number" min="0" step="0.01" className="form-control form-control-sm" value={item.mrp} onChange={(e) => handleChange(index, "mrp", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} />
+                        </td>
+
+                        <td>
+                          {rowAmount ? (rowAmount.toFixed(2)) : ""}
+                        </td>
+                      </tr>
+                    );
+                  })}
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="col-lg-3 col-md-12">
+            <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Amount:</label>
+            <input value={subtotal.toFixed(2)} readOnly type="text" className="form-control form-control-sm" />
+
+            <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Discount:</label>
+            <input type="number" min="0" step="0.01" value={discount} onChange={(e) => setDiscount(e.target.value)} className="form-control form-control-sm" />
+
+            <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Total Amount :</label>
+            <input value={totalAmount.toFixed(2)} readOnly type="text" className="form-control form-control-sm" />
           </div>
 
         </div>
 
-   <div className="row">
-    <div className="col-lg-9 col-md-12">
-        <div className="table-responsive">
-          <table className="table table-bordered table-sm purchase-table">
-            <thead className="table-light">
-              <tr>
-                <th>PRODUCT NAME</th>
-                <th>QTY</th>
-                <th>M.R.P</th>
-                <th>AMOUNT</th>
-              </tr>
-            </thead>
-            <tbody>
-              {items.map((item, index) => {
-                const q = Number(item.quantity) || 0;
-                const m = Number(item.mrp) || 0;
-                const rowAmount = q * m;
-                return (
-                  <tr key={index}>
-                    <td>
-                      <select className="form-select"
-                             aria-label="Default select example"
-                             value={item.productId}
-                             onChange={(e) => {
-                                     const value = e.target.value;
-                                     if (value === "Other") {
-                                       navigate("/addproduct");
-                                     } else {
-                                       handleChange(index, "productId", value);
-                                     }
-                                }}
-                        onKeyDown={(e) => handleKeyDown(e, index)}
-                      >
-                        <option value="">Select Product Name</option>
-
-                        {product?.map((prod) => (
-                          <option key={prod.id} value={prod.id}>{prod.name}</option>
-                        ))}
-
-                        <option value="Other">Other</option>
-                      </select>
-                    </td>
-
-                    <td>
-                      <input type="number" min="0" className="form-control form-control-sm" value={item.quantity} onChange={(e) => handleChange(index, "quantity", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)}/>
-                    </td>
-
-                    <td>
-                      <input type="number" min="0" step="0.01" className="form-control form-control-sm"  value={item.mrp} onChange={(e) => handleChange(index, "mrp", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)}  />
-                    </td>
-
-                    <td>
-                      {rowAmount ? rowAmount.toFixed(2) : ""}
-                    </td>
-                  </tr>
-                );
-              })}
-
-            </tbody>
-          </table>
-        </div>
-    </div>
-
-        <div className="col-lg-3 col-md-12">
-           <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Amount:</label>
-           <input value={subtotal.toFixed(2)} readOnly type="text" className="form-control form-control-sm" />
-
-             <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Discount:</label>
-             <input type="number" min="0" step="0.01" value={discount} onChange={(e) => setDiscount(e.target.value)} className="form-control form-control-sm" />
-
-             <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: 'nowrap' }}>Total Amount :</label>
-            <input value={totalAmount.toFixed(2)} readOnly type="text" className="form-control form-control-sm" />
-        </div>
-
-    </div>
- 
 
 
         <div className="row">
