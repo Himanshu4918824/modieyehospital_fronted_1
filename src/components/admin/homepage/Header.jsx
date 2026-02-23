@@ -82,6 +82,8 @@ import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 
+import "./HiddenFields.css";
+
 export default function Header({show})
  {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -158,7 +160,7 @@ export default function Header({show})
 
         {/* Bootstrap Hamburger Icon for small screens */}
         <button
-          className="btn d-lg-none"
+          className="btn d-lg-none noPrint"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#mobileMenu"

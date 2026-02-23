@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import "./HiddenFields.css";
+import PrintHeader from "./PrintHeader";
 
 export default function DashBoard() 
 {
@@ -95,6 +96,10 @@ export default function DashBoard()
         </button>
 
         Doctor Examination
+      </div>
+
+      <div className="print-only">
+        <PrintHeader/>
       </div>
 
       <div className="px-3">

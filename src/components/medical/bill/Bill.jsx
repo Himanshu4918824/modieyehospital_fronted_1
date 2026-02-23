@@ -4,7 +4,12 @@ import { postData } from "../../../services/FetchNodeAdminServices";
 import Header from "../../admin/homepage/Header";
 import { useContext, useState, useEffect, useMemo } from "react";
 
-export default function Bill() {
+import "../../admin/homepage/HiddenFields.css";
+
+ 
+
+export default function Bill() 
+{
   const { product, supplier, getAllCompany, getAllProduct } = useContext(MainContext);
   const navigate = useNavigate();
 
@@ -206,9 +211,9 @@ export default function Bill() {
             <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="form-control form-control-sm" />
           </div>
 
-<div className="col-md-2"></div>
-          <div onClick={() => navigate('/showbill')} className="col-md-1 d-flex align-items-center mt-3">
-            <button type="button" className="btn btn-primary">Show Bill</button>
+<div className="col-md-2 "></div>
+          <div onClick={() => navigate('/showbill')} className="col-md-1 d-flex align-items-center mt-3 noPrint">
+            <button type="button" className="btn btn-primary noPrint">Show Bill</button>
           </div>
 
         </div>
@@ -268,7 +273,7 @@ export default function Bill() {
                   <td><input size={2} type="text" className="form-control form-control-sm" value={item.mrp} onChange={(e) => handleChange(index, "mrp", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
                   <td><input size={4} type="text" className="form-control form-control-sm" value={item.purchaseRate} onChange={(e) => handleChange(index, "purchaseRate", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
                   <td><input size={2} type="text" className="form-control form-control-sm" value={item.gstPercent} onChange={(e) => handleChange(index, "gstPercent", e.target.value)} onKeyDown={(e) => handleKeyDown(e, index)} /></td>
-                  <td><input size={2} type="text" className="form-control form-control-sm" value={item.mrp * item.quantity + (item.mrp * item.quantity) * item.gstPercent / 100} /></td>
+                  <td><input size={2} type="text" className="form-control form-control-sm" value={item.purchaseRate * item.quantity + (item.purchaseRate * item.quantity) * item.gstPercent / 100} /></td>
                 </tr>
               ))}
 

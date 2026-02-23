@@ -49,6 +49,7 @@ import Surgery from "./components/admin/forms/Surgery";
 import CustomerBill from "./components/medical/bill/CustomerBill";
 import ShowBill from "./components/medical/bill/ShowBill";
 import ShowCustomerBill from "./components/medical/bill/ShowCustomerBill";
+import PrintHeader from "./components/admin/homepage/PrintHeader";
 
 
 function App() {
@@ -113,6 +114,8 @@ function App() {
 
             <Route element={<ShowBill/>} path="/showbill"></Route>
             <Route element={<ShowCustomerBill/>} path="/showcustomerbill"></Route>
+
+            <Route element={<PrintHeader/>} path="/printheader"></Route>
 
           </Routes>
         </ContextProvider>

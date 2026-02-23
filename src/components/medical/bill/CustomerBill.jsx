@@ -3,6 +3,7 @@ import MainContext from "../../../context/MainContext";
 import { postData } from "../../../services/FetchNodeAdminServices";
 import Header from "../../admin/homepage/Header";
 import { useContext, useState, useEffect } from "react";
+import "../../admin/homepage/HiddenFields.css";
 
 export default function CustomerBill() {
   const { product, supplier, getAllCompany, getAllProduct } = useContext(MainContext);
@@ -114,14 +115,13 @@ export default function CustomerBill() {
 
 
 
-  return (<div>
+  return (<div id="printArea">
     <div>
-      <Header />
+      <Header show='printArea'/>
     </div>
 
     <div style={{ background: "lightgrey", width: "100%", fontWeight: "bold", display: 'flex', alignItems: 'center', justifyContent: 'center', height: '20' }} >
       Customer Bill
-      
     </div>
 
     <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -142,8 +142,8 @@ export default function CustomerBill() {
 
           <div className="col-md-2 mt-3"></div>
 
-          <div onClick={() => navigate('/showcustomerbill')} className="col-md-2 mt-3">
-             <button type="button" class="btn btn-primary">Show Customer Bill</button> 
+          <div onClick={() => navigate('/showcustomerbill')} className="col-md-2 mt-3 noPrint">
+             <button type="button" className="btn btn-primary noPrint">Show Customer Bill</button> 
           </div>
 
 
@@ -235,12 +235,12 @@ export default function CustomerBill() {
 
 
         <div className="row">
-          <div className="col-lg-6" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <button onClick={handleSave} type="button" className="btn btn-primary">Save</button>
+          <div className="col-lg-6 noPrint" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <button onClick={handleSave} type="button" className="btn btn-primary noPrint">Save</button>
           </div>
 
-          <div className="col-lg-6" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <button onClick={resetData} type="button" className="btn btn-primary">Cancel</button>
+          <div className="col-lg-6 noPrint" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <button onClick={resetData} type="button" className="btn btn-primary noPrint">Cancel</button>
           </div>
 
         </div>
