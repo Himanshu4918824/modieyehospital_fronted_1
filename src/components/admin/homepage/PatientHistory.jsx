@@ -10,11 +10,15 @@ import React, { useEffect } from 'react';
 import Medicine1 from '../forms/Medicine1';
 import Surgery from '../forms/Surgery';
 
+import "../homepage/MainPrint.css";
+
 
 export default function PatientHistory({ onRefresh }) 
 {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
+  
+  const [printSection, setPrintSection] = useState(null);
 
   const { vision, Medicine, refractionData, surgery } = useContext(MainContext)
 
@@ -92,6 +96,23 @@ export default function PatientHistory({ onRefresh })
   };
 
 
+  {/**********Print Function************ */}
+
+const handlePrint = (sectionId) => {
+  setPrintSection(sectionId);
+
+  setTimeout(() => {
+    window.print();
+  }, 200);
+
+  setTimeout(() => {
+    setPrintSection(null);
+  }, 500);
+};
+
+  /************************************** */
+
+
   const renderModal = () => {
     if (!showDialog) return null;
 
@@ -128,13 +149,13 @@ export default function PatientHistory({ onRefresh })
     </div>  */}
 
 
-    <div id="printArea" className="table-responsive mb-3">
+    <div className={`print-section ${printSection === "medicines" ? "printable" : ""} table-responsive mb-3`}>
 
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c4f3d4ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Medicines</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint('medicines')}/>
           <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Medicines")} />
         </button>
 
@@ -151,7 +172,7 @@ export default function PatientHistory({ onRefresh })
               <th>Duration</th>
               <th>Comment</th>
               <th style={{ width: '18%' }}>Date</th>
-              <th>Edit/Delete</th>
+              <th className='bi'>Edit/Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -166,7 +187,7 @@ export default function PatientHistory({ onRefresh })
                   <td>{item.duration}</td>
                   <td>{item.message}</td>
                   <td>{new Date(item.Date).toLocaleDateString()}</td>
-                  <td>
+                  <td className='bi'>
                     <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
                     <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
                   </td>
@@ -184,19 +205,21 @@ export default function PatientHistory({ onRefresh })
 
 
 
-    <div id="printArea" className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d5ddfaff", height: "27px" }} >
+    <div className={`print-section ${printSection === "vision" ? "printable" : ""}`}>
 
-      <h3 className="fs-6 fw-bold m-0">Vision</h3>
-      <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-        <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
-        <img src="/images/pencil.png" alt="edit" style={{ width: 17,marginLeft:10 }} onClick={() => openDialog("Vision")} />
-      </button>
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3 noPrint" style={{ background: "#d5ddfaff", height: "27px" }} >
 
-    </div>
+        <h3 className="fs-6 fw-bold m-0">Vision</h3>
+        <button className="btn p-0 border-0 bg-transparent noPrint" style={{ marginRight: 8 }}>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint('vision')}/>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17,marginLeft:10 }} onClick={() => openDialog("Vision")} />
+        </button>
+
+      </div>
 
 
-    {/* these are the date tabs which is used to see different appointment data in the table */}
-    <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      {/* these are the date tabs which is used to see different appointment data in the table */}
+      <div className="hide-scrollbar noPrint" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
       <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
         {vision.map((rec, i) => (
@@ -216,16 +239,16 @@ export default function PatientHistory({ onRefresh })
         ))}
       </ul>
 
-    </div>
+      </div>
 
-    <div id="printArea" className="table-responsive mb-3">
-      <div className="hide-scrollbar" style={{ maxHeight: '250px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+      <div className={`print-section ${printSection === "vision" ? "printable" : ""} table-responsive mb-3`}>
+        <div className="hide-scrollbar" style={{ maxHeight: '250px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13px" }} border={2}>
           <thead>
             <tr>
               <th>Examination</th>
               <th>Right Eye</th>
-              <th>Left Eye</th>
+              <th className='bi'>Left Eye</th>
             </tr>
           </thead>
           <tbody>
@@ -288,22 +311,23 @@ export default function PatientHistory({ onRefresh })
       </div>
     </div>
 
+    </div>
 
 
-    <div id="printArea" className="table-responsive mb-3">
+    <div className={`print-section ${printSection === "refraction" ? "printable" : ""}`}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#af89f1ff", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3 noPrint" style={{ background: "#af89f1ff", height: "27px" }} >
 
         <h3 className="fs-5 fw-bold m-0">Refraction</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
+        <button className="btn p-0 border-0 bg-transparent noPrint" style={{ marginRight: 8 }}>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint('refraction')}/>
           <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Refraction")}/>
         </button>
 
       </div>
 
       {/* these are the date tabs which is used to see different appointment data in the table */}
-      <div className="hide-scrollbar" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div className="hide-scrollbar noPrint" style={{ overflowX: 'auto', whiteSpace: 'nowrap', padding: '0px 0', background: '#f5f5f5', borderRadius: 6, marginBottom: '8px', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
         <ul className="nav nav-tabs mb-0" style={{ flexWrap: 'nowrap', borderBottom: 'none', minWidth: 'max-content' }}>
           {refractionData.map((rec, i) => (
@@ -322,7 +346,8 @@ export default function PatientHistory({ onRefresh })
       </div>
 
 
-      <div id="printArea" className="hide-scrollbar" style={{ maxHeight: '140px', overflowY: "auto", display: 'block' }}>
+      <div className="table-responsive mb-3">
+        <div className={`hide-scrollbar`} style={{ maxHeight: '140px', overflowY: "auto", display: 'block' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
           <thead>
             <tr className="table-secondary border border-dark ">
@@ -395,20 +420,22 @@ export default function PatientHistory({ onRefresh })
       </div>
     </div>
 
+    </div>
+
 
 
     <div>
 
-      <div id="printArea" className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c4f3d4ff", height: "27px" }} >
+      <div className={`print-section ${printSection === "surgery" ? "printable" : ""} d-flex justify-content-between align-items-center w-100 mb-2 px-3`} style={{ background: "#c4f3d4ff", height: "27px" }} >
         <h3 className="fs-6 fw-bold m-0">Surgery</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() =>handlePrint('surgery')}/>
           <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Surgery")}/>
         </button>
       </div>
 
 
-      <div id="printArea" className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+      <div className={`print-section ${printSection === "surgery" ? "printable" : ""} hide-scrollbar`} style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
           <thead>
             <tr className="table-secondary">
@@ -416,7 +443,7 @@ export default function PatientHistory({ onRefresh })
               <th style={{ width: '15%' }}>Eye</th>
               <th>Personal Comment</th>
               <th style={{ width: '18%' }}>Date</th>
-              <th>Edit/Delete</th>
+              <th className='bi'>Edit/Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -427,7 +454,7 @@ export default function PatientHistory({ onRefresh })
                   <td>{item.eye}</td>
                   <td>{item.message}</td>
                   <td>{new Date(item.Date).toLocaleDateString()}</td>
-                  <td>
+                  <td className='bi'>
                     <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
                     <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
                   </td>

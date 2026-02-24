@@ -7,9 +7,9 @@ import MainContext from "../../../context/MainContext";
 import { useParams } from "react-router-dom";
 // import Header from "./Header";
 import { useNavigate } from "react-router-dom";
-
-import "./HiddenFields.css";
 import PrintHeader from "./PrintHeader";
+
+//import PrintHeader from "./PrintHeader";
 
 export default function DashBoard() 
 {
@@ -102,9 +102,10 @@ export default function DashBoard()
         <PrintHeader/>
       </div>
 
+
       <div className="px-3">
 
-        <div id="printArea" className="row mb-2 mt-2">
+        <div  className="row mb-2 mt-2">
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
               <span className="input-group-text">Appointment No:</span>
