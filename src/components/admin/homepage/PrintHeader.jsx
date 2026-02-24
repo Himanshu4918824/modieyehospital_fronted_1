@@ -1,7 +1,5 @@
 import logo2 from "../../../assets/logo2.png";
 
-import "./HiddenFields.css";
-
 export default function PrintHeader() 
 {
   return (<div id="printArea">
@@ -63,7 +61,7 @@ export default function PrintHeader()
         <hr/>
 
         {/* Patient Info */}
-         <div className="row">
+       {/*  <div className="row">
           <div className="col-3">
             <strong>Patient Name:</strong> 16
           </div>
@@ -103,7 +101,7 @@ export default function PrintHeader()
          
         </div> 
 
-       
+       */}
       </div>
     </div>
   );

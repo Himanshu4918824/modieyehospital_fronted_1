@@ -10,10 +10,10 @@ import Advice from "../forms/Advice";
 import AnteriorIcon from "../forms/AnteriorIcon";
 import PosteriorIcon from "../forms/PosteriorIcon";
 
-import "./HiddenFields.css";
 
 
-export default function Patient({ onRefresh }) {
+export default function Patient({ onRefresh }) 
+{
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
   const { treatment, anterior, posterior, Advise } = useContext(MainContext);
@@ -133,8 +133,9 @@ export default function Patient({ onRefresh }) {
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#f2b4b4ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Treatment</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Treatment")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10}} onClick={() => openDialog("Treatment")} />
         </button>
 
       </div>
@@ -147,6 +148,7 @@ export default function Patient({ onRefresh }) {
               <th>Date</th>
               <th>Type</th>
               <th style={{ width: '60%' }}>Message</th>
+              <th>Edit/Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -156,9 +158,13 @@ export default function Patient({ onRefresh }) {
                   <td>{new Date(item.Date).toLocaleDateString()}</td>
                   <td>{item.type}</td>
                   <td>{item.message}</td>
+                  <td>
+                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                  </td>
                 </tr>)
               }) : (<tr>
-                <td colSpan="3">No record available</td>
+                <td colSpan="4">No record available</td>
               </tr>)}
           </tbody>
         </table>
@@ -170,8 +176,9 @@ export default function Patient({ onRefresh }) {
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d9e1e9ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Advice Given</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Advice")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Advice")}/>
         </button>
 
       </div>
@@ -184,6 +191,7 @@ export default function Patient({ onRefresh }) {
               <th>Date</th>
               <th>Type</th>
               <th style={{ width: '60%' }}>Message</th>
+              <th>Edit/Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -193,9 +201,13 @@ export default function Patient({ onRefresh }) {
                   <td>{new Date(item.Date).toLocaleDateString()}</td>
                   <td>{item.type}</td>
                   <td>{item.message}</td>
+                  <td>
+                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                  </td>
                 </tr>)
               }) : (<tr>
-                <td colSpan="3">No record available</td>
+                <td colSpan="4">No record available</td>
               </tr>)}
           </tbody>
         </table>
@@ -206,7 +218,8 @@ export default function Patient({ onRefresh }) {
     <div id="printArea" className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#ecc99aff", height: "27px" }} >
       <h3 className="fs-6 fw-bold m-0">Anterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-        <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800' }} onClick={() => openDialog("Anterioricon")}></i>
+        <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
+        <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800',marginLeft:10 }} onClick={() => openDialog("Anterioricon")}></i>
         <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 5 }} onClick={() => openDialog("Anterior")} />
       </button>
     </div>
@@ -238,7 +251,7 @@ export default function Patient({ onRefresh }) {
           <thead>
             <tr className="table-secondary border border-dark ">
 
-              <th style={{ textAlign: 'left' }} colSpan={18}>Right Eye</th>
+              <th style={{ textAlign: 'left' }} colSpan={19}>Right Eye</th>
             </tr>
 
             <tr className="table-secondary border border-dark ">
@@ -260,6 +273,7 @@ export default function Patient({ onRefresh }) {
               <th><i>Lacrimal syringing</i></th>
               <th><i>Gonioscopy</i></th>
               <th><i>Other</i></th>
+              <th>Edit/Delete</th>
 
             </tr>
 
@@ -287,10 +301,15 @@ export default function Patient({ onRefresh }) {
                 <td>{activeRecord.R_Gonioscopy}</td>
                 <td>{activeRecord.R_Others}</td>
 
+                <td>
+                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                  </td>
+
               </tr>)
 
               : (<tr>
-                <td colSpan="19">No record available</td>
+                <td colSpan="20">No record available</td>
               </tr>)
             }
           </tbody>
@@ -301,7 +320,7 @@ export default function Patient({ onRefresh }) {
           <thead>
             <tr className="table-secondary border border-dark ">
 
-              <th style={{ textAlign: 'left' }} colSpan={18}>Left Eye</th>
+              <th style={{ textAlign: 'left' }} colSpan={19}>Left Eye</th>
             </tr>
 
             <tr className="table-secondary border border-dark ">
@@ -323,6 +342,7 @@ export default function Patient({ onRefresh }) {
               <th><i>Lacrimal syringing</i></th>
               <th><i>Gonioscopy</i></th>
               <th><i>Other</i></th>
+              <th>Edit/Delete</th>
 
             </tr>
 
@@ -350,10 +370,15 @@ export default function Patient({ onRefresh }) {
                 <td>{activeRecord.L_Gonioscopy}</td>
                 <td>{activeRecord.L_Others}</td>
 
+                <td>
+                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                  </td>
+
               </tr>)
 
               : (<tr>
-                <td colSpan="19">No record available</td>
+                <td colSpan="20">No record available</td>
               </tr>)
             }
           </tbody>
@@ -366,7 +391,8 @@ export default function Patient({ onRefresh }) {
 
       <h3 className="fs-5 fw-bold m-0">Posterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-        <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800' }} onClick={() => openDialog("Posterioricon")}></i>
+        <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
+        <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800',marginLeft:10 }} onClick={() => openDialog("Posterioricon")}></i>
         <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 5 }} onClick={() => openDialog("Posterior")} />
       </button>
 
@@ -399,6 +425,7 @@ export default function Patient({ onRefresh }) {
               <th>Choroid</th>
               <th>Macula</th>
               <th>Other</th>
+              <th>Edit/Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -420,6 +447,13 @@ export default function Patient({ onRefresh }) {
                   <td>{item.L_Choroid}</td>
                   <td>{item.L_Vitreous}</td>
                   <td>{item.L_Others}</td>
+
+                   <td>
+                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                  </td>
+
+                  
 
                 </tr>)
             })
