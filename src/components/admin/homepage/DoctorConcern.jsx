@@ -14,7 +14,8 @@ import "./HiddenFields.css";
 
 
 
-export default function DoctorConcern({ onRefresh }) {
+export default function DoctorConcern({ onRefresh }) 
+{
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
   const { diagnosisList, histroy, complaint, PatientReports, allergies } = useContext(MainContext);
@@ -147,8 +148,9 @@ export default function DoctorConcern({ onRefresh }) {
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c5e1f4ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Complaints</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Complaints")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }}   onClick={() => window.print()}/>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17,marginLeft:10 }}  onClick={() => openDialog("Complaints")} />  
         </button>
 
       </div>
@@ -160,6 +162,7 @@ export default function DoctorConcern({ onRefresh }) {
               <th className="p-1" style={{ width: "90px" }}>Start Date</th>
               <th className="p-1" style={{ width: "150px" }}>Complain</th>
               <th className="p-1" style={{ width: "40px" }}>AppointmentId</th>
+              <th className="p-1" style={{ width: "40px" }}>Edit/Delete</th>
             </tr>
           </thead>
 
@@ -170,9 +173,13 @@ export default function DoctorConcern({ onRefresh }) {
                   <td className="p-1">{new Date(item.Date).toLocaleDateString()}</td>
                   <td className="p-1">{item.Complaint}</td>
                   <td className="p-1">{item.AptId}</td>
+                  <td className="p-1">
+                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder',cursor:'pointer'}}></i>
+                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                  </td>
                 </tr>)
               }) : (<tr>
-                <td colSpan="3">No record available</td>
+                <td colSpan="4">No record available</td>
               </tr>)
             }
 
@@ -188,8 +195,9 @@ export default function DoctorConcern({ onRefresh }) {
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c8ebedff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">History</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("History")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
+           <img src="/images/printer.png" alt="edit" style={{ width: 17 }}   onClick={() => window.print()}/>
+           <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("History")} />
         </button>
 
       </div>
@@ -203,6 +211,7 @@ export default function DoctorConcern({ onRefresh }) {
               <th className="p-1">Treatment History</th>
               <th className="p-1">Diet History</th>
               <th className="p-1">Family History</th>
+              <th className="p-1">Edit/Delete</th>
             </tr>
           </thead>
 
@@ -215,9 +224,13 @@ export default function DoctorConcern({ onRefresh }) {
                   <td className="p-1">{item.Treatment_Histroy}</td>
                   <td className="p-1">{item.Dite_Histroy}</td>
                   <td className="p-1">{item.Family_Histroy}</td>
+                  <td className="p-1">
+                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder',cursor:'pointer'}}></i>
+                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder',cursor:'pointer'}}></i>
+                  </td>
                 </tr>)
               }) : (<tr>
-                <td colSpan="5">No record available</td>
+                <td colSpan="6">No record available</td>
               </tr>)
             }
           </tbody>
@@ -228,20 +241,21 @@ export default function DoctorConcern({ onRefresh }) {
 
 
 
-
+{/*
     <div id="printArea" className="d-flex  gap-3">
       <div style={{ flex: '2 1 350px', minWidth: 250 }}>
 
         <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#dae6f2ff", height: "27px" }} >
 
           <h3 className="fs-6 fw-bold m-0">Doctor</h3>
-          <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Doctor")}>
-            <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+          <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
+            <img src="/images/printer.png" alt="edit" style={{ width: 17 }}   onClick={() => window.print()}/>
+            <img src="/images/pencil.png" alt="edit" style={{ width: 17,marginLeft:10 }} onClick={() => openDialog("Doctor")} />
           </button>
         </div>
 
 
-        <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+       <div className="hide-scrollbar" style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
           <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2} >
             <thead>
               <tr className="table-secondary">
@@ -257,7 +271,7 @@ export default function DoctorConcern({ onRefresh }) {
                 <td className="p-1"></td>
                 <td className="p-1"></td>
               </tr> : (<tr>
-                <td colSpan="3">No record available</td>
+                <td colSpan="4">No record available</td>
               </tr>)}
             </tbody>
 
@@ -265,7 +279,7 @@ export default function DoctorConcern({ onRefresh }) {
         </div>
       </div>
     </div>
-
+*/}
 
 
     <div id="printArea" className="table-responsive mb-3" style={{ marginBottom: 10, marginTop: 10, overflowY: 'auto', display: 'block' }}>
@@ -273,8 +287,9 @@ export default function DoctorConcern({ onRefresh }) {
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#e4dcbcff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Diagnosis</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Diagnosis")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }}   onClick={() => window.print()}/>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Diagnosis")} />
         </button>
 
       </div>
@@ -288,6 +303,7 @@ export default function DoctorConcern({ onRefresh }) {
               <th>Left Eye</th>
               <th className="w-25">Systemic</th>
               <th>Other</th>
+              <th className="p-1">Edit/Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -299,9 +315,13 @@ export default function DoctorConcern({ onRefresh }) {
                   <td>{diagnosis.L_eye}</td>
                   <td>{diagnosis.Systemic}</td>
                   <td>{diagnosis.Others}</td>
+                  <td className="p-1">
+                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder',cursor:'pointer'}}></i>
+                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder',cursor:'pointer'}}></i>
+                  </td>
                 </tr>)
               }) : (<tr>
-                <td colSpan="5">No record available</td>
+                <td colSpan="6">No record available</td>
               </tr>)
             }
           </tbody>
@@ -317,8 +337,9 @@ export default function DoctorConcern({ onRefresh }) {
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#f0d5d6ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Allegries</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Allegries")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Allegries")} />
         </button>
 
       </div>
@@ -354,8 +375,9 @@ export default function DoctorConcern({ onRefresh }) {
       <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#8596a8ff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Report</h3>
-        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }} onClick={() => openDialog("Report")}>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17 }} />
+        <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Report")} />
         </button>
 
       </div>
@@ -368,6 +390,7 @@ export default function DoctorConcern({ onRefresh }) {
 
               <th>Report Name</th>
               <th>View</th>
+              <th>Edit/Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -376,9 +399,13 @@ export default function DoctorConcern({ onRefresh }) {
                 <tr style={{ fontSize: '14px' }} key={i}>
                   <td>{item.name}</td>
                   <td><a target="blank" href={`${serverURL}/${item.path}`}>View</a></td>
+                  <td>
+                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder',cursor:'pointer'}}></i>
+                  </td>
                 </tr>)
             }) : (<tr>
-              <td colSpan="3">No record available</td>
+              <td colSpan="4">No record available</td>
             </tr>)
             }
 
