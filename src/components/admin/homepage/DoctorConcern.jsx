@@ -10,15 +10,14 @@ import Report from '../forms/Report';
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 
-import "./HiddenFields.css";
+// import "./HiddenFields.css";
 
 
 
-export default function DoctorConcern({ onRefresh }) 
-{
+export default function DoctorConcern({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
-  const { diagnosisList, histroy, complaint, PatientReports, allergies } = useContext(MainContext);
+  const { diagnosisList, histroy, complaint, PatientReports, allergies, deleteComplaint, deleteHistroy, deleteDiagnosis } = useContext(MainContext);
   const doctor = [];
   const openDialog = (e) => {
     setShowDialog(true);
@@ -149,8 +148,8 @@ export default function DoctorConcern({ onRefresh })
 
         <h3 className="fs-6 fw-bold m-0">Complaints</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }}   onClick={() => window.print()}/>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17,marginLeft:10 }}  onClick={() => openDialog("Complaints")} />  
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Complaints")} />
         </button>
 
       </div>
@@ -169,13 +168,14 @@ export default function DoctorConcern({ onRefresh })
           <tbody>
             {complaint.length > 0 ?
               complaint.map((item, i) => {
+                // {console.log(item)}
                 return (<tr key={i} style={{ height: "20px", fontSize: "13.5px" }}>
                   <td className="p-1">{new Date(item.Date).toLocaleDateString()}</td>
                   <td className="p-1">{item.Complaint}</td>
                   <td className="p-1">{item.AptId}</td>
                   <td className="p-1">
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder',cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" onClick={() => openDialog("Complaints" , i)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deleteComplaint(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -196,8 +196,8 @@ export default function DoctorConcern({ onRefresh })
 
         <h3 className="fs-6 fw-bold m-0">History</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-           <img src="/images/printer.png" alt="edit" style={{ width: 17 }}   onClick={() => window.print()}/>
-           <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("History")} />
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("History")} />
         </button>
 
       </div>
@@ -225,8 +225,8 @@ export default function DoctorConcern({ onRefresh })
                   <td className="p-1">{item.Dite_Histroy}</td>
                   <td className="p-1">{item.Family_Histroy}</td>
                   <td className="p-1">
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder',cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder',cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deleteHistroy(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -241,7 +241,7 @@ export default function DoctorConcern({ onRefresh })
 
 
 
-{/*
+    {/*
     <div id="printArea" className="d-flex  gap-3">
       <div style={{ flex: '2 1 350px', minWidth: 250 }}>
 
@@ -288,8 +288,8 @@ export default function DoctorConcern({ onRefresh })
 
         <h3 className="fs-6 fw-bold m-0">Diagnosis</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }}   onClick={() => window.print()}/>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Diagnosis")} />
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Diagnosis")} />
         </button>
 
       </div>
@@ -316,8 +316,8 @@ export default function DoctorConcern({ onRefresh })
                   <td>{diagnosis.Systemic}</td>
                   <td>{diagnosis.Others}</td>
                   <td className="p-1">
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder',cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder',cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deleteDiagnosis(diagnosis.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -338,8 +338,8 @@ export default function DoctorConcern({ onRefresh })
 
         <h3 className="fs-6 fw-bold m-0">Allegries</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Allegries")} />
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Allegries")} />
         </button>
 
       </div>
@@ -376,8 +376,8 @@ export default function DoctorConcern({ onRefresh })
 
         <h3 className="fs-6 fw-bold m-0">Report</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Report")} />
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Report")} />
         </button>
 
       </div>
@@ -400,8 +400,8 @@ export default function DoctorConcern({ onRefresh })
                   <td>{item.name}</td>
                   <td><a target="blank" href={`${serverURL}/${item.path}`}>View</a></td>
                   <td>
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder',cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
             }) : (<tr>

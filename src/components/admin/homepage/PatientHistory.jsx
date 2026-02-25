@@ -11,17 +11,16 @@ import Medicine1 from '../forms/Medicine1';
 import Surgery from '../forms/Surgery';
 
 
-export default function PatientHistory({ onRefresh }) 
-{
+export default function PatientHistory({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
 
-  const { vision, Medicine, refractionData, surgery } = useContext(MainContext)
+  const { vision, Medicine, refractionData, surgery, deleteMedicine, deleteVision, deleteRefraction, deleteSurgery } = useContext(MainContext)
 
-  
+
   const [activeDate, setActiveDate] = useState(vision[0]?.created_at);
   const [RefactiveDate, setRefActiveDate] = useState(refractionData[0]?.created_at);
-  
+
   const activeRecord = vision.find((rec) => rec.created_at === activeDate);
   const RefactiveRecord = refractionData.find((rec) => rec.created_at === RefactiveDate);
 
@@ -134,8 +133,8 @@ export default function PatientHistory({ onRefresh })
 
         <h3 className="fs-6 fw-bold m-0">Medicines</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Medicines")} />
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Medicines")} />
         </button>
 
       </div>
@@ -144,7 +143,7 @@ export default function PatientHistory({ onRefresh })
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
           <thead>
             <tr className="table-secondary">
-              <th style={{ width: '25%' }}> Drug Name</th>
+              <th style={{ width: '25%' }}>Drug Name</th>
               <th>Eye</th>
               <th>Type</th>
               <th style={{ width: '15%' }}>Dose</th>
@@ -167,8 +166,8 @@ export default function PatientHistory({ onRefresh })
                   <td>{item.message}</td>
                   <td>{new Date(item.Date).toLocaleDateString()}</td>
                   <td>
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deleteMedicine(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>
               )
@@ -188,8 +187,8 @@ export default function PatientHistory({ onRefresh })
 
       <h3 className="fs-6 fw-bold m-0">Vision</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-        <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
-        <img src="/images/pencil.png" alt="edit" style={{ width: 17,marginLeft:10 }} onClick={() => openDialog("Vision")} />
+        <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()} />
+        <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Vision")} />
       </button>
 
     </div>
@@ -206,11 +205,11 @@ export default function PatientHistory({ onRefresh })
               onClick={() => setActiveDate(rec.created_at)}
               style={{ fontSize: 13, fontWeight: 'bold', letterSpacing: 0.5 }}
             >
-              {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1} 
-            
-                    <i class="bi bi-pencil" style={{marginLeft:10,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{marginLeft:10, fontWeight:'bolder', cursor:'pointer'}}></i>
-  
+              {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
+
+              <i className="bi bi-pencil" style={{ marginLeft: 10, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+              <i className="bi bi-trash3-fill" onClick={()=>deleteVision(rec.id)} style={{ marginLeft: 10, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+
             </button>
           </li>
         ))}
@@ -296,8 +295,8 @@ export default function PatientHistory({ onRefresh })
 
         <h3 className="fs-5 fw-bold m-0">Refraction</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Refraction")}/>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Refraction")} />
         </button>
 
       </div>
@@ -353,10 +352,10 @@ export default function PatientHistory({ onRefresh })
                     {RefactiveRecord.refractionType}
                     <br />
                     Glass: {RefactiveRecord.Glass_Type}
-                    <br/>
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
-          
+                    <br />
+                    <i className="bi bi-pencil" style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={()=>deleteRefraction(RefactiveRecord.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+
                   </td>
                   <td>Distance</td>
                   <td>{RefactiveRecord.R_D_SPH}</td>
@@ -402,8 +401,8 @@ export default function PatientHistory({ onRefresh })
       <div id="printArea" className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c4f3d4ff", height: "27px" }} >
         <h3 className="fs-6 fw-bold m-0">Surgery</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()}/>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Surgery")}/>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => window.print()} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Surgery")} />
         </button>
       </div>
 
@@ -428,8 +427,8 @@ export default function PatientHistory({ onRefresh })
                   <td>{item.message}</td>
                   <td>{new Date(item.Date).toLocaleDateString()}</td>
                   <td>
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={()=>deleteSurgery(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>
               )

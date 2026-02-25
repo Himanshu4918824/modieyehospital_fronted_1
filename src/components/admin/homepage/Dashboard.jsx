@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 // import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
-import "./HiddenFields.css";
+// import "./HiddenFields.css";
 import PrintHeader from "./PrintHeader";
 
 export default function DashBoard() 

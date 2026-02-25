@@ -54,7 +54,7 @@ const putData = async (url, body, headers = {}) => {
 }
 const deleteData = async (url, headers = {}) => {
       try {
-            let response = await axios.put(`${serverURL}/${url}`, { headers })
+            let response = await axios.delete(`${serverURL}/${url}`, { headers })
             let result = response;
             return result;
       }

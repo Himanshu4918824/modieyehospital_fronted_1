@@ -1,5 +1,5 @@
 import MainContext from './MainContext'
-import { getData, putData } from "../services/FetchNodeAdminServices"
+import { deleteData, getData, putData } from "../services/FetchNodeAdminServices"
 import { useState } from 'react'
 
 
@@ -188,7 +188,7 @@ const ContextProvider = ({ children }) => {
       const response = await getData(url);
       const data = response;
 
-      console.log("Patient API Response:", data);
+      // console.log("Patient API Response:", data);
 
       // ✅ normalize Appointment once
       const appointments = Array.isArray(data?.Appointment)
@@ -216,8 +216,8 @@ const ContextProvider = ({ children }) => {
           .map(apt => ({
             Date: apt.Complaint?.created_at ?? "",
             Complaint: apt.Complaint?.message ?? "",
-            AptId: apt?.id ?? "",
-            id: apt?.id ?? ""
+            AptId: apt?.Complaint?.appointmentId ?? "",
+            id: apt?.Complaint?.id ?? ""
           }))
       );
 
@@ -430,6 +430,7 @@ const ContextProvider = ({ children }) => {
       if (result.branch) {
         localStorage.setItem('branch', result.branch);
       }
+      alert("item deleted successfully")
       return result
     } catch (error) {
       console.log(error)
@@ -440,6 +441,7 @@ const ContextProvider = ({ children }) => {
   const getAppointmentCount = async () => {
     try {
       const result = await getData(`patient/v1/appointment/latestCounts`)
+      alert("item deleted successfully")
       return result
       // console.log(result)
     } catch (error) {
@@ -595,11 +597,138 @@ const ContextProvider = ({ children }) => {
     }
   }
 
+  // delete functions
+
+  const deleteComplaint = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteComplaint/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteHistroy = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deletehistroy/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteRefraction = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleterefraction/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteDiagnosis = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteDiagnosis/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteAdvise = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteAdvise/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteMedicine = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteMedicine/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteVision = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteVision/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteTreatment = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteTreatment/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteAnterior = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteAnterior/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deletePosterior = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deletePosterior/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const deleteSurgery = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteSurgery/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
 
   return (
-    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch, getAllCompany, getAllProduct, supplier, product, getAllTemplates, templates, getAllTemplatesData, templateData, surgery, setSurgery }}>
+    <MainContext.Provider value={{
+      allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch, getAllCompany, getAllProduct, supplier, product, getAllTemplates, templates, getAllTemplatesData, templateData, surgery, setSurgery
+      // delete functions
+      , deleteComplaint, deleteHistroy, deleteRefraction, deleteDiagnosis, deleteAdvise, deleteMedicine, deleteVision, deleteTreatment, deleteAnterior, deletePosterior, deleteSurgery
+
+    }}>
       {children}
     </MainContext.Provider>
   )

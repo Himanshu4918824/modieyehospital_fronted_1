@@ -4,13 +4,13 @@ import MainContext from '../../../context/MainContext'
 import { useEffect } from 'react'
 
 export default function ShowPatientDetails() {
-    const { allPatients, getAllPatients } = useContext(MainContext);
+  const { allPatients, getAllPatients } = useContext(MainContext);
 
-    const [showModal, setShowModal] = useState(false)
-    const [selectedPatient, setSelectedPatient] = useState({})
+  const [showModal, setShowModal] = useState(false)
+  const [selectedPatient, setSelectedPatient] = useState({})
 
 
-   useEffect(() => {
+  useEffect(() => {
     getAllPatients()
   }, [])
 
@@ -35,138 +35,169 @@ export default function ShowPatientDetails() {
   }
 
   /*************Dialog Box *************** */
-  {showModal && (
-  <div className="modal fade show d-block" tabIndex="-1">
-    <div className="modal-dialog modal-lg">
-      <div className="modal-content">
 
-        <div className="modal-header">
-          <h5 className="modal-title">Update Patient</h5>
-          <button type="button" className="btn-close" onClick={handleClose}></button>
-        </div>
-
-        <div className="modal-body">
-          <div className="row g-3">
-
-            <div className="col-md-6">
-              <label className="form-label">Full Name</label>
-              <input type="text" className="form-control" name="FullName" value={selectedPatient.FullName || ''} onChange={handleChange} />
-            </div>
-
-            <div className="col-md-6">
-              <label className="form-label">Mobile</label>
-              <input  type="text" className="form-control" name="Phone" value={selectedPatient.Phone || ''} onChange={handleChange} />
-            </div>
-
-            <div className="col-md-6">
-              <label className="form-label">Gender</label>
-              <select className="form-select" name="Gender" value={selectedPatient.Gender || ''} onChange={handleChange} >
-                <option value="">Select</option>
-                <option value='Male'>Male</option>
-                <option value='Female'>Female</option>
-              </select>
-            </div>
-
-            <div className="col-md-6">
-              <label className="form-label">DOB</label>
-              <input type="date" className="form-control" name="DOB" value={selectedPatient.DOB?.split('T')[0] || ''} onChange={handleChange} />
-            </div>
-
-            <div className="col-md-12">
-              <label className="form-label">Address</label>
-              <textarea className="form-control" name="Address" value={selectedPatient.Address || ''} onChange={handleChange}/>
-            </div>
-
-            <div className="col-md-4">
-              <label className="form-label">State</label>
-              <input className="form-control"  name="State" value={selectedPatient.State || ''} onChange={handleChange}/>
-            </div>
-
-            <div className="col-md-4">
-              <label className="form-label">City</label>
-              <input className="form-control" name="City" value={selectedPatient.City || ''} onChange={handleChange} />
-            </div>
-
-            <div className="col-md-4">
-              <label className="form-label">Branch</label>
-              <input className="form-control" name="Branch" value={selectedPatient.Branch || ''} onChange={handleChange}/>
-            </div>
-
-          </div>
-        </div>
-
-        <div className="modal-footer">
-          <button className="btn btn-secondary" onClick={handleClose}> Cancel</button>
-          <button className="btn btn-primary" onClick={handleSave}> Save Changes </button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-)}
 
   /** **************************************/
-  {showModal && <div className="modal-backdrop fade show"></div>}
 
 
-    return (<div>
-            <div>
-                <Header />
+  return (
+
+    <div>
+      {showModal &&
+        (
+
+          <>
+            <div
+              className="modal fade show d-block "
+              tabIndex="-1"
+              style={{ display: "block", zIndex: 1055 }}
+            >
+              <div className="modal-dialog modal-lg modal-dialog-centered">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title">Update Patient</h5>
+                    <button
+                      type="button"
+                      className="btn-close"
+                      onClick={handleClose}
+                    ></button>
+                  </div>
+
+                  <div className="modal-body">
+                    <div className="row g-3">
+
+                      <div className="col-md-6">
+                        <label className="form-label">Full Name</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="FullName"
+                          value={selectedPatient.FullName || ""}
+                          onChange={handleChange}
+                        />
+                      </div>
+
+                      <div className="col-md-6">
+                        <label className="form-label">Mobile</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="Phone"
+                          value={selectedPatient.Phone || ""}
+                          onChange={handleChange}
+                        />
+                      </div>
+
+                      <div className="col-md-6">
+                        <label className="form-label">Gender</label>
+                        <select
+                          className="form-select"
+                          name="Gender"
+                          value={selectedPatient.Gender || ""}
+                          onChange={handleChange}
+                        >
+                          <option value="">Select</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                      </div>
+
+                      <div className="col-md-6">
+                        <label className="form-label">DOB</label>
+                        <input
+                          type="date"
+                          className="form-control"
+                          name="DOB"
+                          value={selectedPatient.DOB?.split("T")[0] || ""}
+                          onChange={handleChange}
+                        />
+                      </div>
+
+                      <div className="col-md-12">
+                        <label className="form-label">Address</label>
+                        <textarea
+                          className="form-control"
+                          name="Address"
+                          value={selectedPatient.Address || ""}
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="modal-footer">
+                    <button className="btn btn-secondary" onClick={handleClose}>
+                      Cancel
+                    </button>
+                    <button className="btn btn-primary" onClick={handleSave}>
+                      Save Changes
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div style={{ background: "lightgrey", textAlign: 'center', width: "100%", height: '50px', fontWeight: "bold", fontSize: 20 }} >
-                Patient List
-            </div>
+          <div className="modal-backdrop fade show w-100 h-100"></div>
+          </>
+        )
+      }
+      <div>
+        <Header />
+      </div>
 
-             <div className="table-responsive">
-                <table className='table'>
-                    <thead>
-                        <tr>
-                            <th>Patient Id</th>
-                            <th>Patient Name</th>
-                            <th>Mobile No.</th>
-                            <th>Gender</th>
-                            <th>Dob</th>
-                            <th>Address</th>
-                            <th>State</th>
-                            <th>City</th>
-                            <th>Hospital Branch</th>
-                            <th>Reffered By</th>
-                            <th>Insurance</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                   
-                    <tbody className="table-group-divider">
-                        {allPatients.length > 0 ?
-                            allPatients.map((item, i) => {
-                                return (
-                                    <tr key={i}>
-                                        <td>{item.id}</td>
-                                        <td>{item.FullName}</td>
-                                        <td>{item.Phone}</td>
-                                        <td>{item.Gender}</td>
-                                        <td>{new Date(item.DOB).toLocaleDateString()}</td>
-                                        <td>{item.Address}</td>
-                                        <td>{item.State}</td>
-                                        <td>{item.City}</td>
-                                        <td>{item.Branch}</td>
-                                        <td>{item.Reffered_by}</td>
-                                        <td>{item.Insurance}</td>
-                                        <td><button onClick={() => handleUpdateData(item)} type='button' className="btn btn-warning">Update</button></td>
-                                    </tr>)
-                            })
-                            : (
-                                <tr >
-                                    <td colSpan="11" className="text-center">No Data Found</td>
-                                </tr>
-                            )
-                        }
+      <div style={{ background: "lightgrey", textAlign: 'center', width: "100%", height: '50px', fontWeight: "bold", fontSize: 20 }} >
+        Patient List
+      </div>
+
+      <div className="table-responsive">
+        <table className='table'>
+          <thead>
+            <tr>
+              <th>Patient Id</th>
+              <th>Patient Name</th>
+              <th>Mobile No.</th>
+              <th>Gender</th>
+              <th>Dob</th>
+              <th>Address</th>
+              <th>State</th>
+              <th>City</th>
+              <th>Hospital Branch</th>
+              <th>Reffered By</th>
+              <th>Insurance</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody className="table-group-divider">
+            {allPatients.length > 0 ?
+              allPatients.map((item, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{item.id}</td>
+                    <td>{item.FullName}</td>
+                    <td>{item.Phone}</td>
+                    <td>{item.Gender}</td>
+                    <td>{new Date(item.DOB).toLocaleDateString()}</td>
+                    <td>{item.Address}</td>
+                    <td>{item.State}</td>
+                    <td>{item.City}</td>
+                    <td>{item.Branch}</td>
+                    <td>{item.Reffered_by}</td>
+                    <td>{item.Insurance}</td>
+                    <td><button onClick={() => handleUpdateData(item)} type='button' className="btn btn-warning">Update</button></td>
+                  </tr>)
+              })
+              : (
+                <tr >
+                  <td colSpan="11" className="text-center">No Data Found</td>
+                </tr>
+              )
+            }
 
 
-                    </tbody>
-                </table>
-            </div>
+          </tbody>
+        </table>
+      </div>
 
-        </div>)
+    </div>)
 }

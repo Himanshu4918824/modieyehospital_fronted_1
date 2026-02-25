@@ -16,7 +16,7 @@ export default function Patient({ onRefresh })
 {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
-  const { treatment, anterior, posterior, Advise } = useContext(MainContext);
+  const { treatment, anterior, posterior, Advise, deleteTreatment, deleteAdvise, deleteAnterior, deletePosterior } = useContext(MainContext);
   const [activeDate, setActiveDate] = useState(anterior[0]?.created_at);
 
   const activeRecord = anterior.find((rec) => rec.created_at === activeDate);
@@ -159,8 +159,8 @@ export default function Patient({ onRefresh })
                   <td>{item.type}</td>
                   <td>{item.message}</td>
                   <td>
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deleteTreatment(item.id)} style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -202,8 +202,8 @@ export default function Patient({ onRefresh })
                   <td>{item.type}</td>
                   <td>{item.message}</td>
                   <td>
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deleteAdvise(item.id)} style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -237,6 +237,8 @@ export default function Patient({ onRefresh })
               style={{ fontSize: 13, fontWeight: 'bold', letterSpacing: 0.5 }}
             >
               {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
+              <i className="bi bi-pencil" style={{ marginLeft: 10, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+              <i className="bi bi-trash3-fill" onClick={() => deleteAnterior(rec.id)} style={{ marginLeft: 10, fontWeight: 'bolder', cursor: 'pointer' }}></i>
             </button>
           </li>
         ))}
@@ -273,8 +275,6 @@ export default function Patient({ onRefresh })
               <th><i>Lacrimal syringing</i></th>
               <th><i>Gonioscopy</i></th>
               <th><i>Other</i></th>
-              <th>Edit/Delete</th>
-
             </tr>
 
           </thead>
@@ -300,11 +300,6 @@ export default function Patient({ onRefresh })
                 <td>{activeRecord.R_Lacrimal_syringing}</td>
                 <td>{activeRecord.R_Gonioscopy}</td>
                 <td>{activeRecord.R_Others}</td>
-
-                <td>
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
-                  </td>
 
               </tr>)
 
@@ -369,11 +364,6 @@ export default function Patient({ onRefresh })
                 <td>{activeRecord.L_Lacrimal_syringing}</td>
                 <td>{activeRecord.L_Gonioscopy}</td>
                 <td>{activeRecord.L_Others}</td>
-
-                <td>
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
-                  </td>
 
               </tr>)
 
@@ -449,8 +439,8 @@ export default function Patient({ onRefresh })
                   <td>{item.L_Others}</td>
 
                    <td>
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deletePosterior(item.id)} style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
                   </td>
 
                   
