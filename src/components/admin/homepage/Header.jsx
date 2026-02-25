@@ -82,8 +82,6 @@ import { Link } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 
-import "./HiddenFields.css";
-
 export default function Header({show})
  {
   const [menuOpen, setMenuOpen] = useState(false);

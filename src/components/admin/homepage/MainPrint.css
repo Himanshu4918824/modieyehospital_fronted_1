@@ -1,0 +1,46 @@
+.print-only {
+  display: none !important;
+}
+
+@media print {
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  .print-only {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  .printable,
+  .printable * {
+    visibility: visible !important;
+  }
+
+  .printable {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 8mm;
+    box-sizing: border-box;
+  }
+
+  .hide-scrollbar {
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+    img, .bi, button {
+    display: none !important;
+  }
+
+  @page {
+  size: A4 portrait;
+  margin: 2mm;
+}
+
+
+}
