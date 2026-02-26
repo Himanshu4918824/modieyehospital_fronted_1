@@ -1,5 +1,5 @@
 import MainContext from './MainContext'
-import { getData, putData } from "../services/FetchNodeAdminServices"
+import { deleteData, getData, putData } from "../services/FetchNodeAdminServices"
 import { useState } from 'react'
 
 
@@ -216,8 +216,8 @@ const ContextProvider = ({ children }) => {
           .map(apt => ({
             Date: apt.Complaint?.created_at ?? "",
             Complaint: apt.Complaint?.message ?? "",
-            AptId: apt?.id ?? "",
-            id: apt?.id ?? ""
+            AptId: apt?.Complaint?.appointmentId ?? "",
+            id: apt?.Complaint?.id ?? ""
           }))
       );
 
@@ -432,7 +432,7 @@ const ContextProvider = ({ children }) => {
       }
       return result
     } catch (error) {
-      console.log(error)
+     return console.log(error)
     }
   }
 
@@ -443,7 +443,7 @@ const ContextProvider = ({ children }) => {
       return result
       // console.log(result)
     } catch (error) {
-      console.log(error)
+      return console.log(error)
     }
   }
 
@@ -595,11 +595,149 @@ const ContextProvider = ({ children }) => {
     }
   }
 
+  // delete functions
+
+  const deleteComplaint = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteComplaint/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+      alert("item not deleted")
+    }
+  }
+
+  const deleteHistroy = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deletehistroy/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+      alert("item not deleted")
+    }
+  }
+
+  const deleteRefraction = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleterefraction/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+      alert("item not deleted")
+    }
+  }
+
+  const deleteDiagnosis = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteDiagnosis/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+      alert("item not deleted")
+    }
+  }
+
+  const deleteAdvise = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteAdvise/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+      alert("item not deleted")
+    }
+  }
+
+  const deleteMedicine = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteMedicine/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+      alert("item not deleted")
+    }
+  }
+
+  const deleteVision = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteVision/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+      alert("item not deleted")
+    }
+  }
+
+  const deleteTreatment = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteTreatment/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+      alert("item not deleted")
+    }
+  }
+
+  const deleteAnterior = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteAnterior/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+      alert("item not deleted")
+    }
+  }
+
+  const deletePosterior = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deletePosterior/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+      alert("item not deleted")
+    }
+  }
+
+  const deleteSurgery = async (id) => {
+    try {
+      const res = await deleteData(`patient/v1/delete/deleteSurgery/${id}`)
+      console.log(res)
+      alert("item deleted successfully")
+      return res
+    } catch (error) {
+      console.log(error)
+      alert("item not deleted")
+    }
+  }
 
 
 
   return (
-    <MainContext.Provider value={{ allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch, getAllCompany, getAllProduct, supplier, product, getAllTemplates, templates, getAllTemplatesData, templateData, surgery, setSurgery }}>
+    <MainContext.Provider value={{
+      allUsers, getAllUser, getAptStatus, changeStatus, getAppointmentCount, PatientReports, SetAid, Aid, getPatientData, diagnosisList, patientData, vision, histroy, Advise, treatment, Medicine, complaint, refractionData, anterior, posterior, SetP_id, P_id, getAllPatients, allPatients, getAllDoctors, allDoctors, getAllTodayAppointments, getDoctorsDetail, DoctorDetail, allergies, getAllAppointments, getPatientBranch, PatientBranch, AppointmentSearch, getAllCompany, getAllProduct, supplier, product, getAllTemplates, templates, getAllTemplatesData, templateData, surgery, setSurgery
+      // delete functions
+      , deleteComplaint, deleteHistroy, deleteRefraction, deleteDiagnosis, deleteAdvise, deleteMedicine, deleteVision, deleteTreatment, deleteAnterior, deletePosterior, deleteSurgery
+
+    }}>
       {children}
     </MainContext.Provider>
   )

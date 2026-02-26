@@ -6,7 +6,7 @@ import Header from "../../admin/homepage/Header";
 import { useContext, useState, useEffect } from "react";
 import Swal from "sweetalert2";
 
-export default function Surgery() {
+export default function Surgery({ index }) {
   const { surgery, Aid } = useContext(MainContext);
 
   const navigate = useNavigate();
@@ -25,19 +25,34 @@ export default function Surgery() {
     }));
   }
 
-
   useEffect(() => {
-    if (!surgery?.length) return;
+    if (!surgery?.length) {
+      setItems([emptyRow]);
+      return;
+    }
 
-    const normalized = normalizeItems(surgery);
+    let dataToUse = [];
+
+    // ✅ If index is valid → show only that index row
+    if (index !== undefined && index !== null) {
+      const selected = surgery[index];
+
+      if (selected) {
+        dataToUse = [selected]; // wrap single item in array
+      }
+    } else {
+      // ✅ If no index → show full array
+      dataToUse = surgery;
+    }
+
+    const normalized = normalizeItems(dataToUse);
     setItems(normalized);
 
     setTimeout(() => {
-      window.$('.selectpicker').selectpicker('refresh');
-    }, 500);
+      window.$(".selectpicker").selectpicker("refresh");
+    }, 300);
 
-  }, [surgery])
-
+  }, [surgery, index]);
 
   // Update input
   const handleChange = (index, field, value) => {
@@ -83,7 +98,7 @@ export default function Surgery() {
 
     try {
       console.log(filteredItems)
-      const response = await postData(`patient/v1/Surgery/${Aid}`, {filteredItems});
+      const response = await postData(`patient/v1/Surgery/${Aid}`, { filteredItems });
 
       const result = response.data;
       console.log(response)
@@ -105,59 +120,59 @@ export default function Surgery() {
     setItems([emptyRow])
   }
 
+// surgery ki api update karni hai put request se jisme id bhi bhejna hai taki pata chale ki konsa surgery update karna hai
 
 
+  const handleEditData = async () => {
+    try {
+      const surgeries = items.filter(row => isRowComplete(row));
 
-  // const handleEditData = async () => {
-  //   try {
-  //     const surgeries = items.filter(row => isRowComplete(row));
-
-  //     if (surgeries.length === 0) {
-  //       alert("Please enter at least one item");
-  //       return;
-  //     }
+      if (surgeries.length === 0) {
+        alert("Please enter at least one item");
+        return;
+      }
 
 
-  //     const formData = new FormData();
+      const formData = new FormData();
 
-  //     // append surgeries array
-  //     formData.append("surgeries", JSON.stringify(surgeries));
+      // append surgeries array
+      formData.append("surgeries", JSON.stringify(surgeries));
+      console.log(surgeries[0])
+      // convert FormData → Object (like your code)
+      const formDataObj = {};
+      formData.forEach((value, key) => {
+        formDataObj[key] = value;
+      });
+     
+      const result = await putData(`patient/v1/update/surgery/${items[0].id}`, surgeries[0]);
 
-  //     // convert FormData → Object (like your code)
-  //     const formDataObj = {};
-  //     formData.forEach((value, key) => {
-  //       formDataObj[key] = value;
-  //     });
+      if (result.status) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "surgeries Updated Successfully",
+          showConfirmButton: false,
+          timer: 2000
+        });
+      } else {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "surgeries Update Failed",
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
 
-  //     const result = await putData(`patient/v1/update/surgery/${id}`, formDataObj);
-
-  //     if (result.status) {
-  //       Swal.fire({
-  //         position: "top-end",
-  //         icon: "success",
-  //         title: "surgeries Updated Successfully",
-  //         showConfirmButton: false,
-  //         timer: 2000
-  //       });
-  //     } else {
-  //       Swal.fire({
-  //         position: "top-end",
-  //         icon: "error",
-  //         title: "surgeries Update Failed",
-  //         showConfirmButton: false,
-  //         timer: 2000
-  //       });
-  //     }
-
-  //   } catch (error) {
-  //     console.error(error);
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Server Error",
-  //       timer: 2000
-  //     });
-  //   }
-  // };
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Server Error",
+        timer: 2000
+      });
+    }
+  };
 
 
 
@@ -297,13 +312,13 @@ export default function Surgery() {
             <button onClick={resetData} type="button" className="btn btn-primary">Cancel</button>
           </div>
 
-          {/* <div className="col-lg-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="col-lg-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <button onClick={handleEditData} type="reset" className="btn btn-primary">Edit</button>
           </div>
 
           <div className="col-lg-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <button type="submit" className="btn btn-primary">Create Templeate</button>
-          </div> */}
+          </div>
 
         </div>
 

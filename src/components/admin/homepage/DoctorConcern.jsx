@@ -15,15 +15,18 @@ import "../homepage/MainPrint.css"
 
 
 
-export default function DoctorConcern({ onRefresh }) 
-{
+export default function DoctorConcern({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
+  const [selectedID, setSelectedID] = useState(null);                    //showDialog or showmodal ek h
+  const [selectedIndex, setSelectedIndex] = useState(null);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
+  const { diagnosisList, histroy, complaint, PatientReports, allergies, deleteComplaint, deleteHistroy, deleteDiagnosis } = useContext(MainContext);
   const [printSection, setPrintSection] = useState(null);
-  const { diagnosisList, histroy, complaint, PatientReports, allergies } = useContext(MainContext);
   const doctor = [];
-  const openDialog = (e) => {
+  const openDialog = (e, id = null, index = null) => {
     setShowDialog(true);
+    setSelectedID(id);
+    setSelectedIndex(index);
     setModalPage(e)
   }
 
@@ -34,14 +37,14 @@ export default function DoctorConcern({ onRefresh })
     if (props === "Complaints") {
       return (
         <div>
-          <Complaint stat='complaint' onClose={closeDialog} onRefresh={onRefresh} />
+          <Complaint stat='complaint' onClose={closeDialog} index={selectedIndex} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "History") {
       return (
         <div>
-          <History onClose={closeDialog} onRefresh={onRefresh} />
+          <History onClose={closeDialog} onRefresh={onRefresh} index={selectedIndex} />
         </div>
       );
     }
@@ -62,21 +65,21 @@ export default function DoctorConcern({ onRefresh })
     else if (props === "Diagnosis") {
       return (
         <div>
-          <Diagnosis onClose={closeDialog} onRefresh={onRefresh} />
+          <Diagnosis onClose={closeDialog} onRefresh={onRefresh} index={selectedIndex} />
         </div>
       );
     }
     else if (props === "Treatment") {
       return (
         <div>
-          <Treatment stat="treatment" onClose={closeDialog} onRefresh={onRefresh} />
+          <Treatment stat="treatment" onClose={closeDialog} onRefresh={onRefresh} index={selectedIndex} />
         </div>
       );
     }
     else if (props === "Advice") {
       return (
         <div>
-          <Advice stat="advise" onClose={closeDialog} onRefresh={onRefresh} />
+          <Advice stat="advise" onClose={closeDialog} onRefresh={onRefresh} index={selectedIndex} />
         </div>
       );
     }
@@ -90,7 +93,7 @@ export default function DoctorConcern({ onRefresh })
     else if (props === "Medicine") {
       return (
         <div>
-          <Medicine onClose={closeDialog} onRefresh={onRefresh} />
+          <Medicine onClose={closeDialog} onRefresh={onRefresh} index={selectedIndex} />
         </div>
       );
     }
@@ -125,19 +128,19 @@ export default function DoctorConcern({ onRefresh })
     );
   };
 
-  {/**********Print Function************ */}
+  {/**********Print Function************ */ }
 
-const handlePrint = (sectionId) => {
-  setPrintSection(sectionId);
+  const handlePrint = (sectionId) => {
+    setPrintSection(sectionId);
 
-  setTimeout(() => {
-    window.print();
-  }, 200);
+    setTimeout(() => {
+      window.print();
+    }, 200);
 
-  setTimeout(() => {
-    setPrintSection(null);
-  }, 500);
-};
+    setTimeout(() => {
+      setPrintSection(null);
+    }, 500);
+  };
 
   /************************************** */
 
@@ -156,7 +159,7 @@ const handlePrint = (sectionId) => {
         <h3 className="fs-6 fw-bold m-0">Complaints</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
           <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint("complaints")} />
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17,marginLeft:10 }}  onClick={() => openDialog("Complaints")} />  
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Complaints")} />
         </button>
 
       </div>
@@ -175,13 +178,14 @@ const handlePrint = (sectionId) => {
           <tbody>
             {complaint.length > 0 ?
               complaint.map((item, i) => {
+                // {console.log(item)}
                 return (<tr key={i} style={{ height: "20px", fontSize: "13.5px" }}>
                   <td className="p-1">{new Date(item.Date).toLocaleDateString()}</td>
                   <td className="p-1">{item.Complaint}</td>
                   <td className="p-1">{item.AptId}</td>
                   <td className="p-1 bi">
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder',cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" onClick={() => openDialog("Complaints", item.id , i)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deleteComplaint(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -202,8 +206,8 @@ const handlePrint = (sectionId) => {
 
         <h3 className="fs-6 fw-bold m-0">History</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-           <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint("history")}/>
-           <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("History")} />
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint("history")} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("History")} />
         </button>
 
       </div>
@@ -231,8 +235,8 @@ const handlePrint = (sectionId) => {
                   <td className="p-1">{item.Dite_Histroy}</td>
                   <td className="p-1">{item.Family_Histroy}</td>
                   <td className="p-1 bi">
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder',cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder',cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" onClick={() => openDialog("History", item.id , i)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deleteHistroy(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -247,7 +251,7 @@ const handlePrint = (sectionId) => {
 
 
 
-{/*
+    {/*
     <div id="printArea" className="d-flex  gap-3">
       <div style={{ flex: '2 1 350px', minWidth: 250 }}>
 
@@ -294,8 +298,8 @@ const handlePrint = (sectionId) => {
 
         <h3 className="fs-6 fw-bold m-0">Diagnosis</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint("diagnosis")}/>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Diagnosis")} />
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint("diagnosis")} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Diagnosis")} />
         </button>
 
       </div>
@@ -322,8 +326,8 @@ const handlePrint = (sectionId) => {
                   <td>{diagnosis.Systemic}</td>
                   <td>{diagnosis.Others}</td>
                   <td className="p-1 bi">
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder',cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder',cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" onClick={() => openDialog("Diagnosis", diagnosis.id, i)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deleteDiagnosis(diagnosis.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -344,8 +348,8 @@ const handlePrint = (sectionId) => {
 
         <h3 className="fs-6 fw-bold m-0">Allegries</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint("allegries")}/>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Allegries")} />
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint("allegries")} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Allegries")} />
         </button>
 
       </div>
@@ -382,8 +386,8 @@ const handlePrint = (sectionId) => {
 
         <h3 className="fs-6 fw-bold m-0">Report</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint("report")}/>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Report")} />
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint("report")} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Report")} />
         </button>
 
       </div>
@@ -406,8 +410,8 @@ const handlePrint = (sectionId) => {
                   <td>{item.name}</td>
                   <td><a target="blank" href={`${serverURL}/${item.path}`}>View</a></td>
                   <td className="bi">
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder',cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
             }) : (<tr>

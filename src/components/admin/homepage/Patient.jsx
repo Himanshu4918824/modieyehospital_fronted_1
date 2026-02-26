@@ -14,15 +14,14 @@ import "../homepage/MainPrint.css"
 
 
 
-export default function Patient({ onRefresh }) 
-{
+export default function Patient({ onRefresh }) {
   const [showDialog, setShowDialog] = useState(false);                    //showDialog or showmodal ek h
   const [modalPage, setModalPage] = useState("");
-  const { treatment, anterior, posterior, Advise } = useContext(MainContext);
+  const { treatment, anterior, posterior, Advise, deleteTreatment, deleteAdvise, deleteAnterior, deletePosterior } = useContext(MainContext);
   const [activeDate, setActiveDate] = useState(anterior[0]?.created_at);
 
   const [printSection, setPrintSection] = useState(null);
-
+  const [index, setIndex] = useState(null);
   const activeRecord = anterior.find((rec) => rec.created_at === activeDate);
 
   useEffect(() => {
@@ -32,9 +31,10 @@ export default function Patient({ onRefresh })
   }, [anterior, activeDate])
 
 
-  const openDialog = (e) => {
+  const openDialog = (e , index) => {
     setShowDialog(true);
     setModalPage(e)
+    setIndex(index)
   }
 
   const closeDialog = () => setShowDialog(false);
@@ -51,28 +51,28 @@ export default function Patient({ onRefresh })
     else if (props === "Treatment") {
       return (
         <div>
-          <Treatment stat="treatment" onClose={closeDialog} onRefresh={onRefresh} />
+          <Treatment stat="treatment" index={index} onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "Advice") {
       return (
         <div>
-          <Advice stat="advise" onClose={closeDialog} onRefresh={onRefresh} />
+          <Advice stat="advise" index={index} onClose={closeDialog} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "Anterior") {
       return (
         <div>
-          <Anterior onClose={closeDialog} onRefresh={onRefresh} />
+          <Anterior onClose={closeDialog} index={index} onRefresh={onRefresh} />
         </div>
       );
     }
     else if (props === "Posterior") {
       return (
         <div>
-          <Posterior onClose={closeDialog} onRefresh={onRefresh} />
+          <Posterior onClose={closeDialog} index={index} onRefresh={onRefresh} />
         </div>
       );
     }
@@ -96,19 +96,19 @@ export default function Patient({ onRefresh })
   };
 
 
-   {/**********Print Function************ */}
+  {/**********Print Function************ */ }
 
-const handlePrint = (sectionId) => {
-  setPrintSection(sectionId);
+  const handlePrint = (sectionId) => {
+    setPrintSection(sectionId);
 
-  setTimeout(() => {
-    window.print();
-  }, 200);
+    setTimeout(() => {
+      window.print();
+    }, 200);
 
-  setTimeout(() => {
-    setPrintSection(null);
-  }, 500);
-};
+    setTimeout(() => {
+      setPrintSection(null);
+    }, 500);
+  };
 
   /************************************** */
 
@@ -154,8 +154,8 @@ const handlePrint = (sectionId) => {
 
         <h3 className="fs-6 fw-bold m-0">Treatment</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={()=>handlePrint('treatment')}/>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10}} onClick={() => openDialog("Treatment")} />
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint('treatment')} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Treatment")} />
         </button>
 
       </div>
@@ -179,8 +179,8 @@ const handlePrint = (sectionId) => {
                   <td>{item.type}</td>
                   <td>{item.message}</td>
                   <td className="bi">
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" onClick={() => openDialog("Treatment", item.id)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deleteTreatment(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -197,8 +197,8 @@ const handlePrint = (sectionId) => {
 
         <h3 className="fs-6 fw-bold m-0">Advice Given</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() =>handlePrint('advice')}/>
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft:10 }} onClick={() => openDialog("Advice")}/>
+          <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint('advice')} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Advice")} />
         </button>
 
       </div>
@@ -222,8 +222,8 @@ const handlePrint = (sectionId) => {
                   <td>{item.type}</td>
                   <td>{item.message}</td>
                   <td className="bi">
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                    <i className="bi bi-pencil" onClick={() => openDialog("Advice", item.id)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deleteAdvise(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -238,8 +238,8 @@ const handlePrint = (sectionId) => {
     <div className={`print-section ${printSection === "anterior" ? "printable" : ""} d-flex justify-content-between align-items-center w-100 mb-2 px-3`} style={{ background: "#ecc99aff", height: "27px" }} >
       <h3 className="fs-6 fw-bold m-0">Anterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-        <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint('anterior')}/>
-        <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800',marginLeft:10 }} onClick={() => openDialog("Anterioricon")}></i>
+        <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint('anterior')} />
+        <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800', marginLeft: 10 }} onClick={() => openDialog("Anterioricon")}></i>
         <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 5 }} onClick={() => openDialog("Anterior")} />
       </button>
     </div>
@@ -257,6 +257,8 @@ const handlePrint = (sectionId) => {
               style={{ fontSize: 13, fontWeight: 'bold', letterSpacing: 0.5 }}
             >
               {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
+              <i className="bi bi-pencil" onClick={()=>openDialog("Anterior" ,i)} style={{ marginLeft: 10, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+              <i className="bi bi-trash3-fill" onClick={() => deleteAnterior(rec.id)} style={{ marginLeft: 10, fontWeight: 'bolder', cursor: 'pointer' }}></i>
             </button>
           </li>
         ))}
@@ -293,7 +295,7 @@ const handlePrint = (sectionId) => {
               <th><i>Lacrimal syringing</i></th>
               <th><i>Gonioscopy</i></th>
               <th><i>Other</i></th>
-              <th className="bi">Edit/Delete</th>
+              {/* <th className="bi">Edit/Delete</th> */}
 
             </tr>
 
@@ -321,11 +323,7 @@ const handlePrint = (sectionId) => {
                 <td>{activeRecord.R_Gonioscopy}</td>
                 <td>{activeRecord.R_Others}</td>
 
-                <td className="bi">
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
-                  </td>
-
+              
               </tr>)
 
               : (<tr>
@@ -362,7 +360,7 @@ const handlePrint = (sectionId) => {
               <th><i>Lacrimal syringing</i></th>
               <th><i>Gonioscopy</i></th>
               <th><i>Other</i></th>
-              <th className="bi">Edit/Delete</th>
+              {/* <th className="bi">Edit/Delete</th> */}
 
             </tr>
 
@@ -390,11 +388,6 @@ const handlePrint = (sectionId) => {
                 <td>{activeRecord.L_Gonioscopy}</td>
                 <td>{activeRecord.L_Others}</td>
 
-                <td className="bi">
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
-                  </td>
-
               </tr>)
 
               : (<tr>
@@ -411,8 +404,8 @@ const handlePrint = (sectionId) => {
 
       <h3 className="fs-5 fw-bold m-0">Posterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
-        <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint('posterior')}/>
-        <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800',marginLeft:10 }} onClick={() => openDialog("Posterioricon")}></i>
+        <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint('posterior')} />
+        <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800', marginLeft: 10 }} onClick={() => openDialog("Posterioricon")}></i>
         <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 5 }} onClick={() => openDialog("Posterior")} />
       </button>
 
@@ -453,27 +446,27 @@ const handlePrint = (sectionId) => {
               return (
                 <tr key={i} className="border border-dark">
                   <td>{new Date(item.created_at).toLocaleDateString()}</td>
-                  <td>{item.R_Macula}</td>
                   <td>{item.R_Media}</td>
-                  <td>{item.R_Optic_nerve_head}</td>
-                  <td>{item.R_Retina}</td>
-                  <td>{item.R_Choroid}</td>
                   <td>{item.R_Vitreous}</td>
+                  <td>{item.R_Retina}</td>
+                  <td>{item.R_Optic_nerve_head}</td>
+                  <td>{item.R_Choroid}</td>
+                  <td>{item.R_Macula}</td>
                   <td>{item.R_Others}</td>
-                  <td>{item.L_Macula}</td>
                   <td>{item.L_Media}</td>
-                  <td>{item.L_Optic_nerve_head}</td>
-                  <td>{item.L_Retina}</td>
-                  <td>{item.L_Choroid}</td>
                   <td>{item.L_Vitreous}</td>
+                  <td>{item.L_Macula}</td>
+                  <td>{item.L_Retina}</td>
+                  <td>{item.L_Optic_nerve_head}</td>
+                  <td>{item.L_Choroid}</td>
                   <td>{item.L_Others}</td>
 
-                   <td className="bi">
-                    <i class="bi bi-pencil" style={{fontSize:18,marginLeft:5,fontWeight:'bolder', cursor:'pointer'}}></i>
-                    <i class="bi bi-trash3-fill" style={{fontSize:18,marginLeft:15, fontWeight:'bolder', cursor:'pointer'}}></i>
+                  <td className="bi">
+                    <i className="bi bi-pencil" onClick={()=>openDialog("Posterior" , i)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => deletePosterior(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
 
-                  
+
 
                 </tr>)
             })

@@ -5,7 +5,7 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function Diagnosis({onClose, onRefresh}) {
+export default function Diagnosis({ onClose, onRefresh, index }) {
 
     const [leftEye, setLeftEye] = useState('');
     const [rightEye, setRightEye] = useState('');
@@ -17,14 +17,14 @@ export default function Diagnosis({onClose, onRefresh}) {
 
     useEffect(() => {
         // console.log(diagnosisList[0])
-        setLeftEye(diagnosisList[0]?.L_eye)
-        setRightEye(diagnosisList[0]?.R_eye)
-        setSystemic(diagnosisList[0]?.Systemic)
-        setOther(diagnosisList[0]?.Others)
-        setid(diagnosisList[0]?.id)
+        setLeftEye(diagnosisList[index]?.L_eye || diagnosisList[0]?.L_eye)
+        setRightEye(diagnosisList[index]?.R_eye || diagnosisList[0]?.R_eye)
+        setSystemic(diagnosisList[index]?.Systemic || diagnosisList[0]?.Systemic)
+        setOther(diagnosisList[index]?.Others || diagnosisList[0]?.Others)
+        setid(diagnosisList[index]?.id || diagnosisList[0]?.id)
 
     }, [])
- 
+
     const Edit = async () => {
         const formData = new FormData();
 
@@ -41,7 +41,7 @@ export default function Diagnosis({onClose, onRefresh}) {
 
         const result = await putData(`patient/v1/update/Diagnosis/${id}`, formDataObj);
         if (result.status) {
-           
+
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -149,20 +149,20 @@ export default function Diagnosis({onClose, onRefresh}) {
 
 
             {/* <div className="row mb-2 mt-3"> */}
-                <div className="d-flex justify-content-center">
-                    <button onClick={handleSubmit} type="Submit" className="btn btn-primary">Submit</button>
-                </div>
-{/* 
-                <div className="col-6 d-flex justify-content-center">
-                    <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
-                </div>
+            <div className="d-flex justify-content-center">
+                <button onClick={handleSubmit} type="Submit" className="btn btn-primary">Submit</button>
+            </div>
 
-            </div> */}
+            <div className="col-6 d-flex justify-content-center">
+                <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
+            </div>
+
+            {/* </div> */}
 
 
 
 
         </div>
 
-    </div>)
+    </div >)
 }

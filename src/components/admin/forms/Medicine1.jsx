@@ -4,7 +4,7 @@ import { postData, putData } from "../../../services/FetchNodeAdminServices";
 import Swal from "sweetalert2";
 import { useContext, useState, useEffect } from "react";
 
-export default function Medicine1() {
+export default function Medicine1({ onClose, onRefresh, index }) {
   const { Medicine, getAllProduct, product, Aid, getAllTemplatesData, templateData, getAllTemplates, templates } = useContext(MainContext);
   const navigate = useNavigate();
   const emptyRow = { DrugName: "", eye: "", type: "", dose: "", duration: "", time: "", comment: "" };
@@ -22,7 +22,6 @@ export default function Medicine1() {
 
     const arr = Array.isArray(data) ? data : [data];
     // console.log(data)
-
     return arr.map(item => ({
       id: item.id || "",
       DrugName: item.DrugName || item.medicine || "",
@@ -38,16 +37,30 @@ export default function Medicine1() {
 
   useEffect(() => {
 
-    if (Medicine?.length) {
-      setItems(normalizeItems(Medicine));
-      setSource("medicine");
+    if (!Medicine?.length) {
+      setItems([emptyRow]);
+      return;
     }
+
+    let dataToUse = [];
+
+    // ✅ If index is provided → show only that row
+    if (typeof index === "number" && Medicine[index]) {
+      dataToUse = [Medicine[index]];
+    }
+    // ✅ If index not provided → show full array
+    else {
+      dataToUse = Medicine;
+    }
+
+    setItems(normalizeItems(dataToUse));
+    setSource("medicine");
 
     setTimeout(() => {
       window.$('.selectpicker').selectpicker('refresh');
-    }, 500);
+    }, 300);
 
-  }, [Medicine])
+  }, [Medicine, index]);
 
   useEffect(() => {
     if (templateData?.description) {
@@ -152,7 +165,7 @@ export default function Medicine1() {
         formDataObj[key] = value;
       });
 
-      const result = await putData(`patient/v1/update/Medicine/${id}`, formDataObj);
+      const result = await putData(`patient/v1/update/Medicine/${medicines[0]?.id}`, medicines[0]);
 
       if (result.status) {
         Swal.fire({
@@ -357,9 +370,9 @@ export default function Medicine1() {
               <button onClick={resetData} type="button" className="btn btn-primary">Cancel</button>
             </div>
 
-            {/* <div className="col-lg-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="col-lg-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <button onClick={handleEditData} type="reset" className="btn btn-primary">Edit</button>
-            </div> */}
+            </div>
 
             <div className="col-lg-3" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <button type="submit" onClick={handleCreateTemplate} className="btn btn-primary">Create Templeate</button>

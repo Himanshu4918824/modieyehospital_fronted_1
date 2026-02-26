@@ -49,9 +49,9 @@ export default function Bill()
 
       const total = filteredItems.reduce((sum, item) => {
         const qty = Number(item.quantity) || 0;
-        const mrp = Number(item.mrp) || 0;
+        const rate = Number(item.purchaseRate) || 0;
 
-        return sum + qty * mrp;
+        return sum + qty * rate;
       }, 0);
 
       const taxable = total;

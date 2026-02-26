@@ -5,8 +5,7 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import Swal from "sweetalert2";
 
-export default function Refraction({ onClose, onRefresh }) 
-{
+export default function Refraction({ onClose, onRefresh, index }) {
   const { refractionData, P_id, Aid } = useContext(MainContext)
   const [refraction, setRefraction] = useState('');
   const [leftEyeSPH, setLeftEyeSPH] = useState('');
@@ -34,8 +33,15 @@ export default function Refraction({ onClose, onRefresh })
 
 
   useEffect(() => {
-
-    const r = refractionData[0]; // pick first object
+    // console.log(index)
+    let r = null;
+    refractionData.forEach(element => {
+      if (element.id === index) {
+        r = element
+        // console.log(element)
+      }
+    });
+    // const r = refractionData[index] || refractionData[0]; // pick first object
     // console.log(r)
     setId(r?.id)
     setRefraction(r?.refractionType);
@@ -104,7 +110,7 @@ export default function Refraction({ onClose, onRefresh })
     });
 
 
-    const result = await putData(`patient/v1/update/Refraction/${id}`, formDataObj);
+    const result = await putData(`patient/v1/update/Refraction/${index}`, formDataObj);
     if (result.status) {
       Swal.fire({
         position: "top-end",
@@ -257,9 +263,9 @@ export default function Refraction({ onClose, onRefresh })
               <tbody>
                 <tr>
                   <td>Dist...</td>
-                  <td><input value={rightEyeSPH} onChange={(e) => setRightEyeSPH(e.target.value)} type="text" className="form-control"  /></td>
+                  <td><input value={rightEyeSPH} onChange={(e) => setRightEyeSPH(e.target.value)} type="text" className="form-control" /></td>
                   <td><input value={rightEyeCYL} onChange={(e) => setRightEyeCYL(e.target.value)} type="text" className="form-control" /></td>
-                  <td><input value={rightEyeAXIS} onChange={(e) => setRightEyeAXIS(e.target.value)} type="text" className="form-control"  /></td>
+                  <td><input value={rightEyeAXIS} onChange={(e) => setRightEyeAXIS(e.target.value)} type="text" className="form-control" /></td>
                   <td><input value={rightEyeVA} onChange={(e) => setRightEyeVA(e.target.value)} type="text" className="form-control" /></td>
                 </tr>
 

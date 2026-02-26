@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 
-export default function Posterior({ onClose, onRefresh }) {
+export default function Posterior({ onClose, onRefresh , index }) {
   const { P_id, posterior, Aid } = useContext(MainContext)
   const [leftMedia, setLeftMedia] = useState('');
   const [leftVitreous, setLeftVitreous] = useState('');
@@ -27,7 +27,7 @@ export default function Posterior({ onClose, onRefresh }) {
 
   useEffect(() => {
 
-    const v = posterior[0];
+    const v = posterior[index] || posterior[0];
     setid(v?.id)
     // Right Eye
     setRightMedia(v?.R_Media);
@@ -48,6 +48,8 @@ export default function Posterior({ onClose, onRefresh }) {
     setLeftOther(v?.L_Others);
 
   }, []);
+
+console.log(index)
 
   const Edit = async () => {
     const formData = new FormData();
@@ -243,11 +245,11 @@ export default function Posterior({ onClose, onRefresh }) {
           <button onClick={handleSubmit} type="Submit" className="btn btn-primary">Submit</button>
         </div>
 
-        {/* <div className="col-6 d-flex justify-content-center">
+        <div className="col-6 d-flex justify-content-center">
           <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
         </div>
 
-      </div> */}
+      {/* </div> */}
 
     </div>
 

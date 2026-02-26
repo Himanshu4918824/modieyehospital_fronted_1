@@ -6,16 +6,15 @@ import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 //  this is the single form component use by complaint & allergies
 
-export default function Complaint({ stat, onClose, onRefresh }) {
-
+export default function Complaint({ stat, onClose, onRefresh, index }) {
     const [complain, setComplain] = useState('');
     const [complainId, setComplainId] = useState('');
     const { complaint, P_id, Aid, allergies } = useContext(MainContext)
 
     useEffect(() => {
         if (stat === 'complaint') {
-            setComplain(complaint[0]?.Complaint)
-            setComplainId(complaint[0]?.id)
+            setComplain(complaint[index]?.Complaint || complaint[0]?.Complaint)
+            setComplainId(complaint[index]?.id || complaint[0]?.id)
         }
         else if (stat === 'allergies') {
             // console.log(allergies)
@@ -119,7 +118,7 @@ export default function Complaint({ stat, onClose, onRefresh }) {
                 </div>
                 {stat === 'complaint' &&
                     <div>
-                        {/* <button onClick={Edit_Compalin} type="Submit" className="btn btn-primary">Edit</button> */}
+                        <button onClick={Edit_Compalin} type="Submit" className="btn btn-primary">Edit</button>
                     </div>
                 }
             </div>
