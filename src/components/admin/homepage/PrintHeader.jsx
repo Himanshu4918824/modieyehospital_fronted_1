@@ -1,7 +1,7 @@
 import logo2 from "../../../assets/logo2.png";
 
 
-export default function PrintHeader({ Name, AppointmentNo, MRDNo, Age, DOB, Date }) {
+export default function PrintHeader({ Name, AppointmentNo, MRDNo, Age, DOB, Date , DrName}) {
   return (
     <div >
       <div className="border p-4 bg-white shadow-sm">
@@ -90,9 +90,9 @@ export default function PrintHeader({ Name, AppointmentNo, MRDNo, Age, DOB, Date
             <strong>Appointment Date:</strong> {Date}
           </div>
 
-          {/* <div className=" text-md-end">
-            <strong>Reg. Date:</strong> 06-02-2026
-          </div> */}
+          <div className=" text-md-end">
+            <strong>Doctor:</strong> {DrName}
+          </div>
 
 
         </div>
