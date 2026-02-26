@@ -21,6 +21,7 @@ export default function DashBoard()
   const [status, setStatus] = useState("");
   useEffect(() => {
     getPatientData(`patient/v1/patient/${id}/${Aid}`);
+    getDoctorsDetail(localStorage.getItem('doctorId'));
     SetP_id(id)
     SetAid(Aid)
     // console.log(patientData)
@@ -33,7 +34,7 @@ export default function DashBoard()
 
 
   }, [id, Aid]);
-  // console.log(DoctorDetail)
+  
 
   const refreshDashboard = () => {
     getPatientData(`patient/v1/patient/${id}/${Aid}`);
@@ -99,7 +100,7 @@ export default function DashBoard()
       </div>
 
       <div className="print-only">
-        <PrintHeader Name={patientData.FullName} AppointmentNo={Aid.slice(-4)} MRDNo={patientData.id} Age={patientData.Age} DOB={patientData.Dob} Date={new Date().toLocaleDateString()} />
+        <PrintHeader Name={patientData.FullName} AppointmentNo={Aid.slice(-4)} MRDNo={patientData.id} Age={patientData.Age} DOB={patientData.Dob} Date={new Date().toLocaleDateString()} DrName={DoctorDetail.FullName} />
       </div>
 
 
@@ -169,12 +170,12 @@ export default function DashBoard()
           </div>
 
 
-          <div className="col-xs-12 col-lg-2">
+          {/* <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
               <span className="input-group-text">Last Visit Date:</span>
               <input type="text" className="form-control" disabled value={patientData.Latest_Apt_Date} />
             </div>
-          </div>
+          </div> */}
 
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
@@ -197,11 +198,8 @@ export default function DashBoard()
 
 
 
-        {/*
-        <div className="row mb-3 mt-3">
-
-          
-
+        
+        {/* <div className="row mb-3 mt-3">
           <div className="col-xs-12 col-lg-2">
             <div className="input-group">
               <span className="input-group-text">State</span>
@@ -215,13 +213,10 @@ export default function DashBoard()
               <input type="text" className="form-control" disabled value={patientData.RegDt} />
             </div>
           </div>
-
-         
-
-        </div>
+        </div> */}
 
 
-*/}
+
 
 
 
