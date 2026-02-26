@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import PrintHeader from "./PrintHeader";
 
-//import PrintHeader from "./PrintHeader";
+import "./MainPrint.css"
 
 export default function DashBoard() 
 {
@@ -88,7 +88,7 @@ export default function DashBoard()
 
 
   return (
-    <>
+    <div>
       <div style={{ background: "lightgrey", width: "100%", fontWeight: "bold", display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
 
         <button className="btn p-0 border-0 bg-transparent" style={{ position: "absolute", left: "6px", fontSize: 18, marginRight: 10, fontWeight: 600 }} onClick={() => navigate('/maindashboard')} >
@@ -99,13 +99,13 @@ export default function DashBoard()
       </div>
 
       <div className="print-only">
-        <PrintHeader/>
+        <PrintHeader Name={patientData.FullName} AppointmentNo={Aid.slice(-4)} MRDNo={patientData.id} Age={patientData.Age} DOB={patientData.Dob} Date={new Date().toLocaleDateString()} />
       </div>
 
 
       <div className="px-3">
 
-        <div  className="row mb-2 mt-2">
+        <div className="row mb-2 mt-2">
           <div className="col-xs-12 col-lg-2">
             <div className="input-group input-group-sm">
               <span className="input-group-text">Appointment No:</span>
@@ -243,7 +243,7 @@ export default function DashBoard()
 
         </div>
       </div>
-    </>
+    </div>
 
   );
 }

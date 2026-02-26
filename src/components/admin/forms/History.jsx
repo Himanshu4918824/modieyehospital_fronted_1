@@ -5,7 +5,7 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function History({ onClose, onRefresh }) {
+export default function History({ onClose, onRefresh , index }) {
     const [sysmetic, setSystemic] = useState('');
     const [treatment, setTreatment] = useState('');
     const [family, setFamily] = useState('');
@@ -15,11 +15,11 @@ export default function History({ onClose, onRefresh }) {
 
     const { histroy, P_id, Aid } = useContext(MainContext)
     useEffect(() => {
-        setSystemic(histroy[0]?.Systemic_illness)
-        setTreatment(histroy[0]?.Treatment_Histroy)
-        setFamily(histroy[0]?.Family_Histroy)
-        setDiet(histroy[0]?.Dite_Histroy)
-        setid(histroy[0]?.id)
+        setSystemic(histroy[index]?.Systemic_illness || histroy[0]?.Systemic_illness)
+        setTreatment(histroy[index]?.Treatment_Histroy || histroy[0]?.Treatment_Histroy)
+        setFamily(histroy[index]?.Family_Histroy || histroy[0]?.Family_Histroy)
+        setDiet(histroy[index]?.Dite_Histroy || histroy[0]?.Dite_Histroy)
+        setid(histroy[index]?.id || histroy[0]?.id)
     }, [])
 
 
@@ -155,14 +155,14 @@ export default function History({ onClose, onRefresh }) {
 
 
             {/* <div className="d-flex"> */}
-                <div className=" d-flex justify-content-center">
-                    <button onClick={handleSubmit} type="Submit" className="btn btn-primary">Submit</button>
-                </div>
+            <div className=" d-flex justify-content-center">
+                <button onClick={handleSubmit} type="Submit" className="btn btn-primary">Submit</button>
+            </div>
             {/* </div> */}
 
-            {/* <div className="col-6 d-flex justify-content-center">
-                    <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
-                </div> */}
+            <div className="col-6 d-flex justify-content-center">
+                <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
+            </div>
 
 
         </div>

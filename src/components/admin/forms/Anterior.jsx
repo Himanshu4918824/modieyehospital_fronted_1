@@ -5,7 +5,7 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function Anterior({ onClose, onRefresh }) {
+export default function Anterior({ onClose, onRefresh ,index}) {
   const { P_id, anterior , Aid } = useContext(MainContext)
 
   // Right side
@@ -50,7 +50,7 @@ export default function Anterior({ onClose, onRefresh }) {
   const [leftOthers, setLeftOthers] = useState('');
   const [id, setId] = useState('')
   useEffect(() => {
-    const data = anterior[0];
+    const data = anterior[index] ;
     // Left eye
     setId(data?.id)
     setLeftAngles(data?.L_Angles);
@@ -436,9 +436,9 @@ export default function Anterior({ onClose, onRefresh }) {
           <button onClick={handleSubmitData} type="Submit" className="btn btn-primary">Submit</button>
         </div>
 
-        {/* <div className="col-6 d-flex justify-content-center">
+        <div className="col-6 d-flex justify-content-center">
           <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
-        </div> */}
+        </div>
 
       {/* </div> */}
 

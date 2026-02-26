@@ -1,18 +1,42 @@
 .print-only {
-  display: none !important;
+  display: none;
 }
 
 @media print {
 
+  /* Hide everything first */
   body * {
+    /* display: none !important; */
     visibility: hidden !important;
   }
 
-  .print-only {
-    display: block !important;
+  /* Show header */
+  .print-only,
+  .print-only * {
     visibility: visible !important;
   }
 
+  /* .printInfo,
+  .printInfo * {
+    visibility: visible;
+  }
+
+  .printInfo {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    background-color: red;
+  } */
+
+  .print-only {
+    display: block !important;
+    position: absolute !important;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  /* Show selected section */
   .printable,
   .printable * {
     visibility: visible !important;
@@ -20,27 +44,71 @@
 
   .printable {
     position: absolute;
-    top: 0;
+    top: 350px;
     left: 0;
     width: 100%;
-    padding: 8mm;
-    box-sizing: border-box;
   }
 
-  .hide-scrollbar {
+  /* Remove scroll & overflow */
+  .hide-scrollbar,
+  .table-responsive {
     max-height: none !important;
     height: auto !important;
     overflow: visible !important;
   }
 
-    img, .bi, button {
+  .printable table {
+    page-break-inside: avoid;
+  }
+
+  .printable tr {
+    page-break-inside: avoid;
+    page-break-after: avoid;
+  }
+
+  .printable thead {
+    display: table-header-group;
+  }
+
+  .printable tfoot {
+    display: table-footer-group;
+  }
+
+  /* Fix wide tables */
+  table {
+    width: 100% !important;
+    table-layout: auto !important;
+    word-wrap: break-word;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  th,
+  td {
+    white-space: normal !important;
+    word-break: break-word;
+  }
+
+  /* Prevent row breaking */
+  tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Hide UI elements */
+  button,
+  img,
+  .bi {
     display: none !important;
   }
 
+  .vision-section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
   @page {
-  size: A4 portrait;
-  margin: 2mm;
-}
-
-
+    size: A4 portrait;
+    margin: 8mm;
+  }
 }

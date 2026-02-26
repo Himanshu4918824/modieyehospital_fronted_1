@@ -188,7 +188,7 @@ const ContextProvider = ({ children }) => {
       const response = await getData(url);
       const data = response;
 
-      // console.log("Patient API Response:", data);
+      console.log("Patient API Response:", data);
 
       // ✅ normalize Appointment once
       const appointments = Array.isArray(data?.Appointment)
@@ -430,10 +430,9 @@ const ContextProvider = ({ children }) => {
       if (result.branch) {
         localStorage.setItem('branch', result.branch);
       }
-      alert("item deleted successfully")
       return result
     } catch (error) {
-      console.log(error)
+     return console.log(error)
     }
   }
 
@@ -441,11 +440,10 @@ const ContextProvider = ({ children }) => {
   const getAppointmentCount = async () => {
     try {
       const result = await getData(`patient/v1/appointment/latestCounts`)
-      alert("item deleted successfully")
       return result
       // console.log(result)
     } catch (error) {
-      console.log(error)
+      return console.log(error)
     }
   }
 
@@ -607,6 +605,7 @@ const ContextProvider = ({ children }) => {
       return res
     } catch (error) {
       console.log(error)
+      alert("item not deleted")
     }
   }
 
@@ -618,6 +617,7 @@ const ContextProvider = ({ children }) => {
       return res
     } catch (error) {
       console.log(error)
+      alert("item not deleted")
     }
   }
 
@@ -629,6 +629,7 @@ const ContextProvider = ({ children }) => {
       return res
     } catch (error) {
       console.log(error)
+      alert("item not deleted")
     }
   }
 
@@ -640,6 +641,7 @@ const ContextProvider = ({ children }) => {
       return res
     } catch (error) {
       console.log(error)
+      alert("item not deleted")
     }
   }
 
@@ -651,6 +653,7 @@ const ContextProvider = ({ children }) => {
       return res
     } catch (error) {
       console.log(error)
+      alert("item not deleted")
     }
   }
 
@@ -662,6 +665,7 @@ const ContextProvider = ({ children }) => {
       return res
     } catch (error) {
       console.log(error)
+      alert("item not deleted")
     }
   }
 
@@ -673,6 +677,7 @@ const ContextProvider = ({ children }) => {
       return res
     } catch (error) {
       console.log(error)
+      alert("item not deleted")
     }
   }
 
@@ -684,6 +689,7 @@ const ContextProvider = ({ children }) => {
       return res
     } catch (error) {
       console.log(error)
+      alert("item not deleted")
     }
   }
 
@@ -695,6 +701,7 @@ const ContextProvider = ({ children }) => {
       return res
     } catch (error) {
       console.log(error)
+      alert("item not deleted")
     }
   }
 
@@ -706,6 +713,7 @@ const ContextProvider = ({ children }) => {
       return res
     } catch (error) {
       console.log(error)
+      alert("item not deleted")
     }
   }
 
@@ -717,6 +725,7 @@ const ContextProvider = ({ children }) => {
       return res
     } catch (error) {
       console.log(error)
+      alert("item not deleted")
     }
   }
 

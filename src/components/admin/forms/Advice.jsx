@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import MainContext from "../../../context/MainContext";
 import { useContext } from "react";
 
-export default function Advice({ stat, onClose, onRefresh }) 
+export default function Advice({ stat, onClose, onRefresh , index}) 
 {
     const [details, setDetails] = useState('');
     const [type, setType] = useState('');
@@ -16,15 +16,15 @@ export default function Advice({ stat, onClose, onRefresh })
     useEffect(() => {
         if (stat === 'advise') {
             // console.log(Advise[0])
-            setDetails(Advise[0]?.message);
-            setType(Advise[0]?.type);
-            setid(Advise[0]?.id);
+            setDetails(Advise[index]?.message|| Advise[0]?.message);
+            setType(Advise[index]?.type|| Advise[0]?.type);
+            setid(Advise[index]?.id|| Advise[0]?.id);
         }
         else if (stat === 'treatment') {
             // console.log(treatment)
-            setDetails(treatment[0]?.message);
-            setType(treatment[0]?.type);
-            setid(treatment[0]?.id);
+            setDetails(treatment[index]?.message || treatment[0]?.message);
+            setType(treatment[index]?.type || treatment[0]?.type);
+            setid(treatment[index]?.id || treatment[0]?.id);
         }
     }, [])
 

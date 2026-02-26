@@ -5,7 +5,7 @@ import { useContext } from "react";
 import MainContext from "../../../context/MainContext";
 import { useEffect } from "react";
 
-export default function Vision({ onClose, onRefresh }) {
+export default function Vision({ onClose, onRefresh , index }) {
   const { vision, P_id, Aid } = useContext(MainContext)
   const [unaidedRight, setUnaidedRight] = useState('');
   const [pinHoleRight, setPinHoleRight] = useState('');
@@ -26,11 +26,11 @@ export default function Vision({ onClose, onRefresh }) {
   const [nearUnaidedLeft, setNearUnaidedLeft] = useState('');
   const [nearGlassesLeft, setNearGlassesLeft] = useState('');
   const [nearSubjectiveLeft, setNearSubjectiveLeft] = useState('');
-
+// console.log(index)
 
   useEffect(() => {
 
-    const v = vision[0];
+    const v = vision[index] || vision[0];
     // console.log(v)
     // Right Eye
     setid(v?.id)
@@ -275,9 +275,9 @@ export default function Vision({ onClose, onRefresh }) {
           <button onClick={handleSubmit} type="Submit" className="btn btn-primary">Submit</button>
         </div>
 
-        {/* <div className="col-6 d-flex justify-content-center">
+        <div className="col-6 d-flex justify-content-center">
           <button onClick={Edit} type="reset" className="btn btn-primary">Edit</button>
-        </div> */}
+        </div>
 
       {/* </div> */}
 
