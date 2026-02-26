@@ -7,9 +7,9 @@ export default function PrintHeader({ Name, AppointmentNo, MRDNo, Age, DOB, Date
       <div className="border p-4 bg-white shadow-sm">
 
         {/* Header Row */}
-        <div className="row text-center border-bottom pb-1">
+        <div className="d-flex align-items-center justify-content-around border-bottom pb-1">
 
-          <div className="col-6">
+          <div className=" d-flex align-items-center justify-content-center">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div><img src={logo2} style={{ width: 80 }} /></div>
 
@@ -21,13 +21,13 @@ export default function PrintHeader({ Name, AppointmentNo, MRDNo, Age, DOB, Date
           </div>
 
 
-          <div className="col-6">
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="d-flex justify-content-center align-items-center">
+            <div style={{ display: 'flex',justifyContent: 'center' }}>
               <div><img src={logo2} style={{ width: 80 }} /></div>
 
               <div>
                 <h5 className="fw-bold mb-0">Modi retina foundation</h5>
-                <small className="text-muted"> One stop specialty retina center... Imaging... Lasers... Surgeries</small>
+                <small className="text-muted " > One stop specialty retina center... Imaging... Lasers... Surgeries</small>
               </div>
             </div>
           </div>

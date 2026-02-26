@@ -97,7 +97,6 @@
 
   /* Hide UI elements */
   button,
-  img,
   .bi {
     display: none !important;
   }
