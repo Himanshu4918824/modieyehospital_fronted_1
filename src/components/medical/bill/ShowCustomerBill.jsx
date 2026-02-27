@@ -14,7 +14,8 @@ export default function ShowCustomerBill()
     const [customerBill,setCustomerBill]=useState([]);
 
     const fetchbill=async()=>{
-        var result=await getData('');
+        var result=await getData('medical/api/list/saleBills');
+      //  console.log("nnnn",result.data)
         setCustomerBill(result.data)
 
     }
@@ -23,6 +24,10 @@ export default function ShowCustomerBill()
         getAllCompany();
         fetchbill();
       }, []);
+
+      const handleNavigateDetails=(item)=>{
+        navigate('/customerbill', { state: { product: [item], show:'edit' } });
+      }
 
     
     return(<div>
@@ -42,12 +47,10 @@ export default function ShowCustomerBill()
                 <th className="text-center">Seq</th>
                 <th className="text-center">Patient Name</th>
                 <th className="text-center">Phone No.</th>
-                <th className="text-center">Product Name </th>
-                <th className="text-center">Qty</th>
-                <th className="text-center">M.R.P</th>
                 <th className="text-center">Amount</th>
                 <th className="text-center">Discount </th>
-                <th className="text-center">Total Amount </th>
+                <th className="text-center">Total Amount</th>
+                <th className="text-center">Views</th>
               </tr>
             </thead>
         <tbody>
@@ -58,18 +61,15 @@ export default function ShowCustomerBill()
                 return (<tr key={i}>
 
                   <td className="text-center">{i + 1}</td>
-                  <td className="text-center">{item.patientName}</td>
-                  <td className="text-center">{item.phoneNo}</td>
-                  <td className="text-center">{item.productName}</td>
-                  <td className="text-center">{item.quantity}</td>
-                  <td className="text-center">{item.mrp}</td>
-                  <td className="text-center">{item.total}</td>
+                  <td className="text-center">{item.Customer_Name}</td>
+                  <td className="text-center">{item.phone}</td>
+                  <td className="text-center">{item.amount}</td>
                   <td className="text-center">{item.discount}</td>
-                  <td className="text-center">{item.totalAmount}</td>
+                  <td className="text-center">{item.TotalAmount}</td>
 
-                 {/* <td className="text-center">
-                    <button onClick={openDailog} className="bg-warning px-3 text-uppercase text-white rounded border border-0">Update</button>
-                  </td>  */}
+                  <td className="text-center">
+                    <button  onClick={() => handleNavigateDetails(item)} className="bg-warning px-3 text-uppercase text-white rounded border border-0">Update</button>
+                  </td>
                 </tr>
                 )
               }
@@ -77,7 +77,7 @@ export default function ShowCustomerBill()
             )
               : (
                 <tr>
-                  <td colSpan="9" className="text-center">
+                  <td colSpan="10" className="text-center">
                     No Data Available
                   </td>
                 </tr>

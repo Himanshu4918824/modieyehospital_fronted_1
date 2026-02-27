@@ -243,7 +243,7 @@ export default function PatientHistory({ onRefresh }) {
 
     <div className={`print-section vision-section ${printSection === "vision" ? "printable" : ""}`}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3 noPrint" style={{ background: "#d5ddfaff", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#d5ddfaff", height: "27px" }} >
 
         <h3 className="fs-6 fw-bold m-0">Vision</h3>
         <button className="btn p-0 border-0 bg-transparent noPrint" style={{ marginRight: 8 }}>
@@ -277,7 +277,7 @@ export default function PatientHistory({ onRefresh }) {
 
       </div>
 
-      <div className={`print-section ${printSection === "vision" ? "printable" : ""} table-responsive mb-3`}>
+      <div className={` table-responsive mb-3`}>
         <div className="hide-scrollbar" style={{ maxHeight: '250px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
           <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13px" }} border={2}>
             <thead>
@@ -352,7 +352,7 @@ export default function PatientHistory({ onRefresh }) {
 
     <div className={`print-section ${printSection === "refraction" ? "printable" : ""}`}>
 
-      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3 noPrint" style={{ background: "#af89f1ff", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#af89f1ff", height: "27px" }} >
 
         <h3 className="fs-5 fw-bold m-0">Refraction</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
@@ -480,9 +480,9 @@ export default function PatientHistory({ onRefresh }) {
 
 
 
-    <div>
+    <div className={`print-section ${printSection === "surgery" ? "printable" : ""}`}>
 
-      <div className={`print-section ${printSection === "surgery" ? "printable" : ""} d-flex justify-content-between align-items-center w-100 mb-2 px-3`} style={{ background: "#c4f3d4ff", height: "27px" }} >
+      <div className="d-flex justify-content-between align-items-center w-100 mb-2 px-3" style={{ background: "#c4f3d4ff", height: "27px" }} >
         <h3 className="fs-6 fw-bold m-0">Surgery</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
           <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint("surgery")} />
@@ -491,7 +491,7 @@ export default function PatientHistory({ onRefresh }) {
       </div>
 
 
-      <div className={`print-section ${printSection === "surgery" ? "printable" : ""} hide-scrollbar`} style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
+      <div style={{ maxHeight: '120px', overflowY: "auto", display: 'block', scrollbarWidth: 'none' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
           <thead>
             <tr className="table-secondary">
@@ -511,7 +511,7 @@ export default function PatientHistory({ onRefresh }) {
                   <td>{item.eye}</td>
                   <td>{item.message}</td>
                   <td>{new Date(item.Date).toLocaleDateString()}</td>
-                  <td>
+                  <td className='bi'>
                     <i className="bi bi-pencil" onClick={() => openDialog("Surgery", i)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                     <i className="bi bi-trash3-fill" onClick={() => deleteSurgery(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>

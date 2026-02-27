@@ -279,7 +279,7 @@ export default function Medicine1({ onClose, onRefresh, index }) {
                 {items.map((item, index) => (
 
                   <tr key={index}>
-                    <td>
+                   {item.DrugName=='Other'?<td><input type="text" value=''    onChange={(e) => handleChange(index, "DrugName", e.target.value)}  onKeyDown={(e) => handleKeyDown(e, index)}/></td>:<td>
                       <select className="form-select selectpicker"
                         data-live-search="true"
                         aria-label="Default select example"
@@ -295,7 +295,8 @@ export default function Medicine1({ onClose, onRefresh, index }) {
 
                         <option value="Other">Other</option>
                       </select>
-                    </td>
+
+                    </td>}
 
 
                     <td>

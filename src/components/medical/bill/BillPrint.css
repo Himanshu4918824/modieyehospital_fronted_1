@@ -38,12 +38,12 @@
   }
 
   /* Show selected section */
-  .printable,
-  .printable * {
+  .printArea,
+  .printArea * {
     visibility: visible !important;
   }
 
-  .printable {
+  .prinArea {
     position: absolute;
     top: 350px;
     left: 0;

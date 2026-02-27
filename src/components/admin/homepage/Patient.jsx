@@ -10,7 +10,7 @@ import Advice from "../forms/Advice";
 import AnteriorIcon from "../forms/AnteriorIcon";
 import PosteriorIcon from "../forms/PosteriorIcon";
 
-import "../homepage/MainPrint.css"
+import "../homepage/MainPrint.css";
 
 
 
@@ -235,7 +235,9 @@ export default function Patient({ onRefresh }) {
     </div>
 
 
-    <div className={`print-section ${printSection === "anterior" ? "printable" : ""} d-flex justify-content-between align-items-center w-100 mb-2 px-3`} style={{ background: "#ecc99aff", height: "27px" }} >
+<div className={`print-section ${printSection === "anterior" ? "printable" : ""}`}>
+
+    <div className={` d-flex justify-content-between align-items-center w-100 mb-2 px-3`} style={{ background: "#ecc99aff", height: "27px" }} >
       <h3 className="fs-6 fw-bold m-0">Anterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
         <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint('anterior')} />
@@ -267,7 +269,7 @@ export default function Patient({ onRefresh }) {
     </div>
 
 
-    <div className={`print-section ${printSection === "anterior" ? "printable" : ""} table-responsive mb-3`}>
+    <div className={`table-responsive mb-3`}>
       <div className="hide-scrollbar" style={{ maxHeight: '250px', overflowY: "auto", display: 'block' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-3 text-center" style={{ fontSize: "13px" }} border={2}>
           <thead>
@@ -398,28 +400,30 @@ export default function Patient({ onRefresh }) {
         </table>
       </div>
     </div>
+</div>
 
 
-    <div className={`print-section ${printSection === "posterior" ? "printable" : ""} d-flex justify-content-between align-items-center w-100 mb-2 px-3`} style={{ background: "#d4a7deff", height: "27px" }} >
+<div className={`print-section ${printSection === "posterior" ? "printable" : ""}`}>
 
+    <div className={`d-flex justify-content-between align-items-center w-100 mb-2 px-3`} style={{ background: "#d4a7deff", height: "27px" }}>
+      
       <h3 className="fs-5 fw-bold m-0">Posterior</h3>
       <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
         <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint('posterior')} />
         <i className="bi bi-brush" style={{ fontSize: 18, color: ' #ff8800', marginLeft: 10 }} onClick={() => openDialog("Posterioricon")}></i>
         <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 5 }} onClick={() => openDialog("Posterior")} />
       </button>
-
     </div>
 
-    <div className={`print-section ${printSection === "posterior" ? "printable" : ""} table-responsive mb-3`}>
 
+    <div className={`table-responsive mb-3`}>
       <div className="hide-scrollbar" style={{ maxHeight: '170px', overflowY: "auto", display: 'block' }}>
         <table className="table table-bordered table-sm border-black w-100 mb-0 text-center" style={{ fontSize: "13.5px" }} border={2}>
           <thead>
             <tr className="table-secondary border border-dark ">
               <th rowSpan={2} style={{ minWidth: 125, width: 150 }}>Date</th>
               <th colSpan={7}>Right Eye</th>
-              <th colSpan={7}>Left Eye</th>
+              <th colSpan={8}>Left Eye</th>
             </tr>
 
 
@@ -481,7 +485,7 @@ export default function Patient({ onRefresh }) {
 
     </div>
 
-
+</div>
 
 
   </div >)

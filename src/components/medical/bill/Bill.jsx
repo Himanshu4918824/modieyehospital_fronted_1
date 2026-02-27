@@ -1,6 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import MainContext from "../../../context/MainContext";
-import { postData } from "../../../services/FetchNodeAdminServices";
+import { postData, putData } from "../../../services/FetchNodeAdminServices";
 import Header from "../../admin/homepage/Header";
 import { useContext, useState, useEffect, useMemo } from "react";
 
@@ -9,6 +9,47 @@ import { useContext, useState, useEffect, useMemo } from "react";
 
 export default function Bill() 
 {
+  const location=useLocation();
+  const editData=location?.state?.product;
+  const mode = location?.state?.show || "";
+
+  const [billId,setBillId]=useState('')
+
+useEffect(() => {
+  if (!editData || editData.length === 0) return;
+
+  const bill = editData[0];
+
+  
+  setCompanyName(bill.supplierId || "");
+  setBillNo(bill.invoiceNo || "");
+  setDate(bill.invoiceDate ? bill.invoiceDate.slice(0, 10) : "");
+  setDiscount(bill.discount || 0);
+  setBillId(bill.items[0].billId)
+
+  
+  if (bill.items?.length > 0) {
+    setItems(
+      bill.items.map((i) => ({
+        
+        productId: i.productId || "",
+        billNo: i.billNo,
+        pack: i.pack || "",
+        batchNo: i.batchNo || "",  
+        expiryDate: i.expiryDate ? i.expiryDate.slice(0, 10) : "",
+        quantity: i.quantity || "",
+        freeQty: i.freeQty || "",
+        mrp: i.mrp || "",
+        purchaseRate: i.purchaseRate || "",
+        gstPercent: i.gstPercent || 0,
+      }))
+    );
+  }
+}, [editData]);
+
+  
+
+
   const { product, supplier, getAllCompany, getAllProduct } = useContext(MainContext);
   const navigate = useNavigate();
 
@@ -149,6 +190,84 @@ export default function Bill()
       alert("Server Error ❌");
     }
   };
+
+
+  /**********Edit Data**************************** */ 
+
+  const handleEdit=async()=>{
+
+     const filteredItems = items.filter(row => isRowComplete(row));
+
+    if (filteredItems.length === 0) {
+      alert("Please enter at least one item");
+      return;
+    }
+
+    const billData = {
+      
+      supplierId: companyName,   // you can bind later
+      invoiceNo: billNo,
+      type: type,
+      invoiceDate: new Date(date),
+      items: filteredItems,
+      roundOff : Math.ceil(totalAmount) ,
+      discount : discount,
+    };
+
+      try {
+      console.log(billData)
+      const response = await putData(`medical/api/PurchaseBill/update/${id}`, billData);
+
+      const result = response.data;
+      // console.log(response)
+      if (result.success) {
+        alert("Bill Saved Successfully ✅");
+        setItems([emptyRow]); // reset table
+      } else {
+        alert("Failed to save bill ❌");
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert("Server Error ❌");
+    }
+
+
+
+  }
+
+
+
+  /************************************************ */
+
+
+
+   /**********Delete Data**************************** */ 
+
+ const handleDelete = async (id) => {
+  
+  if (!window.confirm("Delete this bill?")) return;
+
+  try {
+    const res = await postData("medical/api/PurchaseBill/delete", { id });
+
+    if (res.data.success) {
+      alert("Deleted ✅");
+      fetchbill(); // refresh table
+    } else {
+      alert("Delete failed");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Server error");
+  }
+};
+
+
+
+  /************************************************ */
+
+
 
 
   function resetData() {
@@ -335,6 +454,17 @@ export default function Bill()
 
         </div>
 
+      {mode=='edit'? <div className="row">
+          <div className="col-lg-6" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <button onClick={handleEdit} type="button" className="btn btn-primary">Update</button>
+          </div>
+
+          <div className="col-lg-6" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <button onClick={handleDelete} type="button" className="btn btn-primary">Delete</button>
+          </div>
+
+        </div> :
+
         <div className="row">
           <div className="col-lg-6" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <button onClick={handleSave} type="button" className="btn btn-primary">Save</button>
@@ -344,7 +474,7 @@ export default function Bill()
             <button onClick={resetData} type="button" className="btn btn-primary">Cancel</button>
           </div>
 
-        </div>
+        </div>}
 
 
 
