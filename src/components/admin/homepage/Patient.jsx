@@ -180,7 +180,7 @@ export default function Patient({ onRefresh }) {
                   <td>{item.message}</td>
                   <td className="bi">
                     <i className="bi bi-pencil" onClick={() => openDialog("Treatment", item.id)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
-                    <i className="bi bi-trash3-fill" onClick={() => deleteTreatment(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() =>{ deleteTreatment(item.id).then(() => onRefresh())}} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -223,7 +223,7 @@ export default function Patient({ onRefresh }) {
                   <td>{item.message}</td>
                   <td className="bi">
                     <i className="bi bi-pencil" onClick={() => openDialog("Advice", item.id)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
-                    <i className="bi bi-trash3-fill" onClick={() => deleteAdvise(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => {deleteAdvise(item.id).then(() => onRefresh())}} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -260,7 +260,7 @@ export default function Patient({ onRefresh }) {
             >
               {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
               <i className="bi bi-pencil" onClick={()=>openDialog("Anterior" ,i)} style={{ marginLeft: 10, fontWeight: 'bolder', cursor: 'pointer' }}></i>
-              <i className="bi bi-trash3-fill" onClick={() => deleteAnterior(rec.id)} style={{ marginLeft: 10, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+              <i className="bi bi-trash3-fill" onClick={() => {deleteAnterior(rec.id).then(() => onRefresh())}} style={{ marginLeft: 10, fontWeight: 'bolder', cursor: 'pointer' }}></i>
             </button>
           </li>
         ))}
@@ -467,7 +467,7 @@ export default function Patient({ onRefresh }) {
 
                   <td className="bi">
                     <i className="bi bi-pencil" onClick={()=>openDialog("Posterior" , i)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
-                    <i className="bi bi-trash3-fill" onClick={() => deletePosterior(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => {deletePosterior(item.id).then(() => onRefresh())}} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
 
 

@@ -185,7 +185,7 @@ export default function DoctorConcern({ onRefresh }) {
                   <td className="p-1">{item.AptId}</td>
                   <td className="p-1 bi">
                     <i className="bi bi-pencil" onClick={() => openDialog("Complaints", item.id , i)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
-                    <i className="bi bi-trash3-fill" onClick={() => deleteComplaint(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => { deleteComplaint(item.id).then(() => onRefresh())}} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -236,7 +236,7 @@ export default function DoctorConcern({ onRefresh }) {
                   <td className="p-1">{item.Family_Histroy}</td>
                   <td className="p-1 bi">
                     <i className="bi bi-pencil" onClick={() => openDialog("History", item.id , i)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
-                    <i className="bi bi-trash3-fill" onClick={() => deleteHistroy(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => {deleteHistroy(item.id).then(() => onRefresh())}} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>
@@ -327,7 +327,7 @@ export default function DoctorConcern({ onRefresh }) {
                   <td>{diagnosis.Others}</td>
                   <td className="p-1 bi">
                     <i className="bi bi-pencil" onClick={() => openDialog("Diagnosis", diagnosis.id, i)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
-                    <i className="bi bi-trash3-fill" onClick={() => deleteDiagnosis(diagnosis.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => {deleteDiagnosis(diagnosis.id).then(() => onRefresh())}} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>)
               }) : (<tr>

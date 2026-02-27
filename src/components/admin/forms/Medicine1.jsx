@@ -7,7 +7,7 @@ import { useContext, useState, useEffect } from "react";
 export default function Medicine1({ onClose, onRefresh, index }) {
   const { Medicine, getAllProduct, product, Aid, getAllTemplatesData, templateData, getAllTemplates, templates } = useContext(MainContext);
   const navigate = useNavigate();
-  const emptyRow = { DrugName: "", eye: "", type: "", dose: "", duration: "", time: "", comment: "" };
+  const emptyRow = { DrugName: "", customDrug: "",eye: "", type: "", dose: "", duration: "", time: "", comment: "" };
 
   const [items, setItems] = useState([emptyRow]);
   const [source, setSource] = useState("medicine");
@@ -17,22 +17,30 @@ export default function Medicine1({ onClose, onRefresh, index }) {
   }, [])
 
 
-  const normalizeItems = (data) => {
-    if (!data) return [emptyRow];
+ const normalizeItems = (data) => {
+  if (!data) return [emptyRow];
 
-    const arr = Array.isArray(data) ? data : [data];
-    // console.log(data)
-    return arr.map(item => ({
+  const arr = Array.isArray(data) ? data : [data];
+
+  return arr.map(item => {
+    const drug = item.DrugName || item.medicine || "";
+
+    // check if drug exists in product list
+    const isInList = product?.some(p => p.name === drug);
+
+    return {
       id: item.id || "",
-      DrugName: item.DrugName || item.medicine || "",
+      DrugName: isInList ? drug : "Other",
+      customDrug: isInList ? "" : drug,
       eye: item.eye || "",
       type: item.type || "",
       dose: item.Dose || item.dose || "",
       duration: item.duration || "",
       time: item.time || "",
       comment: item.comment || item.message || ""
-    }));
-  };
+    };
+  });
+};
 
 
   useEffect(() => {
@@ -109,8 +117,10 @@ export default function Medicine1({ onClose, onRefresh, index }) {
 
   const handleSave = async () => {
 
+    const preparedItems = items.map(row => ({...row, DrugName: row.DrugName === "Other" ? row.customDrug : row.DrugName}));
+
     // remove empty rows
-    const filteredItems = items.filter(row => isRowComplete(row));
+    const filteredItems = preparedItems.filter(row => isRowComplete(row));
 
     if (filteredItems.length === 0) {
       alert("Please enter at least one item");
@@ -134,6 +144,8 @@ export default function Medicine1({ onClose, onRefresh, index }) {
       console.error(error);
       alert("Server Error ❌");
     }
+    onClose();
+    onRefresh();
   };
 
 
@@ -141,10 +153,15 @@ export default function Medicine1({ onClose, onRefresh, index }) {
     setItems([emptyRow])
   }
 
+  useEffect(() => {
+  if (Medicine?.length && product?.length) {
+    setItems(normalizeItems(Medicine));
+  }
+}, [Medicine, product]);
 
 
 
-  const handleEditData = async () => {
+ {/* const handleEditData = async () => {
     try {
       const medicines = items;
 
@@ -193,7 +210,58 @@ export default function Medicine1({ onClose, onRefresh, index }) {
         timer: 2000
       });
     }
+    onClose();
+    onRefresh();
   };
+*/}
+
+const handleEditData = async () => {
+  try {
+    // ✅ convert Other → real value
+    const preparedItems = items.map(row => ({...row, DrugName: row.DrugName === "Other"? row.customDrug : row.DrugName }));
+
+    const filteredItems = preparedItems.filter(row => isRowComplete(row));
+
+    if (filteredItems.length === 0) {
+      alert("Please enter at least one item");
+      return;
+    }
+
+    console.log(filteredItems);
+
+    const result = await putData(`patient/v1/update/Medicine/${filteredItems[0]?.id}`,filteredItems[0]);
+
+    if (result.status) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Medicine Updated Successfully",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Medicine Update Failed",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+
+  } catch (error) {
+    console.error(error);
+    Swal.fire({
+      icon: "error",
+      title: "Server Error",
+      timer: 2000
+    });
+  }
+
+  onClose();
+  onRefresh();
+};
+
 
 
   const handleCreateTemplate = async () => {
@@ -229,6 +297,7 @@ export default function Medicine1({ onClose, onRefresh, index }) {
     } catch (error) {
       console.error(error)
     }
+    onRefresh();
   }
 
   const handletemplateChange = (id) => {
@@ -279,24 +348,43 @@ export default function Medicine1({ onClose, onRefresh, index }) {
                 {items.map((item, index) => (
 
                   <tr key={index}>
-                   {item.DrugName=='Other'?<td><input type="text" value=''    onChange={(e) => handleChange(index, "DrugName", e.target.value)}  onKeyDown={(e) => handleKeyDown(e, index)}/></td>:<td>
-                      <select className="form-select selectpicker"
-                        data-live-search="true"
-                        aria-label="Default select example"
-                        value={item.DrugName}
-                        onChange={(e) => handleChange(index, "DrugName", e.target.value)}
-                        onKeyDown={(e) => handleKeyDown(e, index)}
-                      >
-                        <option defaultValue={true}>Select Drug Name</option>
+                  <td>
+  <select
+    className="form-select"
+    value={item.DrugName}
+    onChange={(e) => {
+      const value = e.target.value;
+      handleChange(index, "DrugName", value);
 
-                        {product?.map((item) => (
-                          <option key={item.id} value={item.name}>{item.name}</option>
-                        ))}
+      if (value !== "Other") {
+        handleChange(index, "customDrug", "");
+      }
+    }}
+  >
+    <option value="">Select Drug Name</option>
 
-                        <option value="Other">Other</option>
-                      </select>
+    {product?.map((p) => (
+      <option key={p.id} value={p.name}>
+        {p.name}
+      </option>
+    ))}
 
-                    </td>}
+    <option value="Other">Other</option>
+  </select>
+
+  {/* Show textbox ONLY when Other selected */}
+  {item.DrugName === "Other" && (
+    <input
+      type="text"
+      className="form-control mt-1"
+      placeholder="Enter Medicine Name"
+      value={item.customDrug}
+      onChange={(e) =>
+        handleChange(index, "customDrug", e.target.value)
+      }
+    />
+  )}
+</td>
 
 
                     <td>

@@ -225,7 +225,7 @@ export default function PatientHistory({ onRefresh }) {
                   <td>{new Date(item.Date).toLocaleDateString()}</td>
                   <td className='bi'>
                     <i className="bi bi-pencil" onClick={() => openDialog("Medicines", i)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
-                    <i className="bi bi-trash3-fill" onClick={() => deleteMedicine(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => {deleteMedicine(item.id).then(() => onRefresh())}} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>
               )
@@ -268,7 +268,7 @@ export default function PatientHistory({ onRefresh }) {
                 {new Date(rec.created_at).toLocaleDateString()} Appoint: {i + 1}
 
                 <i className="bi bi-pencil" onClick={() => openDialog("Vision", i)} style={{ marginLeft: 10, fontWeight: 'bolder', cursor: 'pointer' }}></i>
-                <i className="bi bi-trash3-fill" onClick={() => deleteVision(rec.id)} style={{ marginLeft: 10, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                <i className="bi bi-trash3-fill" onClick={() => {deleteVision(rec.id).then(() => onRefresh())}} style={{ marginLeft: 10, fontWeight: 'bolder', cursor: 'pointer' }}></i>
 
               </button>
             </li>
@@ -357,7 +357,7 @@ export default function PatientHistory({ onRefresh }) {
         <h3 className="fs-5 fw-bold m-0">Refraction</h3>
         <button className="btn p-0 border-0 bg-transparent" style={{ marginRight: 8 }}>
           <img src="/images/printer.png" alt="edit" style={{ width: 17 }} onClick={() => handlePrint("refraction")} />
-          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => openDialog("Refraction")} />
+          <img src="/images/pencil.png" alt="edit" style={{ width: 17, marginLeft: 10 }} onClick={() => {openDialog("Refraction").then(() => onRefresh())}} />
         </button>
 
       </div>
@@ -418,7 +418,7 @@ export default function PatientHistory({ onRefresh }) {
                         <br />
                         <i
                           className="bi bi-pencil"
-                          onClick={() => openDialog("Refraction", record.id)}
+                          onClick={() => {openDialog("Refraction", record.id).then(() => onRefresh())}}
                           style={{
                             fontSize: 18,
                             marginLeft: 5,
@@ -513,7 +513,7 @@ export default function PatientHistory({ onRefresh }) {
                   <td>{new Date(item.Date).toLocaleDateString()}</td>
                   <td className='bi'>
                     <i className="bi bi-pencil" onClick={() => openDialog("Surgery", i)} style={{ fontSize: 18, marginLeft: 5, fontWeight: 'bolder', cursor: 'pointer' }}></i>
-                    <i className="bi bi-trash3-fill" onClick={() => deleteSurgery(item.id)} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
+                    <i className="bi bi-trash3-fill" onClick={() => {deleteSurgery(item.id).then(() => onRefresh())}} style={{ fontSize: 18, marginLeft: 15, fontWeight: 'bolder', cursor: 'pointer' }}></i>
                   </td>
                 </tr>
               )
