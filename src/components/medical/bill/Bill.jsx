@@ -1,53 +1,52 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import MainContext from "../../../context/MainContext";
-import { postData, putData } from "../../../services/FetchNodeAdminServices";
+import { deleteData, postData, putData } from "../../../services/FetchNodeAdminServices";
 import Header from "../../admin/homepage/Header";
 import { useContext, useState, useEffect, useMemo } from "react";
 
 
- 
 
-export default function Bill() 
-{
-  const location=useLocation();
-  const editData=location?.state?.product;
+
+export default function Bill() {
+  const location = useLocation();
+  const editData = location?.state?.product;
   const mode = location?.state?.show || "";
 
-  const [billId,setBillId]=useState('')
+  const [billId, setBillId] = useState('')
 
-useEffect(() => {
-  if (!editData || editData.length === 0) return;
+  useEffect(() => {
+    if (!editData || editData.length === 0) return;
 
-  const bill = editData[0];
+    const bill = editData[0];
+    console.log(editData)
 
-  
-  setCompanyName(bill.supplierId || "");
-  setBillNo(bill.invoiceNo || "");
-  setDate(bill.invoiceDate ? bill.invoiceDate.slice(0, 10) : "");
-  setDiscount(bill.discount || 0);
-  setBillId(bill.items[0].billId)
+    setCompanyName(bill.supplierId || "");
+    setBillNo(bill.invoiceNo || "");
+    setDate(bill.invoiceDate ? bill.invoiceDate.slice(0, 10) : "");
+    setDiscount(bill.discount || 0);
+    setBillId(bill.items[0].billId)
 
-  
-  if (bill.items?.length > 0) {
-    setItems(
-      bill.items.map((i) => ({
-        
-        productId: i.productId || "",
-        billNo: i.billNo,
-        pack: i.pack || "",
-        batchNo: i.batchNo || "",  
-        expiryDate: i.expiryDate ? i.expiryDate.slice(0, 10) : "",
-        quantity: i.quantity || "",
-        freeQty: i.freeQty || "",
-        mrp: i.mrp || "",
-        purchaseRate: i.purchaseRate || "",
-        gstPercent: i.gstPercent || 0,
-      }))
-    );
-  }
-}, [editData]);
 
-  
+    if (bill.items?.length > 0) {
+      setItems(
+        bill.items.map((i) => ({
+
+          productId: i.productId || "",
+          billNo: i.billNo,
+          pack: i.pack || "",
+          batchNo: i.batchNo || "",
+          expiryDate: i.expiryDate ? i.expiryDate.slice(0, 10) : "",
+          quantity: i.quantity || "",
+          freeQty: i.freeQty || "",
+          mrp: i.mrp || "",
+          purchaseRate: i.purchaseRate || "",
+          gstPercent: i.gstPercent || 0,
+        }))
+      );
+    }
+  }, [editData]);
+
+
 
 
   const { product, supplier, getAllCompany, getAllProduct } = useContext(MainContext);
@@ -117,7 +116,7 @@ useEffect(() => {
 
   const totalGst = useMemo(() => {
     return calculatedGST.reduce((sum, slab) => sum + slab.totalGst, 0);
-  },[calculatedGST])
+  }, [calculatedGST])
 
   useEffect(() => {
     getAllCompany();
@@ -168,12 +167,12 @@ useEffect(() => {
       type: type,
       invoiceDate: new Date(date),
       items: filteredItems,
-      roundOff : Math.ceil(totalAmount) ,
-      discount : discount,
+      roundOff: Math.ceil(totalAmount),
+      discount: discount,
     };
 
     try {
-      console.log(billData)
+      // console.log(billData)
       const response = await postData("medical/api/PurchaseBill", billData);
 
       const result = response.data;
@@ -192,11 +191,11 @@ useEffect(() => {
   };
 
 
-  /**********Edit Data**************************** */ 
+  /**********Edit Data**************************** */
 
-  const handleEdit=async()=>{
+  const handleEdit = async () => {
 
-     const filteredItems = items.filter(row => isRowComplete(row));
+    const filteredItems = items.filter(row => isRowComplete(row));
 
     if (filteredItems.length === 0) {
       alert("Please enter at least one item");
@@ -204,20 +203,19 @@ useEffect(() => {
     }
 
     const billData = {
-      
       supplierId: companyName,   // you can bind later
       invoiceNo: billNo,
-      type: type,
+      // type: type,
       invoiceDate: new Date(date),
       items: filteredItems,
-      roundOff : Math.ceil(totalAmount) ,
-      discount : discount,
+      roundOff: Math.ceil(totalAmount),
+      discount: discount,
     };
 
-      try {
-      console.log(billData)
-      const response = await putData(`medical/api/PurchaseBill/update/${id}`, billData);
-
+    try {
+      // console.log(billData)
+      const response = await putData(`medical/api/update/purchaseBill/${editData[0].id}`, billData);
+      // console.log(response)
       const result = response.data;
       // console.log(response)
       if (result.success) {
@@ -242,26 +240,26 @@ useEffect(() => {
 
 
 
-   /**********Delete Data**************************** */ 
+  /**********Delete Data**************************** */
 
- const handleDelete = async (id) => {
-  
-  if (!window.confirm("Delete this bill?")) return;
+  const handleDelete = async () => {
 
-  try {
-    const res = await postData("medical/api/PurchaseBill/delete", { id });
-
-    if (res.data.success) {
-      alert("Deleted ✅");
-      fetchbill(); // refresh table
-    } else {
-      alert("Delete failed");
+    if (!window.confirm("Delete this bill?")) return;
+    console.log(editData)
+    try {
+      const res = await deleteData(`medical/api/delete/purchaseBill/${editData[0].id}`);
+      console.log(res)
+      if (res.data.success) {
+        alert("Deleted ✅");
+        navigate("/showbill"); // refresh table
+      } else {
+        alert("Delete failed");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Server error");
     }
-  } catch (err) {
-    console.error(err);
-    alert("Server error");
-  }
-};
+  };
 
 
 
@@ -329,7 +327,7 @@ useEffect(() => {
             <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="form-control form-control-sm" />
           </div>
 
-<div className="col-md-2 "></div>
+          <div className="col-md-2 "></div>
           <div onClick={() => navigate('/showbill')} className="col-md-1 d-flex align-items-center mt-3 noPrint">
             <button type="button" className="btn btn-primary noPrint">Show Bill</button>
           </div>
@@ -432,11 +430,11 @@ useEffect(() => {
           <div style={{ marginTop: 10, marginLeft: 'auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
               <b>SGST PAYABLE:</b>
-              <input value={totalGst/2} disabled type="text" className="form-control form-control-sm" style={{ width: '150px' }} />
+              <input value={totalGst / 2} disabled type="text" className="form-control form-control-sm" style={{ width: '150px' }} />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
               <b>CGST PAYABLE:</b>
-              <input value={totalGst/2} disabled type="text" className="form-control form-control-sm" style={{ width: '150px' }} />
+              <input value={totalGst / 2} disabled type="text" className="form-control form-control-sm" style={{ width: '150px' }} />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
               <b>ROUND OFF:</b>
@@ -454,7 +452,7 @@ useEffect(() => {
 
         </div>
 
-      {mode=='edit'? <div className="row">
+        {mode == 'edit' ? <div className="row">
           <div className="col-lg-6" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <button onClick={handleEdit} type="button" className="btn btn-primary">Update</button>
           </div>
@@ -465,16 +463,16 @@ useEffect(() => {
 
         </div> :
 
-        <div className="row">
-          <div className="col-lg-6" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <button onClick={handleSave} type="button" className="btn btn-primary">Save</button>
-          </div>
+          <div className="row">
+            <div className="col-lg-6" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <button onClick={handleSave} type="button" className="btn btn-primary">Save</button>
+            </div>
 
-          <div className="col-lg-6" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <button onClick={resetData} type="button" className="btn btn-primary">Cancel</button>
-          </div>
+            <div className="col-lg-6" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <button onClick={resetData} type="button" className="btn btn-primary">Cancel</button>
+            </div>
 
-        </div>}
+          </div>}
 
 
 

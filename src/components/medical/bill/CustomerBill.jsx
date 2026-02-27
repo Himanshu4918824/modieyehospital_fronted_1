@@ -6,36 +6,35 @@ import { useContext, useState, useEffect } from "react";
 
 import "../bill/BillPrint.css";
 
-export default function CustomerBill() 
-{
+export default function CustomerBill() {
   const location = useLocation();
   const editData = location?.state?.product || [];
   const mode = location?.state?.show || "";
 
 
-useEffect(() => {
-  if (!editData || editData.length === 0) return;
+  useEffect(() => {
+    if (!editData || editData.length === 0) return;
 
-  const bill = editData[0];
+    const bill = editData[0];
 
-  setDiscount(bill.discount || 0);
-  setPatientName(bill.Customer_Name || "");
-  setPhoneNo(bill.phone || "");
+    setDiscount(bill.discount || 0);
+    setPatientName(bill.Customer_Name || "");
+    setPhoneNo(bill.phone || "");
 
-  if (bill.items?.length > 0) {
-    setItems(
-      bill.items.map((i) => ({
-        productId: i.productId,
-        quantity: i.quantity,
-        mrp: i.mrp,
-      }))
-    );
-  }
-}, [editData]);
+    if (bill.items?.length > 0) {
+      setItems(
+        bill.items.map((i) => ({
+          productId: i.productId,
+          quantity: i.quantity,
+          mrp: i.mrp,
+        }))
+      );
+    }
+  }, [editData]);
 
 
 
-  const { product, supplier, getAllCompany, getAllProduct } =useContext(MainContext);
+  const { product, supplier, getAllCompany, getAllProduct } = useContext(MainContext);
   const navigate = useNavigate();
 
   const emptyRow = { productId: "", quantity: "", mrp: "", amount: "" };
@@ -90,7 +89,7 @@ useEffect(() => {
 
   const handleSave = async () => {
     // remove empty rows
-    const filteredItems = items.filter((row) => isRowComplete(row)).map((row) => ({...row,amount: Number(row.quantity) * Number(row.mrp)}));
+    const filteredItems = items.filter((row) => isRowComplete(row)).map((row) => ({ ...row, amount: Number(row.quantity) * Number(row.mrp) }));
 
     if (filteredItems.length === 0) {
       alert("Please enter at least one item");
@@ -130,9 +129,9 @@ useEffect(() => {
 
 
 
-  const handleUpdate=async()=>{
+  const handleUpdate = async () => {
 
-    const filteredItems = items.filter((row) => isRowComplete(row)).map((row) => ({...row,amount: Number(row.quantity) * Number(row.mrp)}));
+    const filteredItems = items.filter((row) => isRowComplete(row)).map((row) => ({ ...row, amount: Number(row.quantity) * Number(row.mrp) }));
 
     if (filteredItems.length === 0) {
       alert("Please enter at least one item");
@@ -140,7 +139,7 @@ useEffect(() => {
     }
 
     const billData = {
-      name: patientName, 
+      name: patientName,
       phone: phoneNo,
       amount: subtotal,
       TotalAmount: totalAmount,
@@ -148,41 +147,41 @@ useEffect(() => {
       items: filteredItems,
     };
 
-     try {
-      
-    const response = await putData(`medical/api/update/SaleBill/${editData[0].id}`, billData);
-   // console.log("xx",billData)
+    try {
 
-    if (response.data.success) {
-      alert("Bill Updated Successfully ✅");
-      navigate("/showcustomerbill");
-    } else {
-      alert("Update Failed ❌");
+      const response = await putData(`medical/api/update/SaleBill/${editData[0].id}`, billData);
+      console.log(response)
+      if (response.data.data.success) {
+        alert("Bill Updated Successfully ✅");
+        navigate("/showcustomerbill");
+      } else {
+        alert("Update Failed ❌");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Server Error ❌");
     }
-  } catch (error) {
-    console.error(error);
-    alert("Server Error ❌");
-  }
 
   }
 
 
-const handleDelete=async()=>{
-   if (!billId) return alert("No Bill ID");
-  try {
-    const res = await deleteData(`medical/api/deleteSaleBill/${billId}`,{});
-
-    if (res.data.success) {
-      alert("Deleted Successfully");
-      navigate("/showcustomerbill");
-    } else {
-      alert("Delete Failed");
+  const handleDelete = async () => {
+    //  if (!billId) return alert("No Bill ID");
+    try {
+      // console.log(editData)
+      const res = await deleteData(`medical/api/delete/saleBill/${editData[0].id}`);
+      // console.log(res)
+      if (res.data.success) {
+        alert("Deleted Successfully");
+        navigate("/showcustomerbill");
+      } else {
+        alert("Delete Failed");
+      }
+    } catch (err) {
+      alert("Server Error");
     }
-  } catch (err) {
-    alert("Server Error");
-  }
 
-}
+  }
 
 
 
@@ -193,21 +192,21 @@ const handleDelete=async()=>{
         <Header />
       </div>
 
-      <div style={{background: "lightgrey", width: "100%", fontWeight: "bold", display: "flex", alignItems: "center", justifyContent: "center", height: "20"}}>
+      <div style={{ background: "lightgrey", width: "100%", fontWeight: "bold", display: "flex", alignItems: "center", justifyContent: "center", height: "20" }}>
         Customer Bill
       </div>
 
-      <div style={{width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
+      <div style={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
         <div style={{ width: "100%", margin: 2, padding: 10, borderRadius: 10 }}>
           <div className="row mb-2">
             <div className="col-md-4">
               <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: "nowrap" }}>Patient Name :</label>
-              <input value={patientName} onChange={(e) => setPatientName(e.target.value)} type="text" className="form-control form-control-sm"/>
+              <input value={patientName} onChange={(e) => setPatientName(e.target.value)} type="text" className="form-control form-control-sm" />
             </div>
 
             <div className="col-md-4">
               <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: "nowrap" }}>Phone No : </label>
-              <input value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} type="text" className="form-control form-control-sm"/>
+              <input value={phoneNo} onChange={(e) => setPhoneNo(e.target.value)} type="text" className="form-control form-control-sm" />
             </div>
 
             <div className="col-md-2 mt-3"></div>
@@ -240,10 +239,10 @@ const handleDelete=async()=>{
                       return (
                         <tr key={index}>
                           <td>
-                            <select  className="form-select"
-                                  aria-label="Default select example"
-                                  value={item.productId}
-                                  onChange={(e) => {
+                            <select className="form-select"
+                              aria-label="Default select example"
+                              value={item.productId}
+                              onChange={(e) => {
                                 const value = e.target.value;
 
                                 if (value === "Other") {
@@ -297,7 +296,7 @@ const handleDelete=async()=>{
                               step="0.01"
                               className="form-control form-control-sm"
                               value={item.mrp}
-                              onChange={(e)=>handleChange(index, "mrp", e.target.value)}
+                              onChange={(e) => handleChange(index, "mrp", e.target.value)}
                               onKeyDown={(e) => handleKeyDown(e, index)}
                             />
                           </td>
@@ -313,62 +312,62 @@ const handleDelete=async()=>{
 
             <div className="col-lg-3 col-md-12">
               <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: "nowrap" }}>Amount:</label>
-              <input value={subtotal.toFixed(2)} readOnly type="text" className="form-control form-control-sm"/>
+              <input value={subtotal.toFixed(2)} readOnly type="text" className="form-control form-control-sm" />
 
               <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: "nowrap" }}>Discount:</label>
-              <input type="number" min="0" step="0.01" value={discount} onChange={(e) => setDiscount(e.target.value)} className="form-control form-control-sm"/>
+              <input type="number" min="0" step="0.01" value={discount} onChange={(e) => setDiscount(e.target.value)} className="form-control form-control-sm" />
 
               <label className="form-label fw-bold me-2 mb-0" style={{ whiteSpace: "nowrap" }}>
                 Total Amount :
               </label>
-              <input value={totalAmount.toFixed(2)} readOnly type="text" className="form-control form-control-sm"/>
+              <input value={totalAmount.toFixed(2)} readOnly type="text" className="form-control form-control-sm" />
             </div>
           </div>
 
 
-         {mode=='edit'?<div className="row">
-            <div className="col-lg-4 noPrint" style={{display: "flex",alignItems: "center", justifyContent: "center",}} >
+          {mode == 'edit' ? <div className="row">
+            <div className="col-lg-4 noPrint" style={{ display: "flex", alignItems: "center", justifyContent: "center", }} >
               <button onClick={handleUpdate} type="button" className="btn btn-primary noPrint">
                 Update
               </button>
             </div>
 
             <div className="col-lg-4 noPrint"
-              style={{display: "flex",alignItems: "center", justifyContent: "center",}}>
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", }}>
               <button onClick={handleDelete} type="button" className="btn btn-primary noPrint">
                 Delete
               </button>
             </div>
 
-            <div className="col-lg-4 noPrint" style={{display: "flex",alignItems: "center",justifyContent: "center"}}>
+            <div className="col-lg-4 noPrint" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
               <button onClick={() => window.print()} type="button">
                 Print Bill
               </button>
             </div>
 
-          </div>:
+          </div> :
 
-          <div className="row">
-            <div className="col-lg-4 noPrint" style={{display: "flex",alignItems: "center", justifyContent: "center",}} >
-              <button onClick={handleSave} type="button" className="btn btn-primary noPrint">
-                Save
-              </button>
-            </div>
+            <div className="row">
+              <div className="col-lg-4 noPrint" style={{ display: "flex", alignItems: "center", justifyContent: "center", }} >
+                <button onClick={handleSave} type="button" className="btn btn-primary noPrint">
+                  Save
+                </button>
+              </div>
 
-            <div className="col-lg-4 noPrint"
-              style={{display: "flex",alignItems: "center", justifyContent: "center",}}>
-              <button onClick={resetData} type="button" className="btn btn-primary noPrint">
-                Cancel
-              </button>
-            </div>
+              <div className="col-lg-4 noPrint"
+                style={{ display: "flex", alignItems: "center", justifyContent: "center", }}>
+                <button onClick={resetData} type="button" className="btn btn-primary noPrint">
+                  Cancel
+                </button>
+              </div>
 
-            <div className="col-lg-4 noPrint" style={{display: "flex",alignItems: "center",justifyContent: "center"}}>
-              <button onClick={() => window.print()} type="button">
-                Print Bill
-              </button>
-            </div>
+              <div className="col-lg-4 noPrint" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <button onClick={() => window.print()} type="button">
+                  Print Bill
+                </button>
+              </div>
 
-          </div>}
+            </div>}
 
         </div>
       </div>

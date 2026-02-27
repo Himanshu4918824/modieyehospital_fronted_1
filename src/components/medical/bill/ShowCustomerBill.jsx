@@ -5,54 +5,53 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getData } from "../../../services/FetchNodeAdminServices";
 
-export default function ShowCustomerBill()
-{
-    const navigate=useNavigate();
+export default function ShowCustomerBill() {
+  const navigate = useNavigate();
 
-    const { getAllCompany } = useContext(MainContext);
+  const { getAllCompany } = useContext(MainContext);
 
-    const [customerBill,setCustomerBill]=useState([]);
+  const [customerBill, setCustomerBill] = useState([]);
 
-    const fetchbill=async()=>{
-        var result=await getData('medical/api/list/saleBills');
-      //  console.log("nnnn",result.data)
-        setCustomerBill(result.data)
+  const fetchbill = async () => {
+    var result = await getData('medical/api/list/saleBills');
+    //  console.log("nnnn",result.data)
+    setCustomerBill(result.data)
 
-    }
+  }
 
-    useEffect(() => {
-        getAllCompany();
-        fetchbill();
-      }, []);
+  useEffect(() => {
+    fetchbill();
+    getAllCompany();
+  }, []);
 
-      const handleNavigateDetails=(item)=>{
-        navigate('/customerbill', { state: { product: [item], show:'edit' } });
-      }
+  const handleNavigateDetails = (item) => {
+    navigate('/customerbill', { state: { product: [item], show: 'edit' } });
+  }
 
-    
-    return(<div>
 
-        <div>
-            <Header/>
-        </div>
+  return (<div>
 
-         <div style={{ background: "lightgrey", textAlign: 'center', width: "100%", height: '30px', fontWeight: "bold", fontSize: 20 }}>
-            Show Customer Bill
-        </div>
+    <div>
+      <Header />
+    </div>
 
-         <div className="table-responsive">
-           <table className="table table-bordered table-sm">
-            <thead className="table-secondary">
-              <tr>
-                <th className="text-center">Seq</th>
-                <th className="text-center">Patient Name</th>
-                <th className="text-center">Phone No.</th>
-                <th className="text-center">Amount</th>
-                <th className="text-center">Discount </th>
-                <th className="text-center">Total Amount</th>
-                <th className="text-center">Views</th>
-              </tr>
-            </thead>
+    <div style={{ background: "lightgrey", textAlign: 'center', width: "100%", height: '30px', fontWeight: "bold", fontSize: 20 }}>
+      Show Customer Bill
+    </div>
+
+    <div className="table-responsive">
+      <table className="table table-bordered table-sm">
+        <thead className="table-secondary">
+          <tr>
+            <th className="text-center">Seq</th>
+            <th className="text-center">Patient Name</th>
+            <th className="text-center">Phone No.</th>
+            <th className="text-center">Amount</th>
+            <th className="text-center">Discount </th>
+            <th className="text-center">Total Amount</th>
+            <th className="text-center">Views</th>
+          </tr>
+        </thead>
         <tbody>
           {
             customerBill.length > 0 ? (
@@ -68,7 +67,7 @@ export default function ShowCustomerBill()
                   <td className="text-center">{item.TotalAmount}</td>
 
                   <td className="text-center">
-                    <button  onClick={() => handleNavigateDetails(item)} className="bg-warning px-3 text-uppercase text-white rounded border border-0">Update</button>
+                    <button onClick={() => handleNavigateDetails(item)} className="bg-warning px-3 text-uppercase text-white rounded border border-0">Update</button>
                   </td>
                 </tr>
                 )
@@ -87,10 +86,10 @@ export default function ShowCustomerBill()
       </table>
     </div>
 
-     <div className="d-flex justify-content-center">
-      <button onClick={()=>navigate('/customerbill')} className="bg-primary rounded px-3 py-1 border-0">Add Bill</button>
+    <div className="d-flex justify-content-center">
+      <button onClick={() => navigate('/customerbill')} className="bg-primary rounded px-3 py-1 border-0">Add Bill</button>
     </div>
 
 
-    </div>)
+  </div>)
 }
