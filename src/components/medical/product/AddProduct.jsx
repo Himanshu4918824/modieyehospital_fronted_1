@@ -88,7 +88,7 @@ export default function AddProduct() {
             formDataObj[key] = value;
         });
 
-
+        console.log(formDataObj)
 
         var result = await postData('medical/api/addMedicine', formDataObj);
 

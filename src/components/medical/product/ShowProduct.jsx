@@ -9,7 +9,8 @@ export default function ShowProduct()
       const { product, getAllProduct } = useContext(MainContext);
 
     useEffect(() => {
-        getAllProduct();
+      getAllProduct();
+      // console.log(product)
       }, [])
 
     return(<div>
