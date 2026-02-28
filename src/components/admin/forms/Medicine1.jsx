@@ -36,7 +36,7 @@ export default function Medicine1({ onClose, onRefresh, index }) {
       type: item.type || "",
       dose: item.Dose || item.dose || "",
       duration: item.duration || "",
-      time: item.time || "",
+      time: item.time || item.Intake || "",
       comment: item.comment || item.message || ""
     };
   });
@@ -89,6 +89,7 @@ export default function Medicine1({ onClose, onRefresh, index }) {
 
   // Check row complete
   const isRowComplete = (row) => {
+    
     return (
       row.DrugName &&
       row.eye &&

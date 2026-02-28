@@ -33,7 +33,7 @@ export default function Bill() {
 
           productId: i.productId || "",
           billNo: i.billNo,
-          pack: i.pack || "",
+          pack: i.product.packing || "",
           batchNo: i.batchNo || "",
           expiryDate: i.expiryDate ? i.expiryDate.slice(0, 10) : "",
           quantity: i.quantity || "",
